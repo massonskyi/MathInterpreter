@@ -1,0 +1,150 @@
+#include <iostream>
+#include <vector>
+#include <map>
+#include <string>
+#include <sstream>
+#include <fstream>
+#include <stdexcept>
+#include <algorithm>
+
+class MathObject {
+public:
+    virtual ~MathObject() = default;
+    virtual std::string toString() const = 0;
+};
+
+class Rational : public MathObject {
+private:
+    int numerator;
+    int denominator;
+
+    int gcd(int a, int b) const {
+        return b == 0 ? a : gcd(b, a % b);
+    }
+
+    void simplify() {
+        if (denominator < 0) {
+            numerator = -numerator;
+            denominator = -denominator;
+        }
+        int g = gcd(std::abs(numerator), denominator);
+        numerator /= g;
+        denominator /= g;
+    }
+
+public:
+    Rational(int num = 0, int den = 1) : numerator(num), denominator(den) {
+        if (denominator == 0) throw std::invalid_argument("Denominator cannot be zero");
+        simplify();
+    }
+
+    Rational operator*(const Rational& other) const {
+        return Rational(numerator * other.numerator, denominator * other.denominator);
+    }
+
+    std::string toString() const override {
+        if (denominator == 1) return std::to_string(numerator);
+        return std::to_string(numerator) + "/" + std::to_string(denominator);
+    }
+};
+
+class Vector : public MathObject {
+private:
+    std::vector<Rational> elements;
+
+public:
+    Vector(const std::vector<Rational>& elems) : elements(elems) {}
+
+    std::string toString() const override {
+        std::string result = "[";
+        for (size_t i = 0; i < elements.size(); ++i) {
+            result += elements[i].toString();
+            if (i < elements.size() - 1) result += " ";
+        }
+        return result + "]";
+    }
+
+    size_t size() const { return elements.size(); }
+    const Rational& operator[](size_t index) const { return elements[index]; }
+};
+
+class Interpreter {
+private:
+    std::map<std::string, std::shared_ptr<MathObject>> variables;
+
+    std::vector<Rational> parseVectorElements(const std::string& str) {
+        std::vector<Rational> elements;
+        std::string temp = str;
+        
+        // Remove brackets
+        temp = temp.substr(1, temp.length() - 2);
+        
+        std::istringstream iss(temp);
+        int value;
+        while (iss >> value) {
+            elements.push_back(Rational(value));
+        }
+        
+        return elements;
+    }
+
+public:
+    void executeCommand(const std::string& line) {
+        try {
+            std::istringstream iss(line);
+            std::string varName;
+            std::string equals;
+            std::string value;
+
+            iss >> varName;
+            if (varName.empty()) return;
+
+            // Check if this is an assignment
+            if (iss >> equals) {
+                if (equals != "=") {
+                    throw std::runtime_error("Expected '=' after variable name");
+                }
+
+                // Get the rest of the line for the value
+                std::getline(iss, value);
+                // Remove leading whitespace
+                value.erase(0, value.find_first_not_of(" \t"));
+
+                if (value.front() == '[' && value.back() == ']') {
+                    auto elements = parseVectorElements(value);
+                    variables[varName] = std::make_shared<Vector>(elements);
+                } else {
+                    throw std::runtime_error("Unsupported value type");
+                }
+            } else {
+                // Variable lookup
+                auto it = variables.find(varName);
+                if (it != variables.end()) {
+                    std::cout << it->second->toString() << std::endl;
+                } else {
+                    throw std::runtime_error("Variable not found: " + varName);
+                }
+            }
+        } catch (const std::exception& e) {
+            std::cerr << "Error: " << e.what() << std::endl;
+        }
+    }
+};
+
+int main() {
+    Interpreter interpreter;
+    std::string line;
+
+    std::cout << "Mathematical Interpreter\n";
+    std::cout << "Enter commands or 'exit' to quit:\n";
+
+    while (true) {
+        std::cout << "> ";
+        std::getline(std::cin, line);
+
+        if (line == "exit") break;
+        interpreter.executeCommand(line);
+    }
+
+    return 0;
+}
