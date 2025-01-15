@@ -13,14 +13,17 @@
 #include <bitset>
 #include <utility> // Для std::move
 
+#ifdef __GNUG__
+#include <cxxabi.h>
+#endif
 /// @brief  This class is used to create a variable with a value
 /// @tparam T type of the value
 template <AllowedTypes T>
-class Variable : public AbstractSimpleType
+class Variable final : public AbstractSimpleType
 {
 public:
     using AbstractSimpleType::AbstractSimpleType;
-
+    using value_type = T;
     /// @brief Constructor without parameters
     Variable() : AbstractSimpleType(extractClassName()), value_(static_cast<T>(0)), type_(determineType()) {};
 
@@ -66,6 +69,9 @@ public:
     /// @return The type of the object
     inline std::string getTypeName() const override;
 
+    /// @brief  This method returns the type of the object
+    /// @return The type of the object
+    inline Type getType() const;
     /// @brief This method returns the value of the object as a boolean
     /// @return The value of the object as a boolean
     inline bool equals(const AbstractSimpleType &other) const override;
@@ -87,7 +93,18 @@ public:
     /// @param value The value of the object
     inline void set(const string &value) override;
 
+    /// @brief This method sets the value of the object
+    /// @param value The value of the object
+    inline void set(T value);
+
+    /// @brief This method returns the value of the object
+    /// @return The value of the object
+    inline T getValue() const;
+
+    /// @brief This method returns the value of the object
+    /// @return The value of the object
     inline AbstractSimpleType get() const override;
+
     /// @brief This method returns the value of the object
     /// @param other Variable to copy compare
     /// @return The value of the object
@@ -131,11 +148,6 @@ public:
     /// @param value Variable<T> to compare
     /// @return The value of the object as a boolean
     bool operator!=(T value) const;
-
-    /// @brief This method returns the value of the object as a boolean
-    /// @param value Variable<T> to compare
-    /// @return The value of the object as a boolean
-    bool operator!=(const T &value) const;
 
     /// @brief This method returns result of the add operation
     /// @param other Variable<T> to add
@@ -188,31 +200,6 @@ public:
     Variable<T> operator%(T value);
 
     /// @brief This method returns the value of the object
-    /// @param value const Variable<T> to add
-    /// @return The value of the object
-    Variable<T> operator+(const T &value);
-
-    /// @brief This method returns the value of the object
-    /// @param value const Variable<T> to substract
-    /// @return The value of the object
-    Variable<T> operator-(const T &value);
-
-    /// @brief This method returns the value of the object
-    /// @param value const Variable<T> to multiply
-    /// @return The value of the object
-    Variable<T> operator*(const T &value);
-
-    /// @brief This method returns the value of the object
-    /// @param value const Variable<T> to divide
-    /// @return The value of the object
-    Variable<T> operator/(const T &value);
-
-    /// @brief This method returns the value of the object
-    /// @param value const Variable<T> to divide
-    /// @return The value of the object
-    Variable<T> operator%(const T &value);
-
-    /// @brief This method returns the value of the object
     /// @param other Variable<T> to add
     /// @return The value of the object
     Variable<T> &operator+=(const Variable<T> &other);
@@ -261,31 +248,6 @@ public:
     /// @param value Variable<T> to divide
     /// @return The value of the object
     Variable<T> &operator%=(T value);
-
-    /// @brief This method returns the value of the object
-    /// @param value const Variable<T> to add
-    /// @return The value of the object
-    Variable<T> &operator+=(const T &value);
-
-    /// @brief This method returns the value of the object
-    /// @param value const Variable<T> to substract
-    /// @return The value of the object
-    Variable<T> &operator-=(const T &value);
-
-    /// @brief This method returns the value of the object
-    /// @param value const Variable<T> to multiply
-    /// @return The value of the object
-    Variable<T> &operator*=(const T &value);
-
-    /// @brief This method returns the value of the object
-    /// @param value const Variable<T> to divide
-    /// @return The value of the object
-    Variable<T> &operator/=(const T &value);
-
-    /// @brief This method returns the value of the object
-    /// @param value const Variable<T> to divide
-    /// @return The value of the object
-    Variable<T> &operator%=(const T &value);
 
     /// @brief This method returns the value of the object
     /// @return  The value of the object
@@ -384,43 +346,110 @@ public:
     /// @param value the value of the object
     /// @param var the value of the object
     /// @return true if the values are equal, false otherwise
-    friend bool operator==(const T value, const Variable<T> &var);
-
+    friend bool operator==(const T value, const Variable<T> &var)
+    {
+        try
+        {
+            return value == var.value_;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator==: " + std::string(e.what()));
+        }
+    };
     /// @brief This friend method of operator != overloading
     /// @param value the value of the object
     /// @param var the value of the object
     /// @return true if the values are not equal, false otherwise
-    friend bool operator!=(const T value, const Variable<T> &var);
-
+    friend bool operator!=(const T value, const Variable<T> &var)
+    {
+        try
+        {
+            return value != var.value_;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator!=: " + std::string(e.what()));
+        }
+    }
     /// @brief This friend method of operator + overloading
     /// @param value the value of the object
     /// @param var the value of the object
     /// @return the value of the object
-    friend Variable<T> operator+(const T value, const Variable<T> &var);
+    friend Variable<T> operator+(const T value, const Variable<T> &var)
+    {
+        try
+        {
+            return Variable<T>(value + var.value_);
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator+: " + std::string(e.what()));
+        }
+    };
 
     /// @brief This friend method of operator - overloading
     /// @param value the value of the object
     /// @param var the value of the object
     /// @return the value of the object
-    friend Variable<T> operator-(const T value, const Variable<T> &var);
+    friend Variable<T> operator-(const T value, const Variable<T> &var)
+    {
+        try
+        {
+            return Variable<T>(value - var.value_);
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator-: " + std::string(e.what()));
+        }
+    };
 
     /// @brief This friend method of operator * overloading
     /// @param value the value of the object
     /// @param var the value of the object
     /// @return the value of the object
-    friend Variable<T> operator*(const T value, const Variable<T> &var);
+    friend Variable<T> operator*(const T value, const Variable<T> &var)
+    {
+        try
+        {
+            return Variable<T>(value * var.value_);
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator*: " + std::string(e.what()));
+        }
+    };
 
     /// @brief This friend method of operator / overloading
     /// @param value the value of the object
     /// @param var the value of the object
     /// @return the value of the object
-    friend Variable<T> operator/(const T value, const Variable<T> &var);
-
+    friend Variable<T> operator/(const T value, const Variable<T> &var)
+    {
+        try
+        {
+            return Variable<T>(value / var.value_);
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator/: " + std::string(e.what()));
+        }
+    }
     /// @brief This friend method of operator % overloading
     /// @param value the value of the object
     /// @param var the value of the object
     /// @return the value of the object
-    friend Variable<T> operator%(const T value, const Variable<T> &var);
+    friend Variable<T> operator%(const T value, const Variable<T> &var)
+    {
+        try
+        {
+            return Variable<T>(value % var.value_);
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator%: " + std::string(e.what()));
+        }
+    }
 
 protected:
     /// @brief This method returns type of the value
@@ -456,13 +485,15 @@ protected:
     /// @param a the value of the object
     /// @param b the value of the object
     /// @return the value of the object
-    static T safeAdd(std::variant<T>& a, std::variant<T>& b) {
-        try {
-            return std::visit([](auto&& arg1, auto&& arg2) {
-                using T = std::decay_t<decltype(arg1)>;
-                return arg1 + arg2;
-            }, a, b);
-        } catch (const std::exception& e) {
+    static T safeAdd(const std::variant<T> &a, const std::variant<T> &b)
+    {
+        try
+        {
+            return std::visit([](auto &&arg1, auto &&arg2) -> T
+                              { return static_cast<T>(arg1 + arg2); }, a, b);
+        }
+        catch (const std::exception &e)
+        {
             throw std::runtime_error("Error in safeAdd: " + std::string(e.what()));
         }
     }
@@ -477,7 +508,7 @@ protected:
         {
             return std::visit([](auto &&arg1, auto &&arg2)
                               {
-            using T = std::decay_t<decltype(arg1)>;
+            using U = std::decay_t<decltype(arg1)>;
             return arg1 - arg2; }, a, b);
         }
         catch (const std::exception &e)
@@ -496,7 +527,7 @@ protected:
         {
             return std::visit([](auto &&arg1, auto &&arg2)
                               {
-            using T = std::decay_t<decltype(arg1)>;
+            using U = std::decay_t<decltype(arg1)>;
             return arg1 * arg2; }, a, b);
         }
         catch (const std::exception &e)
@@ -515,7 +546,7 @@ protected:
         {
             return std::visit([](auto &&arg1, auto &&arg2)
                               {
-            using T = std::decay_t<decltype(arg1)>;
+            using U = std::decay_t<decltype(arg1)>;
             if constexpr (std::is_same_v<T, int> || std::is_same_v<T, long> || std::is_same_v<T, long long>) {
                 if (arg2 == 0) {
                     throw std::runtime_error("Division by zero");
@@ -541,7 +572,7 @@ protected:
         {
             return std::visit([](auto &&arg1, auto &&arg2)
                               {
-            using T = std::decay_t<decltype(arg1)>;
+            using U = std::decay_t<decltype(arg1)>;
             if constexpr (std::is_same_v<T, int> || std::is_same_v<T, long> || std::is_same_v<T, long long>) {
                 if (arg2 == 0) {
                     throw std::runtime_error("Division by zero");
@@ -721,12 +752,36 @@ inline std::string Variable<T>::toString() const
 template <AllowedTypes T>
 inline std::string Variable<T>::getTypeName() const
 {
-    return std::visit([](auto &&arg) -> std::string
+    return std::visit([](const auto &arg) -> std::string
                       {
-        using T = std::decay_t<decltype(arg)>;
-        return typeid(T).name(); }, value_);
+        using U = std::remove_cvref_t<decltype(arg)>;
+            std::string type_name = typeid(U).name();
+#ifdef __GNUG__
+            int status;
+            char* demangled = abi::__cxa_demangle(type_name.c_str(), nullptr, nullptr, &status);
+            if (demangled) {
+                type_name = demangled;
+                free(demangled);
+            }
+#else
+            // Получаем имя типа
+            std::string type_name = typeid(U).name();
+            
+            // Удаляем "class " и "struct " из начала имени (специфично для MSVC)
+            if (type_name.substr(0, 6) == "class ") {
+                type_name = type_name.substr(6);
+            }
+            if (type_name.substr(0, 7) == "struct ") {
+                type_name = type_name.substr(7);
+            }
+#endif
+            return type_name; }, value_);
 }
-
+template <AllowedTypes T>
+inline Type Variable<T>::getType() const
+{
+    return type_;
+}
 template <AllowedTypes T>
 inline bool Variable<T>::equals(const AbstractSimpleType &other) const
 {
@@ -749,8 +804,8 @@ inline std::string Variable<T>::serialize() const
 {
     return std::visit([](auto &&arg) -> std::string
                       {
-        using T = std::decay_t<decltype(arg)>;
-        if constexpr (std::is_same_v<T, std::string>) {
+        using U = std::decay_t<decltype(arg)>;
+        if constexpr (std::is_same_v<U, std::string>) {
             return arg;
         } else {
             return std::to_string(arg);
@@ -762,8 +817,8 @@ inline void Variable<T>::deserialize(const std::string &data)
 {
     value_ = std::visit([&](auto &&arg) -> T
                         {
-        using T = std::decay_t<decltype(arg)>;
-        if constexpr (std::is_same_v<T, std::string>) {
+        using U = std::decay_t<decltype(arg)>;
+        if constexpr (std::is_same_v<U, std::string>) {
             return data;
         } else {
             return std::stoi(data);
@@ -788,6 +843,24 @@ inline void Variable<T>::set(const std::string &value)
     {
         throw std::runtime_error("Error setting value: " + std::string(e.what()));
     }
+}
+template <AllowedTypes T>
+inline void Variable<T>::set(T value)
+{
+    try
+    {
+        value_ = value;
+        type_ = determineType();
+    }
+    catch (const std::exception &e)
+    {
+        throw std::runtime_error("Error setting value: " + std::string(e.what()));
+    }
+}
+template <AllowedTypes T>
+inline T Variable<T>::getValue() const
+{
+    return std::get<T>(value_);
 }
 
 template <AllowedTypes T>
@@ -919,19 +992,7 @@ inline bool Variable<T>::operator!=(T value) const
         throw std::runtime_error("Error comparing values: " + std::string(e.what()));
     }
 }
-template <AllowedTypes T>
-inline bool Variable<T>::operator!=(const T &value) const
-{
-    try
-    {
-        return value_ != value;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in inequality comparison: " + std::string(e.what()));
-    }
-}
-0000000000000000000000000000000
+
 template <AllowedTypes T>
 inline Variable<T> Variable<T>::operator+(const Variable<T> &other)
 {
@@ -941,7 +1002,7 @@ inline Variable<T> Variable<T>::operator+(const Variable<T> &other)
         {
             throw std::runtime_error("Incompatible types for addition");
         }
-        return Variable<T>(safeAdd(value_, other.get()));
+        return Variable<T>(safeAdd(value_, other.value_));
     }
     catch (const std::exception &e)
     {
@@ -1084,80 +1145,6 @@ Variable<T> Variable<T>::operator/(T value)
 
 template <AllowedTypes T>
 Variable<T> Variable<T>::operator%(T value)
-{
-    try
-    {
-        if (value == T{})
-        {
-            throw std::runtime_error("Modulo by zero");
-        }
-        return Variable<T>(safeModulo(value_, std::variant<T>(value)));
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in modulo: " + std::string(e.what()));
-    }
-}
-
-// Операторы для работы с константной ссылкой на T
-template <AllowedTypes T>
-Variable<T> Variable<T>::operator+(const T &value)
-{
-    try
-    {
-        return Variable<T>(safeAdd(value_, std::variant<T>(value)));
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in addition: " + std::string(e.what()));
-    }
-}
-
-template <AllowedTypes T>
-Variable<T> Variable<T>::operator-(const T &value)
-{
-    try
-    {
-        return Variable<T>(safeSubtract(value_, std::variant<T>(value)));
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in subtraction: " + std::string(e.what()));
-    }
-}
-
-template <AllowedTypes T>
-Variable<T> Variable<T>::operator*(const T &value)
-{
-    try
-    {
-        return Variable<T>(safeMultiply(value_, std::variant<T>(value)));
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in multiplication: " + std::string(e.what()));
-    }
-}
-
-template <AllowedTypes T>
-Variable<T> Variable<T>::operator/(const T &value)
-{
-    try
-    {
-        if (value == T{})
-        {
-            throw std::runtime_error("Division by zero");
-        }
-        return Variable<T>(safeDivide(value_, std::variant<T>(value)));
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in division: " + std::string(e.what()));
-    }
-}
-
-template <AllowedTypes T>
-Variable<T> Variable<T>::operator%(const T &value)
 {
     try
     {
@@ -1352,83 +1339,6 @@ Variable<T> &Variable<T>::operator%=(T value)
 }
 
 // Операторы составного присваивания для константной ссылки на T
-template <AllowedTypes T>
-Variable<T> &Variable<T>::operator+=(const T &value)
-{
-    try
-    {
-        value_ = safeAdd(value_, std::variant<T>(value));
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in addition assignment: " + std::string(e.what()));
-    }
-}
-
-template <AllowedTypes T>
-Variable<T> &Variable<T>::operator-=(const T &value)
-{
-    try
-    {
-        value_ = safeSubtract(value_, std::variant<T>(value));
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in subtraction assignment: " + std::string(e.what()));
-    }
-}
-
-template <AllowedTypes T>
-Variable<T> &Variable<T>::operator*=(const T &value)
-{
-    try
-    {
-        value_ = safeMultiply(value_, std::variant<T>(value));
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in multiplication assignment: " + std::string(e.what()));
-    }
-}
-
-template <AllowedTypes T>
-Variable<T> &Variable<T>::operator/=(const T &value)
-{
-    try
-    {
-        if (value == T{})
-        {
-            throw std::runtime_error("Division by zero in assignment");
-        }
-        value_ = safeDivide(value_, std::variant<T>(value));
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in division assignment: " + std::string(e.what()));
-    }
-}
-
-template <AllowedTypes T>
-Variable<T> &Variable<T>::operator%=(const T &value)
-{
-    try
-    {
-        if (value == T{})
-        {
-            throw std::runtime_error("Modulo by zero in assignment");
-        }
-        value_ = safeModulo(value_, std::variant<T>(value));
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in modulo assignment: " + std::string(e.what()));
-    }
-}
 
 template <AllowedTypes T>
 Variable<T> &Variable<T>::operator++()
@@ -1551,7 +1461,7 @@ Variable<T> operator+(const T value, const Variable<T> &var)
 {
     try
     {
-        return Variable<std::variant<AllowedTypes...>>(value + var.value_);
+        return Variable<T>(value + var.value_);
     }
     catch (const std::exception &e)
     {
@@ -1564,7 +1474,7 @@ Variable<T> operator-(const T value, const Variable<T> &var)
 {
     try
     {
-        return Variable<std::variant<AllowedTypes...>>(value - var.value_);
+        return Variable<T>(value - var.value_);
     }
     catch (const std::exception &e)
     {
@@ -1577,7 +1487,7 @@ Variable<T> operator*(const T value, const Variable<T> &var)
 {
     try
     {
-        return Variable<std::variant<AllowedTypes...>>(value * var.value_);
+        return Variable<T>(value * var.value_);
     }
     catch (const std::exception &e)
     {
@@ -1590,7 +1500,7 @@ Variable<T> operator/(const T value, const Variable<T> &var)
 {
     try
     {
-        return Variable<std::variant<AllowedTypes...>>(value / var.value_);
+        return Variable<T>(value / var.value_);
     }
     catch (const std::exception &e)
     {
@@ -1603,7 +1513,7 @@ Variable<T> operator%(const T value, const Variable<T> &var)
 {
     try
     {
-        return Variable<std::variant<AllowedTypes...>>(value % var.value_);
+        return Variable<T>(value % var.value_);
     }
     catch (const std::exception &e)
     {

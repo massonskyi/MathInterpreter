@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/MathInterpreter.dir/main.cpp.o -o MathInterpreter   -L/home/massonskyi/repo/kp_toop/kp-toop-final/C:/gtest/lib 

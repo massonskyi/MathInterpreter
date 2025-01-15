@@ -20,7 +20,14 @@ concept AllowedTypes =
     std::is_same_v<T, float>    ||
     std::is_same_v<T, double>;
 
+template<AllowedTypes T>
+class Variable;
 
+template <typename T>
+concept IsVariable = requires {
+    typename T::value_type;
+    requires std::is_same_v<T, Variable<typename T::value_type>>;
+};
 enum class Type {
     INT = 0x00,
     DOUBLE,

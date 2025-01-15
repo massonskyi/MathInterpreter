@@ -22,6 +22,9 @@ add_executable(MathInterpreter
     include/abstractsimpletype.h
     include/core.h
     include/variable.hpp
+    include/rational.hpp
+    include/vector.hpp
+    include/matrix.hpp
 )
 
 # Add tests

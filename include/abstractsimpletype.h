@@ -6,7 +6,7 @@
 
 #include <memory>
 #include <string>
-using namespace std;ssss
+using namespace std;
 
 /// @brief Th Abstract simple type 
 /// @details This class is the base class for all simple types
@@ -53,6 +53,17 @@ public:
     /// @brief  This method deserializes the object value of the object
     /// @param value The serialized object to deserialize
     inline virtual void deserialize(const string& value){ throw runtime_error("Not implemented"); }
+
+    friend ostream& operator<<(ostream& os, const AbstractSimpleType& obj){
+        os << obj.serialize();
+        return os;
+    }
+    friend istream& operator>>(istream& is, AbstractSimpleType& obj){
+        string value;
+        is >> value;
+        obj.deserialize(value);
+        return is;
+    }
 };
 
 
