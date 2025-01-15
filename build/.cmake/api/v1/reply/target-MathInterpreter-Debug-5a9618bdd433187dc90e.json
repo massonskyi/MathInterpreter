@@ -2,7 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "MathInterpreter"
+			"path" : "Debug/MathInterpreter.exe"
+		},
+		{
+			"path" : "Debug/MathInterpreter.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -49,14 +52,14 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g -std=gnu++23"
+					"fragment" : "/DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++latest -MDd"
 				}
 			],
 			"includes" : 
 			[
 				{
 					"backtrace" : 3,
-					"path" : "/home/massonskyi/repo/kp_toop/kp-toop-final/C:/gtest/include"
+					"path" : "C:/gtest/include"
 				}
 			],
 			"language" : "CXX",
@@ -74,29 +77,39 @@
 			]
 		}
 	],
+	"dependencies" : 
+	[
+		{
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
+		}
+	],
 	"id" : "MathInterpreter::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-g",
+				"fragment" : "/DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd",
 				"role" : "flags"
 			},
 			{
-				"fragment" : "",
+				"fragment" : "/machine:x64 /debug /INCREMENTAL /subsystem:console",
 				"role" : "flags"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-L/home/massonskyi/repo/kp_toop/kp-toop-final/C:/gtest/lib",
+				"fragment" : "-LIBPATH:C:\\gtest\\lib",
 				"role" : "libraryPath"
+			},
+			{
+				"fragment" : "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
 	"name" : "MathInterpreter",
-	"nameOnDisk" : "MathInterpreter",
+	"nameOnDisk" : "MathInterpreter.exe",
 	"paths" : 
 	{
 		"build" : ".",
@@ -121,7 +134,8 @@
 				4,
 				5,
 				6,
-				7
+				7,
+				8
 			]
 		}
 	],
@@ -166,6 +180,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "include/vector.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/matrix.hpp",
 			"sourceGroupIndex" : 1
 		}
 	],

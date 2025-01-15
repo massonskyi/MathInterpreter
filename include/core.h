@@ -28,6 +28,7 @@ concept IsVariable = requires {
     typename T::value_type;
     requires std::is_same_v<T, Variable<typename T::value_type>>;
 };
+
 enum class Type {
     INT = 0x00,
     DOUBLE,

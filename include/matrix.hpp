@@ -649,28 +649,28 @@ inline void Matrix<T>::swap(Matrix &other) noexcept
 
 // Получение итератора на начало данных (для обычного доступа)
 template <typename T>
-inline typename std::vector<T>::iterator Matrix<T>::begin()
+inline std::vector<T>::iterator Matrix<T>::begin()
 {
     return data_.begin(); // Возвращаем итератор на первый элемент
 }
 
 // Получение итератора на конец данных (для обычного доступа)
 template <typename T>
-inline typename std::vector<T>::iterator Matrix<T>::end()
+inline std::vector<T>::iterator Matrix<T>::end()
 {
     return data_.end(); // Возвращаем итератор на конец данных
 }
 
 // Получение константного итератора на начало данных (для константного доступа)
 template <typename T>
-inline typename std::vector<T>::const_iterator Matrix<T>::cbegin() const
+inline std::vector<T>::const_iterator Matrix<T>::cbegin() const
 {
     return data_.cbegin(); // Возвращаем константный итератор на первый элемент
 }
 
 // Константный итератор на конец данных (для константного доступа)
 template <typename T>
-inline typename std::vector<T>::const_iterator Matrix<T>::cend() const
+inline std::vector<T>::const_iterator Matrix<T>::cend() const
 {
     return data_.cend(); // Возвращаем константный итератор на элемент, следующий за последним
 }
