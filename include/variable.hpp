@@ -65,7 +65,9 @@ public:
 
     /// @brief Destructor
     /// @details Destructor of the class variable
-    ~Variable() = default;
+    ~Variable() override {
+        std::cout << "Destructor called for Variable\n";
+    }
 
     /// @brief This method returns the value of the object as a string hex
     /// @return The value of the object as a string hex
@@ -335,7 +337,22 @@ public:
             throw std::runtime_error("Error during deserialization: " + std::string(e.what()));
         }
     }
-
+    /// @brief This method sets the value of the object
+    /// @tparam _Tp The type of the object
+    /// @param other The value of the object
+    template <AllowedTypes _Tp>
+    void setValue(const _Tp &other)
+    {
+        // Проверяем, поддерживается ли тип
+        if constexpr (std::is_same_v<_Tp, int> || std::is_same_v<_Tp, float> || std::is_same_v<_Tp, double>)
+        {
+            value_ = std::move(other); // Устанавливаем значение в std::variant
+        }
+        else
+        {
+            throw std::invalid_argument("Unsupported type assignment");
+        }
+    }
     /// @brief This method sets the value of the object
     /// @param value The value of the object
     inline void set(const std::string &value) override
@@ -455,16 +472,18 @@ public:
     /// @param value int to copy compare
     /// @return The value of the object
     template <AllowedTypes _Tp>
-    Variable &operator=(const _Tp &other)
+    inline Variable &operator=(const _Tp &other)
     {
         try
         {
-            setValue(other); // Метод для установки значения
+            // setValue(other); // Метод для установки значения
+            value_ = other;
             return *this;
         }
         catch (const std::exception &e)
         {
             std::cerr << "Error assigning value: " + std::string(e.what()) << std::endl;
+            throw;
         }
     }
 
@@ -1342,19 +1361,7 @@ private:
                           { return v == 0; }, val);
     }
 
-    template <AllowedTypes _Tp>
-    void setValue(const _Tp &other)
-    {
-        // Проверяем, поддерживается ли тип
-        if constexpr (std::is_same_v<_Tp, int> || std::is_same_v<_Tp, float> || std::is_same_v<_Tp, double>)
-        {
-            value_ = other; // Устанавливаем значение в std::variant
-        }
-        else
-        {
-            throw std::invalid_argument("Unsupported type assignment");
-        }
-    }
+
 
     template <typename T>
     static Type getTypeFromValue(const T &)

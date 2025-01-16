@@ -41,7 +41,42 @@ inline bool Variable::equals<double>(const double &other) const
         throw std::runtime_error("Error comparing values: " + std::string(e.what()));
     }
 }
-
+template <>
+void Variable::setValue<int>(const int &other)
+{
+    try
+    {
+        value_ = std::move(other); // Устанавливаем значение в std::variant
+    }
+    catch (const std::exception &e)
+    {
+        throw std::invalid_argument("Unsupported type assignment");
+    }
+}
+template <>
+void Variable::setValue<float>(const float &other)
+{
+    try
+    {
+        value_ = std::move(other); // Устанавливаем значение в std::variant
+    }
+    catch (const std::exception &e)
+    {
+        throw std::invalid_argument("Unsupported type assignment");
+    }
+}
+template <>
+void Variable::setValue<double>(const double &other)
+{
+    try
+    {
+        value_ = std::move(other); // Устанавливаем значение в std::variant
+    }
+    catch (const std::exception &e)
+    {
+        throw std::invalid_argument("Unsupported type assignment");
+    }
+}
 template <>
 inline void Variable::set<int>(const int &value)
 {
@@ -140,13 +175,13 @@ inline double Variable::getValue<double>() const
     }
 }
 
-
 // Явная специализация оператора присваивания для int
 template <>
 inline Variable &Variable::operator= <int>(const int &value)
 {
     try
     {
+        std::cout<<value<<std::endl;
         setValue(value); // Метод для установки значения
         return *this;
     }

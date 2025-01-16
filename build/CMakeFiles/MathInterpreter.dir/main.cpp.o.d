@@ -236,4 +236,10 @@ CMakeFiles/MathInterpreter.dir/main.cpp.o: \
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/variable.hpp \
  /usr/include/c++/11/numeric /usr/include/c++/11/bits/stl_numeric.h \
  /usr/include/c++/11/pstl/glue_numeric_defs.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/utils.hpp \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/vector.hpp \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/abstractcontainertype.h \
+ /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_vector.h \
+ /usr/include/c++/11/bits/stl_bvector.h \
+ /usr/include/c++/11/bits/vector.tcc \
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/utils.hpp
