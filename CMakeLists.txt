@@ -23,8 +23,12 @@ add_executable(MathInterpreter
     include/core.h
     include/variable.hpp
     include/rational.hpp
+    include/utils.hpp
     include/vector.hpp
     include/matrix.hpp
+
+    src/variable.cpp
+    src/rational.cpp
 )
 
 # Add tests

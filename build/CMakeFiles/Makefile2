@@ -81,12 +81,12 @@ clean: CMakeFiles/MathInterpreter.dir/clean
 CMakeFiles/MathInterpreter.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MathInterpreter.dir/build.make CMakeFiles/MathInterpreter.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MathInterpreter.dir/build.make CMakeFiles/MathInterpreter.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/massonskyi/repo/kp_toop/kp-toop-final/build/CMakeFiles --progress-num=1,2 "Built target MathInterpreter"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/massonskyi/repo/kp_toop/kp-toop-final/build/CMakeFiles --progress-num=1,2,3,4 "Built target MathInterpreter"
 .PHONY : CMakeFiles/MathInterpreter.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/MathInterpreter.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/massonskyi/repo/kp_toop/kp-toop-final/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/massonskyi/repo/kp_toop/kp-toop-final/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/MathInterpreter.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/massonskyi/repo/kp_toop/kp-toop-final/build/CMakeFiles 0
 .PHONY : CMakeFiles/MathInterpreter.dir/rule
