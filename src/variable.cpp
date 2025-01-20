@@ -1,5 +1,4 @@
 #include "../include/variable.hpp"
-
 // Явная специализация для int
 template <>
 inline bool Variable::equals<int>(const int &other) const

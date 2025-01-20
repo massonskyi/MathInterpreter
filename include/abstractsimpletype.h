@@ -18,9 +18,7 @@ public:
     /// @param value The value to set 
     inline virtual void set(const string& value){ throw runtime_error("Not implemented"); }
     
-    /// @brief This method returns the value of the object
-    /// @return The value of the object
-    inline virtual AbstractSimpleType get() const { throw runtime_error("Not implemented"); }
+
     /// @brief This method returns the value of the object as a string dec
     /// @return The value of the object as a string dec
     inline virtual string dec() const { throw runtime_error("Not implemented"); }

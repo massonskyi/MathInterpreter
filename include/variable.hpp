@@ -3,6 +3,7 @@
 
 #include "core.h"
 #include "abstractsimpletype.h"
+#include "utils.hpp"
 
 #include <stdexcept>
 #include <variant>
@@ -65,13 +66,13 @@ public:
 
     /// @brief Destructor
     /// @details Destructor of the class variable
-    ~Variable() override {
-        std::cout << "Destructor called for Variable\n";
+    ~Variable() override
+    {
     }
 
     /// @brief This method returns the value of the object as a string hex
     /// @return The value of the object as a string hex
-    inline std::string hex() const override
+    std::string hex() const override
     {
         try
         {
@@ -102,7 +103,7 @@ public:
 
     /// @brief This method returns the value of the object as a string dec
     /// @return The value of the object as a string dec
-    inline std::string dec() const override
+    std::string dec() const override
     {
         try
         {
@@ -131,7 +132,7 @@ public:
 
     /// @brief This method returns the value of the object as a string bin
     /// @return The value of the object as a string bin
-    inline std::string bin() const override
+    std::string bin() const override
     {
         try
         {
@@ -152,7 +153,7 @@ public:
 
     /// @brief This method returns the value of the object as a string oct
     /// @return The value of the object as a string oct
-    inline std::string oct() const override
+    std::string oct() const override
     {
         try
         {
@@ -174,7 +175,7 @@ public:
 
     /// @brief  This method is used to print the object
     /// @return The string representation of the object
-    inline std::string toString() const override
+    std::string toString() const override
     {
         {
             try
@@ -213,7 +214,7 @@ public:
 
     /// @brief  This method is used to get the type of the object
     /// @return The type of the object
-    inline std::string getTypeName() const override
+    std::string getTypeName() const override
     {
         return std::visit([](const auto &arg) -> std::string
                           {
@@ -243,14 +244,26 @@ public:
 
     /// @brief This method is used to get the type of the object
     /// @return The type of the object
-    inline Type getType() const
+    std::string getType() const
     {
-        return type_;
+        switch (type_)
+        {
+        case Type::INT:
+            return "INT";
+        case Type::DOUBLE:
+            return "DOUBLE";
+        case Type::FLOAT:
+            return "FLOAT";
+        case Type::OTHER:
+            return "OTHER";
+        default:
+            return "UNKNOWN";
+        }
     }
 
     /// @brief This method returns the value of the object as a boolean
     /// @return The value of the object as a boolean
-    inline bool equals(const AbstractSimpleType &other) const override
+    bool equals(const AbstractSimpleType &other) const override
     {
         const Variable *otherVariable = dynamic_cast<const Variable *>(&other);
         if (otherVariable)
@@ -262,7 +275,7 @@ public:
 
     /// @brief This method returns the value of the object as a boolean
     /// @return The value of the object as a boolean
-    inline bool equals(const Variable &other) const
+    bool equals(const Variable &other) const
     {
         try
         {
@@ -277,7 +290,7 @@ public:
 
     /// @brief This method returns the value of the object as a boolean
     template <AllowedTypes _Tp>
-    inline bool equals(const _Tp &other) const
+    bool equals(const _Tp &other) const
     {
         try
         {
@@ -291,7 +304,7 @@ public:
 
     /// @brief  This method clones the object value of the object
     /// @return The cloned object
-    inline std::unique_ptr<AbstractSimpleType> clone() const override
+    std::unique_ptr<AbstractSimpleType> clone() const override
     {
         return std::make_unique<Variable>(*this);
     }
@@ -299,7 +312,7 @@ public:
     /// @brief This method serializes the object value of the object
     /// @return The serialized object
     [[nodiscard]]
-    inline std::string serialize() const override
+    std::string serialize() const override
     {
         return std::visit([](auto &&arg) -> std::string
                           {
@@ -313,7 +326,7 @@ public:
 
     /// @brief  This method deserializes the object value of the object
     /// @param value The serialized object to deserialize
-    inline void deserialize(const std::string &data) override
+    void deserialize(const std::string &data) override
     {
         try
         {
@@ -355,7 +368,7 @@ public:
     }
     /// @brief This method sets the value of the object
     /// @param value The value of the object
-    inline void set(const std::string &value) override
+    void set(const std::string &value) override
     {
         {
             try
@@ -385,7 +398,7 @@ public:
     /// @brief This method sets the value of the object
     /// @param value The value of the object
     template <AllowedTypes _Tp>
-    inline void set(const _Tp &value)
+    void set(const _Tp &value)
     {
         try
         {
@@ -408,7 +421,7 @@ public:
     /// @brief This method returns the value of the object
     /// @return The value of the object
     template <AllowedTypes _Tp>
-    inline _Tp getValue() const
+    _Tp getValue() const
     {
         const _Tp *valuePtr = std::get_if<_Tp>(&value_);
         if (!valuePtr)
@@ -420,7 +433,7 @@ public:
 
     /// @brief This method returns the value of the object
     /// @return The value of the object
-    inline AbstractSimpleType get() const override
+    [[nodiscard]] AbstractObject get() const override
     {
         try
         {
@@ -429,6 +442,24 @@ public:
         catch (const std::exception &e)
         {
             throw std::runtime_error("Error getting value: " + std::string(e.what()));
+        }
+    }
+
+    /// @brief This method returns the value of the object
+    /// @param other Variable to copy compare
+    /// @return The value of the object
+    Variable &operator=(const AbstractObject &other) override
+    {
+        try
+        {
+            const Variable &otherVariable = dynamic_cast<const Variable &>(other);
+            value_ = otherVariable.value_;
+            type_ = otherVariable.type_;
+            return *this;
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << "Error assigning value: " + std::string(e.what()) << std::endl;
         }
     }
 
@@ -472,7 +503,7 @@ public:
     /// @param value int to copy compare
     /// @return The value of the object
     template <AllowedTypes _Tp>
-    inline Variable &operator=(const _Tp &other)
+    Variable &operator=(const _Tp &other)
     {
         try
         {
@@ -490,6 +521,22 @@ public:
     /// @brief This method returns the value of the object as a boolean
     /// @param other Variable<T> to compare
     /// @return The value of the object as a boolean
+    bool operator==(const AbstractObject &other) const override
+    {
+        try
+        {
+            const Variable &otherVariable = dynamic_cast<const Variable &>(other);
+            return value_ == otherVariable.value_ && type_ == otherVariable.type_;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error comparing values: " + std::string(e.what()));
+        }
+    }
+
+    /// @brief This method returns the value of the object as a boolean
+    /// @param other Variable<T> to compare
+    /// @return The value of the object as a boolean
     bool operator==(const Variable &other) const
     {
         try
@@ -501,6 +548,11 @@ public:
             throw std::runtime_error("Error comparing values: " + std::string(e.what()));
         }
     }
+    // Виртуальный метод для вывода
+    void print(std::ostream& os) const override{
+        std::cout<< *this << std::endl;
+    }
+
     bool operator==(Variable &&other) noexcept
     {
         try
@@ -525,6 +577,22 @@ public:
         {
             // Сравнение типа и значения
             return type_ == getTypeFromValue(other) && value_ == other;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error comparing values: " + std::string(e.what()));
+        }
+    }
+
+    /// @brief This method returns the value of the object as a boolean
+    /// @param other Variable<T> to compare
+    /// @return The value of the object as a boolean
+    bool operator!=(const AbstractObject &other) const override
+    {
+        try
+        {
+            const Variable &otherVariable = dynamic_cast<const Variable &>(other);
+            return value_ != otherVariable.value_ || type_ != otherVariable.type_;
         }
         catch (const std::exception &e)
         {
@@ -568,6 +636,15 @@ public:
     /// @brief This method returns result of the add operation
     /// @param other Variable<T> to add
     /// @return Result of the add operation
+    AbstractObject operator+(const AbstractObject &other) override
+    {
+        const Variable &otherVariable = dynamic_cast<const Variable &>(other);
+        return binaryOperation(otherVariable, std::plus<>());
+    }
+
+    /// @brief This method returns result of the add operation
+    /// @param other Variable<T> to add
+    /// @return Result of the add operation
     Variable operator+(const Variable &other)
     {
         return binaryOperation(other, std::plus<>());
@@ -580,6 +657,15 @@ public:
     {
         return binaryOperation(other, std::plus<>());
     }
+
+    /// @brief This method returns result of the add operation
+    /// @param other Variable<T> to add
+    /// @return Result of the add operation
+    AbstractObject operator-(const AbstractObject &other) override
+    {
+        const Variable &otherVariable = dynamic_cast<const Variable &>(other);
+        return binaryOperation(otherVariable, std::minus<>());
+    }
     /// @brief This method returns result of the sub operation
     /// @param other Variable<T> to substract
     /// @return Result of the sub operation
@@ -587,13 +673,29 @@ public:
     {
         return binaryOperation(other, std::minus<>());
     }
-
+    /// @brief This method returns result of the add operation
+    /// @param other Variable<T> to add
+    /// @return Result of the add operation
+    AbstractObject operator*(const AbstractObject &other) override
+    {
+        const Variable &otherVariable = dynamic_cast<const Variable &>(other);
+        return binaryOperation(otherVariable, std::multiplies<>());
+    }
     /// @brief This method returns result of the mul operation
     /// @param other Variable<T> to multiply
     /// @return Result of the mul operation
     Variable operator*(const Variable &other)
     {
         return binaryOperation(other, std::multiplies<>());
+    }
+
+    /// @brief This method returns result of the add operation
+    /// @param other Variable<T> to add
+    /// @return Result of the add operation
+    AbstractObject operator/(const AbstractObject &other) override
+    {
+        const Variable &otherVariable = dynamic_cast<const Variable &>(other);
+        return binaryOperation(otherVariable, std::divides<>());
     }
 
     /// @brief This method returns result of the div operation
@@ -607,7 +709,25 @@ public:
         }
         return binaryOperation(other, std::divides<>());
     }
-
+    /// @brief This method returns result of the add operation
+    /// @param other Variable<T> to add
+    /// @return Result of the add operation
+    AbstractObject operator%(const AbstractObject &other) override
+    {
+        const Variable &otherVariable = dynamic_cast<const Variable &>(other);
+        if constexpr (std::is_integral_v<decltype(value_)> && std::is_integral_v<decltype(otherVariable.value_)>)
+        {
+            if (isZero(otherVariable.value_))
+            {
+                throw std::runtime_error("Modulo by zero");
+            }
+            return binaryOperation(otherVariable, std::modulus<>());
+        }
+        else
+        {
+            throw std::runtime_error("Modulo operation is only supported for integral types");
+        }
+    }
     /// @brief This method returns result of the mod operation
     /// @param other Variable<T> to divide
     /// @return Result of the mod operation
@@ -688,7 +808,23 @@ public:
             throw std::runtime_error("Modulo operation is only supported for integral types");
         }
     }
-
+    /// @brief This method returns result of the add operation
+    /// @param other Variable<T> to add
+    /// @return Result of the add operation
+    AbstractObject &operator+=(const AbstractObject &other) override
+    {
+        try
+        {
+            const Variable &otherVariable = dynamic_cast<const Variable &>(other);
+            *this = binaryOperation(otherVariable, std::plus<>());
+        }
+        catch (std::runtime_error &e)
+        {
+            std::cerr
+                << "Addition is only supported for arithmetic types" << std::endl;
+        }
+        return *this;
+    }
     /// @brief This method returns the value of the object
     /// @param other Variable<T> to add
     /// @return The value of the object
@@ -705,46 +841,95 @@ public:
         }
         return *this;
     }
-
+    /// @brief This method returns result of the add operation
+    /// @param other Variable<T> to add
+    /// @return Result of the add operation
+    AbstractObject &operator-=(const AbstractObject &other) override
+    {
+        try
+        {
+            const Variable &otherVariable = dynamic_cast<const Variable &>(other);
+            *this = binaryOperation(otherVariable, std::minus<>());
+        }
+        catch (std::runtime_error &e)
+        {
+            std::cerr
+                << "Addition is only supported for arithmetic types" << std::endl;
+        }
+        return *this;
+    }
     /// @brief This method returns the value of the object
     /// @param other Variable<T> to substract
     /// @return The value of the object
     Variable &
     operator-=(const Variable &other)
     {
-        if constexpr (std::is_arithmetic_v<decltype(this->value_)> && std::is_arithmetic_v<decltype(other.value_)>)
+        try
         {
             *this = binaryOperation(other, std::minus<>());
         }
-        else
+        catch (std::runtime_error &e)
         {
-            throw std::runtime_error("Subtraction is only supported for arithmetic types");
+            throw std::runtime_error("Substraction is only supported for arithmetic types" + std::string(e.what()));
         }
         return *this;
     }
-
+    /// @brief This method returns result of the add operation
+    /// @param other Variable<T> to add
+    /// @return Result of the add operation
+    AbstractObject &operator*=(const AbstractObject &other) override
+    {
+        try
+        {
+            const Variable &otherVariable = dynamic_cast<const Variable &>(other);
+            *this = binaryOperation(otherVariable, std::minus<>());
+        }
+        catch (std::runtime_error &e)
+        {
+            std::cerr
+                << "Addition is only supported for arithmetic types" << std::endl;
+        }
+        return *this;
+    }
     /// @brief This method returns the value of the object
     /// @param other Variable<T> to multiply
     /// @return The value of the object
     Variable &operator*=(const Variable &other)
     {
-        if constexpr (std::is_arithmetic_v<decltype(this->value_)> && std::is_arithmetic_v<decltype(other.value_)>)
+        try
         {
             *this = binaryOperation(other, std::multiplies<>());
         }
-        else
+        catch (std::runtime_error &e)
         {
-            throw std::runtime_error("Multiplication is only supported for arithmetic types");
+            throw std::runtime_error("Multiplication is only supported for arithmetic types" + std::string(e.what()));
         }
         return *this;
     }
 
+    /// @brief This method returns result of the add operation
+    /// @param other Variable<T> to add
+    /// @return Result of the add operation
+    AbstractObject &operator/=(const AbstractObject &other) override
+    {
+        try
+        {
+            const Variable &otherVariable = dynamic_cast<const Variable &>(other);
+            *this = binaryOperation(otherVariable, std::divides<>());
+        }
+        catch (std::runtime_error &e)
+        {
+            std::cerr
+                << "Addition is only supported for arithmetic types" << std::endl;
+        }
+        return *this;
+    }
     /// @brief This method returns the value of the object
     /// @param other Variable<T> to divide
     /// @return The value of the object
     Variable &operator/=(const Variable &other)
     {
-        if constexpr (std::is_arithmetic_v<decltype(this->value_)> && std::is_arithmetic_v<decltype(other.value_)>)
+        try
         {
             if (isZero(other.value_))
             {
@@ -752,29 +937,99 @@ public:
             }
             *this = binaryOperation(other, std::divides<>());
         }
-        else
+        catch (std::runtime_error &e)
         {
-            throw std::runtime_error("Division is only supported for arithmetic types");
+            throw std::runtime_error("Division is only supported for arithmetic types" + std::string(e.what()));
         }
         return *this;
     }
+    /// @brief This method returns result of the add operation
+    /// @param other Variable<T> to add
+    /// @return Result of the add operation
+    AbstractObject &operator%=(const AbstractObject &other) override
+    {
+        try
+        {
+            const Variable &otherVariable = dynamic_cast<const Variable &>(other);
+            if (isZero(otherVariable.value_))
+            {
+                throw std::runtime_error("Modulo by zero");
+            }
+            using T = decltype(value_);
+            using U = std::remove_const_t<decltype(otherVariable.value_)>;
 
+            // Ensure both variants hold integral values of the same type
+            if constexpr (std::is_same_v<T, std::variant<int, float, double>> &&
+                          std::is_same_v<U, std::variant<int, float, double>>)
+            {
+                // Extract values from the variants
+                std::visit(
+                    [this](auto &&lhs, auto &&rhs)
+                    {
+                        using LhsType = std::decay_t<decltype(lhs)>;
+                        using RhsType = std::decay_t<decltype(rhs)>;
+                        if constexpr (std::is_integral_v<LhsType> && std::is_integral_v<RhsType> && sizeof(LhsType) == sizeof(RhsType))
+                        {
+                            // Perform modulo operation and store result back in value_
+                            value_ = lhs % rhs;
+                        }
+                        else
+                        {
+                            throw std::invalid_argument("Modulo operation is only valid for integral types of the same size.");
+                        }
+                    },
+                    value_, otherVariable.value_ // Visiting both variants
+                );
+            }
+        }
+        catch (std::runtime_error &e)
+        {
+            std::cerr
+                << "Addition is only supported for arithmetic types" << std::endl;
+        }
+        return *this;
+    }
     /// @brief This method returns the value of the object
     /// @param other Variable<T> to divide
     /// @return The value of the object
     Variable &operator%=(const Variable &other)
     {
-        if constexpr (std::is_integral_v<decltype(this->value_)> && std::is_integral_v<decltype(other.value_)>)
+        try
         {
             if (isZero(other.value_))
             {
                 throw std::runtime_error("Modulo by zero");
             }
-            *this = binaryOperation(other, std::modulus<>());
+            using T = decltype(value_);
+            using U = std::remove_const_t<decltype(other.value_)>;
+
+            // Ensure both variants hold integral values of the same type
+            if constexpr (std::is_same_v<T, std::variant<int, float, double>> &&
+                          std::is_same_v<U, std::variant<int, float, double>>)
+            {
+                // Extract values from the variants
+                std::visit(
+                    [this](auto &&lhs, auto &&rhs)
+                    {
+                        using LhsType = std::decay_t<decltype(lhs)>;
+                        using RhsType = std::decay_t<decltype(rhs)>;
+                        if constexpr (std::is_integral_v<LhsType> && std::is_integral_v<RhsType> && sizeof(LhsType) == sizeof(RhsType))
+                        {
+                            // Perform modulo operation and store result back in value_
+                            value_ = lhs % rhs;
+                        }
+                        else
+                        {
+                            throw std::invalid_argument("Modulo operation is only valid for integral types of the same size.");
+                        }
+                    },
+                    value_, other.value_ // Visiting both variants
+                );
+            }
         }
-        else
+        catch (std::runtime_error &e)
         {
-            throw std::runtime_error("Modulo operation is only supported for integral types");
+            throw std::runtime_error("Modulo is only supported for arithmetic types" + std::string(e.what()));
         }
         return *this;
     }
@@ -874,7 +1129,7 @@ public:
 
     /// @brief This method returns the value of the object
     /// @return  The value of the object
-    Variable &operator++()
+    Variable &operator++() override
     {
         std::visit([](auto &&arg)
                    {
@@ -886,7 +1141,7 @@ public:
 
     /// @brief This method returns the value of the object
     /// @return The value of the object
-    Variable &operator--()
+    Variable &operator--() override
     {
         std::visit([](auto &&arg)
                    {
@@ -915,7 +1170,6 @@ public:
         --(*this);             // Выполняем префиксный декремент
         return temp;           // Возвращаем старое значение
     }
-
     /// @brief This friend method of operator << overloading
     /// @param out output stream
     /// @param Variable<T> the value of the object
@@ -949,47 +1203,45 @@ public:
         }
     }
 
-    /// @brief This friend method of operator >> overloading
-    /// @param in input stream
-    /// @param Variable<T> the value of the object
-    /// @return input stream
-    friend std::istream &operator>>(std::istream &in, Variable &var)
-    {
-        try
-        {
-            // Проверка состояния потока перед операцией
-            if (!in)
-            {
-                throw std::ios_base::failure("Input stream is in bad state");
-            }
-
-            // Очищаем возможные ошибки потока
-            in.clear();
-
-            // Пропускаем начальные пробелы
-            in >> std::ws;
-
-            // Создаем временную переменную для безопасного чтения
-            Variable temp;
-            if (!(in >> temp))
-            {
-                throw std::ios_base::failure("Failed to read value");
-            }
-
-            // Присваиваем значение только если чтение прошло успешно
-            var = std::move(temp);
-
+    /// @brief Input operator for Variable
+    friend std::istream& operator>>(std::istream &in, Variable &var) {
+        std::string input;
+        in >> input;
+        if (!in) {
             return in;
         }
-        catch (const std::ios_base::failure &e)
-        {
-            throw std::runtime_error("I/O error in operator>>: " + std::string(e.what()));
+        if (input.empty()) {
+            return in;
         }
-        catch (const std::exception &e)
-        {
-            throw std::runtime_error("Unexpected error in operator>>: " + std::string(e.what()));
+        std::istringstream ss(input);
+
+        // Попытка преобразовать в int
+        ss.clear();
+        ss.str(input);
+        if (int intValue; ss >> intValue) {
+            var = Variable(intValue);
+            return in;
         }
-    };
+
+        // Попытка преобразовать в float
+        ss.clear();
+        ss.str(input);
+        if (float floatValue; ss >> floatValue) {
+            var = Variable(floatValue);
+            return in;
+        }
+
+        // Попытка преобразовать в double
+        ss.clear();
+        ss.str(input);
+        if (double doubleValue; ss >> doubleValue) {
+            var = Variable(doubleValue);
+            return in;
+        }
+
+        // Если ни одно преобразование не удалось
+        throw std::invalid_argument("Unsupported type or invalid format: " + input);
+    }
 
     /// @brief This friend method of operator == overloading
     /// @param value the value of the object
@@ -1102,13 +1354,13 @@ public:
     template <AllowedTypes _Tp>
     friend Variable operator%(const _Tp value, const Variable &var)
     {
-        try
+        if (std::is_integral_v<std::decay_t<decltype(value)>> && std::is_integral_v<std::decay_t<decltype(var.value_)>>)
         {
             return Variable(value % std::get<_Tp>(var.value_));
         }
-        catch (const std::exception &e)
+        else
         {
-            throw std::runtime_error("Error in operator%: " + std::string(e.what()));
+            throw std::runtime_error("Error in operator % ");
         }
     }
     friend Variable operator*(const Variable &lhs, const Variable &rhs)
@@ -1242,6 +1494,7 @@ public:
     }
 
 private:
+
     value_type value_;
     Type type_;
 
@@ -1256,26 +1509,6 @@ private:
         if (std::holds_alternative<double>(val))
             return Type::DOUBLE;
         throw std::runtime_error("Unknown type");
-    }
-
-    /// @brief This method returns class name
-    /// @return class name
-    static std::string extractClassName()
-    {
-#ifdef _MSC_VER
-        const char *funcSig = __FUNCSIG__;
-#else
-        const char *funcSig = __PRETTY_FUNCTION__;
-#endif
-        // Extract the class name from the function signature string
-        std::string funcSigStr(funcSig);
-        size_t start = funcSigStr.find("Variabl");
-        size_t end = funcSigStr.find("e", start);
-        if (start != std::string::npos && end != std::string::npos)
-        {
-            return funcSigStr.substr(start, end - (start - 1));
-        }
-        return "UnknownClass";
     }
 
     /// @brief This method execute binary operation
@@ -1360,9 +1593,23 @@ private:
         return std::visit([](const auto &v)
                           { return v == 0; }, val);
     }
-
-
-
+    static std::string extractClassName()
+    {
+#ifdef _MSC_VER
+        const char *funcSig = __FUNCSIG__;
+#else
+        const char *funcSig = __PRETTY_FUNCTION__;
+#endif
+        // Extract the class name from the function signature string
+        std::string funcSigStr(funcSig);
+        size_t start = funcSigStr.find("Variabl");
+        size_t end = funcSigStr.find("e", start);
+        if (start != std::string::npos && end != std::string::npos)
+        {
+            return funcSigStr.substr(start, end - (start - 1));
+        }
+        return "UnknownClass";
+    }
     template <typename T>
     static Type getTypeFromValue(const T &)
     {

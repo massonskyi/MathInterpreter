@@ -11,16 +11,19 @@
 class Vector final : public AbstractContainerType
 {
 public:
+    using value_type = Variable;
     /// @brief Default constructor for the Vector class
     Vector() : AbstractContainerType(extractClassName()), vector_({}) {}
 
     /// @brief Constructor with size params for the Vector class
     /// @param size The size of the vector
-    explicit Vector(size_t size) : AbstractContainerType(extractClassName()), vector_(size, Variable()) {} 
+    explicit Vector(const size_t size) : AbstractContainerType(extractClassName()), vector_(size, Variable()) {}
     /// @brief Constructor with initializer list for the Vector class
     /// @param list The initializer list
-    explicit Vector(std::initializer_list<Variable> list) : AbstractContainerType(extractClassName()) {
-        for (const auto& elem : list) {
+    Vector(const std::initializer_list<Variable> list) : AbstractContainerType(extractClassName())
+    {
+        for (const auto &elem : list)
+        {
             vector_.emplace_back(elem);
         }
     }
@@ -28,18 +31,14 @@ public:
     /// @brief Constructor with initializer list for the Vector class
     /// @param list The initializer list
     template <typename T, typename = std::enable_if_t<std::is_arithmetic_v<T>>>
-    explicit Vector(std::initializer_list<T> list) : AbstractContainerType(extractClassName()) {
-        for (const auto& elem : list) {
+    Vector(std::initializer_list<T> list) : AbstractContainerType(extractClassName())
+    {
+        for (const auto &elem : list)
+        {
             vector_.emplace_back(Variable(elem));
         }
     }
-    /// Print the vector
-    void print() const {
-        for (const auto& var : vector_) {
-            std::cout << var << " ";
-        }
-        std::cout << std::endl;
-    }
+
     /// @brief Copy constructor
     /// @param other The other vector
     Vector(const Vector &other) noexcept : AbstractContainerType(extractClassName()), vector_(other.vector_) {}
@@ -67,6 +66,11 @@ public:
 
         ss << "]";
         return ss.str(); // Возвращаем строковое представление объекта
+    }
+    // Виртуальный метод для вывода
+    void print(std::ostream &os) const override
+    {
+        std::cout << *this << std::endl;
     }
     /// @brief This method adds object to the container
     /// @param object to add be added to the container
@@ -116,7 +120,14 @@ public:
             throw; // Повторное выбрасывание исключения для обработки выше
         }
     }
-
+    /// @brief This method returns object by index its index container
+    /// @param index of the object
+    /// @return object by index
+    inline AbstractObject get() const override
+    {
+        throw std::runtime_error("Not implemented");
+    }
+    
     /// @brief This method returns object by index its index container
     /// @param index of the object
     /// @return object by index
@@ -144,18 +155,24 @@ public:
     {
         return vector_;
     }
-
+    /// @brief This method return false if the container is empty
+    /// @return data vector
+    inline bool empty() const
+    {
+        return vector_.empty();
+    }
     /// @brief This method returns object by index
     /// @param index of the object
     /// @return object by index
-    inline Variable& operator[](size_t index)
+    inline Variable &operator[](size_t index)
     {
         return vector_[index];
     }
-        /// @brief This method returns object by index
+    /// @brief This method returns object by index
     /// @param index of the object
     /// @return object by index
-    const Variable& operator[](size_t index) const {
+    const Variable &operator[](size_t index) const
+    {
         return vector_[index];
     }
     /// @brief This method returns object by index
@@ -608,6 +625,26 @@ public:
         return result;
     }
 
+    /// @brief This method returns result of the add operation
+    /// @param other Variable to add
+    /// @return Result of the add operation
+    Vector operator+(const Vector &other) const
+    {
+        // Проверка на одинаковые размеры
+        if (this->size() != other.size())
+        {
+            throw std::invalid_argument("Vectors must have the same size for addition.");
+        }
+
+        Vector result;
+        for (size_t i = 0; i < this->size(); ++i)
+        {
+            result.push_back(this->get(i) + other.get(i)); // Поэлементное сложение
+        }
+
+        return result;
+    }
+
     /// @brief This method returns result of the sub operation
     /// @param other Variable to substract
     /// @return Result of the sub operation
@@ -627,7 +664,25 @@ public:
 
         return result;
     }
+    /// @brief This method returns result of the sub operation
+    /// @param other Variable to substract
+    /// @return Result of the sub operation
+    Vector operator-(const Vector &other) const
+    {
+        // Проверка на одинаковые размеры
+        if (this->size() != other.size())
+        {
+            throw std::invalid_argument("Vectors must have the same size for subtraction.");
+        }
 
+        Vector result;
+        for (size_t i = 0; i < this->size(); ++i)
+        {
+            result.push_back(this->get(i) - other.get(i)); // Поэлементное вычитание
+        }
+
+        return result;
+    }
     /// @brief This method returns result of the mul operation
     /// @param other Variable to multiply
     /// @return Result of the mul operation
@@ -647,7 +702,25 @@ public:
 
         return result;
     }
+    /// @brief This method returns result of the mul operation
+    /// @param other Variable to multiply
+    /// @return Result of the mul operation
+    Vector operator*(const Vector &other) const
+    {
+        // Проверка на одинаковые размеры
+        if (this->size() != other.size())
+        {
+            throw std::invalid_argument("Vectors must have the same size for multiplication.");
+        }
 
+        Vector result;
+        for (size_t i = 0; i < this->size(); ++i)
+        {
+            result.push_back(this->get(i) * other.get(i)); // Поэлементное умножение
+        }
+
+        return result;
+    }
     /// @brief This method returns result of the div operation
     /// @param other Variable to divide
     /// @return Result of the div operation
@@ -671,7 +744,29 @@ public:
 
         return result;
     }
+    /// @brief This method returns result of the div operation
+    /// @param other Variable to divide
+    /// @return Result of the div operation
+    Vector operator/(const Vector &other) const
+    {
+        // Проверка на одинаковые размеры
+        if (this->size() != other.size())
+        {
+            throw std::invalid_argument("Vectors must have the same size for division.");
+        }
 
+        Vector result;
+        for (size_t i = 0; i < this->size(); ++i)
+        {
+            if (other.get(i) == 0)
+            {
+                throw std::invalid_argument("Division by zero.");
+            }
+            result.push_back(this->get(i) / other.get(i)); // Поэлементное деление
+        }
+
+        return result;
+    }
     /// @brief This method returns result of the mod operation
     /// @param other Variable to divide
     /// @return Result of the mod operation
@@ -1015,7 +1110,7 @@ public:
     /// @return output stream
     friend std::ostream &operator<<(std::ostream &os, const Vector &vector)
     {
-        os << vector.extractClassName() << " {\n"; // Форматированный вывод с пробелом после имени класса
+        os << extractClassName() << " {\n"; // Форматированный вывод с пробелом после имени класса
         for (size_t i = 0; i < vector.size(); ++i)
         {
             os << i << ":  " << vector[i] << "\n"; // Отступ для элементов вектора
@@ -1060,8 +1155,6 @@ public:
     }
 
 private:
-    std::vector<Variable> vector_;
-
     static std::string extractClassName()
     {
 #ifdef _MSC_VER
@@ -1079,5 +1172,6 @@ private:
         }
         return "UnknownClass";
     }
+    std::vector<Variable> vector_;
 };
 #endif /* VECTOR_HPP */
