@@ -14,7 +14,7 @@
 class AbstractContainerType : public AbstractObject{
 public:
     using AbstractObject::AbstractObject;
-
+    AbstractContainerType() = default;
     // /// @brief This method adds object to the container
     // /// @param object to add be added to the container
     // inline virtual void add(std::shared_ptr<AbstractObject> object){ throw std::runtime_error("Not implemented"); }

@@ -1,222 +1,712 @@
-#ifndef RATIONAL_HPP
-#define RATIONAL_HPP
+#ifndef RATIONAL_H
+#define RATIONAL_H
 
 #include "core.h"
 #include "variable.hpp"
 #include <numeric>
-
-// Концепт, который проверяет, является ли тип T специализацией шаблона Variable<U>
+#include <utility>
 
 /// @brief This class is Rational Rational
 /// @tparam T type of the Rational
 /// @details This class is Rational Rational
-template <IsVariable T>
 class Rational final : public AbstractObject
 {
 public:
     using AbstractObject::AbstractObject;
-    using value_type = T;
+
     /// @brief Default constructor
     Rational()
-        : AbstractObject(extractClassName()), num_(0), den_(1), type_(determineType(Variable<int>{0})) {};
+        : AbstractObject(extractClassName()), num_(0), den_(1), type_(determineType(Variable{0}))
+    {
+    }
+
     /// @brief Constructor with numerator and denominator
     /// @param num numerator
     /// @param den denominator
-    explicit Rational(T num, T den)
-        : AbstractObject(extractClassName()), num_(num), den_(den), type_(determineType(num_))
+    explicit Rational(Variable num, Variable den) : AbstractObject(extractClassName()), num_(std::move(num)), den_(std::move(den)), type_(determineType(num_))
     {
-        reduce();
-    };
+    }
 
     /// @brief Constructor with numerator and default denominator
     /// @param num numerator
-    explicit Rational(T num)
-        : AbstractObject(extractClassName()), num_(num), den_(1), type_(determineType(num_)) {};
+    explicit Rational(Variable num) : AbstractObject(extractClassName()), num_(std::move(num)), den_(1), type_(determineType(num_)) {};
 
     /// @brief Copy constructor
     /// @param other object to copy
-    Rational(const Rational<T> &other)
+    Rational(const Rational &other)
         : AbstractObject(extractClassName()), num_(other.num_), den_(other.den_), type_(other.type_) {};
 
     /// @brief Move constructor
     /// @param other object to move
-    Rational(Rational<T> &&other)
-        : AbstractObject(extractClassName()), num_(std::move(other.num_)), den_(std::move(other.den_)), type_(std::move(other.type_)) {};
+    Rational(Rational &&other) noexcept
+        : AbstractObject(extractClassName()), num_(std::move(other.num_)), den_(std::move(other.den_)), type_(other.type_) {};
 
     /// @brief Destructor
-    ~Rational() = default;
-
+    ~Rational() override = default;
+    // Виртуальный метод для вывода
+    void print(std::ostream &os) const override
+    {
+        std::cout << *this << std::endl;
+    }
+    /// @brief This method returns object by index its index container
+    /// @return object by index
+     [[nodiscard]] AbstractObject get() const override
+    {
+        throw std::runtime_error("Not implemented");
+    }
+    [[nodiscard]] Variable getNum() const
+    {
+        return num_;
+    }
+    [[nodiscard]] Variable getDen() const
+    {
+        return den_;
+    }
     /// @brief  This method is used to print the object
     /// @return The string representation of the object
-    inline std::string toString() const override;
+     [[nodiscard]] std::string toString() const override
+    {
+        try
+        {
+            return num_.toString() + "/" + den_.toString();
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in toString : " + std::string(e.what()));
+        }
+    }
 
     /// @brief  This method is used to get the type of the object
     /// @return The type of the object
-    inline std::string getTypeName() const override;
+     [[nodiscard]] std::string getTypeName() const override
+    {
+        try
+        {
+            return num_.getTypeName() + "/" + den_.getTypeName();
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in getTypeName : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @param other Rational to copy compare
     /// @return The value of the object
-    Rational<T> &operator=(const Rational<T> &other);
+    Rational &operator=(const Rational &other)
+    {
+        try
+        {
+            num_ = other.num_;
+            den_ = other.den_;
+            type_ = other.type_;
+            return *this;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator= : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @param other Rational<T> to move compare
     /// @return The value of the object
-    Rational<T> &operator=(Rational<T> &&other) noexcept;
+    Rational &operator=(Rational &&other) noexcept
+    {
+        try
+        {
+            num_ = std::move(other.num_);
+            den_ = std::move(other.den_);
+            type_ = other.type_;
+            return *this;
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << "Error in operator= : " + std::string(e.what()) << std::endl;
+        }
+        return *this;
+    }
 
     /// @brief This method returns the value of the object as a boolean
     /// @param other Rational<T> to compare
     /// @return The value of the object as a boolean
-    bool operator==(const Rational<T> &other) const;
+    bool operator==(const Rational &other) const
+    {
+        try
+        {
+            // Normalize both rational numbers to a common denominator
+            Variable common_den = den_ * other.den_;
+            const Variable this_num = num_ * other.den_;
+            const Variable other_num = other.num_ * den_;
+
+            return this_num == other_num;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator== : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object as a boolean
     /// @param value Rational<T> to compare
     /// @return The value of the object as a boolean
-    bool operator==(T value) const;
+    template <AllowedTypes _Tp>
+    bool operator==(_Tp value) const
+    {
+        try
+        {
+            // Normalize both rational numbers to a common denominator
+            _Tp common_den = den_ * value.den_;
+            _Tp this_num = num_ * value.den_;
+            _Tp other_num = value.num_ * den_;
 
-    /// @brief This method returns the value of the object as a boolean
-    /// @param value Rational<T> to compare
-    /// @return The value of the object as a boolean
-    bool operator==(const T &value) const;
+            return this_num == other_num;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator== : " + std::string(e.what()));
+        }
+    }
 
-    /// @brief This method returns the value of the object as a boolean
-    /// @param other Rational<T> to compare
-    /// @return The value of the object as a boolean
-    bool operator!=(const Rational<T> &other) const;
+    /// @brief This method is used to get the value of the object
+    /// @param other Rational to copy compare
+    /// @return The value of the object
+    bool operator!=(const Rational &other) const
+    {
+        try
+        {
+            // Normalize both rational numbers to a common denominator
+            Variable common_den = den_ * other.den_;
+            Variable this_num = num_ * other.den_;
+            Variable other_num = other.num_ * den_;
 
-    /// @brief This method returns the value of the object as a boolean
-    /// @param value Rational<T> to compare
-    /// @return The value of the object as a boolean
-    bool operator!=(T value) const;
+            return this_num != other_num;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator== : " + std::string(e.what()));
+        }
+    }
 
-    /// @brief This method returns the value of the object as a boolean
-    /// @param value Rational<T> to compare
-    /// @return The value of the object as a boolean
-    bool operator!=(const T &value) const;
+    /// @brief This method is used to get the value of the object
+    /// @param other Rational to copy compare
+    /// @return The value of the object
+    template <AllowedTypes _Tp>
+    bool operator!=(const _Tp &other) const;
 
     /// @brief This method returns result of the add operation
     /// @param other Rational<T> to add
     /// @return Result of the add operation
-    Rational<T> operator+(const Rational<T> &other);
+    Rational operator+(const Rational &other)
+    {
+        try
+        {
+            // Приводим дроби к общему знаменателю
+            Variable other_num = other.num_;
+            Variable new_num = (num_ * other.den_) + (other_num * den_);
+            Variable new_den = den_ * other.den_;
+            return Rational(new_num, new_den);
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator+ : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns result of the sub operation
     /// @param other Rational<T> to substract
     /// @return Result of the sub operation
-    Rational<T> operator-(const Rational<T> &other);
+    Rational operator-(const Rational &other)
+    {
+        try
+        {
+            // Приводим дроби к общему знаменателю
+            Variable other_num = other.num_;
+            Variable new_num = (num_ * other.den_) - (other_num * den_);
+            Variable new_den = den_ * other.den_;
+            return Rational(new_num, new_den);
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator+ : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns result of the mul operation
     /// @param other Rational<T> to multiply
     /// @return Result of the mul operation
-    Rational<T> operator*(const Rational<T> &other);
+    Rational operator*(const Rational &other)
+    {
+        try
+        {
+            Variable new_num = num_ * other.num_;
+            Variable new_den = den_ * other.den_;
+            return Rational(new_num, new_den);
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator* : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns result of the div operation
     /// @param other Rational<T> to divide
     /// @return Result of the div operation
-    Rational<T> operator/(const Rational<T> &other);
+    Rational operator/(const Rational &other)
+    {
+        try
+        {
+            Variable new_num = num_ * other.den_;
+            Variable new_den = den_ * other.num_;
+            return Rational(new_num, new_den);
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator/ : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns result of the mod operation
     /// @param other Rational<T> to divide
     /// @return Result of the mod operation
-    Rational<T> operator%(const Rational<T> &other);
+    Rational operator%(const Rational &other);
 
     /// @brief This method returns the value of the object
     /// @param value Rational<T> to add
     /// @return The value of the object
-    Rational<T> operator+(T value);
+    template <AllowedTypes _Tp>
+    Rational operator+(_Tp value)
+    {
+        try
+        {
+            // Приводим дроби к общему знаменателю
+            _Tp other_num = value;
+            Variable new_num = (num_ * value) + (den_ * other_num);
+            Variable new_den = den_ * value;
+            return Rational(new_num, new_den);
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator+ : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @param value Rational<T> to substract
     /// @return The value of the object
-    Rational<T> operator-(T value);
+    template <AllowedTypes _Tp>
+    Rational operator-(_Tp value)
+    {
+        try
+        {
+            // Приводим дроби к общему знаменателю
+            _Tp other_num = value;
+            Variable new_num = (num_ * value) - (other_num * den_);
+            Variable new_den = den_ * value;
+            return Rational(new_num, new_den);
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator- : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @param value Rational<T> to multiply
     /// @return The value of the object
-    Rational<T> operator*(T value);
+    template <AllowedTypes _Tp>
+    Rational operator*(_Tp value)
+    {
+        try
+        {
+            Variable new_num = num_ * value;
+            Variable new_den = den_ * value;
+            return Rational(new_num, new_den);
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator* : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @param value Rational<T> to divide
     /// @return The value of the object
-    Rational<T> operator/(T value);
+    template <AllowedTypes _Tp>
+    Rational operator/(_Tp value)
+    {
+        try
+        {
+            Variable new_num = num_ * value;
+            Variable new_den = den_ * value;
+            return Rational(new_num, new_den);
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator/ : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @param value Rational<T> to divide
     /// @return The value of the object
-    Rational<T> operator%(T value);
+    template <AllowedTypes _Tp>
+    Rational operator%(_Tp value)
+    {
+        try
+        {
+            Variable new_num = num_ * value;
+            Variable new_den = den_ * value;
+            return Rational(new_num, new_den);
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator% : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @param other Rational<T> to add
     /// @return The value of the object
-    Rational<T> &operator+=(const Rational<T> &other);
+    Rational &operator+=(const Rational &other)
+    {
+        try
+        {
+            // Normalize both rational numbers to a common denominator
+            auto common_den = den_ * other.den_;
+            auto this_num = num_ * other.den_;
+            auto other_num = other.num_ * den_;
+
+            // Perform the addition
+            auto result_num = this_num + other_num;
+
+            // Update the current object
+            num_ = result_num;
+            den_ = common_den;
+
+            return *this;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator+= : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @param other Rational<T> to substract
     /// @return The value of the object
-    Rational<T> &operator-=(const Rational<T> &other);
+    Rational &operator-=(const Rational &other)
+    {
+        try
+        {
+            // Normalize both rational numbers to a common denominator
+            auto common_den = den_ * other.den_;
+            auto this_num = num_ * other.den_;
+            auto other_num = other.num_ * den_;
+
+            // Perform the subtraction
+            auto result_num = this_num - other_num;
+
+            // Update the current object
+            num_ = result_num;
+            den_ = common_den;
+
+            return *this;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator-= : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @param other Rational<T> to multiply
     /// @return The value of the object
-    Rational<T> &operator*=(const Rational<T> &other);
+    Rational &operator*=(const Rational &other)
+    {
+        try
+        {
+            // Perform the multiplication
+            auto result_num = num_ * other.num_;
+            auto result_den = den_ * other.den_;
+
+            // Update the current object
+            num_ = result_num;
+            den_ = result_den;
+
+            return *this;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator*= : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @param other Rational<T> to divide
     /// @return The value of the object
-    Rational<T> &operator/=(const Rational<T> &other);
+    Rational &operator/=(const Rational &other)
+    {
+        try
+        {
+            if (other.num_ == 0)
+            {
+                throw std::runtime_error("Division by zero");
+            }
+
+            // Perform the division
+            auto result_num = num_ * other.den_;
+            auto result_den = den_ * other.num_;
+
+            // Update the current object
+            num_ = result_num;
+            den_ = result_den;
+
+            return *this;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator/= : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @param other Rational<T> to divide
     /// @return The value of the object
-    Rational<T> &operator%=(const Rational<T> &other);
+    Rational &operator%=(const Rational &other)
+    {
+        try
+        {
+            if (other.num_ == 0)
+            {
+                throw std::runtime_error("Modulus by zero");
+            }
+
+            // Perform the modulus operation
+            auto result_num = num_ % (other.num_ * den_);
+
+            // Update the current object
+            num_ = result_num;
+
+            return *this;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator%= : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @param value Rational<T> to add
     /// @return The value of the object
-    Rational<T> &operator+=(T value);
+    template <AllowedTypes _Tp>
+    Rational &operator+=(_Tp value)
+    {
+        try
+        {
+            // Normalize both rational numbers to a common denominator
+            _Tp common_den = den_ * value;
+            _Tp this_num = num_ * value;
+            _Tp other_num = value * den_;
+
+            // Perform the addition
+            _Tp result_num = this_num + other_num;
+
+            // Update the current object
+            num_ = result_num;
+            den_ = common_den;
+
+            return *this;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator+= : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @param value Rational<T> to substract
     /// @return The value of the object
-    Rational<T> &operator-=(T value);
+    template <AllowedTypes _Tp>
+    Rational &operator-=(_Tp value)
+    {
+        try
+        {
+            // Normalize both rational numbers to a common denominator
+            _Tp common_den = den_ * value;
+            _Tp this_num = num_ * value;
+            _Tp other_num = value * den_;
+
+            // Perform the subtraction
+            _Tp result_num = this_num - other_num;
+
+            // Update the current object
+            num_ = result_num;
+            den_ = common_den;
+
+            return *this;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator-= : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @param value Rational<T> to multiply
     /// @return The value of the object
-    Rational<T> &operator*=(T value);
+    template <AllowedTypes _Tp>
+    Rational &operator*=(_Tp value)
+    {
+        try
+        {
+            // Perform the multiplication
+            _Tp result_num = num_ * value;
+            _Tp result_den = den_ * value;
+
+            // Update the current object
+            num_ = result_num;
+            den_ = result_den;
+
+            return *this;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator*= : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @param value Rational<T> to divide
     /// @return The value of the object
-    Rational<T> &operator/=(T value);
+    template <AllowedTypes _Tp>
+    Rational &operator/=(_Tp value)
+    {
+        try
+        {
+            if (value.num_ == 0)
+            {
+                throw std::runtime_error("Division by zero");
+            }
+
+            // Perform the division
+            _Tp result_num = num_ * value;
+            _Tp result_den = den_ * value;
+
+            // Update the current object
+            num_ = result_num;
+            den_ = result_den;
+
+            return *this;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator/= : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @param value Rational<T> to divide
     /// @return The value of the object
-    Rational<T> &operator%=(T value);
+    template <AllowedTypes _Tp>
+    Rational &operator%=(_Tp value)
+    {
+        try
+        {
+            if (value == 0)
+            {
+                throw std::runtime_error("Modulus by zero");
+            }
+
+            // Perform the modulus operation
+            _Tp result_num = num_ % (value * den_);
+
+            // Update the current object
+            num_ = result_num;
+
+            return *this;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator%= : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @return  The value of the object
-    Rational<T> &operator++();
+    Rational &operator++()
+    {
+        try
+        {
+            // Increment the numerator by the denominator
+            num_ += den_;
+            return *this;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator++ : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @return The value of the object
-    Rational<T> &operator--();
+    Rational &operator--()
+    {
+        try
+        {
+            // Decrement the numerator by the denominator
+            num_ -= den_;
+            return *this;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator-- : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @param  this the value of the object
     /// @return The value of the object
-    Rational<T> operator++(int);
+    Rational operator++(int)
+    {
+        try
+        {
+            // Create a copy of the current object
+            Rational temp = *this;
+            // Increment the numerator by the denominator
+            num_ += den_;
+            return temp;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator++(int) : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This method returns the value of the object
     /// @param  this the value of the object
     /// @return The value of the object
-    Rational<T> operator--(int);
+    Rational operator--(int)
+    {
+        try
+        {
+            // Create a copy of the current object
+            Rational temp = *this;
+            // Decrement the numerator by the denominator
+            num_ -= den_;
+            return temp;
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator--(int) : " + std::string(e.what()));
+        }
+    }
 
     /// @brief This friend method of operator << overloading
     /// @param out output stream
     /// @param Rational<T> the value of the object
     /// @return output stream
-    friend std::ostream &operator<<(std::ostream &out, const Rational<T> &var)
+    friend std::ostream &operator<<(std::ostream &out, const Rational &var)
     {
         try
         {
@@ -249,7 +739,7 @@ public:
     /// @param in input stream
     /// @param Rational<T> the value of the object
     /// @return input stream
-    friend std::istream &operator>>(std::istream &in, Rational<T> &var)
+    friend std::istream &operator>>(std::istream &in, Rational &var)
     {
         try
         {
@@ -266,14 +756,14 @@ public:
             in >> std::ws;
 
             // Создаем временную переменную для безопасного чтения
-            T temp;
+            Rational temp;
             if (!(in >> temp))
             {
                 throw std::ios_base::failure("Failed to read value");
             }
 
             // Присваиваем значение только если чтение прошло успешно
-            var.value_ = std::move(temp);
+            var = std::move(temp);
 
             return in;
         }
@@ -287,173 +777,35 @@ public:
         }
     };
 
-    /// @brief This friend method of operator == overloading
-    /// @param value the value of the object
-    /// @param var the value of the object
-    /// @return true if the values are equal, false otherwise
-    friend bool operator==(const T value, const Rational<T> &var)
-    {
-        try
-        {
-            return value == var.value_;
-        }
-        catch (const std::exception &e)
-        {
-            throw std::runtime_error("Unexpected error in operator==: " + std::string(e.what()));
-        }
-    }
-
-    /// @brief This friend method of operator != overloading
-    /// @param value the value of the object
-    /// @param var the value of the object
-    /// @return true if the values are not equal, false otherwise
-    friend bool operator!=(const T value, const Rational<T> &var)
-    {
-        try
-        {
-            return value != var.value_;
-        }
-        catch (const std::exception &e)
-        {
-            throw std::runtime_error("Unexpected error in operator!=: " + std::string(e.what()));
-        }
-    }
-
-    /// @brief This friend method of operator + overloading
-    /// @param value the value of the object
-    /// @param var the value of the object
-    /// @return the value of the object
-    friend Rational<T> operator+(const T value, const Rational<T> &var)
-    {
-        try
-        {
-            return var + value;
-        }
-        catch (const std::exception &e)
-        {
-            throw std::runtime_error("Unexpected error in operator+: " + std::string(e.what()));
-        }
-    }
-
-    /// @brief This friend method of operator - overloading
-    /// @param value the value of the object
-    /// @param var the value of the object
-    /// @return the value of the object
-    friend Rational<T> operator-(const T value, const Rational<T> &var)
-    {
-        try
-        {
-            return var - value;
-        }
-        catch (const std::exception &e)
-        {
-            throw std::runtime_error("Unexpected error in operator-: " + std::string(e.what()));
-        }
-    }
-
-    /// @brief This friend method of operator * overloading
-    /// @param value the value of the object
-    /// @param var the value of the object
-    /// @return the value of the object
-    friend Rational<T> operator*(const T value, const Rational<T> &var)
-    {
-        try
-        {
-            return var * value;
-        }
-        catch (const std::exception &e)
-        {
-            throw std::runtime_error("Unexpected error in operator*: " + std::string(e.what()));
-        }
-    }
-
-    /// @brief This friend method of operator / overloading
-    /// @param value the value of the object
-    /// @param var the value of the object
-    /// @return the value of the object
-    friend Rational<T> operator/(const T value, const Rational<T> &var)
-    {
-        try
-        {
-            return var / value;
-        }
-        catch (const std::exception &e)
-        {
-            throw std::runtime_error("Unexpected error in operator/: " + std::string(e.what()));
-        }
-    }
-
-    /// @brief This friend method of operator % overloading
-    /// @param value the value of the object
-    /// @param var the value of the object
-    /// @return the value of the object
-    friend Rational<T> operator%(const T value, const Rational<T> &var)
-    {
-        try
-        {
-            return var % value;
-        }
-        catch (const std::exception &e)
-        {
-            throw std::runtime_error("Unexpected error in operator%: " + std::string(e.what()));
-        }
-    }
-
-protected:
-    static constexpr Type determineType(T num_)
-    {
-        try
-        {
-            return num_.getType();
-        }
-        catch (const std::exception &e)
-        {
-            throw std::runtime_error("Error in determineType: " + std::string(e.what()));
-        }
-    };
-
 private:
-    /// @brief Reduces the fraction to its lowest terms
-    void reduce()
+    Variable num_;
+    Variable den_;
+    Type type_;
+
+    static Type determineType(const Variable &num)
     {
-        if constexpr (std::is_same_v<T, int>)
+        const std::string &typeStr = num.getType();
+        if (typeStr == "INT")
         {
-            // Handle integer type
-            if (den_.getValue() == 0)
-            {
-                throw std::runtime_error("Division by zero");
-            }
-
-            // Handle negative denominators
-            if (den_.getValue() < 0)
-            {
-                num_.getValue(-num_.getValue());
-                den_.getValue(-den_.getValue());
-            }
-
-            // Calculate GCD and reduce
-            T gcd = std::gcd(std::abs(num_.getValue()), std::abs(den_.getValue()));
-            if (gcd > 1)
-            {
-                num_.getValue(num_.getValue() / gcd);
-                den_.getValue(den_.getValue() / gcd);
-            }
+            return Type::INT;
         }
-        else if constexpr (std::is_floating_point_v<T>)
+        else if (typeStr == "DOUBLE")
         {
-            // Handle floating-point types
-            if (std::abs(den_.getValue()) < std::numeric_limits<T>::epsilon())
-            {
-                throw std::runtime_error("Division by zero");
-            }
-
-            // For floating-point numbers, we normalize by dividing both by denominator
-            T normalize = den_.getValue();
-            num_.set(num_.getValue() / normalize);
-            den_.set(1);
+            return Type::DOUBLE;
+        }
+        else if (typeStr == "FLOAT")
+        {
+            return Type::FLOAT;
+        }
+        else if (typeStr == "OTHER")
+        {
+            return Type::OTHER;
+        }
+        else
+        {
+            throw std::invalid_argument("Unknown type");
         }
     }
-
     static std::string extractClassName()
     {
 #ifdef _MSC_VER
@@ -463,812 +815,54 @@ private:
 #endif
         // Extract the class name from the function signature string
         std::string funcSigStr(funcSig);
-        size_t start = funcSigStr.find("Rational<");
-        size_t end = funcSigStr.find(">::", start);
+        size_t start = funcSigStr.find("Rationa");
+        size_t end = funcSigStr.find("l", start);
         if (start != std::string::npos && end != std::string::npos)
         {
             return funcSigStr.substr(start, end - (start - 1));
         }
         return "UnknownClass";
     }
+    /// @brief Reduces the fraction to its lowest terms
+    void reduce()
+    {
+        // Проверка деления на ноль
+        if (den_.getValue<int>() == 0)
+        {
+            throw std::runtime_error("Division by zero");
+        }
 
-    T num_;
-    T den_;
-    Type type_;
+        // Если числитель и знаменатель являются целыми числами
+        if constexpr (std::is_integral_v<decltype(num_.getValue<int>())>)
+        {
+            // Нормализация отрицательного знаменателя
+            if (den_.getValue<int>() < 0)
+            {
+                num_.set(-num_.getValue<int>());
+                den_.set(-den_.getValue<int>());
+            }
+
+            // Сокращение дроби с использованием GCD
+            int gcd = std::gcd(std::abs(num_.getValue<int>()), std::abs(den_.getValue<int>()));
+            if (gcd > 1)
+            {
+                num_.set(num_.getValue<int>() / gcd);
+                den_.set(den_.getValue<int>() / gcd);
+            }
+        }
+        else if constexpr (std::is_floating_point_v<decltype(num_.getValue<double>())>)
+        {
+            // Нормализация для вещественных чисел
+            if (std::abs(den_.getValue<double>()) < std::numeric_limits<double>::epsilon())
+            {
+                throw std::runtime_error("Division by zero");
+            }
+
+            double normalize = den_.getValue<double>();
+            num_.set(num_.getValue<double>() / normalize);
+            den_.set(1.0);
+        }
+    }
 };
 
-template <IsVariable T>
-inline std::string Rational<T>::toString() const
-{
-    try
-    {
-        return num_.toString() + "/" + den_.toString();
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in toString : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-inline std::string Rational<T>::getTypeName() const
-{
-    try
-    {
-        return num_.getTypeName() + "/" + den_.getTypeName();
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in getTypeName : " + std::string(e.what()));
-    }
-}
-template <IsVariable T>
-Rational<T> &Rational<T>::operator=(const Rational<T> &other)
-{
-    try
-    {
-        num_ = other.num_;
-        den_ = other.den_;
-        type_ = other.type_;
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator= : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> &Rational<T>::operator=(Rational<T> &&other) noexcept
-{
-    try
-    {
-        num_ = std::move(other.num_);
-        den_ = std::move(other.den_);
-        type_ = other.type_;
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator= : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-bool Rational<T>::operator==(const Rational<T> &other) const
-{
-    try
-    {
-        // Normalize both rational numbers to a common denominator
-        T common_den = den_ * other.den_;
-        T this_num = num_ * other.den_;
-        T other_num = other.num_ * den_;
-
-        return this_num == other_num;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator== : " + std::string(e.what()));
-    }
-}
-template <IsVariable T>
-bool Rational<T>::operator==(T value) const
-{
-    try
-    {
-        // Normalize the rational number to have a common denominator of 1
-        T common_den = den_;
-        T this_num = num_;
-        T other_num = value * den_;
-
-        return this_num == other_num;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator== : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-bool Rational<T>::operator==(const T &value) const
-{
-    try
-    {
-        // Normalize the rational number to have a common denominator of 1
-        T common_den = den_;
-        T this_num = num_;
-        T other_num = value * den_;
-
-        return this_num == other_num;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator== : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-bool Rational<T>::operator!=(const Rational<T> &other) const
-{
-    try
-    {
-        // Normalize both rational numbers to a common denominator
-        T common_den = den_ * other.den_;
-        T this_num = num_ * other.den_;
-        T other_num = other.num_ * den_;
-
-        return this_num != other_num;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator== : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-bool Rational<T>::operator!=(T value) const
-{
-    try
-    {
-        // Normalize the rational number to have a common denominator of 1
-        T common_den = den_;
-        T this_num = num_;
-        T other_num = value * den_;
-
-        return this_num != other_num;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator== : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-bool Rational<T>::operator!=(const T &value) const
-{
-    try
-    {
-        // Normalize the rational number to have a common denominator of 1
-        T common_den = den_;
-        T this_num = num_;
-        T other_num = value * den_;
-
-        return this_num != other_num;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator== : " + std::string(e.what()));
-    }
-}
-template <IsVariable T>
-Rational<T> Rational<T>::operator+(const Rational<T> &other)
-{
-    try
-    {
-        // Приводим дроби к общему знаменателю
-        T other_num = other.num_;
-        T new_num = (num_ * other.den_) + (other_num * den_);
-        T new_den = den_ * other.den_;
-        return Rational<T>(new_num, new_den);
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator+ : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> Rational<T>::operator-(const Rational<T> &other)
-{
-    try
-    {
-        // Приводим дроби к общему знаменателю
-
-        T other_num = other.num_;
-        T new_num = (num_ * other.den_) - (other_num * den_);
-        T new_den = den_ * other.den_;
-        return Rational<T>(new_num, new_den);
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator- : " + std::string(e.what()));
-    }
-}
-template <IsVariable T>
-Rational<T> Rational<T>::operator*(const Rational<T> &other)
-{
-    try
-    {
-        T new_num = num_ * other.num_;
-        T new_den = den_ * other.den_;
-        return Rational<T>(new_num, new_den);
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator* : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> Rational<T>::operator/(const Rational<T> &other)
-{
-    try
-    {
-        T new_num = num_ * other.den_;
-        T new_den = den_ * other.num_;
-        return Rational<T>(new_num, new_den);
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator/ : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> Rational<T>::operator%(const Rational<T> &other)
-{
-    try
-    {
-        T new_num = num_ * other.den_;
-        T new_den = den_ * other.num_;
-        return Rational<T>(new_num, new_den);
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator% : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> Rational<T>::operator+(T value)
-{
-    try
-    {
-        // Convert the value to a rational number with denominator 1
-        Rational<T> other(value, 1);
-
-        // Normalize both rational numbers to a common denominator
-        T common_den = den_ * other.den_;
-        T this_num = num_ * other.den_;
-        T other_num = other.num_ * den_;
-
-        // Perform the addition
-        T result_num = this_num + other_num;
-
-        return Rational<T>(result_num, common_den);
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator+ : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> Rational<T>::operator-(T value)
-{
-    try
-    {
-        // Convert the value to a rational number with denominator 1
-        Rational<T> other(value, 1);
-
-        // Normalize both rational numbers to a common denominator
-        T common_den = den_ * other.den_;
-        T this_num = num_ * other.den_;
-        T other_num = other.num_ * den_;
-
-        // Perform the subtraction
-        T result_num = this_num - other_num;
-
-        return Rational<T>(result_num, common_den);
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator- : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> Rational<T>::operator*(T value)
-{
-    try
-    {
-        // Convert the value to a rational number with denominator 1
-        Rational<T> other(value, 1);
-
-        // Perform the multiplication
-        T result_num = num_ * other.num_;
-        T result_den = den_ * other.den_;
-
-        return Rational<T>(result_num, result_den);
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator* : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> Rational<T>::operator/(T value)
-{
-    try
-    {
-        if (value == 0)
-        {
-            throw std::runtime_error("Division by zero");
-        }
-
-        // Convert the value to a rational number with denominator 1
-        Rational<T> other(value, 1);
-
-        // Perform the division
-        T result_num = num_ * other.den_;
-        T result_den = den_ * other.num_;
-
-        return Rational<T>(result_num, result_den);
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator/ : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> Rational<T>::operator%(T value)
-{
-    try
-    {
-        if (value == 0)
-        {
-            throw std::runtime_error("Modulus by zero");
-        }
-
-        // Convert the value to a rational number with denominator 1
-        Rational<T> other(value, 1);
-
-        // Perform the modulus operation
-        T result_num = num_ % (value * den_);
-
-        return Rational<T>(result_num, den_);
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator% : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> &Rational<T>::operator+=(const Rational<T> &other)
-{
-    try
-    {
-        // Normalize both rational numbers to a common denominator
-        T common_den = den_ * other.den_;
-        T this_num = num_ * other.den_;
-        T other_num = other.num_ * den_;
-
-        // Perform the addition
-        T result_num = this_num + other_num;
-
-        // Update the current object
-        num_ = result_num;
-        den_ = common_den;
-
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator+= : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> &Rational<T>::operator-=(const Rational<T> &other)
-{
-    try
-    {
-        // Normalize both rational numbers to a common denominator
-        T common_den = den_ * other.den_;
-        T this_num = num_ * other.den_;
-        T other_num = other.num_ * den_;
-
-        // Perform the subtraction
-        T result_num = this_num - other_num;
-
-        // Update the current object
-        num_ = result_num;
-        den_ = common_den;
-
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator-= : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> &Rational<T>::operator*=(const Rational<T> &other)
-{
-    try
-    {
-        // Perform the multiplication
-        T result_num = num_ * other.num_;
-        T result_den = den_ * other.den_;
-
-        // Update the current object
-        num_ = result_num;
-        den_ = result_den;
-
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator*= : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> &Rational<T>::operator/=(const Rational<T> &other)
-{
-    try
-    {
-        if (other.num_ == 0)
-        {
-            throw std::runtime_error("Division by zero");
-        }
-
-        // Perform the division
-        T result_num = num_ * other.den_;
-        T result_den = den_ * other.num_;
-
-        // Update the current object
-        num_ = result_num;
-        den_ = result_den;
-
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator/= : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> &Rational<T>::operator%=(const Rational<T> &other)
-{
-    try
-    {
-        if (other.num_ == 0)
-        {
-            throw std::runtime_error("Modulus by zero");
-        }
-
-        // Perform the modulus operation
-        T result_num = num_ % (other.num_ * den_);
-
-        // Update the current object
-        num_ = result_num;
-
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator%= : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> &Rational<T>::operator+=(T value)
-{
-    try
-    {
-        // Convert the value to a rational number with denominator 1
-        Rational<T> other(value, 1);
-
-        // Normalize both rational numbers to a common denominator
-        T common_den = den_ * other.den_;
-        T this_num = num_ * other.den_;
-        T other_num = other.num_ * den_;
-
-        // Perform the addition
-        T result_num = this_num + other_num;
-
-        // Update the current object
-        num_ = result_num;
-        den_ = common_den;
-
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator+= : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> &Rational<T>::operator-=(T value)
-{
-    try
-    {
-        // Convert the value to a rational number with denominator 1
-        Rational<T> other(value, 1);
-
-        // Normalize both rational numbers to a common denominator
-        T common_den = den_ * other.den_;
-        T this_num = num_ * other.den_;
-        T other_num = other.num_ * den_;
-
-        // Perform the subtraction
-        T result_num = this_num - other_num;
-
-        // Update the current object
-        num_ = result_num;
-        den_ = common_den;
-
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator-= : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> &Rational<T>::operator*=(T value)
-{
-    try
-    {
-        // Convert the value to a rational number with denominator 1
-        Rational<T> other(value, 1);
-
-        // Perform the multiplication
-        T result_num = num_ * other.num_;
-        T result_den = den_ * other.den_;
-
-        // Update the current object
-        num_ = result_num;
-        den_ = result_den;
-
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator*= : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> &Rational<T>::operator/=(T value)
-{
-    try
-    {
-        if (value == 0)
-        {
-            throw std::runtime_error("Division by zero");
-        }
-
-        // Convert the value to a rational number with denominator 1
-        Rational<T> other(value, 1);
-
-        // Perform the division
-        T result_num = num_ * other.den_;
-        T result_den = den_ * other.num_;
-
-        // Update the current object
-        num_ = result_num;
-        den_ = result_den;
-
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator/= : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> &Rational<T>::operator%=(T value)
-{
-    try
-    {
-        if (value == 0)
-        {
-            throw std::runtime_error("Modulus by zero");
-        }
-
-        // Convert the value to a rational number with denominator 1
-        Rational<T> other(value, 1);
-
-        // Perform the modulus operation
-        T result_num = num_ % (value * den_);
-
-        // Update the current object
-        num_ = result_num;
-
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator%= : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> &Rational<T>::operator++()
-{
-    try
-    {
-        // Increment the numerator by the denominator
-        num_ += den_;
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator++ : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> &Rational<T>::operator--()
-{
-    try
-    {
-        // Decrement the numerator by the denominator
-        num_ -= den_;
-        return *this;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator-- : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> Rational<T>::operator++(int)
-{
-    try
-    {
-        // Create a copy of the current object
-        Rational<T> temp = *this;
-        // Increment the numerator by the denominator
-        num_ += den_;
-        return temp;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator++(int) : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> Rational<T>::operator--(int)
-{
-    try
-    {
-        // Create a copy of the current object
-        Rational<T> temp = *this;
-        // Decrement the numerator by the denominator
-        num_ -= den_;
-        return temp;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator--(int) : " + std::string(e.what()));
-    }
-}
-template <IsVariable T>
-bool operator==(const T value, const Rational<T> &var)
-{
-    try
-    {
-        // Convert the value to a rational number with denominator 1
-        Rational<T> other(value, 1);
-        return other == var;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator== : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-bool operator!=(const T value, const Rational<T> &var)
-{
-    try
-    {
-        // Convert the value to a rational number with denominator 1
-        Rational<T> other(value, 1);
-        return other != var;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator!= : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> operator+(const T value, const Rational<T> &var)
-{
-    try
-    {
-        // Convert the value to a rational number with denominator 1
-        Rational<T> other(value, 1);
-        return other + var;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator+ : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> operator-(const T value, const Rational<T> &var)
-{
-    try
-    {
-        // Convert the value to a rational number with denominator 1
-        Rational<T> other(value, 1);
-        return other - var;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator- : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> operator*(const T value, const Rational<T> &var)
-{
-    try
-    {
-        // Convert the value to a rational number with denominator 1
-        Rational<T> other(value, 1);
-        return other * var;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator* : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> operator/(const T value, const Rational<T> &var)
-{
-    try
-    {
-        if (var.num_ == 0)
-        {
-            throw std::runtime_error("Division by zero");
-        }
-
-        // Convert the value to a rational number with denominator 1
-        Rational<T> other(value, 1);
-        return other / var;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator/ : " + std::string(e.what()));
-    }
-}
-
-template <IsVariable T>
-Rational<T> operator%(const T value, const Rational<T> &var)
-{
-    try
-    {
-        if (var.num_ == 0)
-        {
-            throw std::runtime_error("Modulus by zero");
-        }
-
-        // Convert the value to a rational number with denominator 1
-        Rational<T> other(value, 1);
-        return other % var;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error in operator% : " + std::string(e.what()));
-    }
-}
-
-#endif /* RATIONAL_HPP */
+#endif /* RATIONAL_H */
