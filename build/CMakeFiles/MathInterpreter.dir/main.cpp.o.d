@@ -157,11 +157,17 @@ CMakeFiles/MathInterpreter.dir/main.cpp.o: \
  /usr/include/c++/11/bits/basic_ios.tcc \
  /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
  /usr/include/c++/11/bits/istream.tcc \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/variable.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/core.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/abstractsimpletype.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/abstractobject.h \
- /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/interpreter.hpp \
+ /usr/include/c++/11/any /usr/include/c++/11/utility \
+ /usr/include/c++/11/bits/stl_relops.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/base/abstractobject.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/base/../core.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/matrix.hpp \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/../core.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/vector.hpp \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/../base/abstractcontainertype.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/../base/../core.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/../base/abstractobject.h \
  /usr/include/c++/11/memory /usr/include/c++/11/bits/stl_uninitialized.h \
  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
  /usr/include/c++/11/bits/align.h /usr/include/c++/11/bit \
@@ -204,8 +210,12 @@ CMakeFiles/MathInterpreter.dir/main.cpp.o: \
  /usr/include/c++/11/bits/stream_iterator.h \
  /usr/include/c++/11/bits/uses_allocator_args.h \
  /usr/include/c++/11/pstl/glue_memory_defs.h \
- /usr/include/c++/11/pstl/execution_defs.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/utils.hpp \
+ /usr/include/c++/11/pstl/execution_defs.h /usr/include/c++/11/vector \
+ /usr/include/c++/11/bits/stl_vector.h \
+ /usr/include/c++/11/bits/stl_bvector.h \
+ /usr/include/c++/11/bits/vector.tcc \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/variable.hpp \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/../base/abstractsimpletype.h \
  /usr/include/c++/11/variant \
  /usr/include/c++/11/bits/enable_special_members.h \
  /usr/include/c++/11/bits/parse_numbers.h /usr/include/c++/11/sstream \
@@ -232,35 +242,40 @@ CMakeFiles/MathInterpreter.dir/main.cpp.o: \
  /usr/include/c++/11/tr1/poly_hermite.tcc \
  /usr/include/c++/11/tr1/poly_laguerre.tcc \
  /usr/include/c++/11/tr1/riemann_zeta.tcc /usr/include/c++/11/bitset \
- /usr/include/c++/11/cxxabi.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/cxxabi_tweaks.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/rational.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/variable.hpp \
- /usr/include/c++/11/numeric /usr/include/c++/11/bits/stl_numeric.h \
- /usr/include/c++/11/pstl/glue_numeric_defs.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/vector.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/abstractcontainertype.h \
- /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_vector.h \
- /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/matrix.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/vector.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/interpreter.h \
- /usr/include/c++/11/any \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/matrix.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/rational.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/data.h \
  /usr/include/c++/11/fstream /usr/include/c++/11/bits/codecvt.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
- /usr/include/c++/11/bits/fstream.tcc /usr/include/c++/11/unordered_map \
- /usr/include/c++/11/bits/hashtable.h \
+ /usr/include/c++/11/bits/fstream.tcc /usr/include/c++/11/cxxabi.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/cxxabi_tweaks.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/variable.hpp \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/vector.hpp \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/rational.hpp \
+ /usr/include/c++/11/numeric /usr/include/c++/11/bits/stl_numeric.h \
+ /usr/include/c++/11/pstl/glue_numeric_defs.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/data/data.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/regexmanager.hpp \
+ /usr/include/c++/11/unordered_map /usr/include/c++/11/bits/hashtable.h \
  /usr/include/c++/11/bits/hashtable_policy.h \
  /usr/include/c++/11/bits/node_handle.h \
  /usr/include/c++/11/bits/unordered_map.h \
- /usr/include/c++/11/bits/erase_if.h /usr/include/c++/11/regex \
- /usr/include/c++/11/algorithm /usr/include/c++/11/bits/ranges_algo.h \
+ /usr/include/c++/11/bits/erase_if.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/matrixparser.hpp \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/vectorparser.hpp \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/variableparser.hpp \
+ /usr/include/c++/11/bits/ranges_algo.h \
  /usr/include/c++/11/bits/ranges_util.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../types/variable.hpp \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../types/vector.hpp \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../types/matrix.hpp \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/vectorparser.hpp \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/rationalparser.hpp \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../types/rational.hpp \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/variableparser.hpp \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/base.hpp \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/core.h \
+ /usr/include/c++/11/unordered_set \
+ /usr/include/c++/11/bits/unordered_set.h /usr/include/c++/11/regex \
+ /usr/include/c++/11/algorithm \
  /usr/include/c++/11/pstl/glue_algorithm_defs.h \
  /usr/include/c++/11/functional /usr/include/c++/11/bits/std_function.h \
  /usr/include/c++/11/locale \

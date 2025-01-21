@@ -7,16 +7,16 @@ CMakeFiles/MathInterpreter.dir/main.cpp.o: /home/massonskyi/repo/kp_toop/kp-toop
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/abstractsimpletype.h \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/core.h \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/data.h \
-  /home/massonskyi/repo/kp_toop/kp-toop-final/include/interpreter.h \
+  /home/massonskyi/repo/kp_toop/kp-toop-final/include/interpreter.hpp \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/matrix.hpp \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/rational.hpp \
-  /home/massonskyi/repo/kp_toop/kp-toop-final/include/utils.hpp \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/variable.hpp \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/vector.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
   /usr/include/c++/11/algorithm \
+  /usr/include/c++/11/any \
   /usr/include/c++/11/array \
   /usr/include/c++/11/backward/auto_ptr.h \
   /usr/include/c++/11/backward/binders.h \
@@ -355,7 +355,6 @@ CMakeFiles/MathInterpreter.dir/src/rational.cpp.o: /home/massonskyi/repo/kp_toop
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/abstractsimpletype.h \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/core.h \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/rational.hpp \
-  /home/massonskyi/repo/kp_toop/kp-toop-final/include/utils.hpp \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/variable.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
@@ -644,7 +643,6 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/abstractobject.h \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/abstractsimpletype.h \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/core.h \
-  /home/massonskyi/repo/kp_toop/kp-toop-final/include/utils.hpp \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/variable.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
@@ -1045,13 +1043,19 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 
 /usr/include/c++/11/bits/stl_uninitialized.h:
 
-/usr/include/c++/11/bits/stl_numeric.h:
-
 /usr/include/c++/11/backward/auto_ptr.h:
+
+/usr/include/c++/11/bits/stl_numeric.h:
 
 /usr/include/c++/11/bits/locale_facets_nonio.tcc:
 
 /usr/include/c++/11/ext/atomicity.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
+
+/usr/include/c++/11/bits/stl_bvector.h:
 
 /usr/include/c++/11/bits/stl_iterator_base_types.h:
 
@@ -1125,8 +1129,6 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 
 /usr/include/c++/11/bits/stl_iterator.h:
 
-/home/massonskyi/repo/kp_toop/kp-toop-final/include/utils.hpp:
-
 /usr/include/c++/11/bits/regex_error.h:
 
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
@@ -1134,16 +1136,6 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 /usr/include/c++/11/bits/predefined_ops.h:
 
 /usr/include/c++/11/bits/atomic_wait.h:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs.h:
-
-/usr/include/c++/11/bits/stl_deque.h:
-
-/usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
-
-/usr/include/c++/11/bits/postypes.h:
-
-/usr/include/c++/11/tr1/special_function_util.h:
 
 /usr/include/c++/11/bits/string_view.tcc:
 
@@ -1189,11 +1181,17 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 
 /usr/include/c++/11/bits/deque.tcc:
 
+/usr/include/c++/11/bits/atomic_base.h:
+
+/usr/include/c++/11/ext/numeric_traits.h:
+
 /usr/include/c++/11/bits/sstream.tcc:
 
 /usr/include/c++/11/new:
 
 /usr/include/c++/11/climits:
+
+/usr/include/c++/11/bits/invoke.h:
 
 /usr/include/c++/11/tuple:
 
@@ -1222,6 +1220,12 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 /usr/include/c++/11/bits/streambuf.tcc:
 
 /usr/include/c++/11/tr1/bessel_function.tcc:
+
+/usr/include/c++/11/bits/specfun.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+/usr/include/c++/11/bits/char_traits.h:
 
 /usr/include/c++/11/bits/stl_multimap.h:
 
@@ -1269,37 +1273,27 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 
 /home/massonskyi/repo/kp_toop/kp-toop-final/include/abstractsimpletype.h:
 
-/usr/include/c++/11/bits/atomic_base.h:
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
 
-/usr/include/c++/11/ext/numeric_traits.h:
+/usr/include/c++/11/bits/stl_deque.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
+/usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
+/usr/include/c++/11/bits/postypes.h:
 
-/usr/include/c++/11/bits/stl_bvector.h:
-
-/usr/include/c++/11/bits/specfun.h:
-
-/usr/include/asm-generic/errno-base.h:
-
-/usr/include/c++/11/bits/char_traits.h:
+/usr/include/c++/11/tr1/special_function_util.h:
 
 /usr/include/c++/11/compare:
 
-/home/massonskyi/repo/kp_toop/kp-toop-final/include/interpreter.h:
+/home/massonskyi/repo/kp_toop/kp-toop-final/include/interpreter.hpp:
 
-/usr/include/c++/11/bits/exception_ptr.h:
+/home/massonskyi/repo/kp_toop/kp-toop-final/src/variable.cpp:
 
-/usr/include/x86_64-linux-gnu/sys/select.h:
+/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
 
-/usr/include/c++/11/regex:
+/usr/include/c++/11/cstring:
 
-/home/massonskyi/repo/kp_toop/kp-toop-final/include/abstractobject.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
-
-/usr/include/c++/11/bits/concept_check.h:
+/usr/include/math.h:
 
 /usr/include/c++/11/bits/stream_iterator.h:
 
@@ -1342,6 +1336,22 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 /usr/include/c++/11/iostream:
 
 /usr/include/x86_64-linux-gnu/bits/fp-fast.h:
+
+/usr/include/c++/11/bits/exception_ptr.h:
+
+/usr/include/c++/11/bits/regex_automaton.tcc:
+
+/usr/include/c++/11/ext/string_conversions.h:
+
+/usr/include/x86_64-linux-gnu/sys/select.h:
+
+/usr/include/c++/11/regex:
+
+/home/massonskyi/repo/kp_toop/kp-toop-final/include/abstractobject.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
+
+/usr/include/c++/11/bits/concept_check.h:
 
 /usr/include/c++/11/bits/stl_map.h:
 
@@ -1397,12 +1407,6 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 
 /usr/include/c++/11/streambuf:
 
-/usr/include/c++/11/ext/string_conversions.h:
-
-/usr/include/c++/11/bits/regex_automaton.tcc:
-
-/usr/include/c++/11/bits/invoke.h:
-
 /usr/include/c++/11/bits/ios_base.h:
 
 /usr/include/x86_64-linux-gnu/bits/fp-logb.h:
@@ -1412,6 +1416,8 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
 /usr/include/c++/11/tr1/gamma.tcc:
+
+/usr/include/c++/11/any:
 
 /usr/include/c++/11/bits/unique_ptr.h:
 
@@ -1562,14 +1568,6 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 /usr/include/stdint.h:
 
 /usr/include/locale.h:
-
-/home/massonskyi/repo/kp_toop/kp-toop-final/src/variable.cpp:
-
-/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
-
-/usr/include/c++/11/cstring:
-
-/usr/include/math.h:
 
 /usr/include/c++/11/bits/alloc_traits.h:
 

@@ -16,19 +16,27 @@ link_directories(${GTEST_LIB_DIR})
 
 
 add_executable(MathInterpreter 
-    main.cpp
-    include/abstractcontainertype.h
-    include/abstractobject.h
-    include/abstractsimpletype.h
-    include/core.h
-    include/variable.hpp
-    include/rational.hpp
-    include/utils.hpp
-    include/vector.hpp
-    include/matrix.hpp
+        main.cpp
+        include/base/abstractcontainertype.h
+        include/base/abstractobject.h
+        include/base/abstractsimpletype.h
+        include/core.h
+        include/types/variable.hpp
+        include/types/rational.hpp
+        include/types/vector.hpp
+        include/types/matrix.hpp
+        include/interpreter.hpp
 
-    src/variable.cpp
-    src/rational.cpp
+        src/variable.cpp
+        src/rational.cpp
+        include/parsers/regexmanager.hpp
+        include/parsers/variableparser.hpp
+        include/parsers/vectorparser.hpp
+        include/parsers/matrixparser.hpp
+        include/parsers/rationalparser.hpp
+        include/function/core.h
+        include/function/base.hpp
+        src/base.cpp
 )
 
 # Add tests
