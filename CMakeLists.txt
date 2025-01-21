@@ -37,6 +37,7 @@ add_executable(MathInterpreter
         include/function/core.h
         include/function/base.hpp
         src/base.cpp
+        lib/cxxopts-3.2.0/include/cxxopts.hpp
 )
 
 # Add tests

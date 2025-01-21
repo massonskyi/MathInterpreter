@@ -1,5 +1,13 @@
 .vs
 .vscode
+.idea
+./.idea
+./.vscode
+./cmake-build-debug
+./cmake-build-debug-mingw
+./cmake-build debug-visual-studio
+CMakeLists.txt.user
+old.txt
 ./build
 build/ALL_BUILD.vcxproj
 build/CMakeCache.txt

@@ -14,6 +14,8 @@
 #include <utility>
 #include <iostream>
 #include <fstream>
+#include <functional>
+
 #ifdef __GNUG__
 #include <cxxabi.h>
 #endif
@@ -223,9 +225,6 @@ public:
                 free(demangled);
             }
 #else
-            // Получаем имя типа
-            std::string type_name = typeid(U).name();
-            
             // Удаляем "class " и "struct " из начала имени (специфично для MSVC)
             if (type_name.substr(0, 6) == "class ") {
                 type_name = type_name.substr(6);
@@ -576,7 +575,7 @@ public:
         try
         {
             // Сравнение типа и значения
-            return type_ == getTypeFromValue(other) && value_ == other;
+            return type_ == getTypeFromValue(other) && std::get<_Tp>(value_) == other;
         }
         catch (const std::exception &e)
         {

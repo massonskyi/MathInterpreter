@@ -25,8 +25,6 @@
 #include <regex>
 #include <utility>
 
-
-
 template <typename T>
 concept isValidType = std::is_same_v<T, Variable> || std::is_same_v<T, Vector> || std::is_same_v<T, Matrix> || std::is_same_v<T, Rational>;
 
@@ -613,9 +611,14 @@ void _M_execute_command(const std::string &command, const std::string &op) {
     }
      bool _M_contains_any_symbol(const std::string &str, const std::string &symbols)
     {
-        std::ranges::any_of(str, [&symbols](const char ch) {
-            return ch != ' ' && symbols.find(ch) != std::string::npos;
-        });
+           bool found = false;
+
+            std::for_each(str.begin(), str.end(), [&](const char ch) {
+                if (ch != ' ' && symbols.find(ch) != std::string::npos) {
+                    found = true;
+                }
+            });
+            return found;
     }
 
      std::string _M_find_contains_symbol(const std::string &str, const std::string &symbols)

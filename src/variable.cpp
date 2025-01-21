@@ -1,45 +1,6 @@
 #include "../include/types/variable.hpp"
 // Явная специализация для int
-template <>
-inline bool Variable::equals<int>(const int &other) const
-{
-    try
-    {
-        return std::get<int>(value_) == other;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error comparing values: " + std::string(e.what()));
-    }
-}
 
-// Явная специализация для float
-template <>
-inline bool Variable::equals<float>(const float &other) const
-{
-    try
-    {
-        return std::get<float>(value_) == other;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error comparing values: " + std::string(e.what()));
-    }
-}
-
-// Явная специализация для double
-template <>
-inline bool Variable::equals<double>(const double &other) const
-{
-    try
-    {
-        return std::get<double>(value_) == other;
-    }
-    catch (const std::exception &e)
-    {
-        throw std::runtime_error("Error comparing values: " + std::string(e.what()));
-    }
-}
 template <>
 void Variable::setValue<int>(const int &other)
 {

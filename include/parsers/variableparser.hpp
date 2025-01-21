@@ -1,8 +1,10 @@
 #ifndef VARIABLEPARSER_HPP
 #define VARIABLEPARSER_HPP
-
+#ifdef __GNUG__
 #include <bits/ranges_algo.h>
-
+#else
+#include <ranges>
+#endif
 #include "../types/variable.hpp"
 
 

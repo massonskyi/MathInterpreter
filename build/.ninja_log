@@ -1,0 +1,15 @@
+# ninja log v6
+12	1027	7592000947219266	CMakeFiles/MathInterpreter.dir/src/variable.cpp.obj	ceee18fadc09201f
+10	4824	7592007674114391	CMakeFiles/MathInterpreter.dir/main.cpp.obj	86a0a3d8e5b8d5f4
+14	1646	7592000947239198	CMakeFiles/MathInterpreter.dir/src/rational.cpp.obj	c486cd85f9d685aa
+16	1907	7592000947259133	CMakeFiles/MathInterpreter.dir/src/base.cpp.obj	a6288c93b649293b
+4374	4670	7592001149880141	MathInterpreter.exe	ece1504c07e5a76f
+12	1052	7592027265032258	CMakeFiles/MathInterpreter.dir/src/variable.cpp.obj	ceee18fadc09201f
+14	1695	7592027265052190	CMakeFiles/MathInterpreter.dir/src/rational.cpp.obj	c486cd85f9d685aa
+16	1993	7592027265072128	CMakeFiles/MathInterpreter.dir/src/base.cpp.obj	a6288c93b649293b
+6	6448	7592027493084318	CMakeFiles/MathInterpreter.dir/main.cpp.obj	86a0a3d8e5b8d5f4
+6449	6828	7592027557516931	MathInterpreter.exe	ece1504c07e5a76f
+3	6275	7592027855344746	CMakeFiles/MathInterpreter.dir/main.cpp.obj	86a0a3d8e5b8d5f4
+6275	6646	7592027918073652	MathInterpreter.exe	ece1504c07e5a76f
+9	6344	7592028455026787	CMakeFiles/MathInterpreter.dir/main.cpp.obj	86a0a3d8e5b8d5f4
+6344	6716	7592028518380507	MathInterpreter.exe	ece1504c07e5a76f
