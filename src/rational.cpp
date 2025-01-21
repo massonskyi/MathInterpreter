@@ -1,4 +1,4 @@
-#include "../include/rational.hpp"
+#include "../include/types/rational.hpp"
 
 template <>
 bool Rational::operator== <int>(int value) const

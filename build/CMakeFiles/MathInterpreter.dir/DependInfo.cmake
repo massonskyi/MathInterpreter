@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/massonskyi/repo/kp_toop/kp-toop-final/main.cpp" "CMakeFiles/MathInterpreter.dir/main.cpp.o" "gcc" "CMakeFiles/MathInterpreter.dir/main.cpp.o.d"
+  "/home/massonskyi/repo/kp_toop/kp-toop-final/src/base.cpp" "CMakeFiles/MathInterpreter.dir/src/base.cpp.o" "gcc" "CMakeFiles/MathInterpreter.dir/src/base.cpp.o.d"
   "/home/massonskyi/repo/kp_toop/kp-toop-final/src/rational.cpp" "CMakeFiles/MathInterpreter.dir/src/rational.cpp.o" "gcc" "CMakeFiles/MathInterpreter.dir/src/rational.cpp.o.d"
   "/home/massonskyi/repo/kp_toop/kp-toop-final/src/variable.cpp" "CMakeFiles/MathInterpreter.dir/src/variable.cpp.o" "gcc" "CMakeFiles/MathInterpreter.dir/src/variable.cpp.o.d"
   )
