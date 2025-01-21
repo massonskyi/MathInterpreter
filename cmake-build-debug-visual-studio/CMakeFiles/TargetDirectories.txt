@@ -1,4 +1,0 @@
-C:/Users/andrey/Documents/toop/kp-toop-final/cmake-build-debug-visual-studio/CMakeFiles/MathInterpreter.dir
-C:/Users/andrey/Documents/toop/kp-toop-final/cmake-build-debug-visual-studio/CMakeFiles/test.dir
-C:/Users/andrey/Documents/toop/kp-toop-final/cmake-build-debug-visual-studio/CMakeFiles/edit_cache.dir
-C:/Users/andrey/Documents/toop/kp-toop-final/cmake-build-debug-visual-studio/CMakeFiles/rebuild_cache.dir
