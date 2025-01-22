@@ -16,9 +16,10 @@ enum class FunctionType {
     Log,
     Exp,
     Sqrt,
+    CreateRat,
     Undefined
 };
 
-static const std::unordered_set<std::string> functions = {"sin", "cos", "T", "tan", "log", "exp", "sqrt"};
+static const std::unordered_set<std::string> functions = {"sin", "cos", "T", "tan", "log", "exp", "sqrt", "create_rat"};
 
 #endif //FUNCTION_CORE_H

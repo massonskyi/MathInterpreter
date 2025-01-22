@@ -18,6 +18,8 @@ std::string get_function_name(const FunctionType func_type);
 ///@return function type
 FunctionType get_function_type(const std::string& func_name);
 
+
+Rational _M_create_rat(Variable& x);
 ///@brief _M_sin function for variable
 Variable _M_sin( Variable& x);
 

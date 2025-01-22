@@ -31,6 +31,9 @@ FunctionType get_function_type(const std::string& func_name) {
     }
 }
 
+Rational _M_create_rat(Variable& x){
+    return Rational(x);
+}
 
 Variable _M_sin(Variable& x) {
     if(const auto type_v = x.getType(); type_v == "INT") {

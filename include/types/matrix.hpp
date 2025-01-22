@@ -94,7 +94,9 @@ public:
 
     // Size operations
      size_t rows() const { return data_.size(); }
-     size_t cols() const { return data_.empty() ? 0 : data_[0].size(); }
+     size_t cols() const { 
+         return data_.empty() ? 0 : data_[0].size(); 
+     }
 
     // Access operations
      Vector &operator[](size_t index) { return data_[index]; }
@@ -228,7 +230,7 @@ public:
     }
 
     // Arithmetic operators
-    Matrix operator+(const Matrix &other) const
+    Matrix operator+(const Matrix &other)const
     {
         if (rows() != other.rows() || cols() != other.cols())
         {
@@ -238,11 +240,33 @@ public:
         Matrix result(rows(), cols());
         for (size_t i = 0; i < rows(); ++i)
         {
-            result[i] = other[i] + data_[i];
+            result[i] =  data_[i] + other[i];
         }
         return result;
     }
+    Matrix operator+(const Vector& other) const
+    {
+        if (cols() != other.size())
+        {
+            throw std::invalid_argument("Matrix dimensions must match for addition");
+        }
 
+        Matrix result(rows(), cols());
+        for (size_t i = 0; i < rows(); ++i)
+        {
+            result[i] = data_[i] + other;
+        }
+        return result;
+    }
+    Matrix operator+(Variable& other)
+    {
+        Matrix result(rows(), cols());
+        for (size_t i = 0; i < rows(); ++i)
+        {
+            result[i] = data_[i] + other;
+        }
+        return result;
+    }
     Matrix operator-(const Matrix &other) const
     {
         if (rows() != other.rows() || cols() != other.cols())
@@ -257,7 +281,29 @@ public:
         }
         return result;
     }
+    Matrix operator-(const Vector& other) const
+    {
+        if (cols() != other.size())
+        {
+            throw std::invalid_argument("Matrix dimensions must match for addition");
+        }
 
+        Matrix result(rows(), cols());
+        for (size_t i = 0; i < rows(); ++i)
+        {
+            result[i] = data_[i] - other;
+        }
+        return result;
+    }
+    Matrix operator-(Variable& other)
+    {
+        Matrix result(rows(), cols());
+        for (size_t i = 0; i < rows(); ++i)
+        {
+            result[i] = data_[i] - other;
+        }
+        return result;
+    }
     Matrix operator*(const Matrix &other) const
     {
         if (cols() != other.rows())
@@ -281,6 +327,88 @@ public:
         return result;
     }
 
+    Matrix operator*(const Vector& other) const
+    {
+        if (cols() != other.size())
+        {
+            throw std::invalid_argument("Matrix dimensions must match for addition");
+        }
+        Matrix result(rows(), cols());
+        for (size_t i = 0; i < rows(); ++i)
+        {
+            result[i] = data_[i] * other;
+        }
+        return result;
+    }
+
+    Matrix operator*(Variable& other)
+    {
+        Matrix result(rows(), cols());
+        for (size_t i = 0; i < rows(); ++i)
+        {
+            result[i] = data_[i] * other;
+        }
+        return result;
+    }
+
+    Matrix operator/(const Matrix& mat) const {
+        if (rows() != mat.rows() || cols() != mat.cols())
+        {
+            throw std::invalid_argument("Vector size must match matrix columns for division");
+        }
+
+        // Check for division by zero in vector
+        for (size_t i = 0; i < mat.rows(); ++i)
+        {
+            for (size_t j = 0; j < mat.cols(); ++j) {
+                if (mat.get(i, j) == 0)
+                {
+                    throw std::invalid_argument("Division by zero in vector");
+                }
+            }
+        }
+
+        Matrix result = *this;
+        for (size_t i = 0; i < rows(); ++i)
+        {
+            result[i] /= mat[i];
+        }
+        return result;
+    }
+
+    Matrix operator/(const Vector& vec) const
+    {
+        if (cols() != vec.size())
+        {
+            throw std::invalid_argument("Vector size must match matrix columns for division");
+        }
+
+        // Check for division by zero in vector
+        for (size_t i = 0; i < vec.size(); ++i)
+        {
+            if (vec.get(i) == 0)
+            {
+                throw std::invalid_argument("Division by zero in vector");
+            }
+        }
+
+        Matrix result = *this;
+        for (size_t i = 0; i < rows(); ++i)
+        {
+            result[i] /= vec;
+        }
+        return result;
+    }
+
+    Matrix operator/(Variable& other)
+    {
+        Matrix result(rows(), cols());
+        for (size_t i = 0; i < rows(); ++i)
+        {
+            result[i] = data_[i] / other;
+        }
+        return result;
+    }
     // Scalar operations
     template <AllowedTypes T>
     Matrix operator*(const T &scalar) const
@@ -344,76 +472,7 @@ public:
         }
         return *this;
     }
-    // Matrix + Vector operations
-    Matrix operator+(const Vector &vec) const
-    {
-        if (cols() != vec.size())
-        {
-            throw std::invalid_argument("Vector size must match matrix columns for addition");
-        }
-
-        Matrix result = *this;
-        for (size_t i = 0; i < rows(); ++i)
-        {
-            result[i] += vec;
-        }
-        return result;
-    }
-
-    Matrix operator-(const Vector &vec) const
-    {
-        if (cols() != vec.size())
-        {
-            throw std::invalid_argument("Vector size must match matrix columns for subtraction");
-        }
-
-        Matrix result = *this;
-        for (size_t i = 0; i < rows(); ++i)
-        {
-            result[i] -= vec;
-        }
-        return result;
-    }
-
-    Matrix operator*(const Vector &vec) const
-    {
-        if (cols() != vec.size())
-        {
-            throw std::invalid_argument("Vector size must match matrix columns for multiplication");
-        }
-
-        Matrix result = *this;
-        for (size_t i = 0; i < rows(); ++i)
-        {
-            result[i] *= vec;
-        }
-        return result;
-    }
-
-    Matrix operator/(const Vector &vec) const
-    {
-        if (cols() != vec.size())
-        {
-            throw std::invalid_argument("Vector size must match matrix columns for division");
-        }
-
-        // Check for division by zero in vector
-        for (size_t i = 0; i < vec.size(); ++i)
-        {
-            if (vec.get(i) == 0)
-            {
-                throw std::invalid_argument("Division by zero in vector");
-            }
-        }
-
-        Matrix result = *this;
-        for (size_t i = 0; i < rows(); ++i)
-        {
-            result[i] /= vec;
-        }
-        return result;
-    }
-
+ 
     // Compound assignment with Vector
     Matrix &operator+=(const Vector &vec)
     {

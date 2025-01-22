@@ -1,0 +1,4 @@
+C:/Users/andrey/Documents/toop/kp-toop-final/out/build/Mingw64-Debug/CMakeFiles/MathInterpreter.dir
+C:/Users/andrey/Documents/toop/kp-toop-final/out/build/Mingw64-Debug/CMakeFiles/test.dir
+C:/Users/andrey/Documents/toop/kp-toop-final/out/build/Mingw64-Debug/CMakeFiles/edit_cache.dir
+C:/Users/andrey/Documents/toop/kp-toop-final/out/build/Mingw64-Debug/CMakeFiles/rebuild_cache.dir

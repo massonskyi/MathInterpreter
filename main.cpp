@@ -12,9 +12,8 @@ void printHelp() {
 void printVersion() {
     std::cout << VERSION << std::endl;
 }
-void processFile(const std::string& filePath) {
-    std::cout << "File path: " << filePath << std::endl;
-    // Добавьте здесь обработку файла
+std::string processFile(const std::string& filePath) {
+    return filePath;
 }
 cxxopts::ParseResult parseOptions(int argc, char** argv) {
     cxxopts::Options options("app", "Console application");
@@ -27,33 +26,36 @@ cxxopts::ParseResult parseOptions(int argc, char** argv) {
     return options.parse(argc, argv);
 }
 
-int handleOptions(const cxxopts::ParseResult& result) {
+std::string  handleOptions(const cxxopts::ParseResult& result) {
     if (result.count("help")) {
         printHelp();
-        return 0x00;
+        return "";
     }
 
     if (result.count("version")) {
         printVersion();
-        return 0x00;
+        return "";
     }
 
     if (result.count("file")) {
         std::string filePath = result["file"].as<std::string>();
-        processFile(filePath);
-        return 0x55;
+        return processFile(filePath);
+        
     }
 
-    std::cout << "No valid command provided. Use --help for usage." << std::endl;
+    return "s";
 }
 
 int main(int argc, char** argv) {
+    Interpreter interpreter;
     auto result = parseOptions(argc, argv);
     auto r = handleOptions(result);
-    if(r == 0x00) {
+    if(r.empty()) {
         exit(0x00);
+    }else if(r == "s"){
+        interpreter.processConsole();
+    }else{
+        interpreter.processFile(r);
     }
-    Interpreter interpreter;
-    interpreter.processConsole();
     return 0;
 }

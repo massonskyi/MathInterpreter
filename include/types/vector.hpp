@@ -622,7 +622,32 @@ public:
 
         return result;
     }
+    /// @brief This method returns result of the add operation
+    /// @param other Variable to add
+    /// @return Result of the add operation
+    Vector operator+(Variable& other)
+    {
+        Vector result;
+        for (size_t i = 0; i < this->size(); ++i)
+        {
+            result.push_back(this->get(i) + other); // Поэлементное сложение
+        }
 
+        return result;
+    }
+    /// @brief This method returns result of the add operation
+    /// @param other Variable to add
+    /// @return Result of the add operation
+    Vector operator+(Variable& other) const
+    {
+        Vector result;
+        for (size_t i = 0; i < this->size(); ++i)
+        {
+            result.push_back(this->get(i) + other); // Поэлементное сложение
+        }
+
+        return result;
+    }
     /// @brief This method returns result of the add operation
     /// @param other Variable to add
     /// @return Result of the add operation
@@ -658,6 +683,32 @@ public:
         for (size_t i = 0; i < this->size(); ++i)
         {
             result.push_back(this->get(i) - other.get(i)); // Поэлементное вычитание
+        }
+
+        return result;
+    }
+    /// @brief This method returns result of the add operation
+    /// @param other Variable to add
+    /// @return Result of the add operation
+        Vector operator-( Variable& other)
+        {
+            Vector result;
+            for (size_t i = 0; i < this->size(); ++i)
+            {
+                result.push_back(this->get(i) - other); // Поэлементное сложение
+            }
+
+            return result;
+    }
+    /// @brief This method returns result of the add operation
+    /// @param other Variable to add
+    /// @return Result of the add operation
+    Vector operator-(Variable& other)const
+    {
+        Vector result;
+        for (size_t i = 0; i < this->size(); ++i)
+        {
+            result.push_back(this->get(i) - other); // Поэлементное сложение
         }
 
         return result;
@@ -719,6 +770,36 @@ public:
 
         return result;
     }
+    /// @brief This method returns result of the mul operation
+    /// @param other Variable to multiply
+    /// @return Result of the mul operation
+    Vector operator*(Variable other)
+    {
+
+
+        Vector result;
+        for (size_t i = 0; i < this->size(); ++i)
+        {
+            result.push_back(this->get(i) * other); // Поэлементное умножение
+        }
+
+        return result;
+    }
+    /// @brief This method returns result of the mul operation
+    /// @param other Variable to multiply
+    /// @return Result of the mul operation
+    Vector operator*(Variable other)const
+    {
+
+
+        Vector result;
+        for (size_t i = 0; i < this->size(); ++i)
+        {
+            result.push_back(this->get(i) * other); // Поэлементное умножение
+        }
+
+        return result;
+    }
     /// @brief This method returns result of the div operation
     /// @param other Variable to divide
     /// @return Result of the div operation
@@ -738,6 +819,45 @@ public:
                 throw std::invalid_argument("Division by zero.");
             }
             result.push_back(this->get(i) / other.get(i)); // Поэлементное деление
+        }
+
+        return result;
+    }
+
+    /// @brief This method returns result of the mul operation
+    /// @param other Variable to multiply
+    /// @return Result of the mul operation
+    Vector operator/(Variable other)
+    {
+
+
+        Vector result;
+        for (size_t i = 0; i < this->size(); ++i)
+        {
+            if (other == 0)
+            {
+                throw std::invalid_argument("Division by zero.");
+            }
+            result.push_back(this->get(i) / other);
+        }
+
+        return result;
+    }
+    /// @brief This method returns result of the mul operation
+    /// @param other Variable to multiply
+    /// @return Result of the mul operation
+    Vector operator/(Variable other)const
+    {
+
+
+        Vector result;
+        for (size_t i = 0; i < this->size(); ++i)
+        {
+            if (other == 0)
+            {
+                throw std::invalid_argument("Division by zero.");
+            }
+            result.push_back(this->get(i) / other);
         }
 
         return result;

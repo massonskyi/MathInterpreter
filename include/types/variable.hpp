@@ -1524,10 +1524,10 @@ private:
     [[nodiscard]] Variable binaryOperation(const Variable &other, Op operation) const
     {
         // Проверка совместимости типов перед операцией
-        if (type_ != other.type_)
-        {
-            throw std::runtime_error("Type mismatch in binary operation");
-        }
+        //if (type_ != other.type_)
+        //{
+//            throw std::runtime_error("Type mismatch in binary operation");
+  //      }
 
         try
         {
