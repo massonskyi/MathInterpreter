@@ -657,30 +657,12 @@ private:
     [[nodiscard]] bool _M_is_vector_expression(const std::string &expr)
     {
         auto expression = _M_replace_variables(expr);
-        size_t index = 0;
-        while (index < expression.size() && isspace(expression[index]))
-            ++index;
-
-        if (expression[index] == '[' && index + 1 < expression.size() && expression[index + 1] == '[')
-        {
-            return false; // Это матрица
-        }
-
-        return VectorParser::search(expr);
+        return VectorParser::search(expression);
     }
 
     [[nodiscard]] bool _M_is_matrix_expression(const std::string &expr)
     {
         auto expression = _M_replace_variables(expr);
-        size_t index = 0;
-        while (index < expression.size() && isspace(expression[index]))
-            ++index;
-
-        // Проверяем, начинается ли строка с '['
-        if (expression[index] == '[' && (index + 1 == expression.size() || expression[index + 1] != '['))
-        {
-            return false; // Это вектор
-        }
         return MatrixParser::search(expression);
     }
     [[nodiscard]] bool _M_is_variable_expression(const std::string& expr){
