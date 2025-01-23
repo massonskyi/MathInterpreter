@@ -1,0 +1,16 @@
+# ninja log v5
+1	1498	1737652771011787948	CMakeFiles/MathInterpreter.dir/src/binaryexecute.cpp.o	83e8a1349b0ad03b
+0	16	1737653138598450507	build.ninja	abeb17c4371a696f
+1	6	1737642592990884160	CMakeFiles/MathInterpreter.dir/src/rational.cpp.o	dfa8500b9099a916
+0	1252	1737652933692712243	CMakeFiles/MathInterpreter.dir/src/base.cpp.o	df1d962fe83174b8
+0	6	1737642592990884160	CMakeFiles/MathInterpreter.dir/src/variable.cpp.o	3679de0c1e4a8c2b
+1	1363	1737653158477304762	CMakeFiles/MathInterpreter.dir/src/base.cpp.o	df1d962fe83174b8
+0	1576	1737653168600740175	CMakeFiles/MathInterpreter.dir/src/binaryexecute.cpp.o	83e8a1349b0ad03b
+1	1471	1737653220809989556	CMakeFiles/MathInterpreter.dir/src/binaryexecute.cpp.o	83e8a1349b0ad03b
+1	1348	1737653241096865240	CMakeFiles/MathInterpreter.dir/src/base.cpp.o	df1d962fe83174b8
+1	1490	1737653241237871330	CMakeFiles/MathInterpreter.dir/src/binaryexecute.cpp.o	83e8a1349b0ad03b
+1	761	1737653439216457830	CMakeFiles/MathInterpreter.dir/src/binaryexecute.cpp.o	83e8a1349b0ad03b
+1	750	1737653997325913335	CMakeFiles/MathInterpreter.dir/src/binaryexecute.cpp.o	83e8a1349b0ad03b
+1	4079	1737654000647059527	CMakeFiles/MathInterpreter.dir/main.cpp.o	873a3aab153db1f
+1	4275	1737654034344543138	CMakeFiles/MathInterpreter.dir/main.cpp.o	873a3aab153db1f
+4275	4390	1737654034465548467	MathInterpreter	ae239d45f7e95218

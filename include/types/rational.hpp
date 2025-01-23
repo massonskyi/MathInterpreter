@@ -214,6 +214,22 @@ public:
             throw std::runtime_error("Error in operator+ : " + std::string(e.what()));
         }
     }
+
+    /// @brief This method returns result of the add operation
+    /// @param other Rational<T> to add
+    /// @return Result of the add operation
+    Rational operator+(const Rational &other)const
+    {
+        try
+        {
+            return Rational((num_ * other.den_) + (other.num_ * den_), den_ * other.den_);
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator+ : " + std::string(e.what()));
+        }
+    }
+
     /// @brief This method returns result of the add operation
     /// @param other Rational<T> to add
     /// @return Result of the add operation
@@ -272,6 +288,20 @@ public:
             throw std::runtime_error("Error in operator* : " + std::string(e.what()));
         }
     }
+    /// @brief This method returns result of the mul operation
+    /// @param other Rational<T> to multiply
+    /// @return Result of the mul operation
+    Rational operator*(const Rational &other)const
+    {
+        try
+        {
+            return Rational(num_ * other.num_, den_ * other.den_);
+        }
+        catch (const std::exception &e)
+        {
+            throw std::runtime_error("Error in operator* : " + std::string(e.what()));
+        }
+    }
     /// @brief This method returns result of the add operation
     /// @param other Rational<T> to add
     /// @return Result of the add operation
@@ -315,6 +345,7 @@ public:
             throw std::runtime_error("Error in operator+ : " + std::string(e.what()));
         }
     }
+
     /// @brief This method returns result of the mod operation
     /// @param other Rational<T> to divide
     /// @return Result of the mod operation

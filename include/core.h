@@ -5,21 +5,12 @@
 #include <concepts>
 #include <cstdint>
 #include <iostream>
-/* FUNCTIONS */
-#define STRINGIFY(x) #x
-#define TOSTRING(x) STRINGIFY(x)
-#define ENTITY_TYPE(T) std::is_same_v<T, int> || std::is_same_v<T, float> || std::is_same_v<T, double> || std::is_same_v<T, std::string>
-
-
-#define MIN_(a, b) ((a) < (b) ? (a) : (b))
-#define MAX_(a, b) ((a) > (b) ? (a) : (b))
-#define AVERAGE (a + b) / 2
-/*--------------------*/
+#include <memory>
 
 /* INFORMATIONS */
-#define CURRENT_APPLICATION_VERSION "0.0.1alpha"
-#define VERSION "Math interpreter. Version " TOSTRING(CURRENT_APPLICATION_VERSION)
-#define ABOUT "\
+
+#define VERSION "Math interpreter. Version 0.0.1alpha"
+#define ABOUT """\
 Математический интерпретатор\n\
 \n\
 Этот математический интерпретатор предназначен для выполнения различных математических вычислений и операций. Он поддерживает основные арифметические операции, функции, и может работать с переменными и выражениями.\n\
@@ -33,8 +24,8 @@
 Используйте команду --help для получения дополнительной информации о доступных командах и их использовании.\n\
 \n\
 Copyright (c) 2023 Ваше Имя или Организация. Все права защищены.\n\
-"
-/*--------------------*/
+"""
+
 
 
 /// @brief This concept macro is used to check if a type is allowed.
