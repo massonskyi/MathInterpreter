@@ -81,6 +81,7 @@ public:
     virtual AbstractObject &operator=(const AbstractObject &) { throw runtime_error("Not implemented"); }
     virtual bool operator==(const AbstractObject &) const { throw runtime_error("Not implemented"); }
     virtual bool operator!=(const AbstractObject &) const { throw runtime_error("Not implemented"); }
+    
     // virtual bool operator<(const AbstractObject &) const { throw runtime_error("Not implemented"); }
     // virtual bool operator<=(const AbstractObject &) const { throw runtime_error("Not implemented"); }
     // virtual bool operator>(const AbstractObject &) const { throw runtime_error("Not implemented"); }

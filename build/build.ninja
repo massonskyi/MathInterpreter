@@ -77,6 +77,13 @@ build CMakeFiles/MathInterpreter.dir/src/base.cpp.obj: CXX_COMPILER__MathInterpr
   OBJECT_DIR = CMakeFiles\MathInterpreter.dir
   OBJECT_FILE_DIR = CMakeFiles\MathInterpreter.dir\src
 
+build CMakeFiles/MathInterpreter.dir/src/binaryexecute.cpp.obj: CXX_COMPILER__MathInterpreter_unscanned_Debug C$:/Users/andrey/Documents/toop/kp-toop-final/src/binaryexecute.cpp || cmake_object_order_depends_target_MathInterpreter
+  DEP_FILE = CMakeFiles\MathInterpreter.dir\src\binaryexecute.cpp.obj.d
+  FLAGS = -g -std=gnu++23
+  INCLUDES = -IC:/gtest/include
+  OBJECT_DIR = CMakeFiles\MathInterpreter.dir
+  OBJECT_FILE_DIR = CMakeFiles\MathInterpreter.dir\src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target MathInterpreter
@@ -85,7 +92,7 @@ build CMakeFiles/MathInterpreter.dir/src/base.cpp.obj: CXX_COMPILER__MathInterpr
 #############################################
 # Link the executable MathInterpreter.exe
 
-build MathInterpreter.exe: CXX_EXECUTABLE_LINKER__MathInterpreter_Debug CMakeFiles/MathInterpreter.dir/main.cpp.obj CMakeFiles/MathInterpreter.dir/src/variable.cpp.obj CMakeFiles/MathInterpreter.dir/src/rational.cpp.obj CMakeFiles/MathInterpreter.dir/src/base.cpp.obj
+build MathInterpreter.exe: CXX_EXECUTABLE_LINKER__MathInterpreter_Debug CMakeFiles/MathInterpreter.dir/main.cpp.obj CMakeFiles/MathInterpreter.dir/src/variable.cpp.obj CMakeFiles/MathInterpreter.dir/src/rational.cpp.obj CMakeFiles/MathInterpreter.dir/src/base.cpp.obj CMakeFiles/MathInterpreter.dir/src/binaryexecute.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/gtest/lib

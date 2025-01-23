@@ -32,8 +32,17 @@ concept AllowedPtrType = std::is_same_v<T, std::shared_ptr<Vector>> ||
                          std::is_same_v<T, std::shared_ptr<Rational>> ||
                          std::is_same_v<T, std::shared_ptr<Variable>>;
 
+/// @brief Class for executing binary operations
 class BinaryExecute final {
 public:
+
+    /// @brief Calculation expression for binary operation
+    /// @tparam ReturnType This avalaible types are: Vector, Matrix, Rational, Variable
+    /// @param lhs first operand
+    /// @param rhsPtr second operand
+    /// @param expression calculation expression for binary operation ( avalaible latter )
+    /// @param oper operator
+    /// @return result calculation
     template<AllowedPtrType ReturnType>
     ReturnType calculate(
             const std::string& lhs,
@@ -62,7 +71,13 @@ public:
         throw InvalidExpression("Incompatible types for operation");
     }
 
-// Overload for swapped arguments
+    /// @brief Overload calculation expression for binary operation
+    /// @tparam ReturnType This avalaible types are: Vector, Matrix, Rational, Variable
+    /// @param lhs first operand
+    /// @param rhsPtr second operand
+    /// @param expression calculation expression for binary operation ( avalaible latter )
+    /// @param oper operator
+    /// @return result calculation
     template<AllowedPtrType ReturnType>
     ReturnType calculate(
             const std::shared_ptr<AbstractObject>& lhsPtr,
@@ -73,7 +88,13 @@ public:
         return calculate<ReturnType>(rhs, lhsPtr, expression, oper);
     }
 
-// Overload for two pointer arguments
+    /// @brief Overload calculation expression for binary operation
+    /// @tparam ReturnType This avalaible types are: Vector, Matrix, Rational, Variable
+    /// @param lhs first operand
+    /// @param rhsPtr second operand
+    /// @param expression calculation expression for binary operation ( avalaible latter )
+    /// @param oper operator
+    /// @return result calculation
     template<AllowedPtrType ReturnType>
     ReturnType calculate(
             const std::shared_ptr<AbstractObject>& lhsPtr,
@@ -100,7 +121,14 @@ public:
 
         throw InvalidExpression("Incompatible types for multiplication");
     }
-    // Simple expression evaluation
+    
+    /// @brief Simple calculation method for only numbers and variables
+    /// @tparam ReturnType This avalaible types are: Vector, Matrix, Rational, Variable
+    /// @param lhs first operand
+    /// @param rhsPtr second operand
+    /// @param expression calculation expression for binary operation ( avalaible latter )
+    /// @param oper operator
+    /// @return result calculation
     std::shared_ptr<Variable> calculate(const std::string& expression) {
         return make_variable_ptr(Variable(_M_expression_parser.evaluate(expression)));
     }

@@ -2,6 +2,7 @@
 #define DATA_H_
 #include <string>
 
+/// @brief This is all avalaible operators 
 const std::string OPERATORS = "+ - * / % += -= *= /= %= = == !=";
 
 enum class Operator{

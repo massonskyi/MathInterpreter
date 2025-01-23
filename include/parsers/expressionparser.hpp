@@ -9,8 +9,12 @@
 #include <stdexcept>
 #include <iostream>
 
+/// @brief This class parses an arithmetic expression and evaluates it the result
 class ExpressionEvaluator final {
 public:
+    /// @brief This method is evaluate an arithmetic expression and returns the result
+    /// @param expression arithmetic expression
+    /// @return result of the expression
     double evaluate(const std::string& expression) {
         // Tokenize the expression to ensure proper spacing
         std::string tokenized_expr = _M_tokenize_expression(expression);
@@ -22,6 +26,9 @@ public:
         return _M_evaluate_rpn(rpn);
     }
 
+    /// @brief This method tokenizes an arithmetic expression
+    /// @param expression arithmetical expression
+    /// @return tokenized expression
     std::vector<std::pair<std::string, bool>> extract(const std::string& expression) {
         std::vector<std::pair<std::string, bool>> output;
         std::stack<std::string> operators;
@@ -71,15 +78,25 @@ private:
         {"*", 2}, {"/", 2}
     };
 
+    /// @brief This method check token on operator
+    /// @param token char token
+    /// @return true if operator, false otherwise
     bool _M_is_operator(const std::string& token) {
         return _M_precedence.find(token) != _M_precedence.end();
     }
 
+    /// @brief This method check if operator is left-associative
+    /// @param token char token
+    /// @return this method already returned true btw operator is left-associative
     bool _M_is_left_associative(const std::string& token) {
-        // All operators in this example are left-associative
         return true;
     }
 
+    /// @brief This method apply operator
+    /// @param op operator
+    /// @param left first operand
+    /// @param right second operand
+    /// @return result of applying operator
     double _M_apply_operator(const std::string& op, double left, double right) {
         if (op == "+") return left + right;
         if (op == "-") return left - right;
@@ -88,6 +105,9 @@ private:
         throw std::runtime_error("Unknown operator");
     }
 
+    /// @brief This method apply RPN algorithm
+    /// @param rpn tokens 
+    /// @return result of applying RPN algorithm
     double _M_evaluate_rpn(const std::vector<std::pair<std::string, bool>>& rpn) {
         std::stack<double> values;
 
@@ -104,6 +124,9 @@ private:
         return values.top();
     }
 
+    /// @brief This method getted tokens from expression
+    /// @param expression arithmetical expression in string format
+    /// @return tokens from expression
     std::string _M_tokenize_expression(const std::string& expression) {
         std::string tokenized;
         std::istringstream iss(expression);
