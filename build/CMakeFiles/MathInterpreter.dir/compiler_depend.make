@@ -8,6 +8,7 @@ CMakeFiles/MathInterpreter.dir/main.cpp.o: /home/massonskyi/repo/kp_toop/kp-toop
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/data/data.h \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/core.h \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/exceptions.hpp \
+  /home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/stringvalidator.hpp \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/exceptions.hpp \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/expressionparser.hpp \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/matrix.hpp \
@@ -715,6 +716,7 @@ CMakeFiles/MathInterpreter.dir/src/binaryexecute.cpp.o: /home/massonskyi/repo/kp
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
+  /usr/include/c++/11/algorithm \
   /usr/include/c++/11/array \
   /usr/include/c++/11/backward/auto_ptr.h \
   /usr/include/c++/11/backward/binders.h \
@@ -756,8 +758,11 @@ CMakeFiles/MathInterpreter.dir/src/binaryexecute.cpp.o: /home/massonskyi/repo/kp
   /usr/include/c++/11/bits/iterator_concepts.h \
   /usr/include/c++/11/bits/locale_classes.h \
   /usr/include/c++/11/bits/locale_classes.tcc \
+  /usr/include/c++/11/bits/locale_conv.h \
   /usr/include/c++/11/bits/locale_facets.h \
   /usr/include/c++/11/bits/locale_facets.tcc \
+  /usr/include/c++/11/bits/locale_facets_nonio.h \
+  /usr/include/c++/11/bits/locale_facets_nonio.tcc \
   /usr/include/c++/11/bits/localefwd.h \
   /usr/include/c++/11/bits/max_size_type.h \
   /usr/include/c++/11/bits/memoryfwd.h \
@@ -771,11 +776,25 @@ CMakeFiles/MathInterpreter.dir/src/binaryexecute.cpp.o: /home/massonskyi/repo/kp
   /usr/include/c++/11/bits/predefined_ops.h \
   /usr/include/c++/11/bits/ptr_traits.h \
   /usr/include/c++/11/bits/range_access.h \
+  /usr/include/c++/11/bits/ranges_algo.h \
   /usr/include/c++/11/bits/ranges_algobase.h \
   /usr/include/c++/11/bits/ranges_base.h \
   /usr/include/c++/11/bits/ranges_cmp.h \
   /usr/include/c++/11/bits/ranges_uninitialized.h \
+  /usr/include/c++/11/bits/ranges_util.h \
   /usr/include/c++/11/bits/refwrap.h \
+  /usr/include/c++/11/bits/regex.h \
+  /usr/include/c++/11/bits/regex.tcc \
+  /usr/include/c++/11/bits/regex_automaton.h \
+  /usr/include/c++/11/bits/regex_automaton.tcc \
+  /usr/include/c++/11/bits/regex_compiler.h \
+  /usr/include/c++/11/bits/regex_compiler.tcc \
+  /usr/include/c++/11/bits/regex_constants.h \
+  /usr/include/c++/11/bits/regex_error.h \
+  /usr/include/c++/11/bits/regex_executor.h \
+  /usr/include/c++/11/bits/regex_executor.tcc \
+  /usr/include/c++/11/bits/regex_scanner.h \
+  /usr/include/c++/11/bits/regex_scanner.tcc \
   /usr/include/c++/11/bits/shared_ptr.h \
   /usr/include/c++/11/bits/shared_ptr_atomic.h \
   /usr/include/c++/11/bits/shared_ptr_base.h \
@@ -794,12 +813,15 @@ CMakeFiles/MathInterpreter.dir/src/binaryexecute.cpp.o: /home/massonskyi/repo/kp
   /usr/include/c++/11/bits/stl_iterator.h \
   /usr/include/c++/11/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/11/bits/stl_iterator_base_types.h \
+  /usr/include/c++/11/bits/stl_map.h \
+  /usr/include/c++/11/bits/stl_multimap.h \
   /usr/include/c++/11/bits/stl_numeric.h \
   /usr/include/c++/11/bits/stl_pair.h \
   /usr/include/c++/11/bits/stl_raw_storage_iter.h \
   /usr/include/c++/11/bits/stl_relops.h \
   /usr/include/c++/11/bits/stl_stack.h \
   /usr/include/c++/11/bits/stl_tempbuf.h \
+  /usr/include/c++/11/bits/stl_tree.h \
   /usr/include/c++/11/bits/stl_uninitialized.h \
   /usr/include/c++/11/bits/stl_vector.h \
   /usr/include/c++/11/bits/stream_iterator.h \
@@ -824,6 +846,8 @@ CMakeFiles/MathInterpreter.dir/src/binaryexecute.cpp.o: /home/massonskyi/repo/kp
   /usr/include/c++/11/cstdint \
   /usr/include/c++/11/cstdio \
   /usr/include/c++/11/cstdlib \
+  /usr/include/c++/11/cstring \
+  /usr/include/c++/11/ctime \
   /usr/include/c++/11/cwchar \
   /usr/include/c++/11/cwctype \
   /usr/include/c++/11/cxxabi.h \
@@ -848,15 +872,19 @@ CMakeFiles/MathInterpreter.dir/src/binaryexecute.cpp.o: /home/massonskyi/repo/kp
   /usr/include/c++/11/istream \
   /usr/include/c++/11/iterator \
   /usr/include/c++/11/limits \
+  /usr/include/c++/11/locale \
+  /usr/include/c++/11/map \
   /usr/include/c++/11/memory \
   /usr/include/c++/11/new \
   /usr/include/c++/11/numbers \
   /usr/include/c++/11/numeric \
   /usr/include/c++/11/ostream \
   /usr/include/c++/11/pstl/execution_defs.h \
+  /usr/include/c++/11/pstl/glue_algorithm_defs.h \
   /usr/include/c++/11/pstl/glue_memory_defs.h \
   /usr/include/c++/11/pstl/glue_numeric_defs.h \
   /usr/include/c++/11/pstl/pstl_config.h \
+  /usr/include/c++/11/regex \
   /usr/include/c++/11/sstream \
   /usr/include/c++/11/stack \
   /usr/include/c++/11/stdexcept \
@@ -888,6 +916,7 @@ CMakeFiles/MathInterpreter.dir/src/binaryexecute.cpp.o: /home/massonskyi/repo/kp
   /usr/include/errno.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
+  /usr/include/libintl.h \
   /usr/include/limits.h \
   /usr/include/linux/close_range.h \
   /usr/include/linux/errno.h \
@@ -900,6 +929,8 @@ CMakeFiles/MathInterpreter.dir/src/binaryexecute.cpp.o: /home/massonskyi/repo/kp
   /usr/include/stdint.h \
   /usr/include/stdio.h \
   /usr/include/stdlib.h \
+  /usr/include/string.h \
+  /usr/include/strings.h \
   /usr/include/syscall.h \
   /usr/include/time.h \
   /usr/include/unistd.h \
@@ -1003,7 +1034,9 @@ CMakeFiles/MathInterpreter.dir/src/binaryexecute.cpp.o: /home/massonskyi/repo/kp
   /usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/gthr-default.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/messages_members.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/time_members.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs.h \
   /usr/include/x86_64-linux-gnu/sys/cdefs.h \
@@ -1130,8 +1163,6 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 
 /usr/include/x86_64-linux-gnu/bits/long-double.h:
 
-/usr/include/x86_64-linux-gnu/bits/local_lim.h:
-
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
 
 /usr/include/x86_64-linux-gnu/bits/iscanonical.h:
@@ -1151,6 +1182,8 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 /usr/include/x86_64-linux-gnu/bits/endian.h:
 
 /usr/include/x86_64-linux-gnu/bits/cpu-set.h:
+
+/usr/include/x86_64-linux-gnu/bits/confname.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
 
@@ -1191,12 +1224,6 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 /usr/include/c++/11/bits/regex.tcc:
 
 /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/base.hpp:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h:
-
-/usr/include/x86_64-linux-gnu/bits/environments.h:
-
-/usr/include/c++/11/bits/exception_defines.h:
 
 /usr/include/x86_64-linux-gnu/bits/time64.h:
 
@@ -1294,10 +1321,6 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 
 /usr/include/c++/11/bits/hashtable_policy.h:
 
-/usr/include/c++/11/bits/stl_multimap.h:
-
-/usr/include/features.h:
-
 /usr/include/c++/11/bits/hashtable.h:
 
 /usr/include/c++/11/bits/string_view.tcc:
@@ -1309,6 +1332,8 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 /usr/include/c++/11/bits/functexcept.h:
 
 /usr/include/c++/11/streambuf:
+
+/usr/include/c++/11/bits/fstream.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
 
@@ -1350,17 +1375,17 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 
 /usr/include/wchar.h:
 
-/usr/include/c++/11/algorithm:
+/usr/include/alloca.h:
 
-/usr/include/c++/11/bits/deque.tcc:
+/usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h:
 
-/usr/include/c++/11/backward/binders.h:
+/usr/include/x86_64-linux-gnu/bits/environments.h:
 
-/usr/include/x86_64-linux-gnu/bits/fp-fast.h:
+/usr/include/c++/11/bits/exception_defines.h:
 
-/usr/include/c++/11/bits/node_handle.h:
+/usr/include/x86_64-linux-gnu/bits/local_lim.h:
 
-/usr/include/c++/11/iostream:
+/home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/stringvalidator.hpp:
 
 /home/massonskyi/repo/kp_toop/kp-toop-final/include/core.h:
 
@@ -1387,6 +1412,18 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 /usr/include/x86_64-linux-gnu/asm/unistd_64.h:
 
 /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
+
+/usr/include/c++/11/bits/deque.tcc:
+
+/usr/include/c++/11/algorithm:
+
+/usr/include/c++/11/backward/binders.h:
+
+/usr/include/x86_64-linux-gnu/bits/fp-fast.h:
+
+/usr/include/c++/11/bits/node_handle.h:
+
+/usr/include/c++/11/iostream:
 
 /usr/include/c++/11/bits/allocated_ptr.h:
 
@@ -1480,13 +1517,11 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 
 /usr/include/c++/11/memory:
 
-/usr/include/c++/11/bits/regex.h:
-
 /usr/include/c++/11/bits/shared_ptr_atomic.h:
 
-/home/massonskyi/repo/kp_toop/kp-toop-final/include/types/variable.hpp:
+/usr/include/c++/11/bits/regex.h:
 
-/usr/include/alloca.h:
+/home/massonskyi/repo/kp_toop/kp-toop-final/include/types/variable.hpp:
 
 /usr/include/c++/11/tr1/beta_function.tcc:
 
@@ -1552,7 +1587,9 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 
 /usr/include/c++/11/bits/stl_heap.h:
 
-/usr/include/c++/11/bits/fstream.tcc:
+/usr/include/c++/11/bits/stl_multimap.h:
+
+/usr/include/features.h:
 
 /usr/include/c++/11/bits/stl_raw_storage_iter.h:
 
@@ -1757,5 +1794,3 @@ CMakeFiles/MathInterpreter.dir/src/variable.cpp.o: /home/massonskyi/repo/kp_toop
 /usr/include/wctype.h:
 
 /usr/include/x86_64-linux-gnu/asm/errno.h:
-
-/usr/include/x86_64-linux-gnu/bits/confname.h:

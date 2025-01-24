@@ -287,6 +287,7 @@ CMakeFiles/MathInterpreter.dir/main.cpp.o: \
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/data/data.h \
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/core.h \
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/exceptions.hpp \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/stringvalidator.hpp \
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/matrix.hpp \
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/variable.hpp \
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/vector.hpp \

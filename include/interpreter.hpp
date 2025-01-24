@@ -60,6 +60,10 @@ public:
             std::getline(std::cin, line);
             if (line == "exit")
                 break;
+            if (!_M_validator.validate(line)) {
+                    _M_validator.printErrors();
+                    continue;
+            }
             try
             {
                 // line = "x = 2";
@@ -128,7 +132,7 @@ private:
     std::unordered_map<std::string, value_type> _M_variables{};
     ExpressionEvaluator _M_expression_parser;
     BinaryExecute _M_binary_executer;
-
+    StringValidator _M_validator;
     // Generic expression parsing
     template <AllowedType T>
     value_type _M_parse_expression(
@@ -300,14 +304,14 @@ private:
 
         if (_M_contains_function_call(expression))
         {
-            expression = _M_replace_variables(expression);
+            expression = _M_binary_executer.replace_variables(expression, _M_variables);
             _M_variables[variableName] = _M_function_expression(expression, equalsSign);
             return;
         }
 
         if (!equalsSign.empty() && equalsSign == "=" && !_M_contains_math_evaluate_expression(expression))
         {
-            // expression = _M_replace_variables(expression);
+            // expression = _M_binary_executer.replace_variables(expression);
             _M_creating_object(variableName, expression, op);
             return;
         }
@@ -315,7 +319,7 @@ private:
         // Check if this is an operation between existing variables
         if (_M_contains_math_evaluate_expression(expression))
         {
-            expression = _M_replace_variables(expression);
+            expression = _M_binary_executer.replace_variables(expression, _M_variables);
             _M_variables[variableName] = _M_binary_executer.calculate(expression);
         }
     }
@@ -575,36 +579,34 @@ private:
             return make_variable_ptr(Variable(std::stoi(expression)));
         }
 
-        // Binary operations
-        if (std::regex_match(expression, match, _M_regexes.find("VariableOperation")->second)) {
-            const std::string lhs = match[1];
-            const std::string oper = match[2];
-            const std::string rhs = match[3];
+        const std::string lhs = match[1];
+        const std::string oper = match[2];
+        const std::string rhs = match[3];
 
-            // Left operand is number, right is variable
-            if (_M_is_number(lhs) && _M_variables.find(rhs) != _M_variables.end()) {
-                auto rhsVar = _M_variables.find(rhs);
-                return _M_binary_executer.calculate<variable_ptr>(lhs, rhsVar->second, expression, oper);
-            }
-
-            // Left operand is variable, right is number
-            if (_M_variables.find(lhs) != _M_variables.end() && _M_is_number(rhs)) {
-                auto lhsVar = _M_variables.find(lhs);
-                return _M_binary_executer.calculate<variable_ptr>(lhsVar->second, rhs, expression, oper);
-            }
-
-            // Both operands are variables
-            auto lhsVar = _M_variables.find(lhs);
+        // Left operand is number, right is variable
+        if (_M_is_number(lhs) && _M_variables.find(rhs) != _M_variables.end()) {
             auto rhsVar = _M_variables.find(rhs);
-
-            if (lhsVar == _M_variables.end() || rhsVar == _M_variables.end()) {
-                throw UnknownVariable("One or both operands not found");
-            }
-
-            return _M_binary_executer.calculate<variable_ptr>(
-                    lhsVar->second, rhsVar->second, expression, op
-            );
+            return _M_binary_executer.calculate<variable_ptr>(lhs, rhsVar->second, expression, oper);
         }
+
+        // Left operand is variable, right is number
+        if (_M_variables.find(lhs) != _M_variables.end() && _M_is_number(rhs)) {
+            auto lhsVar = _M_variables.find(lhs);
+            return _M_binary_executer.calculate<variable_ptr>(lhsVar->second, rhs, expression, oper);
+        }
+
+        // Both operands are variables
+        auto lhsVar = _M_variables.find(lhs);
+        auto rhsVar = _M_variables.find(rhs);
+
+        if (lhsVar == _M_variables.end() || rhsVar == _M_variables.end()) {
+            throw UnknownVariable("One or both operands not found");
+        }
+
+        return _M_binary_executer.calculate<variable_ptr>(
+                lhsVar->second, rhsVar->second, expression, op
+        );
+        
 
         throw InvalidExpression("Invalid variable expression: " + expression);
     }
@@ -656,22 +658,43 @@ private:
     // Helper methods to determine expression type
     [[nodiscard]] bool _M_is_vector_expression(const std::string &expr)
     {
-        auto expression = _M_replace_variables(expr);
+        auto expression = _M_binary_executer.replace_variables(expr, _M_variables);
+        size_t index = 0;
+        while (index < expression.size() && isspace(expression[index]))
+            ++index;
+
+        if (expression[index] == '[' && index + 1 < expression.size() && expression[index + 1] == '[')
+        {
+            return false; // Это матрица
+        }
+
+
         return VectorParser::search(expression);
     }
 
     [[nodiscard]] bool _M_is_matrix_expression(const std::string &expr)
     {
-        auto expression = _M_replace_variables(expr);
+        auto expression = _M_binary_executer.replace_variables(expr, _M_variables);
+        size_t index = 0;
+        while (index < expression.size() && isspace(expression[index]))
+            ++index;
+
+        // Проверяем, начинается ли строка с '['
+        if (expression[index] == '[' && (index + 1 == expression.size() || expression[index + 1] != '['))
+        {
+            return false; // Это вектор
+        }
+
         return MatrixParser::search(expression);
     }
+
     [[nodiscard]] bool _M_is_variable_expression(const std::string& expr){
-        auto expression = _M_replace_variables(expr);
+        auto expression = _M_binary_executer.replace_variables(expr, _M_variables);
         return std::regex_match(expression, _M_regexes.find("VariableLiteral")->second);
     }
     [[nodiscard]] bool _M_is_rational_expression(const std::string &expr)
     {
-        auto expression = _M_replace_variables(expr);
+        auto expression = _M_binary_executer.replace_variables(expr, _M_variables);
         return RationalParser::search(expression);
     }
 
@@ -687,34 +710,7 @@ private:
         return std::regex_match(s, numberRegex);
     }
 
-    // Замена переменных их значениями
-    std::string _M_replace_variables(const std::string &expression)
-    {
-        bool containsVariables = false;
-        for (const auto &[name, value] : _M_variables)
-        {
-            if (const std::string varPattern = R"(\b)" + name + R"(\b)"; std::regex_search(expression, std::regex(varPattern)))
-            {
-                containsVariables = true;
-                break;
-            }
-        }
 
-        if (!containsVariables)
-        {
-            return expression;
-        }
-
-        std::string result = expression;
-        for (const auto &[name, value] : _M_variables)
-        {
-            const std::string varName = name;
-            const std::string varValue = value->toString();
-            const std::string varPattern = R"(\b)" + varName + R"(\b)";
-            result = std::regex_replace(result, std::regex(varPattern), varValue);
-        }
-        return result;
-    }
 
     template <typename T>
     T _M_compute_operation(T lhs, T rhs, const std::string &oper)
