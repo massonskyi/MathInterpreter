@@ -89,14 +89,20 @@ public:
     void processFile(const std::string &filename)
     {
         std::ifstream file(filename);
+        std::cout <<"Processing file: " << filename << std::endl;
         if (!file.is_open())
         {
             throw std::runtime_error("Failed to open file: " + filename);
         }
 
         std::string line;
+
         while (std::getline(file, line))
         {
+            if (!_M_validator.validate(line)) {
+                    _M_validator.printErrors();
+                    continue;
+            }
             try
             {
                 if (_M_contains_any_symbol(line, OPERATORS))

@@ -72,7 +72,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\andrey\Documents\toop\kp-toop-final -BC:\Users\andrey\Documents\toop\kp-toop-final\build
+  command = "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\repo\mi-kp-toop\kp-toop-final -BC:\repo\mi-kp-toop\kp-toop-final\build
   description = Re-running CMake...
   generator = 1
 

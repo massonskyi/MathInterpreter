@@ -119,11 +119,13 @@ public:
             return std::dynamic_pointer_cast<typename ReturnType::element_type>(makeFunc(*lhsTyped * *rhsTyped)); \
         }                                                                                                         \
     }
+        // TODO Добавить больше операций между типами
 
         HANDLE_MULTI_TYPE(Vector, Vector, make_vector_ptr)
         HANDLE_MULTI_TYPE(Vector, Matrix, make_matrix_ptr)
         HANDLE_MULTI_TYPE(Matrix, Vector, make_matrix_ptr)
         HANDLE_MULTI_TYPE(Matrix, Matrix, make_matrix_ptr)
+        HANDLE_MULTI_TYPE(Matrix, Variable, make_matrix_ptr)
         HANDLE_MULTI_TYPE(Rational, Rational, make_rational_ptr)
         HANDLE_MULTI_TYPE(Variable, Variable, make_variable_ptr)
 
