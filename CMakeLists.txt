@@ -14,7 +14,6 @@ include_directories(${GTEST_INCLUDE_DIR})
 link_directories(${GTEST_LIB_DIR})
 
 
-
 add_executable(MathInterpreter 
         main.cpp
         include/base/abstractcontainertype.h
@@ -34,11 +33,16 @@ add_executable(MathInterpreter
         include/parsers/vectorparser.hpp
         include/parsers/matrixparser.hpp
         include/parsers/rationalparser.hpp
+        include/parsers/expressionparser.hpp
         include/function/core.h
         include/function/base.hpp
+        include/function/binaryexecuter.hpp
+        include/exceptions/core.h
+        include/exceptions/exceptions.hpp
         src/base.cpp
         lib/cxxopts-3.2.0/include/cxxopts.hpp
-)
+        src/binaryexecute.cpp
+        include/types/types.h include/utils.h++)
 
 # Add tests
 enable_testing()

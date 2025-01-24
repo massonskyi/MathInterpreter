@@ -53,13 +53,13 @@ Variable _M_sin(Variable& x) {
 ///@brief _M_cos function for variable
 Variable _M_cos(Variable& x) {
     if(const auto type_v = x.getType(); type_v == "INT") {
-        return Variable(std::sin(x.getValue<int>()));
+        return Variable(std::cos(x.getValue<int>()));
     }
     else if(type_v == "FLOAT") {
-        return Variable(std::sin(x.getValue<float>()));
+        return Variable(std::cos(x.getValue<float>()));
     }
     else if(type_v == "FLOAT") {
-        return Variable(std::sin(x.getValue<double>()));
+        return Variable(std::cos(x.getValue<double>()));
     }
     else {
         throw std::invalid_argument("Unsupported numeric type");
