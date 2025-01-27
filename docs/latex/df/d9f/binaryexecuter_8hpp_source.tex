@@ -1,0 +1,232 @@
+\doxysection{binaryexecuter.\+hpp}
+\hypertarget{binaryexecuter_8hpp_source}{}\label{binaryexecuter_8hpp_source}\index{include/function/binaryexecuter.hpp@{include/function/binaryexecuter.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ BINARYEXECUTER\_HPP\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ BINARYEXECUTER\_HPP\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <regex>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../utils.h++"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../parsers/expressionparser.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}../types/matrix.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}../types/rational.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}../types/variable.hpp"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}../types/vector.hpp"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}../exceptions/exceptions.hpp"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{using\ }value\_type\ =\ std::shared\_ptr<AbstractObject>;}
+\DoxyCodeLine{00018\ \textcolor{keyword}{using\ }vector\_ptr\ =\ std::shared\_ptr<Vector>;}
+\DoxyCodeLine{00019\ \textcolor{keyword}{using\ }variable\_ptr\ =\ std::shared\_ptr<Variable>;}
+\DoxyCodeLine{00020\ \textcolor{keyword}{using\ }matrix\_ptr\ =\ std::shared\_ptr<Matrix>;}
+\DoxyCodeLine{00021\ \textcolor{keyword}{using\ }rational\_ptr\ =\ std::shared\_ptr<Rational>;}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{using\ }stack\_map\ =\ std::unordered\_map<std::string,\ value\_type>;}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ Concept\ for\ allowed\ object\ types}}
+\DoxyCodeLine{00025\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00026\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptAllowedType}{AllowedType}}\ =\ std::is\_same\_v<T,\ Vector>\ ||}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same\_v<T,\ Matrix>\ ||}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same\_v<T,\ Rational>\ ||}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same\_v<T,\ Variable>;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ Concept\ for\ allowed\ pointer\ types}}
+\DoxyCodeLine{00032\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00033\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptAllowedPtrType}{AllowedPtrType}}\ =\ std::is\_same\_v<T,\ std::shared\_ptr<Vector>>\ ||}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same\_v<T,\ std::shared\_ptr<Matrix>>\ ||}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same\_v<T,\ std::shared\_ptr<Rational>>\ ||}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same\_v<T,\ std::shared\_ptr<Variable>>;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBinaryExecute}{BinaryExecute}}\ final}
+\DoxyCodeLine{00040\ \{}
+\DoxyCodeLine{00041\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedPtrType\ ReturnType>}
+\DoxyCodeLine{00050\ \ \ \ \ ReturnType\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{calculate}}(}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&lhs,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ value\_type\ \&rhsPtr,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&expression,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&oper)}
+\DoxyCodeLine{00055\ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ lhsValue(std::stod(lhs));}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Helper\ macro\ to\ reduce\ repetitive\ code\ (preprocessor\ used\ sparingly)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ HANDLE\_TYPED\_OPERATION(TypeName,\ makeFunc)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\ \ \ \ if\ (auto\ lhsTyped\ =\ std::dynamic\_pointer\_cast<TypeName>(rhsPtr))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (oper\ ==\ "{}+"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ return\ std::dynamic\_pointer\_cast<typename\ ReturnType::element\_type>(makeFunc(*lhsTyped\ +\ lhsValue));\ \(\backslash\)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (oper\ ==\ "{}-\/"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ return\ std::dynamic\_pointer\_cast<typename\ ReturnType::element\_type>(makeFunc(*lhsTyped\ -\/\ lhsValue));\ \(\backslash\)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (oper\ ==\ "{}*"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ return\ std::dynamic\_pointer\_cast<typename\ ReturnType::element\_type>(makeFunc(*lhsTyped\ *\ lhsValue));\ \(\backslash\)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (oper\ ==\ "{}/"{})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ return\ std::dynamic\_pointer\_cast<typename\ ReturnType::element\_type>(makeFunc(*lhsTyped\ /\ lhsValue));\ \(\backslash\)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\ \ \ \ \}}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ HANDLE\_TYPED\_OPERATION(\mbox{\hyperlink{classVector}{Vector}},\ make\_vector\_ptr)}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ HANDLE\_TYPED\_OPERATION(\mbox{\hyperlink{classMatrix}{Matrix}},\ make\_matrix\_ptr)}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ HANDLE\_TYPED\_OPERATION(\mbox{\hyperlink{classRational}{Rational}},\ make\_rational\_ptr)}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ HANDLE\_TYPED\_OPERATION(\mbox{\hyperlink{classVariable}{Variable}},\ make\_variable\_ptr)}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#undef\ HANDLE\_TYPED\_OPERATION}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{structInvalidExpression}{InvalidExpression}}(\textcolor{stringliteral}{"{}Incompatible\ types\ for\ operation"{}});}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedPtrType\ ReturnType>}
+\DoxyCodeLine{00090\ \ \ \ \ ReturnType\ \mbox{\hyperlink{classBinaryExecute_acd54f8919fe55126780856d42b31f3da}{calculate}}(}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ value\_type\ \&lhsPtr,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&rhs,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&expression,}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&oper)}
+\DoxyCodeLine{00095\ \ \ \ \ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{calculate<ReturnType>}}(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{rhs}},\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{lhsPtr}},\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{expression}},\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{oper}});}
+\DoxyCodeLine{00097\ \ \ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedPtrType\ ReturnType>}
+\DoxyCodeLine{00107\ \ \ \ \ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{ReturnType}}\ \mbox{\hyperlink{classBinaryExecute_ac769aa1708d5aa4604281bb081ce3123}{calculate}}(}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ value\_type\ \&\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{lhsPtr}},}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ value\_type\ \&\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{rhsPtr}},}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{expression}},}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{oper}})}
+\DoxyCodeLine{00112\ \ \ \ \ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Complex\ multi-\/type\ multiplication\ logic}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ HANDLE\_MULTI\_TYPE(LhsType,\ RhsType,\ makeFunc)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\ \ \ \ if\ (auto\ lhsTyped\ =\ std::dynamic\_pointer\_cast<LhsType>(lhsPtr))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (auto\ rhsTyped\ =\ std::dynamic\_pointer\_cast<RhsType>(rhsPtr))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ return\ std::dynamic\_pointer\_cast<typename\ ReturnType::element\_type>(makeFunc(*lhsTyped\ *\ *rhsTyped));\ \(\backslash\)}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\ \ \ \ \}}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ HANDLE\_MULTI\_TYPE(\mbox{\hyperlink{classVector}{Vector}},\ \mbox{\hyperlink{classVector}{Vector}},\ make\_vector\_ptr)}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ HANDLE\_MULTI\_TYPE(\mbox{\hyperlink{classVector}{Vector}},\ \mbox{\hyperlink{classMatrix}{Matrix}},\ make\_matrix\_ptr)}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ HANDLE\_MULTI\_TYPE(\mbox{\hyperlink{classMatrix}{Matrix}},\ \mbox{\hyperlink{classVector}{Vector}},\ make\_matrix\_ptr)}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ HANDLE\_MULTI\_TYPE(\mbox{\hyperlink{classMatrix}{Matrix}},\ \mbox{\hyperlink{classMatrix}{Matrix}},\ make\_matrix\_ptr)}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ HANDLE\_MULTI\_TYPE(\mbox{\hyperlink{classRational}{Rational}},\ \mbox{\hyperlink{classRational}{Rational}},\ make\_rational\_ptr)}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ HANDLE\_MULTI\_TYPE(\mbox{\hyperlink{classVariable}{Variable}},\ \mbox{\hyperlink{classVariable}{Variable}},\ make\_variable\_ptr)}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#undef\ HANDLE\_MULTI\_TYPE}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{structInvalidExpression}{InvalidExpression}}(\textcolor{stringliteral}{"{}Incompatible\ types\ for\ multiplication"{}});}
+\DoxyCodeLine{00133\ \ \ \ \ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00142\ \ \ \ \ variable\_ptr\ \mbox{\hyperlink{classBinaryExecute_ac348aef24af4d18916aea9509c56c032}{calculate}}(\textcolor{keyword}{const}\ std::string\ \&\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{expression}})}
+\DoxyCodeLine{00143\ \ \ \ \ \{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ make\_variable\_ptr(\mbox{\hyperlink{classVariable}{Variable}}(\_M\_expression\_parser.\mbox{\hyperlink{classExpressionEvaluator_a26827d0ada3173593222d335b10962fb}{evaluate}}(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{expression}})));}
+\DoxyCodeLine{00145\ \ \ \ \ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{comment}{//\ Замена\ переменных\ их\ значениями}}
+\DoxyCodeLine{00148\ \ \ \ \ std::string\ replace\_variables(\textcolor{keyword}{const}\ std::string\ \&\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{expression}},\ stack\_map\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{variables}})}
+\DoxyCodeLine{00149\ \ \ \ \ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{containsVariables}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&[name,\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{value}}]\ :\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{variables}})}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ std::string\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{varPattern}}\ =\ R\textcolor{stringliteral}{"{}(\(\backslash\)b)"{}\ +\ name\ +\ R}\textcolor{stringliteral}{"{}(\(\backslash\)b)"{};\ std::regex\_search(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{expression}},\ std::regex(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{varPattern}})))}}
+\DoxyCodeLine{00154\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{00155\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{containsVariables}}\ =\ }\textcolor{keyword}{true};}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{containsVariables}})}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{expression}};}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{result}}\ =\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{expression}};}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&[name,\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{value}}]\ :\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{variables}})}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{varName}}\ =\ name;}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{varValue}}\ =\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{value}}-\/>toString();}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{varPattern}}\ =\ R\textcolor{stringliteral}{"{}(\(\backslash\)b)"{}\ +\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{varName}}\ +\ R}\textcolor{stringliteral}{"{}(\(\backslash\)b)"{};}}
+\DoxyCodeLine{00171\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{result}}\ =\ std::regex\_replace(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{result}},\ std::regex(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{varPattern}}),\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{varValue}});}}
+\DoxyCodeLine{00172\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00173\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ }\textcolor{keywordflow}{return}\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{result}};}
+\DoxyCodeLine{00174\ \ \ \ \ \}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00177\ \ \ \ \ \mbox{\hyperlink{classExpressionEvaluator}{ExpressionEvaluator}}\ \_M\_expression\_parser;}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ std::vector<std::string>\ \_M\_getting\_tokens(\textcolor{keyword}{const}\ std::string\ \&\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{expression}})}
+\DoxyCodeLine{00180\ \ \ \ \ \{}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ std::vector<std::string>\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{tokens}};}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{current\_token}};}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{char}\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{c}}\ :\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{expression}})}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isdigit(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{c}})\ ||\ std::isalpha(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{c}}))}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{current\_token}}\ +=\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{c}};}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (std::ispunct(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{c}}))}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Добавляем\ текущий\ токен,\ если\ он\ не\ пустой}}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{current\_token}}.empty())}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{tokens}}.push\_back(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{current\_token}});}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{current\_token}}.clear();}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Добавляем\ оператор\ как\ отдельный\ токен}}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{tokens}}.push\_back(std::string(1,\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{c}}));}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Добавляем\ последний\ токен,\ если\ есть}}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{current\_token}}.empty())}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{tokens}}.push\_back(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{current\_token}});}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{tokens}};}
+\DoxyCodeLine{00210\ \ \ \ \ \}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ std::vector<std::string>\ \_M\_extract\_variables(\textcolor{keyword}{const}\ std::string\ \&\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{expression}})}
+\DoxyCodeLine{00213\ \ \ \ \ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ std::vector<std::string>\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{variables}};}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{current\_var}};}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{char}\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{c}}\ :\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{expression}})}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверяем,\ является\ ли\ символ\ буквой\ или\ цифрой}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isalpha(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{c}})\ ||\ std::isdigit(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{c}}))}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{current\_var}}\ +=\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{c}};}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Если\ текущая\ переменная\ не\ пуста,\ добавляем\ ее\ в\ список}}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{current\_var}}.empty())}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверяем,\ начинается\ ли\ переменная\ с\ буквы}}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ и\ нет\ ли\ уже\ такой\ переменной\ в\ списке}}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isalpha(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{current\_var}}[0])\ \&\&}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::find(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{variables}}.begin(),\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{variables}}.end(),\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{current\_var}})\ ==\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{variables}}.end())}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{variables}}.push\_back(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{current\_var}});}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{current\_var}}.clear();}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Добавляем\ последнюю\ переменную,\ если\ она\ осталась}}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{current\_var}}.empty())}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isalpha(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{current\_var}}[0])\ \&\&}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::find(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{variables}}.begin(),\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{variables}}.end(),\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{current\_var}})\ ==\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{variables}}.end())}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{variables}}.push\_back(\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{current\_var}});}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{variables}};}
+\DoxyCodeLine{00252\ \ \ \ \ \}}
+\DoxyCodeLine{00253\ \};}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ BINARYEXECUTER\_HPP\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

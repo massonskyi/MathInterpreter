@@ -1,0 +1,117 @@
+\doxysection{stringvalidator.\+hpp}
+\hypertarget{stringvalidator_8hpp_source}{}\label{stringvalidator_8hpp_source}\index{include/exceptions/stringvalidator.hpp@{include/exceptions/stringvalidator.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ STRINGVALIDATOR\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ STRINGVALIDATOR\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <regex>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classStringValidator}{StringValidator}}\ \{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structStringValidator_1_1Error}{Error}}\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ std::string\ type;}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ std::string\ message;}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ position;}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ std::string\ context;\ \textcolor{comment}{//\ Строка\ с\ контекстом\ ошибки}}
+\DoxyCodeLine{00018\ \ \ \ \ \};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{using\ }err\_msg\ =\ std::vector<Error>;}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{classStringValidator}{StringValidator}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{comment}{//\ Метод\ для\ валидации\ строки}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{bool}\ validate(\textcolor{keyword}{const}\ std::string\&\ input)\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ clearErrors();}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ пробелов\ вокруг\ '='}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ equalPos\ =\ input.find(\textcolor{stringliteral}{"{}="{}});}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (equalPos\ !=\ std::string::npos\ \&\&}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ (equalPos\ ==\ 0\ ||\ input[equalPos\ -\/\ 1]\ !=\ \textcolor{charliteral}{'\ '}\ ||\ input[equalPos\ +\ 1]\ !=\ \textcolor{charliteral}{'\ '}))\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \_M\_add(\textcolor{stringliteral}{"{}MissingSpacesAroundEqual"{}},\ \textcolor{stringliteral}{"{}Отсутствуют\ пробелы\ до\ или\ после\ '='."{}},\ equalPos,\ input);}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ на\ незакрытые\ скобки}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_M\_has\_balanced\_brackets(input))\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \_M\_add(\textcolor{stringliteral}{"{}UnbalancedBrackets"{}},\ \textcolor{stringliteral}{"{}Количество\ открытых\ и\ закрытых\ скобок\ не\ совпадает."{}},\ input.find(\textcolor{stringliteral}{"{}["{}}),\ input);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_M\_errors.empty();}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ Получить\ ошибки}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{const}\ err\_msg\&\ getErrors()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_M\_errors;}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{//\ Очистить\ ошибки}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ clearErrors()\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \_M\_errors.clear();}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{//\ Печать\ ошибок\ с\ цветом}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ printErrors()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ error\ :\ \_M\_errors)\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)033[31m"{}};\ \textcolor{comment}{//\ Устанавливаем\ красный\ цвет}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\ \ File\ \(\backslash\)"{}"{}}\ <<\ \_\_FILE\_\_\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{},\ line\ "{}}\ <<\ \_\_LINE\_\_\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ \textcolor{comment}{//\ Выводим\ имя\ файла\ и\ строку}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ "{}}\ <<\ error.context\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Строим\ стрелочку,\ которая\ указывает\ на\ ошибку}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout<<\ \textcolor{stringliteral}{"{}\ \ \ \ "{}};}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ error.position;\ ++i)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}="{}};\ \textcolor{comment}{//\ Выводим\ пробелы\ до\ позиции\ ошибки}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\string^\string^"{}};\ \textcolor{comment}{//\ Индикатор\ ошибки}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}SyntaxError:\ "{}}\ <<\ error.message\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)033[0m"{}};\ \textcolor{comment}{//\ Сброс\ цвета}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ err\_msg\ \_M\_errors;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{comment}{//\ Добавление\ ошибки\ в\ список}}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ \_M\_add(\textcolor{keyword}{const}\ std::string\&\ type,\ \textcolor{keyword}{const}\ std::string\&\ message,\ \textcolor{keywordtype}{size\_t}\ position,\ \textcolor{keyword}{const}\ std::string\&\ input)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ std::string\ context\ =\ \_M\_set\_context(position,\ input);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \_M\_errors.push\_back(\{type,\ message,\ position,\ context\});}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{comment}{//\ Генерация\ контекста\ ошибки\ (строка,\ где\ произошла\ ошибка)}}
+\DoxyCodeLine{00084\ \ \ \ \ std::string\ \_M\_set\_context(\textcolor{keywordtype}{size\_t}\ position,\ \textcolor{keyword}{const}\ std::string\&\ input)\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ start\ =\ position\ >\ 10\ ?\ position\ -\/\ 10\ :\ 0;\ \textcolor{comment}{//\ Начало\ контекста\ (не\ менее\ 10\ символов)}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ end\ =\ position\ +\ 10\ <\ input.length()\ ?\ position\ +\ 10\ :\ input.length();\ \textcolor{comment}{//\ Конец\ контекста}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ input.substr(start,\ end\ -\/\ start);\ \textcolor{comment}{//\ Возвращаем\ часть\ строки\ вокруг\ ошибки}}
+\DoxyCodeLine{00089\ \ \ \ \ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{comment}{//\ Проверка\ на\ сбалансированные\ скобки}}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_M\_has\_balanced\_brackets(\textcolor{keyword}{const}\ std::string\&\ input)\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ balance\ =\ 0;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ input.size();\ ++i)\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ ch\ =\ input[i];}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ch\ ==\ \textcolor{charliteral}{'['})\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++balance;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (ch\ ==\ \textcolor{charliteral}{']'})\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/balance;}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (balance\ <\ 0)\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Закрывающая\ скобка\ без\ открывающей}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ balance\ ==\ 0;}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \};}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STRINGVALIDATOR\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

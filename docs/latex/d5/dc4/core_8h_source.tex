@@ -1,0 +1,61 @@
+\doxysection{core.\+h}
+\hypertarget{core_8h_source}{}\label{core_8h_source}\index{include/core.h@{include/core.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CORE\_H\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CORE\_H\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <concepts>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{comment}{/*\ INFORMATIONS\ */}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ VERSION\ "{}Math\ interpreter.\ Version\ 0.0.1alpha"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ ABOUT\ "{}"{}"{}\(\backslash\)}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{Математический\ интерпретатор\(\backslash\)n\(\backslash\)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\(\backslash\)n\(\backslash\)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{Этот\ математический\ интерпретатор\ предназначен\ для\ выполнения\ различных\ математических\ вычислений\ и\ операций.\ Он\ поддерживает\ основные\ арифметические\ операции,\ функции,\ и\ может\ работать\ с\ переменными\ и\ выражениями.\(\backslash\)n\(\backslash\)}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\(\backslash\)n\(\backslash\)}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{Основные\ возможности:\(\backslash\)n\(\backslash\)}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{-\/\ Вычисление\ арифметических\ выражений\(\backslash\)n\(\backslash\)}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{-\/\ Поддержка\ математических\ функций\ (синус,\ косинус,\ логарифмы\ и\ т.д.)\(\backslash\)n\(\backslash\)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{-\/\ Работа\ с\ переменными\(\backslash\)n\(\backslash\)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{-\/\ Поддержка\ пользовательских\ функций\(\backslash\)n\(\backslash\)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\(\backslash\)n\(\backslash\)}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{Используйте\ команду\ -\/-\/help\ для\ получения\ дополнительной\ информации\ о\ доступных\ командах\ и\ их\ использовании.\(\backslash\)n\(\backslash\)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\(\backslash\)n\(\backslash\)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{Copyright\ (c)\ 2023\ Ваше\ Имя\ или\ Организация.\ Все\ права\ защищены.\(\backslash\)n\(\backslash\)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{"{}"{}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00033\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptAllowedTypes}{AllowedTypes}}\ =}
+\DoxyCodeLine{00034\ \ \ \ \ std::is\_same\_v<T,\ int>\ \ \ \ \ \ ||}
+\DoxyCodeLine{00035\ \ \ \ \ std::is\_same\_v<T,\ float>\ \ \ \ ||}
+\DoxyCodeLine{00036\ \ \ \ \ std::is\_same\_v<T,\ double>;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{enum\ class}\ Type\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ INT\ =\ 0x00,}
+\DoxyCodeLine{00040\ \ \ \ \ DOUBLE,}
+\DoxyCodeLine{00041\ \ \ \ \ FLOAT,}
+\DoxyCodeLine{00042\ \ \ \ \ OTHER,}
+\DoxyCodeLine{00043\ \};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{enum\ class}\ CustomType\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}=0x10,}
+\DoxyCodeLine{00047\ \ \ \ \ RATIONAL,}
+\DoxyCodeLine{00048\ \ \ \ \ VECTOR,}
+\DoxyCodeLine{00049\ \ \ \ \ MATRIX,}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{//\ ARRAY,}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{comment}{//\ MAP}}
+\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CORE\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

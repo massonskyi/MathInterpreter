@@ -1,0 +1,158 @@
+\doxysection{expressionparser.\+hpp}
+\hypertarget{expressionparser_8hpp_source}{}\label{expressionparser_8hpp_source}\index{include/parsers/expressionparser.hpp@{include/parsers/expressionparser.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ EXPRESSION\_PARSER\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ EXPRESSION\_PARSER\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stack>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cctype>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classExpressionEvaluator}{ExpressionEvaluator}}\ final\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classExpressionEvaluator_a26827d0ada3173593222d335b10962fb}{evaluate}}(\textcolor{keyword}{const}\ std::string\&\ expression)\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Tokenize\ the\ expression\ to\ ensure\ proper\ spacing}}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ std::string\ tokenized\_expr\ =\ \_M\_tokenize\_expression(expression);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Convert\ to\ RPN}}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ std::vector<std::pair<std::string,\ bool>>\ rpn\ =\ \mbox{\hyperlink{classExpressionEvaluator_a2b05a425c8c50fb6ecf20672ae7f4fd4}{extract}}(tokenized\_expr);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Evaluate\ the\ RPN\ expression}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_M\_evaluate\_rpn(rpn);}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00032\ \ \ \ \ std::vector<std::pair<std::string,\ bool>>\ \mbox{\hyperlink{classExpressionEvaluator_a2b05a425c8c50fb6ecf20672ae7f4fd4}{extract}}(\textcolor{keyword}{const}\ std::string\&\ expression)\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ std::vector<std::pair<std::string,\ bool>>\ output;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ std::stack<std::string>\ operators;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ std::istringstream\ iss(expression);}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ std::string\ token;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iss\ >>\ token)\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isdigit(token[0])\ ||}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (token[0]\ ==\ \textcolor{charliteral}{'-\/'}\ \&\&\ token.length()\ >\ 1\ \&\&\ std::isdigit(token[1])))\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output.push\_back(\{token,\ \textcolor{keyword}{false}\});}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (token\ ==\ \textcolor{stringliteral}{"{}("{}})\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ operators.push(token);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (token\ ==\ \textcolor{stringliteral}{"{})"{}})\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!operators.empty()\ \&\&\ operators.top()\ !=\ \textcolor{stringliteral}{"{}("{}})\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output.push\_back(\{operators.top(),\ \textcolor{keyword}{true}\});}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ operators.pop();}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!operators.empty()\ \&\&\ operators.top()\ ==\ \textcolor{stringliteral}{"{}("{}})\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ operators.pop();}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\_M\_is\_operator(token))\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!operators.empty()\ \&\&}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ operators.top()\ !=\ \textcolor{stringliteral}{"{}("{}}\ \&\&}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\_M\_precedence[operators.top()]\ >\ \_M\_precedence[token]\ ||}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\_M\_precedence[operators.top()]\ ==\ \_M\_precedence[token]\ \&\&\ \_M\_is\_left\_associative(token))))\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output.push\_back(\{operators.top(),\ \textcolor{keyword}{true}\});}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ operators.pop();}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ operators.push(token);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!operators.empty())\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (operators.top()\ ==\ \textcolor{stringliteral}{"{}("{}})\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Mismatched\ parentheses"{}});}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ output.push\_back(\{operators.top(),\ \textcolor{keyword}{true}\});}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ operators.pop();}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ output;}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00076\ \ \ \ \ std::unordered\_map<std::string,\ int>\ \_M\_precedence\ =\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}+"{}},\ 1\},\ \{\textcolor{stringliteral}{"{}-\/"{}},\ 1\},}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}*"{}},\ 2\},\ \{\textcolor{stringliteral}{"{}/"{}},\ 2\}}
+\DoxyCodeLine{00079\ \ \ \ \ \};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_M\_is\_operator(\textcolor{keyword}{const}\ std::string\&\ token)\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_M\_precedence.find(token)\ !=\ \_M\_precedence.end();}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_M\_is\_left\_associative(\textcolor{keyword}{const}\ std::string\&\ token)\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00093\ \ \ \ \ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{double}\ \_M\_apply\_operator(\textcolor{keyword}{const}\ std::string\&\ op,\ \textcolor{keywordtype}{double}\ left,\ \textcolor{keywordtype}{double}\ right)\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (op\ ==\ \textcolor{stringliteral}{"{}+"{}})\ \textcolor{keywordflow}{return}\ left\ +\ right;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (op\ ==\ \textcolor{stringliteral}{"{}-\/"{}})\ \textcolor{keywordflow}{return}\ left\ -\/\ right;}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (op\ ==\ \textcolor{stringliteral}{"{}*"{}})\ \textcolor{keywordflow}{return}\ left\ *\ right;}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (op\ ==\ \textcolor{stringliteral}{"{}/"{}})\ \textcolor{keywordflow}{return}\ left\ /\ right;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Unknown\ operator"{}});}
+\DoxyCodeLine{00106\ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{double}\ \_M\_evaluate\_rpn(\textcolor{keyword}{const}\ std::vector<std::pair<std::string,\ bool>>\&\ rpn)\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ std::stack<double>\ values;}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ token\ :\ rpn)\ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (token.second)\ \{\ \textcolor{comment}{//\ If\ token\ is\ an\ operator}}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ right\ =\ values.top();\ values.pop();}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ left\ =\ values.top();\ values.pop();}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ values.push(\_M\_apply\_operator(token.first,\ left,\ right));}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{\ \textcolor{comment}{//\ If\ token\ is\ a\ number}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ values.push(std::stod(token.first));}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ values.top();}
+\DoxyCodeLine{00125\ \ \ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00130\ \ \ \ \ std::string\ \_M\_tokenize\_expression(\textcolor{keyword}{const}\ std::string\&\ expression)\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ std::string\ tokenized;}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ std::istringstream\ iss(expression);}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ ch;}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ std::string\ current\_token;}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (iss.get(ch))\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isdigit(ch)\ ||\ ch\ ==\ \textcolor{charliteral}{'.'})\ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ current\_token\ +=\ ch;}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (ch\ ==\ \textcolor{charliteral}{'('}\ ||\ ch\ ==\ \textcolor{charliteral}{')'})\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ there's\ a\ number\ token,\ add\ it\ first}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!current\_token.empty())\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokenized\ +=\ current\_token\ +\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ current\_token.clear();}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ parenthesis\ as\ a\ separate\ token}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokenized\ +=\ ch;}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokenized\ +=\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\_M\_is\_operator(std::string(1,\ ch)))\ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ there's\ a\ number\ token,\ add\ it\ first}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!current\_token.empty())\ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokenized\ +=\ current\_token\ +\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ current\_token.clear();}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ operator\ as\ a\ separate\ token}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokenized\ +=\ ch;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokenized\ +=\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (std::isspace(ch))\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ there's\ a\ number\ token,\ add\ it\ before\ space}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!current\_token.empty())\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tokenized\ +=\ current\_token\ +\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ current\_token.clear();}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ last\ token\ if\ exists}}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!current\_token.empty())\ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ tokenized\ +=\ current\_token;}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tokenized;}
+\DoxyCodeLine{00172\ \ \ \ \ \}}
+\DoxyCodeLine{00173\ \};}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ EXPRESSION\_PARSER\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

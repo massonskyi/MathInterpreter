@@ -1,0 +1,289 @@
+\doxysection{Abstract\+Simple\+Type Class Reference}
+\hypertarget{classAbstractSimpleType}{}\label{classAbstractSimpleType}\index{AbstractSimpleType@{AbstractSimpleType}}
+
+
+Th Abstract simple type.  
+
+
+
+
+{\ttfamily \#include $<$abstractsimpletype.\+h$>$}
+
+
+
+Inheritance diagram for Abstract\+Simple\+Type\+:
+% FIG 0
+
+
+Collaboration diagram for Abstract\+Simple\+Type\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classAbstractSimpleType_a9267459e40131d5562f012ec71742c2c}{set}} (const string \&value)
+\begin{DoxyCompactList}\small\item\em This method sets the value of the object. \end{DoxyCompactList}\item 
+virtual string \mbox{\hyperlink{classAbstractSimpleType_a3b6757491625e53736de6cbcdac3fc6d}{dec}} () const
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object as a string dec. \end{DoxyCompactList}\item 
+virtual string \mbox{\hyperlink{classAbstractSimpleType_ab2c366992d9cdb15613e102b8c138806}{hex}} () const
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object as a string hex. \end{DoxyCompactList}\item 
+virtual string \mbox{\hyperlink{classAbstractSimpleType_a1e07f70cd3abd7fd270b1b18e45ecd1f}{oct}} () const
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object as a string oct. \end{DoxyCompactList}\item 
+virtual string \mbox{\hyperlink{classAbstractSimpleType_ad5cd7294cf18a464b2461f3e65ed28c1}{bin}} () const
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object as a string bin. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{classAbstractSimpleType_ab41e24da061a27ee2835af7ae316fc58}{equals}} (const \mbox{\hyperlink{classAbstractSimpleType}{Abstract\+Simple\+Type}} \&other) const
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object as a boolean. \end{DoxyCompactList}\item 
+virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classAbstractSimpleType}{Abstract\+Simple\+Type}} $>$ \mbox{\hyperlink{classAbstractSimpleType_a5a1b6dbd77f1891d63e27d88e6c3e87f}{clone}} () const
+\begin{DoxyCompactList}\small\item\em This method clones the object value of the object. \end{DoxyCompactList}\item 
+virtual string \mbox{\hyperlink{classAbstractSimpleType_a3c3c05e9dd748027facc5cc2e86f310b}{serialize}} () const
+\begin{DoxyCompactList}\small\item\em This method serializes the object value of the object. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classAbstractSimpleType_a21971e2d6709eb239d3578e42f57dc5f}{deserialize}} (const string \&value)
+\begin{DoxyCompactList}\small\item\em This method deserializes the object value of the object. \end{DoxyCompactList}\item 
+\Hypertarget{classAbstractSimpleType_aac020e9bb3d960ac64707d22f305881a}\label{classAbstractSimpleType_aac020e9bb3d960ac64707d22f305881a} 
+{\bfseries Abstract\+Object} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructorsssss. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classAbstractSimpleType_ac8d361ef57a0b90bca65f63bdc7ef8ab}{Abstract\+Object}} (string n="{}"{})
+\begin{DoxyCompactList}\small\item\em This constructor is used to create a new object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Abstract\+Object} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructorsssss. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classAbstractObject_ac8d361ef57a0b90bca65f63bdc7ef8ab}{Abstract\+Object}} (string n="{}"{})
+\begin{DoxyCompactList}\small\item\em This constructor is used to create a new object. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Abstract\+Object} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\item 
+virtual string \mbox{\hyperlink{classAbstractObject_a9222a77ebcac4567997369961829423d}{to\+String}} () const
+\begin{DoxyCompactList}\small\item\em This method is used to print the object. \end{DoxyCompactList}\item 
+virtual string \mbox{\hyperlink{classAbstractObject_aa0635973b2b9403d67a428639e10d8e1}{get\+Type\+Name}} () const
+\begin{DoxyCompactList}\small\item\em This method is used to get the type of the object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classAbstractObject_a86cf25254bb363d5681227f2767886f9}{set\+Name}} (const string \&n)
+\begin{DoxyCompactList}\small\item\em This method is used to set the name of the object. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{classAbstractObject_ad81dd77884b5e5588a1337c52535a303}{get\+Name}} () const
+\begin{DoxyCompactList}\small\item\em This method is used to get the name of the object. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_a49a6c8b7a49414fae83d89b68311b870}{operator+}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_a5ce76b603c642183ba7d6cd6704ee37b}{operator-\/}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_af7a9d07a02aa094cc7156104ddf2b5f9}{operator\texorpdfstring{$\ast$}{*}}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_a9fb1748be46c8570e3b2d3abbeb6625a}{operator/}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_ab0e795743e40bc9588954d7fa55ba2ca}{operator\%}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a1149f74caffd775153283599baa094ac}{operator+=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a968113a1698da88838850d17f965c334}{operator-\/=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a4ddd72dc3b2eac8494002654fe07e0a3}{operator\texorpdfstring{$\ast$}{*}=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_aee5eac9fcea694d482c9f80411ff611f}{operator/=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a92a8f239c8ffd1b56ec7d4c7c1436343}{operator\%=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a2ed9db746f937521de533d3b553d9af6}{operator=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual bool \mbox{\hyperlink{classAbstractObject_acaffcb68aa0e8e056ed2551d0b7afe8d}{operator==}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&) const
+\item 
+virtual bool \mbox{\hyperlink{classAbstractObject_a863f5085a97e3982ff2da5819dfab56d}{operator!=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&) const
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a316c30e33d4a916dacbf38aa93a0347f}{operator++}} ()
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a7b57ea36ea30f2aa247bc41eacf90b0d}{operator-\/-\/}} ()
+\item 
+virtual void {\bfseries print} (std\+::ostream \&os) const
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_a19e9b43cb81e04cfd66ed55e05b64c20}{get}} () const
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classAbstractSimpleType_a5d98a1ac6b9e0d262477d45c8fc00e8e}\label{classAbstractSimpleType_a5d98a1ac6b9e0d262477d45c8fc00e8e} 
+ostream \& {\bfseries operator$<$$<$} (ostream \&os, const \mbox{\hyperlink{classAbstractSimpleType}{Abstract\+Simple\+Type}} \&obj)
+\item 
+\Hypertarget{classAbstractSimpleType_adcd529eb839a06fbc6299fa9959fd737}\label{classAbstractSimpleType_adcd529eb839a06fbc6299fa9959fd737} 
+istream \& {\bfseries operator$>$$>$} (istream \&is, \mbox{\hyperlink{classAbstractSimpleType}{Abstract\+Simple\+Type}} \&obj)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+string {\bfseries name}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Th Abstract simple type. 
+
+This class is the base class for all simple types 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classAbstractSimpleType_ac8d361ef57a0b90bca65f63bdc7ef8ab}\label{classAbstractSimpleType_ac8d361ef57a0b90bca65f63bdc7ef8ab} 
+\index{AbstractSimpleType@{AbstractSimpleType}!AbstractObject@{AbstractObject}}
+\index{AbstractObject@{AbstractObject}!AbstractSimpleType@{AbstractSimpleType}}
+\doxysubsubsection{\texorpdfstring{AbstractObject()}{AbstractObject()}}
+{\footnotesize\ttfamily Abstract\+Object\+::\+Abstract\+Object (\begin{DoxyParamCaption}\item[{string}]{n = {\ttfamily "{}"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+This constructor is used to create a new object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & The name of the object new object \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classAbstractSimpleType_ad5cd7294cf18a464b2461f3e65ed28c1}\label{classAbstractSimpleType_ad5cd7294cf18a464b2461f3e65ed28c1} 
+\index{AbstractSimpleType@{AbstractSimpleType}!bin@{bin}}
+\index{bin@{bin}!AbstractSimpleType@{AbstractSimpleType}}
+\doxysubsubsection{\texorpdfstring{bin()}{bin()}}
+{\footnotesize\ttfamily virtual string Abstract\+Simple\+Type\+::bin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+This method returns the value of the object as a string bin. 
+
+\begin{DoxyReturn}{Returns}
+The value of the object as a string bin 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classVariable_aca2bcde88e40cfc596d5485376c4876f}{Variable}}.
+
+\Hypertarget{classAbstractSimpleType_a5a1b6dbd77f1891d63e27d88e6c3e87f}\label{classAbstractSimpleType_a5a1b6dbd77f1891d63e27d88e6c3e87f} 
+\index{AbstractSimpleType@{AbstractSimpleType}!clone@{clone}}
+\index{clone@{clone}!AbstractSimpleType@{AbstractSimpleType}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classAbstractSimpleType}{Abstract\+Simple\+Type}} $>$ Abstract\+Simple\+Type\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+This method clones the object value of the object. 
+
+\begin{DoxyReturn}{Returns}
+The cloned object 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classVariable_a6a8a1b9c0bd5886f7cf25418f0cc477c}{Variable}}.
+
+\Hypertarget{classAbstractSimpleType_a3b6757491625e53736de6cbcdac3fc6d}\label{classAbstractSimpleType_a3b6757491625e53736de6cbcdac3fc6d} 
+\index{AbstractSimpleType@{AbstractSimpleType}!dec@{dec}}
+\index{dec@{dec}!AbstractSimpleType@{AbstractSimpleType}}
+\doxysubsubsection{\texorpdfstring{dec()}{dec()}}
+{\footnotesize\ttfamily virtual string Abstract\+Simple\+Type\+::dec (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+This method returns the value of the object as a string dec. 
+
+\begin{DoxyReturn}{Returns}
+The value of the object as a string dec 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classVariable_aec4e75757066f3f7a4e7ee39a6ef10e8}{Variable}}.
+
+\Hypertarget{classAbstractSimpleType_a21971e2d6709eb239d3578e42f57dc5f}\label{classAbstractSimpleType_a21971e2d6709eb239d3578e42f57dc5f} 
+\index{AbstractSimpleType@{AbstractSimpleType}!deserialize@{deserialize}}
+\index{deserialize@{deserialize}!AbstractSimpleType@{AbstractSimpleType}}
+\doxysubsubsection{\texorpdfstring{deserialize()}{deserialize()}}
+{\footnotesize\ttfamily virtual void Abstract\+Simple\+Type\+::deserialize (\begin{DoxyParamCaption}\item[{const string \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+This method deserializes the object value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The serialized object to deserialize \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classAbstractSimpleType_ab41e24da061a27ee2835af7ae316fc58}\label{classAbstractSimpleType_ab41e24da061a27ee2835af7ae316fc58} 
+\index{AbstractSimpleType@{AbstractSimpleType}!equals@{equals}}
+\index{equals@{equals}!AbstractSimpleType@{AbstractSimpleType}}
+\doxysubsubsection{\texorpdfstring{equals()}{equals()}}
+{\footnotesize\ttfamily virtual bool Abstract\+Simple\+Type\+::equals (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classAbstractSimpleType}{Abstract\+Simple\+Type}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+This method returns the value of the object as a boolean. 
+
+\begin{DoxyReturn}{Returns}
+The value of the object as a boolean 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classVariable_ae32eb8413828ae51c466660d05020b44}{Variable}}.
+
+\Hypertarget{classAbstractSimpleType_ab2c366992d9cdb15613e102b8c138806}\label{classAbstractSimpleType_ab2c366992d9cdb15613e102b8c138806} 
+\index{AbstractSimpleType@{AbstractSimpleType}!hex@{hex}}
+\index{hex@{hex}!AbstractSimpleType@{AbstractSimpleType}}
+\doxysubsubsection{\texorpdfstring{hex()}{hex()}}
+{\footnotesize\ttfamily virtual string Abstract\+Simple\+Type\+::hex (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+This method returns the value of the object as a string hex. 
+
+\begin{DoxyReturn}{Returns}
+The value of the object as a string hex 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classVariable_aa388891d71b68c142ada28e4f5e3e817}{Variable}}.
+
+\Hypertarget{classAbstractSimpleType_a1e07f70cd3abd7fd270b1b18e45ecd1f}\label{classAbstractSimpleType_a1e07f70cd3abd7fd270b1b18e45ecd1f} 
+\index{AbstractSimpleType@{AbstractSimpleType}!oct@{oct}}
+\index{oct@{oct}!AbstractSimpleType@{AbstractSimpleType}}
+\doxysubsubsection{\texorpdfstring{oct()}{oct()}}
+{\footnotesize\ttfamily virtual string Abstract\+Simple\+Type\+::oct (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+This method returns the value of the object as a string oct. 
+
+\begin{DoxyReturn}{Returns}
+The value of the object as a string oct 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classVariable_ae79b6dd59b5cc0bc86f5719772fcc4da}{Variable}}.
+
+\Hypertarget{classAbstractSimpleType_a3c3c05e9dd748027facc5cc2e86f310b}\label{classAbstractSimpleType_a3c3c05e9dd748027facc5cc2e86f310b} 
+\index{AbstractSimpleType@{AbstractSimpleType}!serialize@{serialize}}
+\index{serialize@{serialize}!AbstractSimpleType@{AbstractSimpleType}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily virtual string Abstract\+Simple\+Type\+::serialize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+This method serializes the object value of the object. 
+
+\begin{DoxyReturn}{Returns}
+The serialized object 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classVariable_a5835c1e6a759d9498cc0a5c6acc69dbd}{Variable}}.
+
+\Hypertarget{classAbstractSimpleType_a9267459e40131d5562f012ec71742c2c}\label{classAbstractSimpleType_a9267459e40131d5562f012ec71742c2c} 
+\index{AbstractSimpleType@{AbstractSimpleType}!set@{set}}
+\index{set@{set}!AbstractSimpleType@{AbstractSimpleType}}
+\doxysubsubsection{\texorpdfstring{set()}{set()}}
+{\footnotesize\ttfamily virtual void Abstract\+Simple\+Type\+::set (\begin{DoxyParamCaption}\item[{const string \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+This method sets the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The value to set ~\newline
+ \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/base/abstractsimpletype.\+h\end{DoxyCompactItemize}

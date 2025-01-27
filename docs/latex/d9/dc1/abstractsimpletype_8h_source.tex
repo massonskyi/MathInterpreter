@@ -1,0 +1,54 @@
+\doxysection{abstractsimpletype.\+h}
+\hypertarget{abstractsimpletype_8h_source}{}\label{abstractsimpletype_8h_source}\index{include/base/abstractsimpletype.h@{include/base/abstractsimpletype.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ABSTRACTSIMPLEOBJECT\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ABSTRACTSIMPLEOBJECT\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../core.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}abstractobject.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00009\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classAbstractSimpleType}{AbstractSimpleType}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classAbstractObject_aac020e9bb3d960ac64707d22f305881a}{AbstractObject::AbstractObject}};}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{classAbstractSimpleType}{AbstractSimpleType}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00019\ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classAbstractSimpleType_a9267459e40131d5562f012ec71742c2c}{set}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ value)\{\ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});\ \}}
+\DoxyCodeLine{00020\ \ \ \ \ }
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00024\ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classAbstractSimpleType_a3b6757491625e53736de6cbcdac3fc6d}{dec}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});\ \}}
+\DoxyCodeLine{00025\ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classAbstractSimpleType_ab2c366992d9cdb15613e102b8c138806}{hex}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});\ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classAbstractSimpleType_a1e07f70cd3abd7fd270b1b18e45ecd1f}{oct}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});\ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classAbstractSimpleType_ad5cd7294cf18a464b2461f3e65ed28c1}{bin}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});\ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classAbstractSimpleType_ab41e24da061a27ee2835af7ae316fc58}{equals}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractSimpleType}{AbstractSimpleType}}\&\ other)\textcolor{keyword}{const}\{\ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});\ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ std::unique\_ptr<AbstractSimpleType>\ \mbox{\hyperlink{classAbstractSimpleType_a5a1b6dbd77f1891d63e27d88e6c3e87f}{clone}}()\textcolor{keyword}{const}\{\ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});\ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00048\ \ \ \ \ [[nodiscard]]}
+\DoxyCodeLine{00049\ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classAbstractSimpleType_a3c3c05e9dd748027facc5cc2e86f310b}{serialize}}()\textcolor{keyword}{const}\{\ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});\ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classAbstractSimpleType_a21971e2d6709eb239d3578e42f57dc5f}{deserialize}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ value)\{\ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});\ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{friend}\ ostream\&\ operator<<(ostream\&\ os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractSimpleType}{AbstractSimpleType}}\&\ obj)\{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ os\ <<\ obj.\mbox{\hyperlink{classAbstractSimpleType_a3c3c05e9dd748027facc5cc2e86f310b}{serialize}}();}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00058\ \ \ \ \ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{friend}\ istream\&\ operator>>(istream\&\ is,\ \mbox{\hyperlink{classAbstractSimpleType}{AbstractSimpleType}}\&\ obj)\{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ value;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ is\ >>\ value;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ obj.\mbox{\hyperlink{classAbstractSimpleType_a21971e2d6709eb239d3578e42f57dc5f}{deserialize}}(value);}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ is;}
+\DoxyCodeLine{00064\ \ \ \ \ \}}
+\DoxyCodeLine{00065\ \};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*ABSTRACTSIMPLEOBJECT\_H*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

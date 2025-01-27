@@ -1,0 +1,1086 @@
+\doxysection{vector.\+hpp}
+\hypertarget{vector_8hpp_source}{}\label{vector_8hpp_source}\index{include/types/vector.hpp@{include/types/vector.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ VECTOR\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ VECTOR\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../core.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../base/abstractcontainertype.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}variable.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classVector}{Vector}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classAbstractContainerType}{AbstractContainerType}}}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classVariable}{value\_type}}\ =\ \mbox{\hyperlink{classVariable}{Variable}};}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{classVector_a6f80c73b5f18dcf3f8e36065bdc8b9e5}{Vector}}()\ :\ \mbox{\hyperlink{classAbstractContainerType}{AbstractContainerType}}(extractClassName()),\ vector\_(\{\})\ \{\}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classVector_a7bf5ed1f36b80d7a0e772c4f1d75c107}{Vector}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}})\ :\ \mbox{\hyperlink{classAbstractContainerType}{AbstractContainerType}}(extractClassName()),\ vector\_(\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}},\ \mbox{\hyperlink{classVariable}{Variable}}())\ \{\}}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classVector_a1569f04e1f95d5f0e53557b530a16eb4}{Vector}}(\textcolor{keyword}{const}\ std::initializer\_list<Variable>\ list)\ :\ \mbox{\hyperlink{classAbstractContainerType}{AbstractContainerType}}(extractClassName())}
+\DoxyCodeLine{00023\ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&elem\ :\ list)}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_.emplace\_back(elem);}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00028\ \ \ \ \ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ =\ std::enable\_if\_t<std::is\_arithmetic\_v<T>>>}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classVector_a1ce30c20b849096d3409c04875b023ed}{Vector}}(std::initializer\_list<T>\ list)\ :\ \mbox{\hyperlink{classAbstractContainerType}{AbstractContainerType}}(extractClassName())}
+\DoxyCodeLine{00034\ \ \ \ \ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&elem\ :\ list)}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_.emplace\_back(\mbox{\hyperlink{classVariable}{Variable}}(elem));}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{classVector_ad773760e15e6293aa4b659e6389914ce}{Vector}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&other)\ noexcept\ :\ \mbox{\hyperlink{classAbstractContainerType}{AbstractContainerType}}(extractClassName()),\ vector\_(other.vector\_)\ \{\}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{classVector_aa7c42bfffdd4a600fa98ebbb6cdded5e}{Vector}}(\mbox{\hyperlink{classVector}{Vector}}\ \&\&other)\ noexcept\ :\ \mbox{\hyperlink{classAbstractContainerType}{AbstractContainerType}}(extractClassName()),\ vector\_(std::move(other.vector\_))\ \{\}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{classVector_a54186c907924e5bb741679023d0bd979}{\string~Vector}}()\ \textcolor{keyword}{override}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classVector_a39b0125f03b5a7e2d10a2e5600a3f1c1}{toString}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00055\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ std::stringstream\ ss;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ ss\ <<\ \textcolor{stringliteral}{"{}["{}};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ !=\ 0)}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ss\ <<\ \textcolor{stringliteral}{"{},\ "{}};}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ ss\ <<\ this-\/>vector\_[i];}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ ss\ <<\ \textcolor{stringliteral}{"{}]"{}};}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ss.str();\ \textcolor{comment}{//\ Возвращаем\ строковое\ представление\ объекта}}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{comment}{//\ Виртуальный\ метод\ для\ вывода}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{void}\ print(std::ostream\ \&os)\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00071\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ std::cout\ <<\ *\textcolor{keyword}{this}\ <<\ std::endl;}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVector_a0cce3b229b5e1ca5bf98e39ea5458a83}{add}}(\textcolor{keyword}{const}\ std::shared\_ptr<Variable>\&\ \textcolor{keywordtype}{object})}
+\DoxyCodeLine{00077\ \ \ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\textcolor{keywordtype}{object})}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Cannot\ add\ a\ nullptr\ to\ the\ vector."{}});}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_.push\_back(*\textcolor{keywordtype}{object});}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Логирование\ ошибки}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ Failed\ to\ add\ object:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};\ \textcolor{comment}{//\ Повторное\ выбрасывание\ исключения\ для\ обработки\ выше}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classVector_a46092165197c3623c0363237f5b28160}{getTypeName}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00096\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{typeid}(*this).name();\ \textcolor{comment}{//\ Возвращаем\ строку,\ представляющую\ тип\ объекта}}
+\DoxyCodeLine{00098\ \ \ \ \ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVector_a40b179b2ae729e60a4477bdb44d7e6eb}{reserve}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ new\_cap)}
+\DoxyCodeLine{00103\ \ \ \ \ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ vector\_.reserve(new\_cap);}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00110\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vector\_.size();}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Логирование\ ошибки}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ Failed\ to\ get\ size:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};\ \textcolor{comment}{//\ Повторное\ выбрасывание\ исключения\ для\ обработки\ выше}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00121\ \ \ \ \ \}}
+\DoxyCodeLine{00125\ \ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00126\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});}
+\DoxyCodeLine{00128\ \ \ \ \ \}}
+\DoxyCodeLine{00129\ \ \ \ \ }
+\DoxyCodeLine{00133\ \ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVector_a1e2d069b4793fbf7e9195a4de1fc49a2}{get}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ index)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00134\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ >=\ vector\_.size())}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Index\ is\ out\ of\ bounds."{}});}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vector\_.at(index);}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Логирование\ ошибки}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ Failed\ to\ get\ object\ at\ index\ "{}}\ <<\ index\ <<\ \textcolor{stringliteral}{"{}:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};\ \textcolor{comment}{//\ Повторное\ выбрасывание\ исключения\ для\ обработки\ выше}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00149\ \ \ \ \ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00153\ \ \ \ \ \ [[nodiscard]]\ std::vector<Variable>\ \mbox{\hyperlink{classVector_a32b92b59ac539db00d00eedde076294e}{getData}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00154\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vector\_;}
+\DoxyCodeLine{00156\ \ \ \ \ \}}
+\DoxyCodeLine{00159\ \ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classVector_a0983396770daceb9e95ca795365aa478}{empty}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00160\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vector\_.empty();}
+\DoxyCodeLine{00162\ \ \ \ \ \}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \&\mbox{\hyperlink{classVector_ae4310eab0ea4bef54d676bf4c6e9016a}{operator[]}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ index)}
+\DoxyCodeLine{00167\ \ \ \ \ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vector\_[index];}
+\DoxyCodeLine{00169\ \ \ \ \ \}}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&\mbox{\hyperlink{classVector_ac6caf93a0ab9d4f3e73a68584a595e66}{operator[]}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ index)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00174\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vector\_[index];}
+\DoxyCodeLine{00176\ \ \ \ \ \}}
+\DoxyCodeLine{00180\ \ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVector_a170c820ff81fb1bcb80eed4dd1d82229}{at}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ index)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00181\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vector\_.at(index);}
+\DoxyCodeLine{00183\ \ \ \ \ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00188\ \ \ \ \ \ [[nodiscard]]\ std::shared\_ptr<Variable>\ \mbox{\hyperlink{classVector_aafe361ca8ebb384ad6f92f40dc4662ad}{ptr}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ index)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00189\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ >=\ vector\_.size())}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Index\ is\ out\ of\ bounds."{}});}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_shared<Variable>(vector\_[index]);}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Логирование\ ошибки}}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ Failed\ to\ get\ object\ at\ index\ "{}}\ <<\ index\ <<\ \textcolor{stringliteral}{"{}:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};\ \textcolor{comment}{//\ Повторное\ выбрасывание\ исключения\ для\ обработки\ выше}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00204\ \ \ \ \ \}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00208\ \ \ \ \ \ [[nodiscard]]\ std::shared\_ptr<Variable>\ \mbox{\hyperlink{classVector_abd4b0aeca00fa90d3b4847025c2d1a63}{front}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00209\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (vector\_.empty())}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Vector\ is\ empty."{}});}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_shared<Variable>(vector\_.front());}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ front:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00223\ \ \ \ \ \}}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00227\ \ \ \ \ \ [[nodiscard]]\ std::shared\_ptr<Variable>\ \mbox{\hyperlink{classVector_ae078e7d6b25789c7099318f21ce70e9b}{back}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00228\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (vector\_.empty())}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Vector\ is\ empty."{}});}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_shared<Variable>(vector\_.back());}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ back:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00242\ \ \ \ \ \}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00246\ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&var)}
+\DoxyCodeLine{00247\ \ \ \ \ \{}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_.push\_back(var);}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ push\_back:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00257\ \ \ \ \ \}}
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00261\ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVector_afcd41f7574860d611003c298d2f7cc25}{push\_back}}(\textcolor{keyword}{const}\ \_Tp\ \&var)}
+\DoxyCodeLine{00262\ \ \ \ \ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_.push\_back(\mbox{\hyperlink{classVariable}{Variable}}(var));}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ push\_back:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00272\ \ \ \ \ \}}
+\DoxyCodeLine{00275\ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVector_ab58ab06b4e5b39d6b681bd07da403f92}{append}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&var)}
+\DoxyCodeLine{00276\ \ \ \ \ \{}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_.push\_back(var);}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ append:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00286\ \ \ \ \ \}}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00291\ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVector_ad8cc3873d2031d7d477080a28fc5ea48}{append}}(\textcolor{keyword}{const}\ \_Tp\ \&var)}
+\DoxyCodeLine{00292\ \ \ \ \ \{}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_.push\_back(\mbox{\hyperlink{classVariable}{Variable}}(var));}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ append:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00302\ \ \ \ \ \}}
+\DoxyCodeLine{00305\ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVector_a492100fbe991d248c4bdc80d614a1535}{remove}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ index)}
+\DoxyCodeLine{00306\ \ \ \ \ \{}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ >=\ vector\_.size())}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Index\ is\ out\ of\ bounds."{}});}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_.erase(vector\_.begin()\ +\ index);}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ remove:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00320\ \ \ \ \ \}}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00324\ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVector_abd166e2a61b282b4d47fe27a573c6d84}{pop\_front}}()}
+\DoxyCodeLine{00325\ \ \ \ \ \{}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (vector\_.empty())}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Cannot\ pop\ from\ an\ empty\ vector."{}});}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_.erase(vector\_.begin());}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ pop\_front:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00339\ \ \ \ \ \}}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00343\ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVector_a046a9843b68dbd60cc96da499ae7edb3}{pop\_back}}()}
+\DoxyCodeLine{00344\ \ \ \ \ \{}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (vector\_.empty())}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Cannot\ pop\ from\ an\ empty\ vector."{}});}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_.pop\_back();}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ pop\_back:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00358\ \ \ \ \ \}}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00361\ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVector_a8dd7bbcace48a9b6e6a000cb80054fbf}{clear}}()}
+\DoxyCodeLine{00362\ \ \ \ \ \{}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_.clear();}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ clear:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00372\ \ \ \ \ \}}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00376\ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVector_a1f4f730cd3c40120ae46f0f444465dff}{erase}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ index)}
+\DoxyCodeLine{00377\ \ \ \ \ \{}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ >=\ vector\_.size())}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Index\ is\ out\ of\ bounds."{}});}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_.erase(vector\_.begin()\ +\ index);}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ erase:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00391\ \ \ \ \ \}}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00396\ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVector_a224c4105e899aa5aa5bfb680ff00e574}{insert}}(\textcolor{keywordtype}{size\_t}\ index,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&var)}
+\DoxyCodeLine{00397\ \ \ \ \ \{}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ >\ vector\_.size())}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Index\ is\ out\ of\ bounds."{}});}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_.insert(vector\_.begin()\ +\ index,\ var);}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ insert:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00411\ \ \ \ \ \}}
+\DoxyCodeLine{00415\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00416\ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVector_a15bcb810cea027a697a9b29ffdf7e0a4}{insert}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ index,\ \textcolor{keyword}{const}\ \_Tp\ \&var)}
+\DoxyCodeLine{00417\ \ \ \ \ \{}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ >\ vector\_.size())}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Index\ is\ out\ of\ bounds."{}});}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_.insert(vector\_.begin()\ +\ index,\ \mbox{\hyperlink{classVariable}{Variable}}(var));}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ insert:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00431\ \ \ \ \ \}}
+\DoxyCodeLine{00434\ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVector_a2cb0995e2c7eb22c3dcb0e38f9d3a4cd}{resize}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}})}
+\DoxyCodeLine{00435\ \ \ \ \ \{}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_.resize(\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}});}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ resize:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00445\ \ \ \ \ \}}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00449\ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVector_a620499090a52fbe862e66d134efa5147}{swap}}(\mbox{\hyperlink{classVector}{Vector}}\ \&other)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00450\ \ \ \ \ \{}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_.swap(other.vector\_);}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ swap:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Исключение\ не\ выбрасывается,\ так\ как\ метод\ объявлен\ noexcept}}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00460\ \ \ \ \ \}}
+\DoxyCodeLine{00463\ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVector_aaf762dfbcb62e16c03c9d0dc5947c542}{swap}}(std::vector<Variable>\ \&other)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00464\ \ \ \ \ \{}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_.swap(other);}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ swap:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Исключение\ не\ выбрасывается,\ так\ как\ метод\ объявлен\ noexcept}}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00474\ \ \ \ \ \}}
+\DoxyCodeLine{00475\ }
+\DoxyCodeLine{00478\ \ \ \ \ std::vector<Variable>::iterator\ \mbox{\hyperlink{classVector_ad46a819b335ff440f042ef5bf5eab6d7}{begin}}()\ noexcept}
+\DoxyCodeLine{00479\ \ \ \ \ \{}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vector\_.begin();}
+\DoxyCodeLine{00481\ \ \ \ \ \}}
+\DoxyCodeLine{00482\ }
+\DoxyCodeLine{00485\ \ \ \ \ std::vector<Variable>::iterator\ \mbox{\hyperlink{classVector_a2d3f96cbaca141e25255ef4c9ec78937}{end}}()\ noexcept}
+\DoxyCodeLine{00486\ \ \ \ \ \{}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vector\_.end();}
+\DoxyCodeLine{00488\ \ \ \ \ \}}
+\DoxyCodeLine{00489\ }
+\DoxyCodeLine{00492\ \ \ \ \ [[nodiscard]]\ std::vector<Variable>::const\_iterator\ \mbox{\hyperlink{classVector_a6fe68e60974e03cf187037db998ef33c}{cbegin}}()\ const\ noexcept}
+\DoxyCodeLine{00493\ \ \ \ \ \{}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vector\_.cbegin();}
+\DoxyCodeLine{00495\ \ \ \ \ \}}
+\DoxyCodeLine{00496\ }
+\DoxyCodeLine{00499\ \ \ \ \ [[nodiscard]]\ std::vector<Variable>::const\_iterator\ \mbox{\hyperlink{classVector_a0db1dffc56369071a60102688566211a}{cend}}()\ const\ noexcept}
+\DoxyCodeLine{00500\ \ \ \ \ \{}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vector\_.cend();}
+\DoxyCodeLine{00502\ \ \ \ \ \}}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00507\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \&\mbox{\hyperlink{classVector_a31810b59e0d9106aa17ecf6ae1cfbaf1}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&other)}
+\DoxyCodeLine{00508\ \ \ \ \ \{}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ ==\ \&other)}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};\ \textcolor{comment}{//\ Присваивание\ самому\ себе,\ ничего\ не\ делаем}}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00513\ }
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_\ =\ other.vector\_;\ \textcolor{comment}{//\ Копирование\ содержимого\ из\ другого\ вектора}}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ Copy\ assignment:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};\ \textcolor{comment}{//\ Пробрасываем\ исключение,\ если\ произошла\ ошибка}}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00523\ }
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00525\ \ \ \ \ \}}
+\DoxyCodeLine{00526\ }
+\DoxyCodeLine{00530\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \&\mbox{\hyperlink{classVector_a4c7d22e17b7cd109946a12d50a4d31d6}{operator=}}(\mbox{\hyperlink{classVector}{Vector}}\ \&\&other)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00531\ \ \ \ \ \{}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ ==\ \&other)}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};\ \textcolor{comment}{//\ Присваивание\ самому\ себе}}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00536\ }
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \ \ \ \ vector\_\ =\ std::move(other.vector\_);\ \textcolor{comment}{//\ Перемещаем\ содержимое\ другого\ объекта}}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ После\ перемещения\ вектор\ other\ находится\ в\ неопределенном,\ но\ валидном\ состоянии}}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ Move\ assignment:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00548\ \ \ \ \ \}}
+\DoxyCodeLine{00549\ }
+\DoxyCodeLine{00553\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00554\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \&\mbox{\hyperlink{classVector_a1bd1ec3cf8572fb7c192b0be14cc8b15}{operator=}}(\_Tp\ value)}
+\DoxyCodeLine{00555\ \ \ \ \ \{}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector_a40b179b2ae729e60a4477bdb44d7e6eb}{reserve}}(\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}()\ +\ 1);}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::is\_same\_v<\_Tp,\ Variable>)}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector_ab58ab06b4e5b39d6b681bd07da403f92}{append}}(value);}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector_ab58ab06b4e5b39d6b681bd07da403f92}{append}}(\mbox{\hyperlink{classVariable}{Variable}}(value));}
+\DoxyCodeLine{00563\ }
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}[Error]\ Assignment\ with\ value:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};\ \textcolor{comment}{//\ Пробрасываем\ исключение,\ если\ произошла\ ошибка}}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00571\ }
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00573\ \ \ \ \ \}}
+\DoxyCodeLine{00574\ }
+\DoxyCodeLine{00578\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classVector_ad5435d0dbad5336fe4df23e6ab081612}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&other)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00579\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверяем,\ что\ размеры\ векторов\ одинаковы}}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}()\ !=\ other.\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}())}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Если\ размеры\ разные,\ векторы\ не\ равны}}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00585\ }
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Сравниваем\ элементы\ векторов}}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ !=\ other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i))}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Если\ хотя\ бы\ один\ элемент\ не\ совпадает,\ векторы\ не\ равны}}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00594\ }
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \textcolor{comment}{//\ Все\ элементы\ совпадают}}
+\DoxyCodeLine{00596\ \ \ \ \ \}}
+\DoxyCodeLine{00597\ }
+\DoxyCodeLine{00601\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classVector_a3e5e4749640f1d3bb8eedd31fb94c59e}{operator!=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&other)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00602\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !(*\textcolor{keyword}{this}\ ==\ other);}
+\DoxyCodeLine{00604\ \ \ \ \ \}}
+\DoxyCodeLine{00605\ }
+\DoxyCodeLine{00609\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_a8636c13924ae2a8f08a5c56c1bdee35d}{operator+}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&other)}
+\DoxyCodeLine{00610\ \ \ \ \ \{}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ на\ одинаковые\ размеры}}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}()\ !=\ other.\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}())}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Vectors\ must\ have\ the\ same\ size\ for\ addition."{}});}
+\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00616\ }
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ +\ other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i));\ \textcolor{comment}{//\ Поэлементное\ сложение}}
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00622\ }
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00624\ \ \ \ \ \}}
+\DoxyCodeLine{00628\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_a0ae15994493540d7eab40554da08b7c0}{operator+}}(\mbox{\hyperlink{classVariable}{Variable}}\&\ other)}
+\DoxyCodeLine{00629\ \ \ \ \ \{}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ +\ other);\ \textcolor{comment}{//\ Поэлементное\ сложение}}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00635\ }
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00637\ \ \ \ \ \}}
+\DoxyCodeLine{00641\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_a0ff69e0cb3e743633341475b5ca07cec}{operator+}}(\mbox{\hyperlink{classVariable}{Variable}}\&\ other)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00642\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ +\ other);\ \textcolor{comment}{//\ Поэлементное\ сложение}}
+\DoxyCodeLine{00647\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00648\ }
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00650\ \ \ \ \ \}}
+\DoxyCodeLine{00654\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_ab67652bffa77db98adcbf48da0e5abab}{operator+}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&other)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00655\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00656\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ на\ одинаковые\ размеры}}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}()\ !=\ other.\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}())}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Vectors\ must\ have\ the\ same\ size\ for\ addition."{}});}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00661\ }
+\DoxyCodeLine{00662\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ +\ other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i));\ \textcolor{comment}{//\ Поэлементное\ сложение}}
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00667\ }
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00669\ \ \ \ \ \}}
+\DoxyCodeLine{00670\ }
+\DoxyCodeLine{00674\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_a78273e8287626f263ca0cfb26a6f9770}{operator-\/}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&other)}
+\DoxyCodeLine{00675\ \ \ \ \ \{}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ на\ одинаковые\ размеры}}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}()\ !=\ other.\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}())}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Vectors\ must\ have\ the\ same\ size\ for\ subtraction."{}});}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00681\ }
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ -\/\ other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i));\ \textcolor{comment}{//\ Поэлементное\ вычитание}}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00687\ }
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00689\ \ \ \ \ \}}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_a25c9d18e95bdf43bf61e527ce410dac5}{operator-\/}}(\ \mbox{\hyperlink{classVariable}{Variable}}\&\ other)}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00698\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ -\/\ other);\ \textcolor{comment}{//\ Поэлементное\ сложение}}
+\DoxyCodeLine{00699\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00700\ }
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00702\ \ \ \ \ \}}
+\DoxyCodeLine{00706\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_aa395081af8116603338717834c65d592}{operator-\/}}(\mbox{\hyperlink{classVariable}{Variable}}\&\ other)\textcolor{keyword}{const}}
+\DoxyCodeLine{00707\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00708\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00710\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00711\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ -\/\ other);\ \textcolor{comment}{//\ Поэлементное\ сложение}}
+\DoxyCodeLine{00712\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00713\ }
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00715\ \ \ \ \ \}}
+\DoxyCodeLine{00719\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_a41a06f3dec0af5b0bbf5a85e5feabb67}{operator-\/}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&other)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00720\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00721\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ на\ одинаковые\ размеры}}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}()\ !=\ other.\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}())}
+\DoxyCodeLine{00723\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Vectors\ must\ have\ the\ same\ size\ for\ subtraction."{}});}
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00726\ }
+\DoxyCodeLine{00727\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ -\/\ other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i));\ \textcolor{comment}{//\ Поэлементное\ вычитание}}
+\DoxyCodeLine{00731\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00732\ }
+\DoxyCodeLine{00733\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00734\ \ \ \ \ \}}
+\DoxyCodeLine{00738\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_af8af1dfd34f0a9abf24a43aec6ffb707}{operator*}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&other)}
+\DoxyCodeLine{00739\ \ \ \ \ \{}
+\DoxyCodeLine{00740\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ на\ одинаковые\ размеры}}
+\DoxyCodeLine{00741\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}()\ !=\ other.\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}())}
+\DoxyCodeLine{00742\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00743\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Vectors\ must\ have\ the\ same\ size\ for\ multiplication."{}});}
+\DoxyCodeLine{00744\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00745\ }
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00748\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00749\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ *\ other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i));\ \textcolor{comment}{//\ Поэлементное\ умножение}}
+\DoxyCodeLine{00750\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00751\ }
+\DoxyCodeLine{00752\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00753\ \ \ \ \ \}}
+\DoxyCodeLine{00757\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_abd1b34ef73d2e8dc22f8b72f5128171e}{operator*}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&other)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00758\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00759\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ на\ одинаковые\ размеры}}
+\DoxyCodeLine{00760\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}()\ !=\ other.\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}())}
+\DoxyCodeLine{00761\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Vectors\ must\ have\ the\ same\ size\ for\ multiplication."{}});}
+\DoxyCodeLine{00763\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00764\ }
+\DoxyCodeLine{00765\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00766\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00767\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00768\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ *\ other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i));\ \textcolor{comment}{//\ Поэлементное\ умножение}}
+\DoxyCodeLine{00769\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00770\ }
+\DoxyCodeLine{00771\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00772\ \ \ \ \ \}}
+\DoxyCodeLine{00776\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_a63d00c27f91323be9372a2ce94b35112}{operator*}}(\mbox{\hyperlink{classVariable}{Variable}}\ other)}
+\DoxyCodeLine{00777\ \ \ \ \ \{}
+\DoxyCodeLine{00778\ }
+\DoxyCodeLine{00779\ }
+\DoxyCodeLine{00780\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00781\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00782\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00783\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ *\ other);\ \textcolor{comment}{//\ Поэлементное\ умножение}}
+\DoxyCodeLine{00784\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00785\ }
+\DoxyCodeLine{00786\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00787\ \ \ \ \ \}}
+\DoxyCodeLine{00791\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_a69475acf1ee0ad3fe133ef79ade8f8f3}{operator*}}(\mbox{\hyperlink{classVariable}{Variable}}\ other)\textcolor{keyword}{const}}
+\DoxyCodeLine{00792\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00793\ }
+\DoxyCodeLine{00794\ }
+\DoxyCodeLine{00795\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00797\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00798\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ *\ other);\ \textcolor{comment}{//\ Поэлементное\ умножение}}
+\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00800\ }
+\DoxyCodeLine{00801\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00802\ \ \ \ \ \}}
+\DoxyCodeLine{00806\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_a5d5daba9ba6af185cb38214ad54b8af2}{operator/}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&other)}
+\DoxyCodeLine{00807\ \ \ \ \ \{}
+\DoxyCodeLine{00808\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ на\ одинаковые\ размеры}}
+\DoxyCodeLine{00809\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}()\ !=\ other.\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}())}
+\DoxyCodeLine{00810\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00811\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Vectors\ must\ have\ the\ same\ size\ for\ division."{}});}
+\DoxyCodeLine{00812\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00813\ }
+\DoxyCodeLine{00814\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00815\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00816\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00817\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ ==\ 0)}
+\DoxyCodeLine{00818\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00819\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Division\ by\ zero."{}});}
+\DoxyCodeLine{00820\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00821\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ /\ other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i));\ \textcolor{comment}{//\ Поэлементное\ деление}}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00823\ }
+\DoxyCodeLine{00824\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00825\ \ \ \ \ \}}
+\DoxyCodeLine{00826\ }
+\DoxyCodeLine{00830\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_ada931123bc215e059babe1397acb6c65}{operator/}}(\mbox{\hyperlink{classVariable}{Variable}}\ other)}
+\DoxyCodeLine{00831\ \ \ \ \ \{}
+\DoxyCodeLine{00832\ }
+\DoxyCodeLine{00833\ }
+\DoxyCodeLine{00834\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00836\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00837\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (other\ ==\ 0)}
+\DoxyCodeLine{00838\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00839\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Division\ by\ zero."{}});}
+\DoxyCodeLine{00840\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00841\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ /\ other);}
+\DoxyCodeLine{00842\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00843\ }
+\DoxyCodeLine{00844\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00845\ \ \ \ \ \}}
+\DoxyCodeLine{00849\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_a4487762e0fb90496ac11414c09e3b2fb}{operator/}}(\mbox{\hyperlink{classVariable}{Variable}}\ other)\textcolor{keyword}{const}}
+\DoxyCodeLine{00850\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00851\ }
+\DoxyCodeLine{00852\ }
+\DoxyCodeLine{00853\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00854\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00855\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00856\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (other\ ==\ 0)}
+\DoxyCodeLine{00857\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00858\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Division\ by\ zero."{}});}
+\DoxyCodeLine{00859\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00860\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ /\ other);}
+\DoxyCodeLine{00861\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00862\ }
+\DoxyCodeLine{00863\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00864\ \ \ \ \ \}}
+\DoxyCodeLine{00868\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_adf5a293e98e44724866bfd22463ef923}{operator/}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&other)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00869\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00870\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ на\ одинаковые\ размеры}}
+\DoxyCodeLine{00871\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}()\ !=\ other.\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}())}
+\DoxyCodeLine{00872\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00873\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Vectors\ must\ have\ the\ same\ size\ for\ division."{}});}
+\DoxyCodeLine{00874\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00875\ }
+\DoxyCodeLine{00876\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00878\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00879\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ ==\ 0)}
+\DoxyCodeLine{00880\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00881\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Division\ by\ zero."{}});}
+\DoxyCodeLine{00882\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00883\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ /\ other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i));\ \textcolor{comment}{//\ Поэлементное\ деление}}
+\DoxyCodeLine{00884\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00885\ }
+\DoxyCodeLine{00886\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00887\ \ \ \ \ \}}
+\DoxyCodeLine{00891\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_a94e2ba39b6e2f1135aa4c37c0871ef9b}{operator\%}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&other)}
+\DoxyCodeLine{00892\ \ \ \ \ \{}
+\DoxyCodeLine{00893\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ на\ одинаковые\ размеры}}
+\DoxyCodeLine{00894\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}()\ !=\ other.\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}())}
+\DoxyCodeLine{00895\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00896\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Vectors\ must\ have\ the\ same\ size\ for\ modulo."{}});}
+\DoxyCodeLine{00897\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00898\ }
+\DoxyCodeLine{00899\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00900\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00901\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00902\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ ==\ 0)}
+\DoxyCodeLine{00903\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00904\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Modulo\ by\ zero."{}});}
+\DoxyCodeLine{00905\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00906\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ \%\ other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i));\ \textcolor{comment}{//\ Поэлементное\ взятие\ остатка}}
+\DoxyCodeLine{00907\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00908\ }
+\DoxyCodeLine{00909\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00910\ \ \ \ \ \}}
+\DoxyCodeLine{00911\ }
+\DoxyCodeLine{00915\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00916\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_a11f971ec9bf0f9a3bd3dffcd0c89c961}{operator+}}(\_Tp\ value)}
+\DoxyCodeLine{00917\ \ \ \ \ \{}
+\DoxyCodeLine{00918\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00919\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00920\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00921\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ +\ value);\ \textcolor{comment}{//\ Поэлементное\ сложение\ с\ числом}}
+\DoxyCodeLine{00922\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00923\ }
+\DoxyCodeLine{00924\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00925\ \ \ \ \ \}}
+\DoxyCodeLine{00926\ }
+\DoxyCodeLine{00930\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00931\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_ac307a363cc02f595511e5d9b63544002}{operator-\/}}(\_Tp\ value)}
+\DoxyCodeLine{00932\ \ \ \ \ \{}
+\DoxyCodeLine{00933\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00934\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00935\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00936\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ -\/\ value);\ \textcolor{comment}{//\ Поэлементное\ вычитание\ с\ числом}}
+\DoxyCodeLine{00937\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00938\ }
+\DoxyCodeLine{00939\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00940\ \ \ \ \ \}}
+\DoxyCodeLine{00941\ }
+\DoxyCodeLine{00945\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00946\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_a48731b12c75fbe3df1ce45fa07e267af}{operator*}}(\_Tp\ value)}
+\DoxyCodeLine{00947\ \ \ \ \ \{}
+\DoxyCodeLine{00948\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00949\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00950\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00951\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ *\ value);\ \textcolor{comment}{//\ Поэлементное\ умножение\ на\ число}}
+\DoxyCodeLine{00952\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00953\ }
+\DoxyCodeLine{00954\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00955\ \ \ \ \ \}}
+\DoxyCodeLine{00956\ }
+\DoxyCodeLine{00960\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00961\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_a5fd7067b5f7f7962407bd2ada9e59843}{operator/}}(\_Tp\ value)}
+\DoxyCodeLine{00962\ \ \ \ \ \{}
+\DoxyCodeLine{00963\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ 0)}
+\DoxyCodeLine{00964\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00965\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Division\ by\ zero."{}});}
+\DoxyCodeLine{00966\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00967\ }
+\DoxyCodeLine{00968\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00969\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00970\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00971\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ /\ value);\ \textcolor{comment}{//\ Поэлементное\ деление\ на\ число}}
+\DoxyCodeLine{00972\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00973\ }
+\DoxyCodeLine{00974\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00975\ \ \ \ \ \}}
+\DoxyCodeLine{00976\ }
+\DoxyCodeLine{00980\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00981\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_a3cb2bbdd503c2f70f2aca04933e0f9da}{operator\%}}(\_Tp\ value)}
+\DoxyCodeLine{00982\ \ \ \ \ \{}
+\DoxyCodeLine{00983\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ 0)}
+\DoxyCodeLine{00984\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00985\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Modulo\ by\ zero."{}});}
+\DoxyCodeLine{00986\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00987\ }
+\DoxyCodeLine{00988\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ result;}
+\DoxyCodeLine{00989\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{00990\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00991\ \ \ \ \ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(this-\/>\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ \%\ value);\ \textcolor{comment}{//\ Поэлементное\ взятие\ остатка\ от\ деления\ на\ число}}
+\DoxyCodeLine{00992\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00993\ }
+\DoxyCodeLine{00994\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00995\ \ \ \ \ \}}
+\DoxyCodeLine{00996\ }
+\DoxyCodeLine{01000\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \&\mbox{\hyperlink{classVector_acbcb1ffd04d881d2d9d693193787e556}{operator+=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&other)}
+\DoxyCodeLine{01001\ \ \ \ \ \{}
+\DoxyCodeLine{01002\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}()\ !=\ other.\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}())}
+\DoxyCodeLine{01003\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01004\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Vectors\ must\ have\ the\ same\ size\ for\ addition."{}});}
+\DoxyCodeLine{01005\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01006\ }
+\DoxyCodeLine{01007\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{01008\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01009\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>vector\_[i]\ +=\ other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i);\ \textcolor{comment}{//\ Поэлементное\ сложение}}
+\DoxyCodeLine{01010\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01011\ }
+\DoxyCodeLine{01012\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01013\ \ \ \ \ \}}
+\DoxyCodeLine{01014\ }
+\DoxyCodeLine{01018\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \&\mbox{\hyperlink{classVector_a1b5f826d645256ea206622da31190307}{operator-\/=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&other)}
+\DoxyCodeLine{01019\ \ \ \ \ \{}
+\DoxyCodeLine{01020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}()\ !=\ other.\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}())}
+\DoxyCodeLine{01021\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01022\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Vectors\ must\ have\ the\ same\ size\ for\ subtraction."{}});}
+\DoxyCodeLine{01023\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01024\ }
+\DoxyCodeLine{01025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{01026\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01027\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>vector\_[i]\ -\/=\ other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i);\ \textcolor{comment}{//\ Поэлементное\ вычитание}}
+\DoxyCodeLine{01028\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01029\ }
+\DoxyCodeLine{01030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01031\ \ \ \ \ \}}
+\DoxyCodeLine{01032\ }
+\DoxyCodeLine{01036\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \&\mbox{\hyperlink{classVector_a077dafc11ce63eadf4c43b45406f546d}{operator*=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&other)}
+\DoxyCodeLine{01037\ \ \ \ \ \{}
+\DoxyCodeLine{01038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}()\ !=\ other.\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}())}
+\DoxyCodeLine{01039\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Vectors\ must\ have\ the\ same\ size\ for\ multiplication."{}});}
+\DoxyCodeLine{01041\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01042\ }
+\DoxyCodeLine{01043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{01044\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01045\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>vector\_[i]\ *=\ other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i);\ \textcolor{comment}{//\ Поэлементное\ умножение}}
+\DoxyCodeLine{01046\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01047\ }
+\DoxyCodeLine{01048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01049\ \ \ \ \ \}}
+\DoxyCodeLine{01050\ }
+\DoxyCodeLine{01054\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \&\mbox{\hyperlink{classVector_a04f5161b7b03ce04ae4e431c66c5dcea}{operator/=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&other)}
+\DoxyCodeLine{01055\ \ \ \ \ \{}
+\DoxyCodeLine{01056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}()\ !=\ other.\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}())}
+\DoxyCodeLine{01057\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Vectors\ must\ have\ the\ same\ size\ for\ division."{}});}
+\DoxyCodeLine{01059\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01060\ }
+\DoxyCodeLine{01061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{01062\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ ==\ 0)}
+\DoxyCodeLine{01064\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Division\ by\ zero."{}});}
+\DoxyCodeLine{01066\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01067\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>vector\_[i]\ /=\ other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i);\ \textcolor{comment}{//\ Поэлементное\ деление}}
+\DoxyCodeLine{01068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01069\ }
+\DoxyCodeLine{01070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01071\ \ \ \ \ \}}
+\DoxyCodeLine{01072\ }
+\DoxyCodeLine{01076\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \&\mbox{\hyperlink{classVector_a145d7eb0c88cca8e0d9535cb59469b92}{operator\%=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&other)}
+\DoxyCodeLine{01077\ \ \ \ \ \{}
+\DoxyCodeLine{01078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}()\ !=\ other.\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}())}
+\DoxyCodeLine{01079\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Vectors\ must\ have\ the\ same\ size\ for\ modulo."{}});}
+\DoxyCodeLine{01081\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01082\ }
+\DoxyCodeLine{01083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{01084\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i)\ ==\ 0)}
+\DoxyCodeLine{01086\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Modulo\ by\ zero."{}});}
+\DoxyCodeLine{01088\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01089\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>vector\_[i]\ \%=\ other.\mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}}(i);\ \textcolor{comment}{//\ Поэлементное\ взятие\ остатка}}
+\DoxyCodeLine{01090\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01091\ }
+\DoxyCodeLine{01092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01093\ \ \ \ \ \}}
+\DoxyCodeLine{01094\ }
+\DoxyCodeLine{01098\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{01099\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \&\mbox{\hyperlink{classVector_acbba55ab01d6c14b758e429d19aa09c1}{operator+=}}(\_Tp\ value)}
+\DoxyCodeLine{01100\ \ \ \ \ \{}
+\DoxyCodeLine{01101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{01102\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01103\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>vector\_[i]\ +=\ value;\ \textcolor{comment}{//\ Поэлементное\ сложение}}
+\DoxyCodeLine{01104\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01105\ }
+\DoxyCodeLine{01106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01107\ \ \ \ \ \}}
+\DoxyCodeLine{01108\ }
+\DoxyCodeLine{01112\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{01113\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \&\mbox{\hyperlink{classVector_a5414be679847187c17a9ca7820f6e71b}{operator-\/=}}(\_Tp\ value)}
+\DoxyCodeLine{01114\ \ \ \ \ \{}
+\DoxyCodeLine{01115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{01116\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01117\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>vector\_[i]\ -\/=\ value;\ \textcolor{comment}{//\ Поэлементное\ вычитание}}
+\DoxyCodeLine{01118\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01119\ }
+\DoxyCodeLine{01120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01121\ \ \ \ \ \}}
+\DoxyCodeLine{01122\ }
+\DoxyCodeLine{01126\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{01127\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \&\mbox{\hyperlink{classVector_ade3b11c5ca727e1f55603187e763ef12}{operator*=}}(\_Tp\ value)}
+\DoxyCodeLine{01128\ \ \ \ \ \{}
+\DoxyCodeLine{01129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{01130\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01131\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>vector\_[i]\ *=\ value;\ \textcolor{comment}{//\ Поэлементное\ умножение}}
+\DoxyCodeLine{01132\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01133\ }
+\DoxyCodeLine{01134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01135\ \ \ \ \ \}}
+\DoxyCodeLine{01136\ }
+\DoxyCodeLine{01140\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{01141\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \&\mbox{\hyperlink{classVector_af8750e8d564956c0a7f543073303b6cf}{operator/=}}(\_Tp\ value)}
+\DoxyCodeLine{01142\ \ \ \ \ \{}
+\DoxyCodeLine{01143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ 0)}
+\DoxyCodeLine{01144\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Division\ by\ zero."{}});}
+\DoxyCodeLine{01146\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01147\ }
+\DoxyCodeLine{01148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{01149\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01150\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>vector\_[i]\ /=\ value;\ \textcolor{comment}{//\ Поэлементное\ деление}}
+\DoxyCodeLine{01151\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01152\ }
+\DoxyCodeLine{01153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01154\ \ \ \ \ \}}
+\DoxyCodeLine{01155\ }
+\DoxyCodeLine{01159\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{01160\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \&\mbox{\hyperlink{classVector_a3652a6288f7e1973b0488bef47ca8d8d}{operator\%=}}(\_Tp\ value)}
+\DoxyCodeLine{01161\ \ \ \ \ \{}
+\DoxyCodeLine{01162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ 0)}
+\DoxyCodeLine{01163\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Modulo\ by\ zero."{}});}
+\DoxyCodeLine{01165\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01166\ }
+\DoxyCodeLine{01167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{01168\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01169\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>vector\_[i]\ \%=\ value;\ \textcolor{comment}{//\ Поэлементное\ взятие\ остатка}}
+\DoxyCodeLine{01170\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01171\ }
+\DoxyCodeLine{01172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01173\ \ \ \ \ \}}
+\DoxyCodeLine{01174\ }
+\DoxyCodeLine{01177\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \&\mbox{\hyperlink{classVector_aa355c4db2921a319002ab9ecebd36dd1}{operator++}}()}
+\DoxyCodeLine{01178\ \ \ \ \ \{}
+\DoxyCodeLine{01179\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{01180\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01181\ \ \ \ \ \ \ \ \ \ \ \ \ ++this-\/>vector\_[i];\ \textcolor{comment}{//\ Поэлементное\ инкрементирование}}
+\DoxyCodeLine{01182\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01183\ }
+\DoxyCodeLine{01184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01185\ \ \ \ \ \}}
+\DoxyCodeLine{01186\ }
+\DoxyCodeLine{01189\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \&\mbox{\hyperlink{classVector_a5fa7ada0d79e1b0820193892374b7347}{operator-\/-\/}}()}
+\DoxyCodeLine{01190\ \ \ \ \ \{}
+\DoxyCodeLine{01191\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ this-\/>\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{01192\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01193\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/this-\/>vector\_[i];\ \textcolor{comment}{//\ Поэлементное\ декрементирование}}
+\DoxyCodeLine{01194\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01195\ }
+\DoxyCodeLine{01196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01197\ \ \ \ \ \}}
+\DoxyCodeLine{01198\ }
+\DoxyCodeLine{01202\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_a98a2e89e3331ae8daf76bb00c71da3ec}{operator++}}(\textcolor{keywordtype}{int})}
+\DoxyCodeLine{01203\ \ \ \ \ \{}
+\DoxyCodeLine{01204\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ temp\ =\ *\textcolor{keyword}{this};\ \textcolor{comment}{//\ Создаем\ копию\ текущего\ объекта}}
+\DoxyCodeLine{01205\ }
+\DoxyCodeLine{01206\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ После\ создания\ копии\ увеличиваем\ каждый\ элемент}}
+\DoxyCodeLine{01207\ \ \ \ \ \ \ \ \ ++(*this);}
+\DoxyCodeLine{01208\ }
+\DoxyCodeLine{01209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ temp;\ \textcolor{comment}{//\ Возвращаем\ исходный\ объект\ до\ изменения}}
+\DoxyCodeLine{01210\ \ \ \ \ \}}
+\DoxyCodeLine{01211\ }
+\DoxyCodeLine{01215\ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ \mbox{\hyperlink{classVector_a6a0d909a1406a89bc61581c15eacbd2e}{operator-\/-\/}}(\textcolor{keywordtype}{int})}
+\DoxyCodeLine{01216\ \ \ \ \ \{}
+\DoxyCodeLine{01217\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVector}{Vector}}\ temp\ =\ *\textcolor{keyword}{this};\ \textcolor{comment}{//\ Создаем\ копию\ текущего\ объекта}}
+\DoxyCodeLine{01218\ }
+\DoxyCodeLine{01219\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ После\ создания\ копии\ уменьшаем\ каждый\ элемент}}
+\DoxyCodeLine{01220\ \ \ \ \ \ \ \ \ -\/-\/(*this);}
+\DoxyCodeLine{01221\ }
+\DoxyCodeLine{01222\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ temp;\ \textcolor{comment}{//\ Возвращаем\ исходный\ объект\ до\ изменения}}
+\DoxyCodeLine{01223\ \ \ \ \ \}}
+\DoxyCodeLine{01224\ }
+\DoxyCodeLine{01229\ \ \ \ \ \textcolor{keyword}{friend}\ std::ostream\ \&\mbox{\hyperlink{classVector_a5ec23213c386c98e6d59ec17f6fb0fb4}{operator<<}}(std::ostream\ \&os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVector}{Vector}}\ \&vector)}
+\DoxyCodeLine{01230\ \ \ \ \ \{}
+\DoxyCodeLine{01231\ \ \ \ \ \ \ \ \ os\ <<\ extractClassName()\ <<\ \textcolor{stringliteral}{"{}\ \{\(\backslash\)n"{}};\ \textcolor{comment}{//\ Форматированный\ вывод\ с\ пробелом\ после\ имени\ класса}}
+\DoxyCodeLine{01232\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ vector.\mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}}();\ ++i)}
+\DoxyCodeLine{01233\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01234\ \ \ \ \ \ \ \ \ \ \ \ \ os\ <<\ i\ <<\ \textcolor{stringliteral}{"{}:\ \ "{}}\ <<\ vector[i]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ \textcolor{comment}{//\ Отступ\ для\ элементов\ вектора}}
+\DoxyCodeLine{01235\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01236\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}\}"{}};}
+\DoxyCodeLine{01237\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os;\ \textcolor{comment}{//\ Возвращаем\ поток\ для\ цепочности\ вызовов}}
+\DoxyCodeLine{01238\ \ \ \ \ \}}
+\DoxyCodeLine{01239\ }
+\DoxyCodeLine{01244\ \ \ \ \ \textcolor{keyword}{friend}\ std::istream\ \&\mbox{\hyperlink{classVector_a4a2236de10ff7e302625be6e9bb7e96c}{operator>>}}(std::istream\ \&is,\ \mbox{\hyperlink{classVector}{Vector}}\ \&vector)}
+\DoxyCodeLine{01245\ \ \ \ \ \{}
+\DoxyCodeLine{01246\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01247\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ className;}
+\DoxyCodeLine{01248\ \ \ \ \ \ \ \ \ \ \ \ \ is\ >>\ className;}
+\DoxyCodeLine{01249\ }
+\DoxyCodeLine{01250\ \ \ \ \ \ \ \ \ \ \ \ \ is\ >>\ std::ws;\ \textcolor{comment}{//\ Пропускаем\ пробелы}}
+\DoxyCodeLine{01251\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (is.peek()\ !=\ \textcolor{charliteral}{'\{'})}
+\DoxyCodeLine{01252\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is.setstate(std::ios::failbit);\ \textcolor{comment}{//\ Устанавливаем\ флаг\ ошибки,\ если\ формат\ неверный}}
+\DoxyCodeLine{01254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ is;}
+\DoxyCodeLine{01255\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01256\ \ \ \ \ \ \ \ \ \ \ \ \ is.ignore();\ \textcolor{comment}{//\ Пропускаем\ символ\ '\{'}}
+\DoxyCodeLine{01257\ }
+\DoxyCodeLine{01258\ \ \ \ \ \ \ \ \ \ \ \ \ vector.\mbox{\hyperlink{classVector_a8dd7bbcace48a9b6e6a000cb80054fbf}{clear}}();\ \textcolor{comment}{//\ Очищаем\ вектор\ перед\ чтением\ новых\ данных}}
+\DoxyCodeLine{01259\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ value;}
+\DoxyCodeLine{01260\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (is.peek()\ !=\ \textcolor{charliteral}{'\}'})}
+\DoxyCodeLine{01261\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!(is\ >>\ value))}
+\DoxyCodeLine{01263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{comment}{//\ Проверяем,\ удалось\ ли\ прочитать\ элемент}}
+\DoxyCodeLine{01264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is.setstate(std::ios::failbit);}
+\DoxyCodeLine{01265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ is;}
+\DoxyCodeLine{01266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vector.\mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\_back}}(value);\ \textcolor{comment}{//\ Добавляем\ прочитанный\ элемент}}
+\DoxyCodeLine{01268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\ >>\ std::ws;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Пропускаем\ пробелы\ перед\ следующим\ элементом}}
+\DoxyCodeLine{01269\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01270\ \ \ \ \ \ \ \ \ \ \ \ \ is.ignore();\ \textcolor{comment}{//\ Пропускаем\ символ\ '\}'}}
+\DoxyCodeLine{01271\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ is;}
+\DoxyCodeLine{01272\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01273\ \ \ \ \ \}}
+\DoxyCodeLine{01274\ }
+\DoxyCodeLine{01275\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{01276\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ extractClassName()}
+\DoxyCodeLine{01277\ \ \ \ \ \{}
+\DoxyCodeLine{01278\ \textcolor{preprocessor}{\#ifdef\ \_MSC\_VER}}
+\DoxyCodeLine{01279\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *funcSig\ =\ \_\_FUNCSIG\_\_;}
+\DoxyCodeLine{01280\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{01281\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *funcSig\ =\ \_\_PRETTY\_FUNCTION\_\_;}
+\DoxyCodeLine{01282\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01283\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extract\ the\ class\ name\ from\ the\ function\ signature\ string}}
+\DoxyCodeLine{01284\ \ \ \ \ \ \ \ \ std::string\ funcSigStr(funcSig);}
+\DoxyCodeLine{01285\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ start\ =\ funcSigStr.find(\textcolor{stringliteral}{"{}Vecto"{}});}
+\DoxyCodeLine{01286\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classVector_a2d3f96cbaca141e25255ef4c9ec78937}{end}}\ =\ funcSigStr.find(\textcolor{stringliteral}{"{}r"{}},\ start);}
+\DoxyCodeLine{01287\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (start\ !=\ std::string::npos\ \&\&\ \mbox{\hyperlink{classVector_a2d3f96cbaca141e25255ef4c9ec78937}{end}}\ !=\ std::string::npos)}
+\DoxyCodeLine{01288\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01289\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ funcSigStr.substr(start,\ \mbox{\hyperlink{classVector_a2d3f96cbaca141e25255ef4c9ec78937}{end}}\ -\/\ (start\ -\/\ 1));}
+\DoxyCodeLine{01290\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01291\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}UnknownClass"{}};}
+\DoxyCodeLine{01292\ \ \ \ \ \}}
+\DoxyCodeLine{01293\ \ \ \ \ std::vector<Variable>\ vector\_;}
+\DoxyCodeLine{01294\ \};}
+\DoxyCodeLine{01295\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ VECTOR\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

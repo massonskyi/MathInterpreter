@@ -1,0 +1,810 @@
+\doxysection{rational.\+hpp}
+\hypertarget{rational_8hpp_source}{}\label{rational_8hpp_source}\index{include/types/rational.hpp@{include/types/rational.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ RATIONAL\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ RATIONAL\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../core.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}variable.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <numeric>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classRational}{Rational}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classAbstractObject_aac020e9bb3d960ac64707d22f305881a}{AbstractObject::AbstractObject}};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a}{Rational}}()}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}(extractClassName()),\ num\_(0),\ den\_(1),\ type\_(determineType(\mbox{\hyperlink{classVariable}{Variable}}\{0\}))}
+\DoxyCodeLine{00020\ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classRational_a55a35e40391886deb76ed68913b1974b}{Rational}}(\mbox{\hyperlink{classVariable}{Variable}}\ num,\ \mbox{\hyperlink{classVariable}{Variable}}\ den)\ :\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}(extractClassName()),\ num\_(std::move(num)),\ den\_(std::move(den)),\ type\_(determineType(num\_))}
+\DoxyCodeLine{00027\ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classRational_a34f8466a5b7b3970877c0edc9b2cf060}{Rational}}(\mbox{\hyperlink{classVariable}{Variable}}\ num)\ :\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}(extractClassName()),\ num\_(std::move(num)),\ den\_(1),\ type\_(determineType(num\_))\ \{\};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classRational_ade1228130debffa7eae0d7261f2de67d}{Rational}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classRational}{Rational}}\ \&other)}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}(extractClassName()),\ num\_(other.num\_),\ den\_(other.den\_),\ type\_(other.type\_)\ \{\};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{classRational_aaba142b307807ab517232d335b08cb43}{Rational}}(\mbox{\hyperlink{classRational}{Rational}}\ \&\&other)\ noexcept}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classRational_aac020e9bb3d960ac64707d22f305881a}{AbstractObject}}(extractClassName()),\ num\_(std::move(other.num\_)),\ den\_(std::move(other.den\_)),\ type\_(other.type\_)\ \{\};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{classRational_af44463ac52af0ddd4a2514b5f1667940}{\string~Rational}}()\ \textcolor{keyword}{override}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{comment}{//\ Виртуальный\ метод\ для\ вывода}}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ print(std::ostream\ \&os)\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ std::cout\ <<\ *\textcolor{keyword}{this}\ <<\ std::endl;}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ \ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \mbox{\hyperlink{classRational_acabc660eab598f3131a9a61dd332dfc2}{get}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00054\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{classVariable}{Variable}}\ getNum()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00058\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ num\_;}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{classVariable}{Variable}}\ getDen()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00062\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ den\_;}
+\DoxyCodeLine{00064\ \ \ \ \ \}}
+\DoxyCodeLine{00067\ \ \ \ \ \ [[nodiscard]]\ std::string\ \mbox{\hyperlink{classRational_a3c66f82f9664bbeedc34d1c6cf8bf990}{toString}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00068\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ num\_.\mbox{\hyperlink{classVariable_a78bf534da7a00d71adfe4716f06cfa95}{toString}}()\ +\ \textcolor{stringliteral}{"{}/"{}}\ +\ den\_.\mbox{\hyperlink{classVariable_a78bf534da7a00d71adfe4716f06cfa95}{toString}}();}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ toString\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ [[nodiscard]]\ std::string\ \mbox{\hyperlink{classRational_ad71c672b43d2d82bfcf92922e6ae7740}{getTypeName}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00082\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ num\_.\mbox{\hyperlink{classVariable_a9c5ecc22a97a7c4b002affbdd711a186}{getTypeName}}()\ +\ \textcolor{stringliteral}{"{}/"{}}\ +\ den\_.\mbox{\hyperlink{classVariable_a9c5ecc22a97a7c4b002affbdd711a186}{getTypeName}}();}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ getTypeName\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00091\ \ \ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00096\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \&\mbox{\hyperlink{classRational_ae1a487fef636aef6032b8ebfda7edfb1}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classRational}{Rational}}\ \&other)}
+\DoxyCodeLine{00097\ \ \ \ \ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ num\_\ =\ other.num\_;}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ den\_\ =\ other.den\_;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ type\_\ =\ other.type\_;}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator=\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00109\ \ \ \ \ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00114\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \&\mbox{\hyperlink{classRational_a89dcddf4b12467f4ca5be0d1dfa111a5}{operator=}}(\mbox{\hyperlink{classRational}{Rational}}\ \&\&other)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00115\ \ \ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ num\_\ =\ std::move(other.num\_);}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ den\_\ =\ std::move(other.den\_);}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ type\_\ =\ other.type\_;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ in\ operator=\ :\ "{}}\ +\ std::string(e.what())\ <<\ std::endl;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00128\ \ \ \ \ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classRational_a93257dbfc722e274ef343d791d942fad}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classRational}{Rational}}\ \&other)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00134\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Normalize\ both\ rational\ numbers\ to\ a\ common\ denominator}}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ common\_den\ =\ den\_\ *\ other.den\_;}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ this\_num\ =\ num\_\ *\ other.den\_;}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ other\_num\ =\ other.num\_\ *\ den\_;}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this\_num\ ==\ other\_num;}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator==\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \ \ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classRational_ab5e40470ab2fae06eecd662bc86b168b}{operator==}}(\_Tp\ value)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00155\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Normalize\ both\ rational\ numbers\ to\ a\ common\ denominator}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \_Tp\ common\_den\ =\ den\_\ *\ value.den\_;}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \_Tp\ this\_num\ =\ num\_\ *\ value.den\_;}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \_Tp\ other\_num\ =\ value.num\_\ *\ den\_;}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this\_num\ ==\ other\_num;}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator==\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00169\ \ \ \ \ \}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classRational_a514ff082d144d2aa714a4648a7ba2236}{operator!=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classRational}{Rational}}\ \&other)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00175\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Normalize\ both\ rational\ numbers\ to\ a\ common\ denominator}}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ common\_den\ =\ den\_\ *\ other.den\_;}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ this\_num\ =\ num\_\ *\ other.den\_;}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ other\_num\ =\ other.num\_\ *\ den\_;}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this\_num\ !=\ other\_num;}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator==\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00189\ \ \ \ \ \}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classRational_ae6a337e93dbf6b4876ee4b1ccf8b3d9a}{operator!=}}(\textcolor{keyword}{const}\ \_Tp\ \&other)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !(*\textcolor{keyword}{this}\ ==\ other);}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)\ \{}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator!=\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00201\ \ \ \ \ \}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00206\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \mbox{\hyperlink{classRational_acfcde9ff17731922cea3e28bdfcfbd61}{operator+}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classRational}{Rational}}\ \&other)}
+\DoxyCodeLine{00207\ \ \ \ \ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a}{Rational}}((num\_\ *\ other.den\_)\ +\ (other.num\_\ *\ den\_),\ den\_\ *\ other.den\_);}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator+\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00216\ \ \ \ \ \}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00221\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \mbox{\hyperlink{classRational_a3a42099396a11d8b2ecb92bd31a84b0d}{operator+}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classRational}{Rational}}\ \&other)\textcolor{keyword}{const}}
+\DoxyCodeLine{00222\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a}{Rational}}((num\_\ *\ other.den\_)\ +\ (other.num\_\ *\ den\_),\ den\_\ *\ other.den\_);}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator+\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00231\ \ \ \ \ \}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00236\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \mbox{\hyperlink{classRational_aaba837871db664b731d104930ff6cdcd}{operator+}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\&\ other)}
+\DoxyCodeLine{00237\ \ \ \ \ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a}{Rational}}((num\_\ *\ other)\ +\ (other\ *\ den\_),\ den\_\ *\ other);}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\&\ e)}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator+\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00246\ \ \ \ \ \}}
+\DoxyCodeLine{00250\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \mbox{\hyperlink{classRational_acdff49da03e7a967f42fa11a59be7bea}{operator-\/}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classRational}{Rational}}\ \&other)}
+\DoxyCodeLine{00251\ \ \ \ \ \{}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Приводим\ дроби\ к\ общему\ знаменателю}}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a}{Rational}}((num\_\ *\ other.den\_)\ -\/\ (other.num\_\ *\ den\_),\ den\_\ *\ other.den\_);}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator+\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00261\ \ \ \ \ \}}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00266\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \mbox{\hyperlink{classRational_a70346ce7def0d2631ee24a33c3841bb5}{operator-\/}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\&\ other)}
+\DoxyCodeLine{00267\ \ \ \ \ \{}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a}{Rational}}((num\_\ *\ other)\ -\/\ (other\ *\ den\_),\ den\_\ *\ other);}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\&\ e)}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator+\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00276\ \ \ \ \ \}}
+\DoxyCodeLine{00280\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \mbox{\hyperlink{classRational_aa62e3a9bcd0a4dc4950fb6b32ab2106f}{operator*}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classRational}{Rational}}\ \&other)}
+\DoxyCodeLine{00281\ \ \ \ \ \{}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a}{Rational}}(num\_\ *\ other.num\_,\ den\_\ *\ other.den\_);}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator*\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00290\ \ \ \ \ \}}
+\DoxyCodeLine{00294\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \mbox{\hyperlink{classRational_a2b70ceda2dabf6f6be68f8089dd50324}{operator*}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classRational}{Rational}}\ \&other)\textcolor{keyword}{const}}
+\DoxyCodeLine{00295\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a}{Rational}}(num\_\ *\ other.num\_,\ den\_\ *\ other.den\_);}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator*\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00304\ \ \ \ \ \}}
+\DoxyCodeLine{00308\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \mbox{\hyperlink{classRational_ac5559ccb4621ec471cb731566b642a1d}{operator*}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\&\ other)}
+\DoxyCodeLine{00309\ \ \ \ \ \{}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a}{Rational}}((num\_\ *\ other)\ *\ (other\ *\ den\_),\ den\_\ *\ other);}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\&\ e)}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator+\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00318\ \ \ \ \ \}}
+\DoxyCodeLine{00322\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \mbox{\hyperlink{classRational_ac8da6623eb4973aabee2ddfe3d6c3410}{operator/}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classRational}{Rational}}\ \&other)}
+\DoxyCodeLine{00323\ \ \ \ \ \{}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a}{Rational}}(num\_\ *\ other.den\_,\ den\_\ *\ other.num\_);}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator/\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00332\ \ \ \ \ \}}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00337\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \mbox{\hyperlink{classRational_a754f0f45deb62414e680b64c6d529d53}{operator/}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\&\ other)}
+\DoxyCodeLine{00338\ \ \ \ \ \{}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a}{Rational}}((num\_\ *\ other)\ *\ (other\ *\ den\_),\ den\_\ *\ other);}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\&\ e)}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator+\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00347\ \ \ \ \ \}}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00352\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \mbox{\hyperlink{classRational_af39819bd2cb29c47ec44ddbb32499da0}{operator\%}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classRational}{Rational}}\ \&other)\ \{}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a}{Rational}}(num\_\ *\ other.den\_,\ den\_\ *\ other.num\_);}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)\ \{}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator\%\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00358\ \ \ \ \ \}}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00363\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00364\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \mbox{\hyperlink{classRational_a9d0ebd854d69619a8535d4edcde870d1}{operator+}}(\_Tp\ value)}
+\DoxyCodeLine{00365\ \ \ \ \ \{}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Приводим\ дроби\ к\ общему\ знаменателю}}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a}{Rational}}((num\_\ *\ value)\ +\ (den\_\ *\ value),\ den\_\ *\ value);}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator+\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00375\ \ \ \ \ \}}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00380\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00381\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \mbox{\hyperlink{classRational_a99fbd322cdc8fc75d892d9caf3557e3d}{operator-\/}}(\_Tp\ value)}
+\DoxyCodeLine{00382\ \ \ \ \ \{}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Приводим\ дроби\ к\ общему\ знаменателю}}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a}{Rational}}((num\_\ *\ value)\ -\/\ (value\ *\ den\_),\ den\_\ *\ value);}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator-\/\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00392\ \ \ \ \ \}}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00397\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00398\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \mbox{\hyperlink{classRational_aa24d1c14018afd64ce84ee1dfea943db}{operator*}}(\_Tp\ value)}
+\DoxyCodeLine{00399\ \ \ \ \ \{}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a}{Rational}}(num\_\ *\ value,\ den\_\ *\ value);}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator*\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00408\ \ \ \ \ \}}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00413\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00414\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \mbox{\hyperlink{classRational_a82f1b1c340b8cc1d0795134d6380d809}{operator/}}(\_Tp\ value)}
+\DoxyCodeLine{00415\ \ \ \ \ \{}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a}{Rational}}(num\_\ *\ value,\ den\_\ *\ value);}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator/\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00424\ \ \ \ \ \}}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00429\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00430\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \mbox{\hyperlink{classRational_aa02b1c880d2e1b3f3ca34cf5bc2425b4}{operator\%}}(\_Tp\ value)}
+\DoxyCodeLine{00431\ \ \ \ \ \{}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a}{Rational}}(num\_\ *\ value,\ den\_\ *\ value);}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator\%\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00440\ \ \ \ \ \}}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00445\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \&\mbox{\hyperlink{classRational_ac4cef5e95c2f81fadeb3ed913aa6972a}{operator+=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classRational}{Rational}}\ \&other)}
+\DoxyCodeLine{00446\ \ \ \ \ \{}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Normalize\ both\ rational\ numbers\ to\ a\ common\ denominator}}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ common\_den\ =\ den\_\ *\ other.den\_;}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ this\_num\ =\ num\_\ *\ other.den\_;}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ other\_num\ =\ other.num\_\ *\ den\_;}
+\DoxyCodeLine{00453\ }
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ the\ addition}}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ result\_num\ =\ this\_num\ +\ other\_num;}
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ the\ current\ object}}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \ \ \ \ num\_\ =\ result\_num;}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \ \ \ \ den\_\ =\ common\_den;}
+\DoxyCodeLine{00460\ }
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator+=\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00467\ \ \ \ \ \}}
+\DoxyCodeLine{00468\ }
+\DoxyCodeLine{00472\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \&\mbox{\hyperlink{classRational_abedcfc1d037ce6d23675d08afd5e974d}{operator-\/=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classRational}{Rational}}\ \&other)}
+\DoxyCodeLine{00473\ \ \ \ \ \{}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Normalize\ both\ rational\ numbers\ to\ a\ common\ denominator}}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ common\_den\ =\ den\_\ *\ other.den\_;}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ this\_num\ =\ num\_\ *\ other.den\_;}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ other\_num\ =\ other.num\_\ *\ den\_;}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ the\ subtraction}}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ result\_num\ =\ this\_num\ -\/\ other\_num;}
+\DoxyCodeLine{00483\ }
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ the\ current\ object}}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ \ \ \ \ num\_\ =\ result\_num;}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ \ \ den\_\ =\ common\_den;}
+\DoxyCodeLine{00487\ }
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator-\/=\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00494\ \ \ \ \ \}}
+\DoxyCodeLine{00495\ }
+\DoxyCodeLine{00499\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \&\mbox{\hyperlink{classRational_a1c108dfc9ddaa793e40e7c9f7acfb615}{operator*=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classRational}{Rational}}\ \&other)}
+\DoxyCodeLine{00500\ \ \ \ \ \{}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ the\ multiplication}}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ result\_num\ =\ num\_\ *\ other.num\_;}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ result\_den\ =\ den\_\ *\ other.den\_;}
+\DoxyCodeLine{00506\ }
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ the\ current\ object}}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \ \ \ \ num\_\ =\ result\_num;}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \ \ \ \ den\_\ =\ result\_den;}
+\DoxyCodeLine{00510\ }
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator*=\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00517\ \ \ \ \ \}}
+\DoxyCodeLine{00518\ }
+\DoxyCodeLine{00522\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \&\mbox{\hyperlink{classRational_a950142d8e0e95256e76edf32f0e0af14}{operator/=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classRational}{Rational}}\ \&other)}
+\DoxyCodeLine{00523\ \ \ \ \ \{}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (other.num\_\ ==\ 0)}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Division\ by\ zero"{}});}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00530\ }
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ the\ division}}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ result\_num\ =\ num\_\ *\ other.den\_;}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ result\_den\ =\ den\_\ *\ other.num\_;}
+\DoxyCodeLine{00534\ }
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ the\ current\ object}}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \ \ \ \ num\_\ =\ result\_num;}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \ \ \ \ den\_\ =\ result\_den;}
+\DoxyCodeLine{00538\ }
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator/=\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00545\ \ \ \ \ \}}
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00550\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \&\mbox{\hyperlink{classRational_adf27b31c28efb8bb2df4b40839957a0c}{operator\%=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classRational}{Rational}}\ \&other)}
+\DoxyCodeLine{00551\ \ \ \ \ \{}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (other.num\_\ ==\ 0)}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Modulus\ by\ zero"{}});}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00558\ }
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ the\ modulus\ operation}}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ result\_num\ =\ num\_\ \%\ (other.num\_\ *\ den\_);}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ the\ current\ object}}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ \ \ \ \ num\_\ =\ result\_num;}
+\DoxyCodeLine{00564\ }
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator\%=\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00571\ \ \ \ \ \}}
+\DoxyCodeLine{00572\ }
+\DoxyCodeLine{00576\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00577\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \&\mbox{\hyperlink{classRational_a1aea0586734402f5a0ce574f1ac90d26}{operator+=}}(\_Tp\ value)}
+\DoxyCodeLine{00578\ \ \ \ \ \{}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Normalize\ both\ rational\ numbers\ to\ a\ common\ denominator}}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \ \ \ \ \_Tp\ common\_den\ =\ den\_\ *\ value;}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \ \ \ \ \_Tp\ this\_num\ =\ num\_\ *\ value;}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ \ \ \ \ \_Tp\ other\_num\ =\ value\ *\ den\_;}
+\DoxyCodeLine{00585\ }
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ the\ addition}}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \ \ \ \ \_Tp\ result\_num\ =\ this\_num\ +\ other\_num;}
+\DoxyCodeLine{00588\ }
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ the\ current\ object}}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ \ \ \ \ num\_\ =\ result\_num;}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ \ \ \ \ den\_\ =\ common\_den;}
+\DoxyCodeLine{00592\ }
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator+=\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00599\ \ \ \ \ \}}
+\DoxyCodeLine{00600\ }
+\DoxyCodeLine{00604\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00605\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \&\mbox{\hyperlink{classRational_a9cc4c9a18a04fa4132402bd7057fa709}{operator-\/=}}(\_Tp\ value)}
+\DoxyCodeLine{00606\ \ \ \ \ \{}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Normalize\ both\ rational\ numbers\ to\ a\ common\ denominator}}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ \ \ \ \ \ \ \_Tp\ common\_den\ =\ den\_\ *\ value;}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ \ \ \ \ \_Tp\ this\_num\ =\ num\_\ *\ value;}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ \ \ \ \ \_Tp\ other\_num\ =\ value\ *\ den\_;}
+\DoxyCodeLine{00613\ }
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ the\ subtraction}}
+\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ \ \ \ \ \_Tp\ result\_num\ =\ this\_num\ -\/\ other\_num;}
+\DoxyCodeLine{00616\ }
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ the\ current\ object}}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \ \ \ \ num\_\ =\ result\_num;}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \ \ \ \ den\_\ =\ common\_den;}
+\DoxyCodeLine{00620\ }
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator-\/=\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00627\ \ \ \ \ \}}
+\DoxyCodeLine{00628\ }
+\DoxyCodeLine{00632\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00633\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \&\mbox{\hyperlink{classRational_a9fc22918918d87b317d0c220786a75fd}{operator*=}}(\_Tp\ value)}
+\DoxyCodeLine{00634\ \ \ \ \ \{}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ the\ multiplication}}
+\DoxyCodeLine{00638\ \ \ \ \ \ \ \ \ \ \ \ \ \_Tp\ result\_num\ =\ num\_\ *\ value;}
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \ \ \ \ \ \ \_Tp\ result\_den\ =\ den\_\ *\ value;}
+\DoxyCodeLine{00640\ }
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ the\ current\ object}}
+\DoxyCodeLine{00642\ \ \ \ \ \ \ \ \ \ \ \ \ num\_\ =\ result\_num;}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ \ \ \ \ den\_\ =\ result\_den;}
+\DoxyCodeLine{00644\ }
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00647\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator*=\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00651\ \ \ \ \ \}}
+\DoxyCodeLine{00652\ }
+\DoxyCodeLine{00656\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00657\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \&\mbox{\hyperlink{classRational_afc3112be518ab0f0adeb0c7eb123eff9}{operator/=}}(\_Tp\ value)}
+\DoxyCodeLine{00658\ \ \ \ \ \{}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value.num\_\ ==\ 0)}
+\DoxyCodeLine{00662\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Division\ by\ zero"{}});}
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00665\ }
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ the\ division}}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ \ \ \ \ \_Tp\ result\_num\ =\ num\_\ *\ value;}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ \ \ \ \ \_Tp\ result\_den\ =\ den\_\ *\ value;}
+\DoxyCodeLine{00669\ }
+\DoxyCodeLine{00670\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ the\ current\ object}}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ \ \ \ \ num\_\ =\ result\_num;}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ \ \ \ \ den\_\ =\ result\_den;}
+\DoxyCodeLine{00673\ }
+\DoxyCodeLine{00674\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator/=\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00680\ \ \ \ \ \}}
+\DoxyCodeLine{00681\ }
+\DoxyCodeLine{00685\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00686\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \&\mbox{\hyperlink{classRational_a0eefb0de8ba01fdbe934dbe376644e1a}{operator\%=}}(\_Tp\ value)}
+\DoxyCodeLine{00687\ \ \ \ \ \{}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00690\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ 0)}
+\DoxyCodeLine{00691\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Modulus\ by\ zero"{}});}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00694\ }
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ the\ modulus\ operation}}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \ \ \ \ \_Tp\ result\_num\ =\ num\_\ \%\ (value\ *\ den\_);}
+\DoxyCodeLine{00697\ }
+\DoxyCodeLine{00698\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ the\ current\ object}}
+\DoxyCodeLine{00699\ \ \ \ \ \ \ \ \ \ \ \ \ num\_\ =\ result\_num;}
+\DoxyCodeLine{00700\ }
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator\%=\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00707\ \ \ \ \ \}}
+\DoxyCodeLine{00708\ }
+\DoxyCodeLine{00711\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \&\mbox{\hyperlink{classRational_a735a058bb3d3936a8296a87e432ad977}{operator++}}()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00712\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00713\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00715\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Increment\ the\ numerator\ by\ the\ denominator}}
+\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ \ \ \ \ num\_\ +=\ den\_;}
+\DoxyCodeLine{00717\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00719\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00721\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator++\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00723\ \ \ \ \ \}}
+\DoxyCodeLine{00724\ }
+\DoxyCodeLine{00727\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \&\mbox{\hyperlink{classRational_aa9b212fe7a4cb8c0031d1bd8d8ff1159}{operator-\/-\/}}()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00728\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00731\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Decrement\ the\ numerator\ by\ the\ denominator}}
+\DoxyCodeLine{00732\ \ \ \ \ \ \ \ \ \ \ \ \ num\_\ -\/=\ den\_;}
+\DoxyCodeLine{00733\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00734\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00735\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00736\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator-\/-\/\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00738\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00739\ \ \ \ \ \}}
+\DoxyCodeLine{00740\ }
+\DoxyCodeLine{00744\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \mbox{\hyperlink{classRational_ab00917bdab2bd33fc7c1f819b11130c9}{operator++}}(\textcolor{keywordtype}{int})}
+\DoxyCodeLine{00745\ \ \ \ \ \{}
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00748\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ a\ copy\ of\ the\ current\ object}}
+\DoxyCodeLine{00749\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ temp\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00750\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Increment\ the\ numerator\ by\ the\ denominator}}
+\DoxyCodeLine{00751\ \ \ \ \ \ \ \ \ \ \ \ \ num\_\ +=\ den\_;}
+\DoxyCodeLine{00752\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ temp;}
+\DoxyCodeLine{00753\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00754\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00755\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00756\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator++(int)\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00757\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00758\ \ \ \ \ \}}
+\DoxyCodeLine{00759\ }
+\DoxyCodeLine{00763\ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ \mbox{\hyperlink{classRational_a23e22f38d64ef5713ada3ff002ef0430}{operator-\/-\/}}(\textcolor{keywordtype}{int})}
+\DoxyCodeLine{00764\ \ \ \ \ \{}
+\DoxyCodeLine{00765\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00766\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00767\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ a\ copy\ of\ the\ current\ object}}
+\DoxyCodeLine{00768\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ temp\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00769\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Decrement\ the\ numerator\ by\ the\ denominator}}
+\DoxyCodeLine{00770\ \ \ \ \ \ \ \ \ \ \ \ \ num\_\ -\/=\ den\_;}
+\DoxyCodeLine{00771\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ temp;}
+\DoxyCodeLine{00772\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00773\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00774\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00775\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator-\/-\/(int)\ :\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00776\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00777\ \ \ \ \ \}}
+\DoxyCodeLine{00778\ }
+\DoxyCodeLine{00783\ \ \ \ \ \textcolor{keyword}{friend}\ std::ostream\ \&\mbox{\hyperlink{classRational_a34b56311e73cde5a7b8b6e3f2728125e}{operator<<}}(std::ostream\ \&out,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classRational}{Rational}}\ \&var)}
+\DoxyCodeLine{00784\ \ \ \ \ \{}
+\DoxyCodeLine{00785\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00786\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00787\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!out)}
+\DoxyCodeLine{00788\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00789\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ out;\ \textcolor{comment}{//\ Return\ the\ bad\ stream\ instead\ of\ throwing}}
+\DoxyCodeLine{00790\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00791\ }
+\DoxyCodeLine{00792\ \ \ \ \ \ \ \ \ \ \ \ \ out\ <<\ var.\mbox{\hyperlink{classRational_a3c66f82f9664bbeedc34d1c6cf8bf990}{toString}}();}
+\DoxyCodeLine{00793\ }
+\DoxyCodeLine{00794\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00795\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::ios\_base::failure\ \&e)}
+\DoxyCodeLine{00797\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00798\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}I/O\ error\ in\ operator<<:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00800\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00801\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00802\ \ \ \ \ \ \ \ \ \ \ \ \ out.setstate(std::ios::failbit);}
+\DoxyCodeLine{00803\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Unexpected\ error\ in\ operator<<:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00804\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00805\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
+\DoxyCodeLine{00806\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00807\ \ \ \ \ \ \ \ \ \ \ \ \ out.setstate(std::ios::failbit);}
+\DoxyCodeLine{00808\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Unknown\ error\ in\ operator<<"{}});}
+\DoxyCodeLine{00809\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00810\ \ \ \ \ \}}
+\DoxyCodeLine{00811\ }
+\DoxyCodeLine{00816\ \ \ \ \ \textcolor{keyword}{friend}\ std::istream\ \&\mbox{\hyperlink{classRational_a3bb88871478435e87f0a3d953626f29a}{operator>>}}(std::istream\ \&in,\ \mbox{\hyperlink{classRational}{Rational}}\ \&var)}
+\DoxyCodeLine{00817\ \ \ \ \ \{}
+\DoxyCodeLine{00818\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00819\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00820\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ состояния\ потока\ перед\ операцией}}
+\DoxyCodeLine{00821\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!in)}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00823\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::ios\_base::failure(\textcolor{stringliteral}{"{}Input\ stream\ is\ in\ bad\ state"{}});}
+\DoxyCodeLine{00824\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00825\ }
+\DoxyCodeLine{00826\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Очищаем\ возможные\ ошибки\ потока}}
+\DoxyCodeLine{00827\ \ \ \ \ \ \ \ \ \ \ \ \ in.clear();}
+\DoxyCodeLine{00828\ }
+\DoxyCodeLine{00829\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Пропускаем\ начальные\ пробелы}}
+\DoxyCodeLine{00830\ \ \ \ \ \ \ \ \ \ \ \ \ in\ >>\ std::ws;}
+\DoxyCodeLine{00831\ }
+\DoxyCodeLine{00832\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Создаем\ временную\ переменную\ для\ безопасного\ чтения}}
+\DoxyCodeLine{00833\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classRational}{Rational}}\ temp;}
+\DoxyCodeLine{00834\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!(in\ >>\ temp))}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00836\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::ios\_base::failure(\textcolor{stringliteral}{"{}Failed\ to\ read\ value"{}});}
+\DoxyCodeLine{00837\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00838\ }
+\DoxyCodeLine{00839\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Присваиваем\ значение\ только\ если\ чтение\ прошло\ успешно}}
+\DoxyCodeLine{00840\ \ \ \ \ \ \ \ \ \ \ \ \ var\ =\ std::move(temp);}
+\DoxyCodeLine{00841\ }
+\DoxyCodeLine{00842\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ in;}
+\DoxyCodeLine{00843\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00844\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::ios\_base::failure\ \&e)}
+\DoxyCodeLine{00845\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00846\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}I/O\ error\ in\ operator>>:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00848\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00849\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Unexpected\ error\ in\ operator>>:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00851\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00852\ \ \ \ \ \};}
+\DoxyCodeLine{00853\ }
+\DoxyCodeLine{00854\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00855\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ num\_;}
+\DoxyCodeLine{00856\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ den\_;}
+\DoxyCodeLine{00857\ \ \ \ \ Type\ type\_;}
+\DoxyCodeLine{00858\ }
+\DoxyCodeLine{00859\ \ \ \ \ \textcolor{keyword}{static}\ Type\ determineType(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&num)}
+\DoxyCodeLine{00860\ \ \ \ \ \{}
+\DoxyCodeLine{00861\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ std::string\ \&typeStr\ =\ num.\mbox{\hyperlink{classVariable_a9564b5d6ba1bce6e2c781d99b2d6fbdd}{getType}}();\ typeStr\ ==\ \textcolor{stringliteral}{"{}INT"{}})}
+\DoxyCodeLine{00862\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00863\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Type::INT;}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00865\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (typeStr\ ==\ \textcolor{stringliteral}{"{}DOUBLE"{}})}
+\DoxyCodeLine{00866\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00867\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Type::DOUBLE;}
+\DoxyCodeLine{00868\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00869\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (typeStr\ ==\ \textcolor{stringliteral}{"{}FLOAT"{}})}
+\DoxyCodeLine{00870\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00871\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Type::FLOAT;}
+\DoxyCodeLine{00872\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00873\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (typeStr\ ==\ \textcolor{stringliteral}{"{}OTHER"{}})}
+\DoxyCodeLine{00874\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00875\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Type::OTHER;}
+\DoxyCodeLine{00876\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00878\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00879\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Unknown\ type"{}});}
+\DoxyCodeLine{00880\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00881\ \ \ \ \ \}}
+\DoxyCodeLine{00882\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ extractClassName()}
+\DoxyCodeLine{00883\ \ \ \ \ \{}
+\DoxyCodeLine{00884\ \textcolor{preprocessor}{\#ifdef\ \_MSC\_VER}}
+\DoxyCodeLine{00885\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ funcSig\ =\ \_\_FUNCSIG\_\_;}
+\DoxyCodeLine{00886\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00887\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ funcSig\ =\ \_\_PRETTY\_FUNCTION\_\_;}
+\DoxyCodeLine{00888\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00889\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extract\ the\ class\ name\ from\ the\ function\ signature\ string}}
+\DoxyCodeLine{00890\ \ \ \ \ \ \ \ \ std::string\ funcSigStr(funcSig);}
+\DoxyCodeLine{00891\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ start\ =\ funcSigStr.find(\textcolor{stringliteral}{"{}Rationa"{}});}
+\DoxyCodeLine{00892\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ end\ =\ funcSigStr.find(\textcolor{charliteral}{'l'},\ start);\ start\ !=\ std::string::npos\ \&\&\ end\ !=\ std::string::npos)}
+\DoxyCodeLine{00893\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00894\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ funcSigStr.substr(start,\ end\ -\/\ (start\ -\/\ 1));}
+\DoxyCodeLine{00895\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00896\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}UnknownClass"{}};}
+\DoxyCodeLine{00897\ \ \ \ \ \}}
+\DoxyCodeLine{00899\ \ \ \ \ \textcolor{keywordtype}{void}\ reduce()}
+\DoxyCodeLine{00900\ \ \ \ \ \{}
+\DoxyCodeLine{00901\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ деления\ на\ ноль}}
+\DoxyCodeLine{00902\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (den\_.\mbox{\hyperlink{classVariable_a90fffa96c32409f874e6a838c2f0e100}{getValue}}<\textcolor{keywordtype}{int}>()\ ==\ 0)}
+\DoxyCodeLine{00903\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00904\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Division\ by\ zero"{}});}
+\DoxyCodeLine{00905\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00906\ }
+\DoxyCodeLine{00907\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Если\ числитель\ и\ знаменатель\ являются\ целыми\ числами}}
+\DoxyCodeLine{00908\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_integral\_v<\textcolor{keyword}{decltype}(num\_.\mbox{\hyperlink{classVariable_a90fffa96c32409f874e6a838c2f0e100}{getValue}}<\textcolor{keywordtype}{int}>())>)}
+\DoxyCodeLine{00909\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00910\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Нормализация\ отрицательного\ знаменателя}}
+\DoxyCodeLine{00911\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (den\_.\mbox{\hyperlink{classVariable_a90fffa96c32409f874e6a838c2f0e100}{getValue}}<\textcolor{keywordtype}{int}>()\ <\ 0)}
+\DoxyCodeLine{00912\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00913\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_.\mbox{\hyperlink{classVariable_a5b635aa9849f9cd220b56e6c4e524203}{set}}(-\/num\_.\mbox{\hyperlink{classVariable_a90fffa96c32409f874e6a838c2f0e100}{getValue}}<\textcolor{keywordtype}{int}>());}
+\DoxyCodeLine{00914\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ den\_.\mbox{\hyperlink{classVariable_a5b635aa9849f9cd220b56e6c4e524203}{set}}(-\/den\_.\mbox{\hyperlink{classVariable_a90fffa96c32409f874e6a838c2f0e100}{getValue}}<\textcolor{keywordtype}{int}>());}
+\DoxyCodeLine{00915\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00916\ }
+\DoxyCodeLine{00917\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Сокращение\ дроби\ с\ использованием\ GCD}}
+\DoxyCodeLine{00918\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{int}\ gcd\ =\ std::gcd(std::abs(num\_.\mbox{\hyperlink{classVariable_a90fffa96c32409f874e6a838c2f0e100}{getValue}}<\textcolor{keywordtype}{int}>()),\ std::abs(den\_.\mbox{\hyperlink{classVariable_a90fffa96c32409f874e6a838c2f0e100}{getValue}}<\textcolor{keywordtype}{int}>()));\ gcd\ >\ 1)}
+\DoxyCodeLine{00919\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00920\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_.\mbox{\hyperlink{classVariable_a5b635aa9849f9cd220b56e6c4e524203}{set}}(num\_.\mbox{\hyperlink{classVariable_a90fffa96c32409f874e6a838c2f0e100}{getValue}}<\textcolor{keywordtype}{int}>()\ /\ gcd);}
+\DoxyCodeLine{00921\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ den\_.\mbox{\hyperlink{classVariable_a5b635aa9849f9cd220b56e6c4e524203}{set}}(den\_.\mbox{\hyperlink{classVariable_a90fffa96c32409f874e6a838c2f0e100}{getValue}}<\textcolor{keywordtype}{int}>()\ /\ gcd);}
+\DoxyCodeLine{00922\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00923\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00924\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_floating\_point\_v<\textcolor{keyword}{decltype}(num\_.\mbox{\hyperlink{classVariable_a90fffa96c32409f874e6a838c2f0e100}{getValue}}<\textcolor{keywordtype}{double}>())>)}
+\DoxyCodeLine{00925\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00926\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Нормализация\ для\ вещественных\ чисел}}
+\DoxyCodeLine{00927\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::abs(den\_.\mbox{\hyperlink{classVariable_a90fffa96c32409f874e6a838c2f0e100}{getValue}}<\textcolor{keywordtype}{double}>())\ <\ std::numeric\_limits<double>::epsilon())}
+\DoxyCodeLine{00928\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00929\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Division\ by\ zero"{}});}
+\DoxyCodeLine{00930\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00931\ }
+\DoxyCodeLine{00932\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ normalize\ =\ den\_.\mbox{\hyperlink{classVariable_a90fffa96c32409f874e6a838c2f0e100}{getValue}}<\textcolor{keywordtype}{double}>();}
+\DoxyCodeLine{00933\ \ \ \ \ \ \ \ \ \ \ \ \ num\_.\mbox{\hyperlink{classVariable_a5b635aa9849f9cd220b56e6c4e524203}{set}}(num\_.\mbox{\hyperlink{classVariable_a90fffa96c32409f874e6a838c2f0e100}{getValue}}<\textcolor{keywordtype}{double}>()\ /\ normalize);}
+\DoxyCodeLine{00934\ \ \ \ \ \ \ \ \ \ \ \ \ den\_.\mbox{\hyperlink{classVariable_a5b635aa9849f9cd220b56e6c4e524203}{set}}(1.0);}
+\DoxyCodeLine{00935\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00936\ \ \ \ \ \}}
+\DoxyCodeLine{00937\ \};}
+\DoxyCodeLine{00938\ }
+\DoxyCodeLine{00939\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ RATIONAL\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

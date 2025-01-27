@@ -1,0 +1,410 @@
+\doxysection{Matrix Class Reference}
+\hypertarget{classMatrix}{}\label{classMatrix}\index{Matrix@{Matrix}}
+
+
+\doxylink{classMatrix}{Matrix} is a class that represents a matrix.  
+
+
+
+
+{\ttfamily \#include $<$matrix.\+hpp$>$}
+
+
+
+Inheritance diagram for Matrix\+:
+% FIG 0
+
+
+Collaboration diagram for Matrix\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classMatrix_a2d7c1e2d67900b94fcecd0758e658774}\label{classMatrix_a2d7c1e2d67900b94fcecd0758e658774} 
+{\bfseries Matrix} (const size\+\_\+t rows, const size\+\_\+t cols)
+\item 
+\Hypertarget{classMatrix_adef15c6c99766163b4c594a333973584}\label{classMatrix_adef15c6c99766163b4c594a333973584} 
+{\bfseries Matrix} (const std\+::initializer\+\_\+list$<$ \mbox{\hyperlink{classVector}{Vector}} $>$ list)
+\item 
+\Hypertarget{classMatrix_aa509897cf1681dffcd37ca4eda7e9c78}\label{classMatrix_aa509897cf1681dffcd37ca4eda7e9c78} 
+{\bfseries Matrix} (const \mbox{\hyperlink{classMatrix}{Matrix}} \&other) noexcept
+\item 
+\Hypertarget{classMatrix_a75f3885769e293b3f3e236ef60a71c21}\label{classMatrix_a75f3885769e293b3f3e236ef60a71c21} 
+{\bfseries Matrix} (\mbox{\hyperlink{classMatrix}{Matrix}} \&\&other) noexcept
+\item 
+\Hypertarget{classMatrix_ae55dd75e64afeef9a48ddfa3b333b60b}\label{classMatrix_ae55dd75e64afeef9a48ddfa3b333b60b} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Matrix} ()=default
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{classMatrix}{Matrix} class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMatrix_a66d107ffc6d485f7ca3b7beea61b2a4e}{print}} (std\+::ostream \&os) const override
+\item 
+\mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classMatrix_a292a5b913be6a234ddc3f0f59a5e59eb}{get}} () const override
+\begin{DoxyCompactList}\small\item\em This method returns object by index its index container. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{classMatrix_af761f16fa876027471a73108e320ed99}{to\+String}} () const override
+\begin{DoxyCompactList}\small\item\em This method is used to print the object. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{classMatrix_a8ed030e0e9f0fe39eedc6f3c1fd88001}{get\+Type\+Name}} () const override
+\begin{DoxyCompactList}\small\item\em This method is used to get the type of the object. \end{DoxyCompactList}\item 
+\Hypertarget{classMatrix_a97617f3524bfa47d6ac7daa0eefc1941}\label{classMatrix_a97617f3524bfa47d6ac7daa0eefc1941} 
+size\+\_\+t {\bfseries rows} () const
+\item 
+\Hypertarget{classMatrix_a8c8b8a4a34ad4a16e6ba28a62010dfa0}\label{classMatrix_a8c8b8a4a34ad4a16e6ba28a62010dfa0} 
+size\+\_\+t {\bfseries cols} () const
+\item 
+\Hypertarget{classMatrix_a54986ff7a441ffc51fb4bff1e29049c2}\label{classMatrix_a54986ff7a441ffc51fb4bff1e29049c2} 
+\mbox{\hyperlink{classVector}{Vector}} \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t index)
+\item 
+\Hypertarget{classMatrix_ae00e40e6371b977cd11b492193fefb1d}\label{classMatrix_ae00e40e6371b977cd11b492193fefb1d} 
+const \mbox{\hyperlink{classVector}{Vector}} \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t index) const
+\item 
+\Hypertarget{classMatrix_ab3a98c153b4fba5707b0df7142645a36}\label{classMatrix_ab3a98c153b4fba5707b0df7142645a36} 
+\mbox{\hyperlink{classVector}{Vector}} \& {\bfseries at} (size\+\_\+t index)
+\item 
+\Hypertarget{classMatrix_a3da442a23e863b4d8749f56b5d627a08}\label{classMatrix_a3da442a23e863b4d8749f56b5d627a08} 
+const \mbox{\hyperlink{classVector}{Vector}} \& {\bfseries at} (size\+\_\+t index) const
+\item 
+\Hypertarget{classMatrix_a55da5fd398f28fc0f71ae3f2d2b5b340}\label{classMatrix_a55da5fd398f28fc0f71ae3f2d2b5b340} 
+\mbox{\hyperlink{classVariable}{Variable}} {\bfseries get} (size\+\_\+t row, size\+\_\+t col) const
+\item 
+\Hypertarget{classMatrix_a07b773e207839dcaff379f720e541284}\label{classMatrix_a07b773e207839dcaff379f720e541284} 
+void {\bfseries push\+\_\+back} (const \mbox{\hyperlink{classVector}{Vector}} \&row)
+\item 
+\Hypertarget{classMatrix_aa8804e6733a0467a9037f5b0c6d3ff19}\label{classMatrix_aa8804e6733a0467a9037f5b0c6d3ff19} 
+void {\bfseries pop\+\_\+back} ()
+\item 
+\Hypertarget{classMatrix_ac0e2adb05e204d5a40cd129d9fb0593f}\label{classMatrix_ac0e2adb05e204d5a40cd129d9fb0593f} 
+void {\bfseries clear} ()
+\item 
+\Hypertarget{classMatrix_ad06a93059f2e5d0117e37e63d550db45}\label{classMatrix_ad06a93059f2e5d0117e37e63d550db45} 
+void {\bfseries resize} (size\+\_\+t rows, size\+\_\+t cols)
+\item 
+\Hypertarget{classMatrix_a759661b75b9681f3a89ff75e27933b3a}\label{classMatrix_a759661b75b9681f3a89ff75e27933b3a} 
+\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries transpose} () const
+\item 
+void \mbox{\hyperlink{classMatrix_ae712f9663d5fc651676e46816c7f0334}{swap}} (\mbox{\hyperlink{classMatrix}{Matrix}} \&other) noexcept
+\begin{DoxyCompactList}\small\item\em This method swaps two containers. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classVector}{Vector}} $>$\+::iterator \mbox{\hyperlink{classMatrix_ac51c0872eb92574957493e7f5fa2194f}{begin}} () noexcept
+\begin{DoxyCompactList}\small\item\em This method returns begin iterator of the container. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classVector}{Vector}} $>$\+::iterator \mbox{\hyperlink{classMatrix_a92027a8d89275fbbf7a387f60a162237}{end}} () noexcept
+\begin{DoxyCompactList}\small\item\em This method returns end iterator of the container. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classVector}{Vector}} $>$\+::const\+\_\+iterator \mbox{\hyperlink{classMatrix_a19ea7662f51f7eb8abbcc646d43cd01e}{cbegin}} () const noexcept
+\begin{DoxyCompactList}\small\item\em This method returns const begin iterator of the container. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classVector}{Vector}} $>$\+::const\+\_\+iterator \mbox{\hyperlink{classMatrix_ace13f8fe51a3e0a3a99738ed45ada8f0}{cend}} () const noexcept
+\begin{DoxyCompactList}\small\item\em This method returns const end iterator of the container. \end{DoxyCompactList}\item 
+\Hypertarget{classMatrix_a3e40db12ae78b7616ee3f099bb15f13d}\label{classMatrix_a3e40db12ae78b7616ee3f099bb15f13d} 
+\mbox{\hyperlink{classMatrix}{Matrix}} \& {\bfseries operator=} (const \mbox{\hyperlink{classMatrix}{Matrix}} \&other)
+\item 
+\Hypertarget{classMatrix_a74eca41e5a29b6efd57b009730d3fe60}\label{classMatrix_a74eca41e5a29b6efd57b009730d3fe60} 
+\mbox{\hyperlink{classMatrix}{Matrix}} \& {\bfseries operator=} (\mbox{\hyperlink{classMatrix}{Matrix}} \&\&other) noexcept
+\item 
+\Hypertarget{classMatrix_a797d03df703f77cccb25ab9a0770e760}\label{classMatrix_a797d03df703f77cccb25ab9a0770e760} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{classMatrix}{Matrix}} \&other) const
+\item 
+\Hypertarget{classMatrix_a44f33a4281273fc500bae6d2c4d86f34}\label{classMatrix_a44f33a4281273fc500bae6d2c4d86f34} 
+bool {\bfseries operator!=} (const \mbox{\hyperlink{classMatrix}{Matrix}} \&other) const
+\item 
+\Hypertarget{classMatrix_afc7858a535ebcebf445e91bccd75d197}\label{classMatrix_afc7858a535ebcebf445e91bccd75d197} 
+\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator+} (const \mbox{\hyperlink{classMatrix}{Matrix}} \&other) const
+\item 
+\Hypertarget{classMatrix_acdaadb59252b6189faf2207ada49c888}\label{classMatrix_acdaadb59252b6189faf2207ada49c888} 
+\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator+} (const \mbox{\hyperlink{classVector}{Vector}} \&other) const
+\item 
+\Hypertarget{classMatrix_ad5268a6e26f2857c58a231608701edd5}\label{classMatrix_ad5268a6e26f2857c58a231608701edd5} 
+\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator+} (\mbox{\hyperlink{classVariable}{Variable}} \&other)
+\item 
+\Hypertarget{classMatrix_abb44986f4d7b2ac6465fed5b5db019e8}\label{classMatrix_abb44986f4d7b2ac6465fed5b5db019e8} 
+\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator-\/} (const \mbox{\hyperlink{classMatrix}{Matrix}} \&other) const
+\item 
+\Hypertarget{classMatrix_a2c2bda5871a7d475d42e03a013792ecd}\label{classMatrix_a2c2bda5871a7d475d42e03a013792ecd} 
+\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator-\/} (const \mbox{\hyperlink{classVector}{Vector}} \&other) const
+\item 
+\Hypertarget{classMatrix_ae8216477264a8aacf098b711dc2f50cf}\label{classMatrix_ae8216477264a8aacf098b711dc2f50cf} 
+\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator-\/} (\mbox{\hyperlink{classVariable}{Variable}} \&other)
+\item 
+\Hypertarget{classMatrix_ab4f8e22e8db0983d75e090542f4d1f7a}\label{classMatrix_ab4f8e22e8db0983d75e090542f4d1f7a} 
+\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator\texorpdfstring{$\ast$}{*}} (const \mbox{\hyperlink{classMatrix}{Matrix}} \&other) const
+\item 
+\Hypertarget{classMatrix_ad1382472e1b1ea10357f2676deba827b}\label{classMatrix_ad1382472e1b1ea10357f2676deba827b} 
+\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator\texorpdfstring{$\ast$}{*}} (const \mbox{\hyperlink{classVector}{Vector}} \&other) const
+\item 
+\Hypertarget{classMatrix_aa1a0060d96732b46df9378f5da573fc8}\label{classMatrix_aa1a0060d96732b46df9378f5da573fc8} 
+\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator\texorpdfstring{$\ast$}{*}} (\mbox{\hyperlink{classVariable}{Variable}} \&other)
+\item 
+\Hypertarget{classMatrix_a7b3670d67646f7ccc15e63996a3efc43}\label{classMatrix_a7b3670d67646f7ccc15e63996a3efc43} 
+\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator/} (const \mbox{\hyperlink{classMatrix}{Matrix}} \&mat) const
+\item 
+\Hypertarget{classMatrix_abebdc02ea51c14b32fd426ae9ea2cc26}\label{classMatrix_abebdc02ea51c14b32fd426ae9ea2cc26} 
+\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator/} (const \mbox{\hyperlink{classVector}{Vector}} \&vec) const
+\item 
+\Hypertarget{classMatrix_ad0dad5527182efb81d178e58e4ae0f6d}\label{classMatrix_ad0dad5527182efb81d178e58e4ae0f6d} 
+\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator/} (\mbox{\hyperlink{classVariable}{Variable}} \&other)
+\item 
+\Hypertarget{classMatrix_a78cdb3ee06ca9e620f5e4a4a9b545aca}\label{classMatrix_a78cdb3ee06ca9e620f5e4a4a9b545aca} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} T$>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator\texorpdfstring{$\ast$}{*}} (const T \&scalar) const
+\item 
+\Hypertarget{classMatrix_a49847d5ad3915b3c0aa87356b0544af8}\label{classMatrix_a49847d5ad3915b3c0aa87356b0544af8} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} T$>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator/} (const T \&scalar) const
+\item 
+\Hypertarget{classMatrix_a5cedf82d2a6ff379c38527e4c7c1d6f9}\label{classMatrix_a5cedf82d2a6ff379c38527e4c7c1d6f9} 
+\mbox{\hyperlink{classMatrix}{Matrix}} \& {\bfseries operator+=} (const \mbox{\hyperlink{classMatrix}{Matrix}} \&other)
+\item 
+\Hypertarget{classMatrix_a2dd13cb2b6b81706bfc1cda293a530d3}\label{classMatrix_a2dd13cb2b6b81706bfc1cda293a530d3} 
+\mbox{\hyperlink{classMatrix}{Matrix}} \& {\bfseries operator-\/=} (const \mbox{\hyperlink{classMatrix}{Matrix}} \&other)
+\item 
+\Hypertarget{classMatrix_ae593a1f749d7729a2bec193c2fa505c6}\label{classMatrix_ae593a1f749d7729a2bec193c2fa505c6} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} T$>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}} \& {\bfseries operator\texorpdfstring{$\ast$}{*}=} (const T \&scalar)
+\item 
+\Hypertarget{classMatrix_ae2c8a5becd00c3e29748ece269ed0a30}\label{classMatrix_ae2c8a5becd00c3e29748ece269ed0a30} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} T$>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}} \& {\bfseries operator/=} (const T \&scalar)
+\item 
+\Hypertarget{classMatrix_a2f7042ff9a4f52474b89fa11beeb0d15}\label{classMatrix_a2f7042ff9a4f52474b89fa11beeb0d15} 
+\mbox{\hyperlink{classMatrix}{Matrix}} \& {\bfseries operator+=} (const \mbox{\hyperlink{classVector}{Vector}} \&vec)
+\item 
+\Hypertarget{classMatrix_a5cfacab917e3f71356e7c473f675936d}\label{classMatrix_a5cfacab917e3f71356e7c473f675936d} 
+\mbox{\hyperlink{classMatrix}{Matrix}} \& {\bfseries operator-\/=} (const \mbox{\hyperlink{classVector}{Vector}} \&vec)
+\item 
+\Hypertarget{classMatrix_a2e7bc6222a3441ef583a8ec2145c1ca6}\label{classMatrix_a2e7bc6222a3441ef583a8ec2145c1ca6} 
+\mbox{\hyperlink{classMatrix}{Matrix}} \& {\bfseries operator\texorpdfstring{$\ast$}{*}=} (const \mbox{\hyperlink{classVector}{Vector}} \&vec)
+\item 
+\Hypertarget{classMatrix_a74e6dc5b5fc8fc81d02bacb49fa4c2c3}\label{classMatrix_a74e6dc5b5fc8fc81d02bacb49fa4c2c3} 
+\mbox{\hyperlink{classMatrix}{Matrix}} \& {\bfseries operator/=} (const \mbox{\hyperlink{classVector}{Vector}} \&vec)
+\item 
+\Hypertarget{classMatrix_a027d6be94967f14a586144f85278cb66}\label{classMatrix_a027d6be94967f14a586144f85278cb66} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} T$>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator+} (const T \&scalar) const
+\item 
+\Hypertarget{classMatrix_a61807818a4abbc886d9a78d88f7a0ab2}\label{classMatrix_a61807818a4abbc886d9a78d88f7a0ab2} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} T$>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator-\/} (const T \&scalar) const
+\item 
+\Hypertarget{classMatrix_a6e807910fb726fc0785d2c99aecffffb}\label{classMatrix_a6e807910fb726fc0785d2c99aecffffb} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} T$>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}} \& {\bfseries operator+=} (const T \&scalar)
+\item 
+\Hypertarget{classMatrix_a9fc87503ea068ebdd73ab4b52cdef934}\label{classMatrix_a9fc87503ea068ebdd73ab4b52cdef934} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} T$>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}} \& {\bfseries operator-\/=} (const T \&scalar)
+\item 
+\Hypertarget{classMatrix_aee47b5a9120fff2a86017f02f22b61e2}\label{classMatrix_aee47b5a9120fff2a86017f02f22b61e2} 
+{\bfseries Abstract\+Container\+Type} ()=default
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classAbstractContainerType}{Abstract\+Container\+Type}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Abstract\+Object} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructorsssss. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classAbstractContainerType_ac8d361ef57a0b90bca65f63bdc7ef8ab}{Abstract\+Object}} (string n="{}"{})
+\begin{DoxyCompactList}\small\item\em This constructor is used to create a new object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Abstract\+Object} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructorsssss. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classAbstractObject_ac8d361ef57a0b90bca65f63bdc7ef8ab}{Abstract\+Object}} (string n="{}"{})
+\begin{DoxyCompactList}\small\item\em This constructor is used to create a new object. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Abstract\+Object} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classAbstractObject_a86cf25254bb363d5681227f2767886f9}{set\+Name}} (const string \&n)
+\begin{DoxyCompactList}\small\item\em This method is used to set the name of the object. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{classAbstractObject_ad81dd77884b5e5588a1337c52535a303}{get\+Name}} () const
+\begin{DoxyCompactList}\small\item\em This method is used to get the name of the object. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_a49a6c8b7a49414fae83d89b68311b870}{operator+}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_a5ce76b603c642183ba7d6cd6704ee37b}{operator-\/}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_af7a9d07a02aa094cc7156104ddf2b5f9}{operator\texorpdfstring{$\ast$}{*}}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_a9fb1748be46c8570e3b2d3abbeb6625a}{operator/}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_ab0e795743e40bc9588954d7fa55ba2ca}{operator\%}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a1149f74caffd775153283599baa094ac}{operator+=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a968113a1698da88838850d17f965c334}{operator-\/=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a4ddd72dc3b2eac8494002654fe07e0a3}{operator\texorpdfstring{$\ast$}{*}=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_aee5eac9fcea694d482c9f80411ff611f}{operator/=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a92a8f239c8ffd1b56ec7d4c7c1436343}{operator\%=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a2ed9db746f937521de533d3b553d9af6}{operator=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual bool \mbox{\hyperlink{classAbstractObject_acaffcb68aa0e8e056ed2551d0b7afe8d}{operator==}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&) const
+\item 
+virtual bool \mbox{\hyperlink{classAbstractObject_a863f5085a97e3982ff2da5819dfab56d}{operator!=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&) const
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a316c30e33d4a916dacbf38aa93a0347f}{operator++}} ()
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a7b57ea36ea30f2aa247bc41eacf90b0d}{operator-\/-\/}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classMatrix_a4770f5b2f26a70852cc1b2a8546c0619}\label{classMatrix_a4770f5b2f26a70852cc1b2a8546c0619} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} T$>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator+} (const T \&scalar, const \mbox{\hyperlink{classMatrix}{Matrix}} \&matrix)
+\item 
+\Hypertarget{classMatrix_a30a8005f2d2957516ebf394870d17739}\label{classMatrix_a30a8005f2d2957516ebf394870d17739} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} T$>$ }\\\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator\texorpdfstring{$\ast$}{*}} (const T \&scalar, const \mbox{\hyperlink{classMatrix}{Matrix}} \&matrix)
+\item 
+\Hypertarget{classMatrix_aeabcf68d61a2a0f06088a71dc5bf676d}\label{classMatrix_aeabcf68d61a2a0f06088a71dc5bf676d} 
+\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator+} (const \mbox{\hyperlink{classVector}{Vector}} \&vec, const \mbox{\hyperlink{classMatrix}{Matrix}} \&matrix)
+\item 
+\Hypertarget{classMatrix_a63afde6c73f3623388b3287fa49c29e6}\label{classMatrix_a63afde6c73f3623388b3287fa49c29e6} 
+\mbox{\hyperlink{classMatrix}{Matrix}} {\bfseries operator\texorpdfstring{$\ast$}{*}} (const \mbox{\hyperlink{classVector}{Vector}} \&vec, const \mbox{\hyperlink{classMatrix}{Matrix}} \&matrix)
+\item 
+\Hypertarget{classMatrix_a116e48b76fb80ef08788e7f26bb264b9}\label{classMatrix_a116e48b76fb80ef08788e7f26bb264b9} 
+std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&os, const \mbox{\hyperlink{classMatrix}{Matrix}} \&matrix)
+\item 
+\Hypertarget{classMatrix_a9a549c12eef3543ea13fd2ac2d13d5c5}\label{classMatrix_a9a549c12eef3543ea13fd2ac2d13d5c5} 
+std\+::istream \& {\bfseries operator$>$$>$} (std\+::istream \&is, \mbox{\hyperlink{classMatrix}{Matrix}} \&matrix)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classAbstractContainerType}{Abstract\+Container\+Type}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} $>$ $>$ {\bfseries objects}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+string {\bfseries name}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{classMatrix}{Matrix} is a class that represents a matrix. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classMatrix_ac51c0872eb92574957493e7f5fa2194f}\label{classMatrix_ac51c0872eb92574957493e7f5fa2194f} 
+\index{Matrix@{Matrix}!begin@{begin}}
+\index{begin@{begin}!Matrix@{Matrix}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classVector}{Vector}} $>$\+::iterator Matrix\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+This method returns begin iterator of the container. 
+
+\begin{DoxyReturn}{Returns}
+begin iterator of the container 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_a19ea7662f51f7eb8abbcc646d43cd01e}\label{classMatrix_a19ea7662f51f7eb8abbcc646d43cd01e} 
+\index{Matrix@{Matrix}!cbegin@{cbegin}}
+\index{cbegin@{cbegin}!Matrix@{Matrix}}
+\doxysubsubsection{\texorpdfstring{cbegin()}{cbegin()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classVector}{Vector}} $>$\+::const\+\_\+iterator Matrix\+::cbegin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+This method returns const begin iterator of the container. 
+
+\begin{DoxyReturn}{Returns}
+const begin iterator of the container 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_ace13f8fe51a3e0a3a99738ed45ada8f0}\label{classMatrix_ace13f8fe51a3e0a3a99738ed45ada8f0} 
+\index{Matrix@{Matrix}!cend@{cend}}
+\index{cend@{cend}!Matrix@{Matrix}}
+\doxysubsubsection{\texorpdfstring{cend()}{cend()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classVector}{Vector}} $>$\+::const\+\_\+iterator Matrix\+::cend (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+This method returns const end iterator of the container. 
+
+\begin{DoxyReturn}{Returns}
+const end iterator of the container 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_a92027a8d89275fbbf7a387f60a162237}\label{classMatrix_a92027a8d89275fbbf7a387f60a162237} 
+\index{Matrix@{Matrix}!end@{end}}
+\index{end@{end}!Matrix@{Matrix}}
+\doxysubsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classVector}{Vector}} $>$\+::iterator Matrix\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+This method returns end iterator of the container. 
+
+\begin{DoxyReturn}{Returns}
+end iterator of the container 
+\end{DoxyReturn}
+\Hypertarget{classMatrix_a292a5b913be6a234ddc3f0f59a5e59eb}\label{classMatrix_a292a5b913be6a234ddc3f0f59a5e59eb} 
+\index{Matrix@{Matrix}!get@{get}}
+\index{get@{get}!Matrix@{Matrix}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} Matrix\+::get (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+This method returns object by index its index container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & of the object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+object by index 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classAbstractObject_a19e9b43cb81e04cfd66ed55e05b64c20}{Abstract\+Object}}.
+
+\Hypertarget{classMatrix_a8ed030e0e9f0fe39eedc6f3c1fd88001}\label{classMatrix_a8ed030e0e9f0fe39eedc6f3c1fd88001} 
+\index{Matrix@{Matrix}!getTypeName@{getTypeName}}
+\index{getTypeName@{getTypeName}!Matrix@{Matrix}}
+\doxysubsubsection{\texorpdfstring{getTypeName()}{getTypeName()}}
+{\footnotesize\ttfamily string Matrix\+::get\+Type\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+This method is used to get the type of the object. 
+
+\begin{DoxyReturn}{Returns}
+The type of the object 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classAbstractObject_aa0635973b2b9403d67a428639e10d8e1}{Abstract\+Object}}.
+
+\Hypertarget{classMatrix_a66d107ffc6d485f7ca3b7beea61b2a4e}\label{classMatrix_a66d107ffc6d485f7ca3b7beea61b2a4e} 
+\index{Matrix@{Matrix}!print@{print}}
+\index{print@{print}!Matrix@{Matrix}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily void Matrix\+::print (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}}.
+
+\Hypertarget{classMatrix_ae712f9663d5fc651676e46816c7f0334}\label{classMatrix_ae712f9663d5fc651676e46816c7f0334} 
+\index{Matrix@{Matrix}!swap@{swap}}
+\index{swap@{swap}!Matrix@{Matrix}}
+\doxysubsubsection{\texorpdfstring{swap()}{swap()}}
+{\footnotesize\ttfamily void Matrix\+::swap (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMatrix}{Matrix}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+This method swaps two containers. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & container \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classMatrix_af761f16fa876027471a73108e320ed99}\label{classMatrix_af761f16fa876027471a73108e320ed99} 
+\index{Matrix@{Matrix}!toString@{toString}}
+\index{toString@{toString}!Matrix@{Matrix}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily string Matrix\+::to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+This method is used to print the object. 
+
+\begin{DoxyReturn}{Returns}
+The string representation of the object 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classAbstractObject_a9222a77ebcac4567997369961829423d}{Abstract\+Object}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/types/matrix.\+hpp\end{DoxyCompactItemize}

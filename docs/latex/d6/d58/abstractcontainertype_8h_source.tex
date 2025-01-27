@@ -1,0 +1,28 @@
+\doxysection{abstractcontainertype.\+h}
+\hypertarget{abstractcontainertype_8h_source}{}\label{abstractcontainertype_8h_source}\index{include/base/abstractcontainertype.h@{include/base/abstractcontainertype.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ABSTRACTCONTAINEROBJECT\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ABSTRACTCONTAINEROBJECT\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../core.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}abstractobject.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classAbstractContainerType}{AbstractContainerType}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classAbstractObject_aac020e9bb3d960ac64707d22f305881a}{AbstractObject::AbstractObject}};}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{classAbstractContainerType}{AbstractContainerType}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00018\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00019\ \ \ \ \ std::vector<std::shared\_ptr<AbstractObject>>\ objects;\ \textcolor{comment}{//\ vector\ of\ objects}}
+\DoxyCodeLine{00020\ \};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ABSTRACTCONTAINEROBJECT\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

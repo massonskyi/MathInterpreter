@@ -1,0 +1,1039 @@
+\doxysection{Rational Class Reference}
+\hypertarget{classRational}{}\label{classRational}\index{Rational@{Rational}}
+
+
+This class is \doxylink{classRational}{Rational} \doxylink{classRational}{Rational}.  
+
+
+
+
+{\ttfamily \#include $<$rational.\+hpp$>$}
+
+
+
+Inheritance diagram for Rational\+:
+% FIG 0
+
+
+Collaboration diagram for Rational\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a}\label{classRational_a3bbd6ff67c590da76ddfcbd48cd3de0a} 
+{\bfseries Rational} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational_a55a35e40391886deb76ed68913b1974b}{Rational}} (\mbox{\hyperlink{classVariable}{Variable}} num, \mbox{\hyperlink{classVariable}{Variable}} den)
+\begin{DoxyCompactList}\small\item\em Constructor with numerator and denominator. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational_a34f8466a5b7b3970877c0edc9b2cf060}{Rational}} (\mbox{\hyperlink{classVariable}{Variable}} num)
+\begin{DoxyCompactList}\small\item\em Constructor with numerator and default denominator. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational_ade1228130debffa7eae0d7261f2de67d}{Rational}} (const \mbox{\hyperlink{classRational}{Rational}} \&other)
+\begin{DoxyCompactList}\small\item\em Copy constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational_aaba142b307807ab517232d335b08cb43}{Rational}} (\mbox{\hyperlink{classRational}{Rational}} \&\&other) noexcept
+\begin{DoxyCompactList}\small\item\em Move constructor. \end{DoxyCompactList}\item 
+\Hypertarget{classRational_af44463ac52af0ddd4a2514b5f1667940}\label{classRational_af44463ac52af0ddd4a2514b5f1667940} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Rational} () override=default
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classRational_a56ce0e971fd4cdeb4030d02646fea1c7}{print}} (std\+::ostream \&os) const override
+\item 
+\mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classRational_acabc660eab598f3131a9a61dd332dfc2}{get}} () const override
+\begin{DoxyCompactList}\small\item\em This method returns object by index its index container. \end{DoxyCompactList}\item 
+\Hypertarget{classRational_ab26419abd737ac3b3a56fd61a4e90922}\label{classRational_ab26419abd737ac3b3a56fd61a4e90922} 
+\mbox{\hyperlink{classVariable}{Variable}} {\bfseries get\+Num} () const
+\item 
+\Hypertarget{classRational_a25b8a8ddefe802d2733d079c69da48d4}\label{classRational_a25b8a8ddefe802d2733d079c69da48d4} 
+\mbox{\hyperlink{classVariable}{Variable}} {\bfseries get\+Den} () const
+\item 
+std\+::string \mbox{\hyperlink{classRational_a3c66f82f9664bbeedc34d1c6cf8bf990}{to\+String}} () const override
+\begin{DoxyCompactList}\small\item\em This method is used to print the object. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classRational_ad71c672b43d2d82bfcf92922e6ae7740}{get\+Type\+Name}} () const override
+\begin{DoxyCompactList}\small\item\em This method is used to get the type of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \& \mbox{\hyperlink{classRational_ae1a487fef636aef6032b8ebfda7edfb1}{operator=}} (const \mbox{\hyperlink{classRational}{Rational}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \& \mbox{\hyperlink{classRational_a89dcddf4b12467f4ca5be0d1dfa111a5}{operator=}} (\mbox{\hyperlink{classRational}{Rational}} \&\&other) noexcept
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classRational_a93257dbfc722e274ef343d791d942fad}{operator==}} (const \mbox{\hyperlink{classRational}{Rational}} \&other) const
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object as a boolean. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\bool \mbox{\hyperlink{classRational_ab5e40470ab2fae06eecd662bc86b168b}{operator==}} (\+\_\+\+Tp value) const
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object as a boolean. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classRational_a514ff082d144d2aa714a4648a7ba2236}{operator!=}} (const \mbox{\hyperlink{classRational}{Rational}} \&other) const
+\begin{DoxyCompactList}\small\item\em This method is used to get the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\bool \mbox{\hyperlink{classRational_ae6a337e93dbf6b4876ee4b1ccf8b3d9a}{operator!=}} (const \+\_\+\+Tp \&other) const
+\begin{DoxyCompactList}\small\item\em This method is used to get the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \mbox{\hyperlink{classRational_acfcde9ff17731922cea3e28bdfcfbd61}{operator+}} (const \mbox{\hyperlink{classRational}{Rational}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns result of the add operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \mbox{\hyperlink{classRational_a3a42099396a11d8b2ecb92bd31a84b0d}{operator+}} (const \mbox{\hyperlink{classRational}{Rational}} \&other) const
+\begin{DoxyCompactList}\small\item\em This method returns result of the add operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \mbox{\hyperlink{classRational_aaba837871db664b731d104930ff6cdcd}{operator+}} (const \mbox{\hyperlink{classVariable}{Variable}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns result of the add operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \mbox{\hyperlink{classRational_acdff49da03e7a967f42fa11a59be7bea}{operator-\/}} (const \mbox{\hyperlink{classRational}{Rational}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns result of the sub operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \mbox{\hyperlink{classRational_a70346ce7def0d2631ee24a33c3841bb5}{operator-\/}} (const \mbox{\hyperlink{classVariable}{Variable}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns result of the add operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \mbox{\hyperlink{classRational_aa62e3a9bcd0a4dc4950fb6b32ab2106f}{operator\texorpdfstring{$\ast$}{*}}} (const \mbox{\hyperlink{classRational}{Rational}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns result of the mul operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \mbox{\hyperlink{classRational_a2b70ceda2dabf6f6be68f8089dd50324}{operator\texorpdfstring{$\ast$}{*}}} (const \mbox{\hyperlink{classRational}{Rational}} \&other) const
+\begin{DoxyCompactList}\small\item\em This method returns result of the mul operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \mbox{\hyperlink{classRational_ac5559ccb4621ec471cb731566b642a1d}{operator\texorpdfstring{$\ast$}{*}}} (const \mbox{\hyperlink{classVariable}{Variable}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns result of the add operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \mbox{\hyperlink{classRational_ac8da6623eb4973aabee2ddfe3d6c3410}{operator/}} (const \mbox{\hyperlink{classRational}{Rational}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns result of the div operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \mbox{\hyperlink{classRational_a754f0f45deb62414e680b64c6d529d53}{operator/}} (const \mbox{\hyperlink{classVariable}{Variable}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns result of the add operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \mbox{\hyperlink{classRational_af39819bd2cb29c47ec44ddbb32499da0}{operator\%}} (const \mbox{\hyperlink{classRational}{Rational}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns result of the mod operation. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classRational}{Rational}} \mbox{\hyperlink{classRational_a9d0ebd854d69619a8535d4edcde870d1}{operator+}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classRational}{Rational}} \mbox{\hyperlink{classRational_a99fbd322cdc8fc75d892d9caf3557e3d}{operator-\/}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classRational}{Rational}} \mbox{\hyperlink{classRational_aa24d1c14018afd64ce84ee1dfea943db}{operator\texorpdfstring{$\ast$}{*}}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classRational}{Rational}} \mbox{\hyperlink{classRational_a82f1b1c340b8cc1d0795134d6380d809}{operator/}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classRational}{Rational}} \mbox{\hyperlink{classRational_aa02b1c880d2e1b3f3ca34cf5bc2425b4}{operator\%}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \& \mbox{\hyperlink{classRational_ac4cef5e95c2f81fadeb3ed913aa6972a}{operator+=}} (const \mbox{\hyperlink{classRational}{Rational}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \& \mbox{\hyperlink{classRational_abedcfc1d037ce6d23675d08afd5e974d}{operator-\/=}} (const \mbox{\hyperlink{classRational}{Rational}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \& \mbox{\hyperlink{classRational_a1c108dfc9ddaa793e40e7c9f7acfb615}{operator\texorpdfstring{$\ast$}{*}=}} (const \mbox{\hyperlink{classRational}{Rational}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \& \mbox{\hyperlink{classRational_a950142d8e0e95256e76edf32f0e0af14}{operator/=}} (const \mbox{\hyperlink{classRational}{Rational}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \& \mbox{\hyperlink{classRational_adf27b31c28efb8bb2df4b40839957a0c}{operator\%=}} (const \mbox{\hyperlink{classRational}{Rational}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classRational}{Rational}} \& \mbox{\hyperlink{classRational_a1aea0586734402f5a0ce574f1ac90d26}{operator+=}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classRational}{Rational}} \& \mbox{\hyperlink{classRational_a9cc4c9a18a04fa4132402bd7057fa709}{operator-\/=}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classRational}{Rational}} \& \mbox{\hyperlink{classRational_a9fc22918918d87b317d0c220786a75fd}{operator\texorpdfstring{$\ast$}{*}=}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classRational}{Rational}} \& \mbox{\hyperlink{classRational_afc3112be518ab0f0adeb0c7eb123eff9}{operator/=}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classRational}{Rational}} \& \mbox{\hyperlink{classRational_a0eefb0de8ba01fdbe934dbe376644e1a}{operator\%=}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \& \mbox{\hyperlink{classRational_a735a058bb3d3936a8296a87e432ad977}{operator++}} () override
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \& \mbox{\hyperlink{classRational_aa9b212fe7a4cb8c0031d1bd8d8ff1159}{operator-\/-\/}} () override
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \mbox{\hyperlink{classRational_ab00917bdab2bd33fc7c1f819b11130c9}{operator++}} (int)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational}{Rational}} \mbox{\hyperlink{classRational_a23e22f38d64ef5713ada3ff002ef0430}{operator-\/-\/}} (int)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\Hypertarget{classRational_aac020e9bb3d960ac64707d22f305881a}\label{classRational_aac020e9bb3d960ac64707d22f305881a} 
+{\bfseries Abstract\+Object} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructorsssss. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classRational_ac8d361ef57a0b90bca65f63bdc7ef8ab}{Abstract\+Object}} (string n="{}"{})
+\begin{DoxyCompactList}\small\item\em This constructor is used to create a new object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Abstract\+Object} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructorsssss. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classAbstractObject_ac8d361ef57a0b90bca65f63bdc7ef8ab}{Abstract\+Object}} (string n="{}"{})
+\begin{DoxyCompactList}\small\item\em This constructor is used to create a new object. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Abstract\+Object} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classAbstractObject_a86cf25254bb363d5681227f2767886f9}{set\+Name}} (const string \&n)
+\begin{DoxyCompactList}\small\item\em This method is used to set the name of the object. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{classAbstractObject_ad81dd77884b5e5588a1337c52535a303}{get\+Name}} () const
+\begin{DoxyCompactList}\small\item\em This method is used to get the name of the object. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_a49a6c8b7a49414fae83d89b68311b870}{operator+}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_a5ce76b603c642183ba7d6cd6704ee37b}{operator-\/}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_af7a9d07a02aa094cc7156104ddf2b5f9}{operator\texorpdfstring{$\ast$}{*}}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_a9fb1748be46c8570e3b2d3abbeb6625a}{operator/}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_ab0e795743e40bc9588954d7fa55ba2ca}{operator\%}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a1149f74caffd775153283599baa094ac}{operator+=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a968113a1698da88838850d17f965c334}{operator-\/=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a4ddd72dc3b2eac8494002654fe07e0a3}{operator\texorpdfstring{$\ast$}{*}=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_aee5eac9fcea694d482c9f80411ff611f}{operator/=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a92a8f239c8ffd1b56ec7d4c7c1436343}{operator\%=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a2ed9db746f937521de533d3b553d9af6}{operator=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual bool \mbox{\hyperlink{classAbstractObject_acaffcb68aa0e8e056ed2551d0b7afe8d}{operator==}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&) const
+\item 
+virtual bool \mbox{\hyperlink{classAbstractObject_a863f5085a97e3982ff2da5819dfab56d}{operator!=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \mbox{\hyperlink{classRational_a34b56311e73cde5a7b8b6e3f2728125e}{operator$<$$<$}} (std\+::ostream \&out, const \mbox{\hyperlink{classRational}{Rational}} \&var)
+\begin{DoxyCompactList}\small\item\em This friend method of operator \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} overloading. \end{DoxyCompactList}\item 
+std\+::istream \& \mbox{\hyperlink{classRational_a3bb88871478435e87f0a3d953626f29a}{operator$>$$>$}} (std\+::istream \&in, \mbox{\hyperlink{classRational}{Rational}} \&var)
+\begin{DoxyCompactList}\small\item\em This friend method of operator \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>} overloading. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+string {\bfseries name}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class is \doxylink{classRational}{Rational} \doxylink{classRational}{Rational}. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & type of the \doxylink{classRational}{Rational}\\
+\hline
+\end{DoxyTemplParams}
+This class is \doxylink{classRational}{Rational} \doxylink{classRational}{Rational} 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classRational_a55a35e40391886deb76ed68913b1974b}\label{classRational_a55a35e40391886deb76ed68913b1974b} 
+\index{Rational@{Rational}!Rational@{Rational}}
+\index{Rational@{Rational}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{Rational()}{Rational()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily Rational\+::\+Rational (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVariable}{Variable}}}]{num,  }\item[{\mbox{\hyperlink{classVariable}{Variable}}}]{den }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Constructor with numerator and denominator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num} & numerator \\
+\hline
+{\em den} & denominator \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classRational_a34f8466a5b7b3970877c0edc9b2cf060}\label{classRational_a34f8466a5b7b3970877c0edc9b2cf060} 
+\index{Rational@{Rational}!Rational@{Rational}}
+\index{Rational@{Rational}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{Rational()}{Rational()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily Rational\+::\+Rational (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVariable}{Variable}}}]{num }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Constructor with numerator and default denominator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num} & numerator \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classRational_ade1228130debffa7eae0d7261f2de67d}\label{classRational_ade1228130debffa7eae0d7261f2de67d} 
+\index{Rational@{Rational}!Rational@{Rational}}
+\index{Rational@{Rational}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{Rational()}{Rational()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily Rational\+::\+Rational (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRational}{Rational}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Copy constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & object to copy \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classRational_aaba142b307807ab517232d335b08cb43}\label{classRational_aaba142b307807ab517232d335b08cb43} 
+\index{Rational@{Rational}!Rational@{Rational}}
+\index{Rational@{Rational}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{Rational()}{Rational()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily Rational\+::\+Rational (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classRational}{Rational}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Move constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & object to move \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classRational_ac8d361ef57a0b90bca65f63bdc7ef8ab}\label{classRational_ac8d361ef57a0b90bca65f63bdc7ef8ab} 
+\index{Rational@{Rational}!AbstractObject@{AbstractObject}}
+\index{AbstractObject@{AbstractObject}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{AbstractObject()}{AbstractObject()}}
+{\footnotesize\ttfamily Abstract\+Object\+::\+Abstract\+Object (\begin{DoxyParamCaption}\item[{string}]{n = {\ttfamily "{}"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+This constructor is used to create a new object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & The name of the object new object \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classRational_acabc660eab598f3131a9a61dd332dfc2}\label{classRational_acabc660eab598f3131a9a61dd332dfc2} 
+\index{Rational@{Rational}!get@{get}}
+\index{get@{get}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} Rational\+::get (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+This method returns object by index its index container. 
+
+\begin{DoxyReturn}{Returns}
+object by index 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classAbstractObject_a19e9b43cb81e04cfd66ed55e05b64c20}{Abstract\+Object}}.
+
+\Hypertarget{classRational_ad71c672b43d2d82bfcf92922e6ae7740}\label{classRational_ad71c672b43d2d82bfcf92922e6ae7740} 
+\index{Rational@{Rational}!getTypeName@{getTypeName}}
+\index{getTypeName@{getTypeName}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{getTypeName()}{getTypeName()}}
+{\footnotesize\ttfamily std\+::string Rational\+::get\+Type\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+This method is used to get the type of the object. 
+
+\begin{DoxyReturn}{Returns}
+The type of the object 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classAbstractObject_aa0635973b2b9403d67a428639e10d8e1}{Abstract\+Object}}.
+
+\Hypertarget{classRational_ae6a337e93dbf6b4876ee4b1ccf8b3d9a}\label{classRational_ae6a337e93dbf6b4876ee4b1ccf8b3d9a} 
+\index{Rational@{Rational}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+bool Rational\+::operator!= (\begin{DoxyParamCaption}\item[{const \+\_\+\+Tp \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method is used to get the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classRational}{Rational} to copy compare \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_a514ff082d144d2aa714a4648a7ba2236}\label{classRational_a514ff082d144d2aa714a4648a7ba2236} 
+\index{Rational@{Rational}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Rational\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRational}{Rational}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method is used to get the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classRational}{Rational} to copy compare \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_aa02b1c880d2e1b3f3ca34cf5bc2425b4}\label{classRational_aa02b1c880d2e1b3f3ca34cf5bc2425b4} 
+\index{Rational@{Rational}!operator\%@{operator\%}}
+\index{operator\%@{operator\%}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator\%()}{operator\%()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classRational}{Rational}} Rational\+::operator\% (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Rational$<$\+T$>$ to divide \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_af39819bd2cb29c47ec44ddbb32499da0}\label{classRational_af39819bd2cb29c47ec44ddbb32499da0} 
+\index{Rational@{Rational}!operator\%@{operator\%}}
+\index{operator\%@{operator\%}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator\%()}{operator\%()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} Rational\+::operator\% (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRational}{Rational}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the mod operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Rational$<$\+T$>$ to divide \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the mod operation 
+\end{DoxyReturn}
+\Hypertarget{classRational_a0eefb0de8ba01fdbe934dbe376644e1a}\label{classRational_a0eefb0de8ba01fdbe934dbe376644e1a} 
+\index{Rational@{Rational}!operator\%=@{operator\%=}}
+\index{operator\%=@{operator\%=}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator\%=()}{operator\%=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classRational}{Rational}} \& Rational\+::operator\%= (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Rational$<$\+T$>$ to divide \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_adf27b31c28efb8bb2df4b40839957a0c}\label{classRational_adf27b31c28efb8bb2df4b40839957a0c} 
+\index{Rational@{Rational}!operator\%=@{operator\%=}}
+\index{operator\%=@{operator\%=}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator\%=()}{operator\%=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} \& Rational\+::operator\%= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRational}{Rational}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Rational$<$\+T$>$ to divide \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_aa24d1c14018afd64ce84ee1dfea943db}\label{classRational_aa24d1c14018afd64ce84ee1dfea943db} 
+\index{Rational@{Rational}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classRational}{Rational}} Rational\+::operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Rational$<$\+T$>$ to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_aa62e3a9bcd0a4dc4950fb6b32ab2106f}\label{classRational_aa62e3a9bcd0a4dc4950fb6b32ab2106f} 
+\index{Rational@{Rational}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} Rational\+::operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRational}{Rational}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the mul operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Rational$<$\+T$>$ to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the mul operation 
+\end{DoxyReturn}
+\Hypertarget{classRational_a2b70ceda2dabf6f6be68f8089dd50324}\label{classRational_a2b70ceda2dabf6f6be68f8089dd50324} 
+\index{Rational@{Rational}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} Rational\+::operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRational}{Rational}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the mul operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Rational$<$\+T$>$ to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the mul operation 
+\end{DoxyReturn}
+\Hypertarget{classRational_ac5559ccb4621ec471cb731566b642a1d}\label{classRational_ac5559ccb4621ec471cb731566b642a1d} 
+\index{Rational@{Rational}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} Rational\+::operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVariable}{Variable}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the add operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Rational$<$\+T$>$ to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the add operation 
+\end{DoxyReturn}
+\Hypertarget{classRational_a9fc22918918d87b317d0c220786a75fd}\label{classRational_a9fc22918918d87b317d0c220786a75fd} 
+\index{Rational@{Rational}!operator\texorpdfstring{$\ast$}{*}=@{operator\texorpdfstring{$\ast$}{*}=}}
+\index{operator\texorpdfstring{$\ast$}{*}=@{operator\texorpdfstring{$\ast$}{*}=}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}=()}{operator*=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classRational}{Rational}} \& Rational\+::operator\texorpdfstring{$\ast$}{*}= (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Rational$<$\+T$>$ to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_a1c108dfc9ddaa793e40e7c9f7acfb615}\label{classRational_a1c108dfc9ddaa793e40e7c9f7acfb615} 
+\index{Rational@{Rational}!operator\texorpdfstring{$\ast$}{*}=@{operator\texorpdfstring{$\ast$}{*}=}}
+\index{operator\texorpdfstring{$\ast$}{*}=@{operator\texorpdfstring{$\ast$}{*}=}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}=()}{operator*=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} \& Rational\+::operator\texorpdfstring{$\ast$}{*}= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRational}{Rational}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Rational$<$\+T$>$ to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_a9d0ebd854d69619a8535d4edcde870d1}\label{classRational_a9d0ebd854d69619a8535d4edcde870d1} 
+\index{Rational@{Rational}!operator+@{operator+}}
+\index{operator+@{operator+}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classRational}{Rational}} Rational\+::operator+ (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Rational$<$\+T$>$ to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_acfcde9ff17731922cea3e28bdfcfbd61}\label{classRational_acfcde9ff17731922cea3e28bdfcfbd61} 
+\index{Rational@{Rational}!operator+@{operator+}}
+\index{operator+@{operator+}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} Rational\+::operator+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRational}{Rational}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the add operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Rational$<$\+T$>$ to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the add operation 
+\end{DoxyReturn}
+\Hypertarget{classRational_a3a42099396a11d8b2ecb92bd31a84b0d}\label{classRational_a3a42099396a11d8b2ecb92bd31a84b0d} 
+\index{Rational@{Rational}!operator+@{operator+}}
+\index{operator+@{operator+}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} Rational\+::operator+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRational}{Rational}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the add operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Rational$<$\+T$>$ to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the add operation 
+\end{DoxyReturn}
+\Hypertarget{classRational_aaba837871db664b731d104930ff6cdcd}\label{classRational_aaba837871db664b731d104930ff6cdcd} 
+\index{Rational@{Rational}!operator+@{operator+}}
+\index{operator+@{operator+}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} Rational\+::operator+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVariable}{Variable}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the add operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Rational$<$\+T$>$ to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the add operation 
+\end{DoxyReturn}
+\Hypertarget{classRational_a735a058bb3d3936a8296a87e432ad977}\label{classRational_a735a058bb3d3936a8296a87e432ad977} 
+\index{Rational@{Rational}!operator++@{operator++}}
+\index{operator++@{operator++}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator++()}{operator++()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} \& Rational\+::operator++ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+This method returns the value of the object. 
+
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}}.
+
+\Hypertarget{classRational_ab00917bdab2bd33fc7c1f819b11130c9}\label{classRational_ab00917bdab2bd33fc7c1f819b11130c9} 
+\index{Rational@{Rational}!operator++@{operator++}}
+\index{operator++@{operator++}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator++()}{operator++()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} Rational\+::operator++ (\begin{DoxyParamCaption}\item[{int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em this} & the value of the object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_a1aea0586734402f5a0ce574f1ac90d26}\label{classRational_a1aea0586734402f5a0ce574f1ac90d26} 
+\index{Rational@{Rational}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator+=()}{operator+=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classRational}{Rational}} \& Rational\+::operator+= (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Rational$<$\+T$>$ to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_ac4cef5e95c2f81fadeb3ed913aa6972a}\label{classRational_ac4cef5e95c2f81fadeb3ed913aa6972a} 
+\index{Rational@{Rational}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator+=()}{operator+=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} \& Rational\+::operator+= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRational}{Rational}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Rational$<$\+T$>$ to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_a99fbd322cdc8fc75d892d9caf3557e3d}\label{classRational_a99fbd322cdc8fc75d892d9caf3557e3d} 
+\index{Rational@{Rational}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classRational}{Rational}} Rational\+::operator-\/ (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Rational$<$\+T$>$ to substract \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_acdff49da03e7a967f42fa11a59be7bea}\label{classRational_acdff49da03e7a967f42fa11a59be7bea} 
+\index{Rational@{Rational}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} Rational\+::operator-\/ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRational}{Rational}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the sub operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Rational$<$\+T$>$ to substract \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the sub operation 
+\end{DoxyReturn}
+\Hypertarget{classRational_a70346ce7def0d2631ee24a33c3841bb5}\label{classRational_a70346ce7def0d2631ee24a33c3841bb5} 
+\index{Rational@{Rational}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} Rational\+::operator-\/ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVariable}{Variable}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the add operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Rational$<$\+T$>$ to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the add operation 
+\end{DoxyReturn}
+\Hypertarget{classRational_aa9b212fe7a4cb8c0031d1bd8d8ff1159}\label{classRational_aa9b212fe7a4cb8c0031d1bd8d8ff1159} 
+\index{Rational@{Rational}!operator-\/-\/@{operator-\/-\/}}
+\index{operator-\/-\/@{operator-\/-\/}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator-\/-\/()}{operator--()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} \& Rational\+::operator-\/-\/ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+This method returns the value of the object. 
+
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}}.
+
+\Hypertarget{classRational_a23e22f38d64ef5713ada3ff002ef0430}\label{classRational_a23e22f38d64ef5713ada3ff002ef0430} 
+\index{Rational@{Rational}!operator-\/-\/@{operator-\/-\/}}
+\index{operator-\/-\/@{operator-\/-\/}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator-\/-\/()}{operator--()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} Rational\+::operator-\/-\/ (\begin{DoxyParamCaption}\item[{int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em this} & the value of the object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_a9cc4c9a18a04fa4132402bd7057fa709}\label{classRational_a9cc4c9a18a04fa4132402bd7057fa709} 
+\index{Rational@{Rational}!operator-\/=@{operator-\/=}}
+\index{operator-\/=@{operator-\/=}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator-\/=()}{operator-=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classRational}{Rational}} \& Rational\+::operator-\/= (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Rational$<$\+T$>$ to substract \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_abedcfc1d037ce6d23675d08afd5e974d}\label{classRational_abedcfc1d037ce6d23675d08afd5e974d} 
+\index{Rational@{Rational}!operator-\/=@{operator-\/=}}
+\index{operator-\/=@{operator-\/=}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator-\/=()}{operator-=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} \& Rational\+::operator-\/= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRational}{Rational}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Rational$<$\+T$>$ to substract \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_a82f1b1c340b8cc1d0795134d6380d809}\label{classRational_a82f1b1c340b8cc1d0795134d6380d809} 
+\index{Rational@{Rational}!operator/@{operator/}}
+\index{operator/@{operator/}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator/()}{operator/()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classRational}{Rational}} Rational\+::operator/ (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Rational$<$\+T$>$ to divide \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_ac8da6623eb4973aabee2ddfe3d6c3410}\label{classRational_ac8da6623eb4973aabee2ddfe3d6c3410} 
+\index{Rational@{Rational}!operator/@{operator/}}
+\index{operator/@{operator/}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator/()}{operator/()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} Rational\+::operator/ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRational}{Rational}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the div operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Rational$<$\+T$>$ to divide \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the div operation 
+\end{DoxyReturn}
+\Hypertarget{classRational_a754f0f45deb62414e680b64c6d529d53}\label{classRational_a754f0f45deb62414e680b64c6d529d53} 
+\index{Rational@{Rational}!operator/@{operator/}}
+\index{operator/@{operator/}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator/()}{operator/()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} Rational\+::operator/ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVariable}{Variable}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the add operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Rational$<$\+T$>$ to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the add operation 
+\end{DoxyReturn}
+\Hypertarget{classRational_afc3112be518ab0f0adeb0c7eb123eff9}\label{classRational_afc3112be518ab0f0adeb0c7eb123eff9} 
+\index{Rational@{Rational}!operator/=@{operator/=}}
+\index{operator/=@{operator/=}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator/=()}{operator/=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classRational}{Rational}} \& Rational\+::operator/= (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Rational$<$\+T$>$ to divide \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_a950142d8e0e95256e76edf32f0e0af14}\label{classRational_a950142d8e0e95256e76edf32f0e0af14} 
+\index{Rational@{Rational}!operator/=@{operator/=}}
+\index{operator/=@{operator/=}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator/=()}{operator/=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} \& Rational\+::operator/= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRational}{Rational}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Rational$<$\+T$>$ to divide \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_ae1a487fef636aef6032b8ebfda7edfb1}\label{classRational_ae1a487fef636aef6032b8ebfda7edfb1} 
+\index{Rational@{Rational}!operator=@{operator=}}
+\index{operator=@{operator=}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} \& Rational\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRational}{Rational}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classRational}{Rational} to copy compare \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_a89dcddf4b12467f4ca5be0d1dfa111a5}\label{classRational_a89dcddf4b12467f4ca5be0d1dfa111a5} 
+\index{Rational@{Rational}!operator=@{operator=}}
+\index{operator=@{operator=}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRational}{Rational}} \& Rational\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classRational}{Rational}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Rational$<$\+T$>$ to move compare \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classRational_ab5e40470ab2fae06eecd662bc86b168b}\label{classRational_ab5e40470ab2fae06eecd662bc86b168b} 
+\index{Rational@{Rational}!operator==@{operator==}}
+\index{operator==@{operator==}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+bool Rational\+::operator== (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object as a boolean. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Rational$<$\+T$>$ to compare \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object as a boolean 
+\end{DoxyReturn}
+\Hypertarget{classRational_a93257dbfc722e274ef343d791d942fad}\label{classRational_a93257dbfc722e274ef343d791d942fad} 
+\index{Rational@{Rational}!operator==@{operator==}}
+\index{operator==@{operator==}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Rational\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRational}{Rational}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object as a boolean. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & Rational$<$\+T$>$ to compare \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object as a boolean 
+\end{DoxyReturn}
+\Hypertarget{classRational_a56ce0e971fd4cdeb4030d02646fea1c7}\label{classRational_a56ce0e971fd4cdeb4030d02646fea1c7} 
+\index{Rational@{Rational}!print@{print}}
+\index{print@{print}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily void Rational\+::print (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}}.
+
+\Hypertarget{classRational_a3c66f82f9664bbeedc34d1c6cf8bf990}\label{classRational_a3c66f82f9664bbeedc34d1c6cf8bf990} 
+\index{Rational@{Rational}!toString@{toString}}
+\index{toString@{toString}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily std\+::string Rational\+::to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+This method is used to print the object. 
+
+\begin{DoxyReturn}{Returns}
+The string representation of the object 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classAbstractObject_a9222a77ebcac4567997369961829423d}{Abstract\+Object}}.
+
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{classRational_a34b56311e73cde5a7b8b6e3f2728125e}\label{classRational_a34b56311e73cde5a7b8b6e3f2728125e} 
+\index{Rational@{Rational}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily std\+::ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out,  }\item[{const \mbox{\hyperlink{classRational}{Rational}} \&}]{var }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+This friend method of operator \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} overloading. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em out} & output stream \\
+\hline
+{\em Rational$<$\+T$>$} & the value of the object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+output stream 
+\end{DoxyReturn}
+\Hypertarget{classRational_a3bb88871478435e87f0a3d953626f29a}\label{classRational_a3bb88871478435e87f0a3d953626f29a} 
+\index{Rational@{Rational}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Rational@{Rational}}
+\doxysubsubsection{\texorpdfstring{operator$>$$>$}{operator>>}}
+{\footnotesize\ttfamily std\+::istream \& operator$>$$>$ (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{in,  }\item[{\mbox{\hyperlink{classRational}{Rational}} \&}]{var }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+This friend method of operator \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>} overloading. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & input stream \\
+\hline
+{\em var} & the value of the object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+input stream 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/types/rational.\+hpp\end{DoxyCompactItemize}
