@@ -1,0 +1,5 @@
+# Create variable 
+x = 2
+
+# Print variable x
+x

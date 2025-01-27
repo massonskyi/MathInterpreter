@@ -93,10 +93,37 @@ public:
         {
             throw std::runtime_error("Failed to open file: " + filename);
         }
-
+        bool inBlockComment = false;
         std::string line;
         while (std::getline(file, line))
         {
+            if (line.find("//") == 0 || line.find("#") == 0) {
+                continue;
+            }
+
+            // Пропускаем строки, которые содержат блочные комментарии /* ... */
+            size_t startComment = line.find("/*");
+            size_t endComment = line.find("*/");
+
+            if (startComment != std::string::npos) {
+                inBlockComment = true;
+            }
+
+            if (inBlockComment) {
+                if (endComment != std::string::npos) {
+                    inBlockComment = false;
+                    line = line.substr(endComment + 2); // Удаляем комментарий и продолжаем обработку строки
+                } else {
+                    continue; // Пропускаем строку, если она внутри блочного комментария
+                }
+            }
+
+            if (!_M_validator.validate(line)) {
+                    _M_validator.printErrors();
+                    continue;
+            }
+            
+            if(line.find("//") == std::string::npos)
             try
             {
                 if (_M_contains_any_symbol(line, OPERATORS))
