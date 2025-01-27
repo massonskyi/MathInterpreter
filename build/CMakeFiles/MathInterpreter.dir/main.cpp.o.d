@@ -154,77 +154,36 @@ CMakeFiles/MathInterpreter.dir/main.cpp.o: \
  /usr/include/c++/13/bits/locale_facets.tcc \
  /usr/include/c++/13/bits/basic_ios.tcc \
  /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
- /usr/include/c++/13/bits/istream.tcc \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/core.h \
- /usr/include/c++/13/cstdint \
- /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
- /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
- /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
- /usr/include/c++/13/memory /usr/include/c++/13/bits/stl_tempbuf.h \
- /usr/include/c++/13/bits/stl_uninitialized.h \
- /usr/include/c++/13/bits/stl_raw_storage_iter.h \
- /usr/include/c++/13/bits/align.h /usr/include/c++/13/bits/unique_ptr.h \
- /usr/include/c++/13/bits/shared_ptr.h \
- /usr/include/c++/13/bits/shared_ptr_base.h \
- /usr/include/c++/13/bits/allocated_ptr.h \
- /usr/include/c++/13/ext/aligned_buffer.h \
- /usr/include/c++/13/ext/concurrence.h \
- /usr/include/c++/13/bits/shared_ptr_atomic.h \
- /usr/include/c++/13/bits/atomic_base.h \
- /usr/include/c++/13/bits/atomic_lockfree_defines.h \
- /usr/include/c++/13/bits/atomic_wait.h /usr/include/c++/13/climits \
- /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h \
- /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
- /usr/include/x86_64-linux-gnu/bits/local_lim.h \
- /usr/include/linux/limits.h \
- /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
- /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
- /usr/include/x86_64-linux-gnu/bits/uio_lim.h /usr/include/unistd.h \
- /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
- /usr/include/x86_64-linux-gnu/bits/environments.h \
- /usr/include/x86_64-linux-gnu/bits/confname.h \
- /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
- /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
- /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
- /usr/include/linux/close_range.h /usr/include/syscall.h \
- /usr/include/x86_64-linux-gnu/sys/syscall.h \
- /usr/include/x86_64-linux-gnu/asm/unistd.h \
- /usr/include/x86_64-linux-gnu/asm/unistd_64.h \
- /usr/include/x86_64-linux-gnu/bits/syscall.h \
- /usr/include/c++/13/bits/std_mutex.h \
- /usr/include/c++/13/backward/auto_ptr.h \
- /usr/include/c++/13/bits/ranges_uninitialized.h \
- /usr/include/c++/13/bits/ranges_algobase.h \
- /usr/include/c++/13/pstl/glue_memory_defs.h \
- /usr/include/c++/13/pstl/execution_defs.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/interpreter.hpp \
- /usr/include/c++/13/fstream /usr/include/c++/13/bits/codecvt.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
- /usr/include/c++/13/bits/fstream.tcc /usr/include/c++/13/sstream \
- /usr/include/c++/13/bits/sstream.tcc /usr/include/c++/13/unordered_map \
- /usr/include/c++/13/bits/unordered_map.h \
- /usr/include/c++/13/bits/hashtable.h \
- /usr/include/c++/13/bits/hashtable_policy.h \
- /usr/include/c++/13/bits/enable_special_members.h \
- /usr/include/c++/13/bits/node_handle.h \
- /usr/include/c++/13/bits/erase_if.h /usr/include/c++/13/regex \
+ /usr/include/c++/13/bits/istream.tcc /usr/include/c++/13/regex \
  /usr/include/c++/13/bitset /usr/include/c++/13/locale \
  /usr/include/c++/13/bits/locale_facets_nonio.h /usr/include/c++/13/ctime \
  /usr/include/x86_64-linux-gnu/c++/13/bits/time_members.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/messages_members.h \
- /usr/include/libintl.h /usr/include/c++/13/bits/locale_facets_nonio.tcc \
- /usr/include/c++/13/bits/locale_conv.h /usr/include/c++/13/stack \
- /usr/include/c++/13/deque /usr/include/c++/13/bits/stl_deque.h \
- /usr/include/c++/13/bits/deque.tcc /usr/include/c++/13/bits/stl_stack.h \
+ /usr/include/libintl.h /usr/include/c++/13/bits/codecvt.h \
+ /usr/include/c++/13/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/13/bits/locale_conv.h /usr/include/c++/13/sstream \
+ /usr/include/c++/13/bits/sstream.tcc /usr/include/c++/13/stack \
+ /usr/include/c++/13/deque /usr/include/c++/13/bits/stl_uninitialized.h \
+ /usr/include/c++/13/bits/stl_deque.h /usr/include/c++/13/bits/deque.tcc \
+ /usr/include/c++/13/bits/stl_stack.h \
+ /usr/include/c++/13/ext/aligned_buffer.h \
+ /usr/include/c++/13/bits/shared_ptr.h \
+ /usr/include/c++/13/bits/shared_ptr_base.h \
+ /usr/include/c++/13/bits/allocated_ptr.h \
+ /usr/include/c++/13/bits/unique_ptr.h \
+ /usr/include/c++/13/ext/concurrence.h /usr/include/c++/13/bits/align.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
  /usr/include/c++/13/bits/std_function.h \
  /usr/include/c++/13/bits/stl_algo.h \
  /usr/include/c++/13/bits/algorithmfwd.h \
  /usr/include/c++/13/bits/stl_heap.h \
  /usr/include/c++/13/bits/uniform_int_dist.h \
- /usr/include/c++/13/bits/stl_tree.h /usr/include/c++/13/bits/stl_map.h \
- /usr/include/c++/13/bits/stl_vector.h \
+ /usr/include/c++/13/bits/stl_tempbuf.h \
+ /usr/include/c++/13/bits/stl_tree.h \
+ /usr/include/c++/13/bits/node_handle.h \
+ /usr/include/c++/13/bits/stl_map.h /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
  /usr/include/c++/13/bits/vector.tcc \
  /usr/include/c++/13/bits/regex_constants.h \
@@ -237,86 +196,5 @@ CMakeFiles/MathInterpreter.dir/main.cpp.o: \
  /usr/include/c++/13/bits/regex_compiler.tcc \
  /usr/include/c++/13/bits/regex.h /usr/include/c++/13/bits/regex.tcc \
  /usr/include/c++/13/bits/regex_executor.h \
- /usr/include/c++/13/bits/regex_executor.tcc /usr/include/c++/13/utility \
- /usr/include/c++/13/bits/stl_relops.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/utils.h++ \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/base/abstractobject.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/base/../core.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/types.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/matrix.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/../core.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/vector.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/../base/abstractcontainertype.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/../base/../core.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/../base/abstractobject.h \
- /usr/include/c++/13/vector \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/variable.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/../base/abstractsimpletype.h \
- /usr/include/c++/13/variant /usr/include/c++/13/bits/parse_numbers.h \
- /usr/include/c++/13/cmath /usr/include/math.h \
- /usr/include/x86_64-linux-gnu/bits/math-vector.h \
- /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
- /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
- /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
- /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
- /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
- /usr/include/c++/13/bits/specfun.h /usr/include/c++/13/limits \
- /usr/include/c++/13/tr1/gamma.tcc \
- /usr/include/c++/13/tr1/special_function_util.h \
- /usr/include/c++/13/tr1/bessel_function.tcc \
- /usr/include/c++/13/tr1/beta_function.tcc \
- /usr/include/c++/13/tr1/ell_integral.tcc \
- /usr/include/c++/13/tr1/exp_integral.tcc \
- /usr/include/c++/13/tr1/hypergeometric.tcc \
- /usr/include/c++/13/tr1/legendre_function.tcc \
- /usr/include/c++/13/tr1/modified_bessel_func.tcc \
- /usr/include/c++/13/tr1/poly_hermite.tcc \
- /usr/include/c++/13/tr1/poly_laguerre.tcc \
- /usr/include/c++/13/tr1/riemann_zeta.tcc /usr/include/c++/13/functional \
- /usr/include/c++/13/array /usr/include/c++/13/bits/move_only_function.h \
- /usr/include/c++/13/bits/mofunc_impl.h /usr/include/c++/13/cxxabi.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/cxxabi_tweaks.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/rational.hpp \
- /usr/include/c++/13/numeric /usr/include/c++/13/bits/stl_numeric.h \
- /usr/include/c++/13/pstl/glue_numeric_defs.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/data/data.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/core.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/exceptions.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/stringvalidator.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/matrix.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/variable.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/vector.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/rational.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/regexmanager.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/matrixparser.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/vectorparser.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/variableparser.hpp \
- /usr/include/c++/13/bits/ranges_algo.h /usr/include/c++/13/optional \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../types/variable.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../types/vector.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../types/matrix.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/vectorparser.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/rationalparser.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../types/rational.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/variableparser.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/expressionparser.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/base.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/core.h \
- /usr/include/c++/13/unordered_set \
- /usr/include/c++/13/bits/unordered_set.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/binaryexecuter.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/../utils.h++ \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/../parsers/expressionparser.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/../types/matrix.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/../types/rational.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/../types/variable.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/../types/vector.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/../exceptions/exceptions.hpp \
- /home/massonskyi/repo/kp_toop/kp-toop-final/lib/cxxopts-3.2.0/include/cxxopts.hpp \
- /usr/include/c++/13/cstring /usr/include/string.h /usr/include/strings.h \
- /usr/include/c++/13/map /usr/include/c++/13/bits/stl_multimap.h \
- /usr/include/c++/13/algorithm \
- /usr/include/c++/13/pstl/glue_algorithm_defs.h
+ /usr/include/c++/13/bits/regex_executor.tcc /usr/include/c++/13/vector \
+ /usr/include/c++/13/utility /usr/include/c++/13/bits/stl_relops.h

@@ -1,61 +1,47 @@
 #include <iostream>
-#include "include/core.h"
-#include "include/interpreter.hpp"
-#include "lib/cxxopts-3.2.0/include/cxxopts.hpp"
+#include <regex>
+#include <vector>
+#include <utility> // для std::pair
 
-void printHelp() {
-    std::cout << "Usage:" << std::endl;
-    std::cout << "  --help           Print usage" << std::endl;
-    std::cout << "  --version        Print version" << std::endl;
-    std::cout << "  --file <path>    Path to file" << std::endl;
-}
-void printVersion() {
-    std::cout << VERSION << std::endl;
-}
-std::string processFile(const std::string& filePath) {
-    return filePath;
-}
-cxxopts::ParseResult parseOptions(int argc, char** argv) {
-    cxxopts::Options options("app", "Console application");
+int main() {
+    // Пример строки
+    std::string input_string = "fn my_function (let x: i32, let y: f64) -> i32 {};";
 
-    options.add_options()
-        ("h,help", "Print usage")
-        ("v,version", "Print version")
-        ("f,file", "Path to file", cxxopts::value<std::string>());
+    // Регулярное выражение для извлечения имени функции, аргументов и типа возвращаемого значения
+    std::regex pattern(R"(fn\s+(\w+)\s*\((.*?)\)\s*->\s*(\w+)\s*\{.*?\};)");
 
-    return options.parse(argc, argv);
-}
+    // Поиск совпадений
+    std::smatch match;
+    if (std::regex_match(input_string, match, pattern)) {
+        std::string function_name = match[1]; // Имя функции
+        std::string args_str = match[2];      // Аргументы как строка
+        std::string return_type = match[3];   // Тип возвращаемого значения
 
-std::string  handleOptions(const cxxopts::ParseResult& result) {
-    if (result.count("help")) {
-        printHelp();
-        return "";
+        // Регулярное выражение для извлечения аргументов
+        std::regex arg_pattern(R"(let\s+(\w+)\s*:\s*(\w+))");
+        std::smatch arg_match;
+        std::string::const_iterator args_start(args_str.cbegin());
+        std::vector<std::pair<std::string, std::string>> parsed_args;
+
+        // Обработка аргументов
+        while (std::regex_search(args_start, args_str.cend(), arg_match, arg_pattern)) {
+            std::string arg_name = arg_match[1];  // Имя аргумента
+            std::string arg_type = arg_match[2];  // Тип аргумента
+            parsed_args.emplace_back(arg_name, arg_type);
+            args_start = arg_match.suffix().first; // Переход к следующему аргументу
+        }
+
+        // Вывод результатов
+        std::cout << "Function Name: " << function_name << std::endl;
+        std::cout << "Arguments: ";
+        for (const auto& arg : parsed_args) {
+            std::cout << "(" << arg.first << ": " << arg.second << ") ";
+        }
+        std::cout << std::endl;
+        std::cout << "Return Type: " << return_type << std::endl;
+    } else {
+        std::cout << "No match found!" << std::endl;
     }
 
-    if (result.count("version")) {
-        printVersion();
-        return "";
-    }
-
-    if (result.count("file")) {
-        std::string filePath = result["file"].as<std::string>();
-        return processFile(filePath);
-        
-    }
-
-    return "s";
-}
-
-int main(int argc, char** argv) {
-    Interpreter interpreter;
-    auto result = parseOptions(argc, argv);
-    auto r = handleOptions(result);
-    if(r.empty()) {
-        exit(0x00);
-    }else if(r == "s"){
-        interpreter.processConsole();
-    }else{
-        interpreter.processFile(r);
-    }
     return 0;
 }
