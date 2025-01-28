@@ -12,3 +12,6 @@ Z
 BB = Z * V
 
 BB
+
+variable = 20 + 10 * 204 - (242 / 10)
+variable

@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.16"
@@ -39,7 +39,11 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "MathInterpreter::@6890427a1f51a3e7e1df",
+<<<<<<<< HEAD:build/.cmake/api/v1/reply/codemodel-v2-60745a5c49e017b05760.json
 					"jsonFile" : "target-MathInterpreter-Debug-1d9b35b127e8b97eea3c.json",
+========
+					"jsonFile" : "target-MathInterpreter-Debug-d413b309bb790613caa4.json",
+>>>>>>>> origin/master:build/.cmake/api/v1/reply/codemodel-v2-3bcec18c5266954a967d.json
 					"name" : "MathInterpreter",
 					"projectIndex" : 0
 				}
@@ -49,12 +53,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/massonskyi/repo/kp_toop/kp-toop-final/build",
-		"source" : "/home/massonskyi/repo/kp_toop/kp-toop-final"
+		"build" : "C:/repo/mi-kp-toop/kp-toop-final/build",
+		"source" : "C:/repo/mi-kp-toop/kp-toop-final"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 6
+		"minor" : 7
 	}
 }

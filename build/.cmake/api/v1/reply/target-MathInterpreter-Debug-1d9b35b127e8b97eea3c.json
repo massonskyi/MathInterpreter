@@ -2,7 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "MathInterpreter"
+			"path" : "MathInterpreter.exe"
+		},
+		{
+			"path" : "MathInterpreter.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -56,7 +59,7 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "/home/massonskyi/repo/kp_toop/kp-toop-final/C:/gtest/include"
+					"path" : "C:/gtest/include"
 				}
 			],
 			"language" : "CXX",
@@ -94,14 +97,18 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-L/home/massonskyi/repo/kp_toop/kp-toop-final/C:/gtest/lib",
+				"fragment" : "-LC:\\gtest\\lib",
 				"role" : "libraryPath"
+			},
+			{
+				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
+				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
 	"name" : "MathInterpreter",
-	"nameOnDisk" : "MathInterpreter",
+	"nameOnDisk" : "MathInterpreter.exe",
 	"paths" : 
 	{
 		"build" : ".",
