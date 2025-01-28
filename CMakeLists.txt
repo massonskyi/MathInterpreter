@@ -15,38 +15,37 @@ link_directories(${GTEST_LIB_DIR})
 
 
 add_executable(MathInterpreter 
-        main.cpp
-        include/base/abstractcontainertype.h
-        include/base/abstractobject.h
-        include/base/abstractsimpletype.h
-        include/core.h
-        include/types/variable.hpp
-        include/types/rational.hpp
-        include/types/vector.hpp
-        include/types/matrix.hpp
-        include/interpreter.hpp
+        main.cxx
+        include/base/abstractcontainertype.hxx
+        include/base/abstractobject.hxx
+        include/base/abstractsimpletype.hxx
+        include/core.tpp
+        include/types/variable.tpp
+        include/types/rational.tpp
+        include/types/vector.tpp
+        include/types/matrix.tpp
+        include/interpreter.tpp
 
-        src/variable.cpp
-        src/rational.cpp
-        include/parsers/regexmanager.hpp
-        include/parsers/variableparser.hpp
-        include/parsers/vectorparser.hpp
-        include/parsers/matrixparser.hpp
-        include/parsers/rationalparser.hpp
-        include/parsers/expressionparser.hpp
-        include/function/core.h
-        include/function/base.hpp
-        include/function/binaryexecuter.hpp
-        include/exceptions/core.h
-        include/exceptions/exceptions.hpp
-        src/base.cpp
+        src/variable.cxx
+        src/rational.cxx
+        include/parsers/regexmanager.hxx
+        include/parsers/variableparser.hxx
+        include/parsers/vectorparser.hxx
+        include/parsers/matrixparser.hxx
+        include/parsers/rationalparser.hxx
+        include/parsers/expressionparser.tpp
+        include/function/types.hxx
+        include/function/base.hxx
+        include/function/binaryexecuter.tpp
+        include/exceptions/exceptions.hxx
+        src/base.cxx
         lib/cxxopts-3.2.0/include/cxxopts.hpp
-        src/binaryexecute.cpp
-        include/types/types.h
-        include/utils.h++
-        include/function/typedetector.hpp
-        src/utils.cpp
-        src/vector.cpp)
+        src/binaryexecute.cxx
+        include/types/types.hxx
+        include/utils.tpp
+        include/function/typedetector.hxx
+        src/utils.cxx
+        src/vector.cxx)
 
 # Add tests
 enable_testing()
