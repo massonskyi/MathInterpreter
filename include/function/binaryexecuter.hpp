@@ -139,13 +139,26 @@ public:
     /// @param expression calculation expression for binary operation ( avalaible latter )
     /// @param oper operator
     /// @return result calculation
-    variable_ptr calculate(const std::string &expression)
+    value_type calculate(const std::string &expression, std::unordered_map<std::string, value_type>& variables)
     {
-        return make_variable_ptr(Variable(_M_expression_parser.evaluate(expression)));
+        auto x = _M_expression_parser.evaluate(expression, variables);
+        return std::visit([](auto& res) -> value_type {
+                using T = std::decay_t<decltype(res)>;
+                if constexpr (std::is_same_v<T, double> || std::is_same_v<T, Variable>){
+                    return make_object_ptr<T>(res);
+                }
+                else if constexpr (std::is_same_v<T, Vector>){
+                    return make_object_ptr<T>(res);
+                } else if constexpr (std::is_same_v<T, Matrix>){
+                    return make_object_ptr<T>(res);
+                }else if constexpr (std::is_same_v<T, Rational>){
+                    return make_object_ptr<T>(res);
+                }
+        }, x);
     }
 
     // Замена переменных их значениями
-    std::string replace_variables(const std::string &expression, stack_map variables)
+    std::string replace_variables(const std::string &expression, const stack_map& variables)
     {
         bool containsVariables = false;
         for (const auto &[name, value] : variables)

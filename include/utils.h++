@@ -13,6 +13,7 @@
 
 #include "types/types.h"
 
+
 // Concept for allowed entity types
 template<typename T>
 concept EntityType = std::same_as<T, int> ||
@@ -40,6 +41,7 @@ inline auto make_rational_ptr(const auto& rat) {
     return std::make_shared<Rational>(rat);
 }
 
+
 inline auto make_variable_ptr(const auto& var) {
     return std::make_shared<Variable>(var);
 }
@@ -61,5 +63,7 @@ constexpr std::string_view stringify(T&& x) {
     return std::string_view{x};
 }
 
+std::string to_lower(const std::string& s);
 
+std::string remove_whitespaces(const std::string &str);
 #endif //MATHINTERPRETER_UTILS_H

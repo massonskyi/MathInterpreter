@@ -42,7 +42,11 @@ add_executable(MathInterpreter
         src/base.cpp
         lib/cxxopts-3.2.0/include/cxxopts.hpp
         src/binaryexecute.cpp
-        include/types/types.h include/utils.h++)
+        include/types/types.h
+        include/utils.h++
+        include/function/typedetector.hpp
+        src/utils.cpp
+        src/vector.cpp)
 
 # Add tests
 enable_testing()

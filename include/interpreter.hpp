@@ -10,7 +10,6 @@
 #include <regex>
 #include <utility>
 
-#include "utils.h++"
 #include "data/data.h"
 #include "base/abstractobject.h"
 #include "exceptions/core.h"
@@ -29,9 +28,12 @@
 
 #include "function/base.hpp"
 #include "function/binaryexecuter.hpp"
+
+
 class Interpreter final
 {
 public:
+    enum class VarType { Variable, Matrix, Vector, Rational, Unknown};
     Interpreter() 
     : _M_expression_parser()
     , _M_binary_executer()
@@ -48,6 +50,8 @@ public:
         append_(_M_regexes, "RationalOperation",    std::regex(R"((\w+|(\d+\/\d+))\s*([+\-*/])\s*(\w+|(\d+\/\d+)))"));
         append_(_M_regexes, "VariableOperation",    std::regex(R"((\w+|d+)\s*([+\-*/])\s*(\w+|\d+))"));
         append_(_M_regexes, "functionLiteral",      std::regex(R"((\w+)\((.*?)\))"));
+        append_(_M_regexes, "LetDeclaration",
+                std::regex(R"(^let\s+(\w+)\s*:\s*(\w+)\s*=\s*(.+)$)"));
     };
 
     void processConsole()
@@ -67,12 +71,10 @@ public:
             try
             {
                 // line = "x = 2";
-                if (_M_contains_any_symbol(line, OPERATORS))
+                if (_M_contains_any_symbol(line, RESERVED.at(0)))
                 {
-                    if (std::string op = _M_find_contains_symbol(line, OPERATORS); !op.empty())
+                    if (std::string op = _M_find_contains_symbol(line, RESERVED.at(0)); !op.empty())
                         _M_execute_command(line, op);
-                    else
-                        throw InvalidCommand("Operator is undefined");
                 }
                 else if (_M_contains_function_call(line))
                     _M_function_execute(line);
@@ -126,25 +128,15 @@ public:
             if(line.find("//") == std::string::npos)
             try
             {
-                if (_M_contains_any_symbol(line, OPERATORS))
+                if (_M_contains_any_symbol(line, RESERVED.at(0)))
                 {
-                    if (std::string op = _M_find_contains_symbol(line, OPERATORS); !op.empty())
-                    {
+                    if (std::string op = _M_find_contains_symbol(line, RESERVED.at(0)); !op.empty())
                         _M_execute_command(line, op);
-                    }
-                    else
-                    {
-                        _M_print_variable(line);
-                    }
                 }
                 else if (_M_contains_function_call(line))
-                {
                     _M_function_execute(line);
-                }
                 else
-                {
                     _M_print_variable(line);
-                }
             }
             catch (const std::exception &e)
             {
@@ -313,62 +305,91 @@ private:
         }
     }
 
-    void 
-    _M_execute_command(const std::string &command, const std::string &op)
-    {
+    // Модифицируем _M_execute_command
+    void
+    _M_execute_command(const std::string &command, const std::string& op) {
         std::istringstream stream(command);
-        std::string variableName, equalsSign, expression;
+        std::string token;
+        stream >> token;
 
-        stream >> variableName >> equalsSign;
-        std::getline(stream, expression);
-
-        if (expression.empty())
-        {
-            throw InvalidExpression("Expression cannot be empty");
+        // Случай: создание новой переменной с let
+        if (token == "let") {
+            _M_handle_let_declaration(stream, op);
         }
-
-        expression = _M_trim_leading_spaces(expression);
-
-        if (_M_contains_function_call(expression))
-        {
-            expression = _M_binary_executer.replace_variables(expression, _M_variables);
-            _M_variables[variableName] = _M_function_expression(expression, equalsSign);
-            return;
-        }
-
-        if (!equalsSign.empty() && equalsSign == "=" && !_M_contains_math_evaluate_expression(expression))
-        {
-            // expression = _M_binary_executer.replace_variables(expression);
-            _M_creating_object(variableName, expression, op);
-            return;
-        }
-
-        // Check if this is an operation between existing variables
-        if (_M_contains_math_evaluate_expression(expression))
-        {
-            expression = _M_binary_executer.replace_variables(expression, _M_variables);
-            _M_variables[variableName] = _M_binary_executer.calculate(expression);
+            // Случай: присваивание существующей переменной
+        else {
+            _M_handle_assignment(command, op);
         }
     }
 
     void
-    _M_creating_object(const std::string &name, const std::string &expression, const std::string &op)
-    {
-        if (_M_is_vector_expression(expression))
-        {
-            _M_variables[name] = _M_parse_expression<Vector>(expression, op);
+    _M_handle_let_declaration(std::istringstream& stream, const std::string& op) {
+        std::string full_decl;
+        std::getline(stream, full_decl); // Читаем всю оставшуюся часть строки
+
+        size_t comment_pos = full_decl.find('#');
+        if (comment_pos != std::string::npos) {
+            full_decl = full_decl.substr(0, comment_pos);
         }
-        else if (_M_is_matrix_expression(expression))
-        {
-            _M_variables[name] = _M_parse_expression<Matrix>(expression, op);
+
+        // Новое регулярное выражение с гибкими пробелами
+        static const std::regex let_regex(
+                R"(^\s*([a-zA-Z_]\w*)\s*:\s*([a-zA-Z]+)\s*=\s*(.+)\s*$)",
+                std::regex::ECMAScript | std::regex::icase
+        );
+
+        std::smatch match;
+        if (!std::regex_match(full_decl, match, let_regex)) {
+            throw InvalidSyntax("Invalid let declaration format");
         }
-        else if (_M_is_rational_expression(expression))
-        {
-            _M_variables[name] = _M_parse_expression<Rational>(expression, op);
+
+        const std::string var_name = match[1].str();
+        const std::string type_str = to_lower(match[2].str());
+        const std::string expression = match[3].str();
+
+        if (expression.empty()) {
+            throw InvalidSyntax("Missing value in declaration");
         }
-        else
-        {
-            _M_variables[name] = _M_parse_expression<Variable>(expression, op);
+
+        if (_M_variables.find(var_name) != _M_variables.end()) {
+            throw RedeclarationError("Variable '" + var_name + "' already exists");
+        }
+
+        VarType type = _M_parse_type(type_str);
+        _M_create_variable(var_name, type, expression, op);
+    }
+
+    VarType
+    _M_parse_type(const std::string& type_str) {
+        static const std::unordered_map<std::string, VarType> type_map = {
+                {"num", VarType::Variable},
+                {"mat", VarType::Matrix},
+                {"vec", VarType::Vector},
+                {"rat", VarType::Rational}
+        };
+
+        auto it = type_map.find(type_str);
+        if (it == type_map.end()) {
+            throw InvalidTypeError("Unknown type: " + type_str);
+        }
+        return it->second;
+    }
+    void _M_create_variable(const std::string& name, VarType type, const std::string& expression, const std::string& op) {
+        switch (type) {
+            case VarType::Variable:
+                upload_(_M_variables, name,_M_parse_expression<Variable>(expression, op));
+                break;
+            case VarType::Matrix:
+                upload_(_M_variables, name,_M_parse_expression<Matrix>(expression, op));
+                break;
+            case VarType::Vector:
+                upload_(_M_variables, name,_M_parse_expression<Vector>(expression, op));
+                break;
+            case VarType::Rational:
+                upload_(_M_variables, name,_M_parse_expression<Rational>(expression, op));
+                break;
+            default:
+                throw InvalidTypeError("Unsupported type for variable creation");
         }
     }
 
@@ -381,21 +402,67 @@ private:
         }
         catch (const std::exception &e)
         {
-            throw std::runtime_error("Ошибка при разборе матрицы: " + std::string(e.what()));
+            throw std::runtime_error("Ошибка при разборе вектора: " + std::string(e.what()));
         }
     }
+    void _M_handle_assignment(const std::string& command, const std::string& op) {
+        std::istringstream stream(command);
+        std::string var_name, equals;
+        stream >> var_name >> equals;
 
-    std::string _M_remove_whitespaces(const std::string &str)
-    {
-        std::string result;
-        std::for_each(str.begin(), str.end(), [&](char c)
-                      {
-                if (!std::isspace(c)) {
-                    result.push_back(c);
-                } });
+        // Проверка существования переменной
+        if (_M_variables.find(var_name) == _M_variables.end()) {
+            throw UnknownVariable("Variable '" + var_name + "' not found. Use 'let' for declaration");
+        }
 
-        return result;
+        // Проверка синтаксиса
+        if (equals != "=") {
+            throw InvalidSyntax("Missing '=' in assignment");
+        }
+
+        std::string expression;
+        std::getline(stream, expression);
+        expression = _M_trim_leading_spaces(expression);
+
+        // Получение текущего типа переменной
+        auto& old_value = _M_variables[var_name];
+        VarType old_type = _M_detect_value_type(old_value);
+
+        // Парсинг и проверка типа
+        value_type new_value;
+        switch (old_type) {
+            case VarType::Variable:
+                new_value = _M_parse_expression<Variable>(expression, op);
+                break;
+            case VarType::Matrix:
+                new_value = _M_parse_expression<Matrix>(expression, op);
+                break;
+            case VarType::Vector:
+                new_value = _M_parse_expression<Vector>(expression, op);
+                break;
+            case VarType::Rational:
+                new_value = _M_parse_expression<Rational>(expression, op);
+            default:
+                throw TypeMismatchError("Cannot reassign variable of unknown type");
+        }
+
+        // Проверка совместимости типов
+        if (_M_detect_value_type(new_value) != old_type) {
+            throw TypeMismatchError("Type mismatch in assignment");
+        }
+
+        _M_variables[var_name] = new_value;
     }
+
+    VarType
+    _M_detect_value_type(const value_type& value) {
+        if (dynamic_cast<Variable*>(value.get())) return VarType::Variable;
+        if (dynamic_cast<Matrix*>(value.get())) return VarType::Matrix;
+        if (dynamic_cast<Vector*>(value.get())) return VarType::Vector;
+        if (dynamic_cast<Rational*>(value.get())) return VarType::Rational;
+        return VarType::Unknown;
+    }
+
 
     Matrix _M_parse_matrix(const std::string &expression)
     {
@@ -410,8 +477,7 @@ private:
         }
     }
 
-    [[nodiscard]] rational_ptr 
-    _M_parse_rational_expression(const std::string &expression, const std::string &op)
+    [[nodiscard]] value_type _M_parse_rational_expression(const std::string &expression, const std::string &op)
     {
         std::smatch match;
 
@@ -424,230 +490,70 @@ private:
             {
                 throw InvalidExpression("Division by zero in rational number");
             }
-            return make_rational_ptr(
-                    Rational(Variable(numerator),
-                            Variable(denominator)));
+            return make_rational_ptr(Rational(Variable(numerator), Variable(denominator)));
         }
-
-        // Binary operations with rationals
-        if (std::regex_match(expression, match, _M_regexes.find("RationalOperation")->second))
+        else
         {
-            const std::string lhs = match[1];
-            const std::string oper = match[2];
-            const std::string rhs = match[3];
-
-            // Если левый операнд число, а правый переменная
-            if (_M_is_number(lhs) && _M_variables.find(rhs) != _M_variables.end())
-            {
-
-                auto rhsVar = _M_variables.find(rhs);
-                if (rhsVar == _M_variables.end())
-                {
-                    throw UnknownVariable("Right operand not found");
-                };
-                auto &rhsPtr = rhsVar->second;
-                return _M_binary_executer.calculate<rational_ptr>(lhs, rhsPtr, expression, oper);
-            }
-
-            // Если левый операнд переменная, а правый число
-            if (_M_variables.find(lhs) != _M_variables.end() && _M_is_number(rhs))
-            {
-                auto lhsVar = _M_variables.find(lhs);
-                if (lhsVar == _M_variables.end())
-                {
-                    throw UnknownVariable("Right operand not found");
-                };
-                auto &lhsPtr = lhsVar->second;
-                return _M_binary_executer.calculate<rational_ptr>(lhsPtr, rhs, expression, oper);
-            }
-            // Get the type of the operands
-            auto lhsVar = _M_variables.find(lhs);
-            auto rhsVar = _M_variables.find(rhs);
-
-            if (lhsVar == _M_variables.end() || rhsVar == _M_variables.end())
-            {
-                throw UnknownVariable("One or both operands not found");
-            }
-
-            // Check types and perform operation
-            auto &lhsPtr = lhsVar->second;
-            auto &rhsPtr = rhsVar->second;
-
-            return _M_binary_executer.calculate<rational_ptr>(lhsPtr, rhsPtr, expression, op);
+            return _M_binary_executer.calculate(expression, _M_variables);
         }
-
-        throw InvalidExpression("Invalid rational expression: " + expression);
     }
 
-    matrix_ptr _M_parse_matrix_expression(const std::string &expression, const std::string &op)
+    value_type _M_parse_matrix_expression(const std::string &expression, const std::string &op)
     {
         std::smatch match;
-
-        // Matrix operations
-        if (std::regex_match(expression, match, _M_regexes.find("MatrixOperation")->second))
-        {
-            const std::string lhs = match[1];
-            const std::string oper = match[2];
-            const std::string rhs = match[3];
-
-            // Если левый операнд число, а правый переменная
-            if (_M_is_number(lhs) && _M_variables.find(rhs) != _M_variables.end())
-            {
-
-                auto rhsVar = _M_variables.find(rhs);
-                if (rhsVar == _M_variables.end())
-                {
-                    throw UnknownVariable("Right operand not found");
-                };
-                auto &rhsPtr = rhsVar->second;
-                return _M_binary_executer.calculate<matrix_ptr>(lhs, rhsPtr, expression, oper);
-            }
-
-            // Если левый операнд переменная, а правый число
-            if (_M_variables.find(lhs) != _M_variables.end() && _M_is_number(rhs))
-            {
-                auto lhsVar = _M_variables.find(lhs);
-                if (lhsVar == _M_variables.end())
-                {
-                    throw UnknownVariable("Right operand not found");
-                };
-                auto &lhsPtr = lhsVar->second;
-                return _M_binary_executer.calculate<matrix_ptr>(lhsPtr, rhs, expression, oper);
-            }
-            // Get the type of the operands
-            auto lhsVar = _M_variables.find(lhs);
-            auto rhsVar = _M_variables.find(rhs);
-
-            if (lhsVar == _M_variables.end() || rhsVar == _M_variables.end())
-            {
-                throw UnknownVariable("One or both operands not found");
-            }
-
-            // Check types and perform operation
-            auto &lhsPtr = lhsVar->second;
-            auto &rhsPtr = rhsVar->second;
-
-            return _M_binary_executer.calculate<matrix_ptr>(lhsPtr, rhsPtr, expression, op);
-        }
         // Matrix literal
-        if (std::regex_match(expression, match,_M_regexes.find("MatrixLiteral")->second) )
+        if (std::regex_match(expression, match, _M_regexes.find("MatrixLiteral")->second))
         {
             return make_matrix_ptr(_M_parse_matrix(expression));
         }
-        throw InvalidExpression("Invalid matrix expression: " + expression);
+        else
+        {
+            return _M_binary_executer.calculate(expression, _M_variables);
+        }
     }
 
-    vector_ptr _M_parse_vector_expression(const std::string &expression, const std::string &op)
+    value_type _M_parse_vector_expression(const std::string &expression, const std::string &op)
     {
         std::smatch match;
-
-        // Binary operations
-        if (std::regex_match(expression, match, _M_regexes.find("VectorOperation")->second))
-        {
-            const std::string lhs = match[1];
-            const std::string oper = match[2];
-            const std::string rhs = match[3];
-
-            // Если левый операнд число, а правый переменная
-            if (_M_is_number(lhs) && _M_variables.find(rhs) != _M_variables.end())
-            {
-                auto rhsVar = _M_variables.find(rhs);
-                if (rhsVar == _M_variables.end())
-                {
-                    throw UnknownVariable("Right operand not found");
-                };
-                auto &rhsPtr = rhsVar->second;
-                return _M_binary_executer.calculate<vector_ptr>(lhs, rhsPtr, expression, oper);
-            }
-
-            // Если левый операнд переменная, а правый число
-            if (_M_variables.find(lhs) != _M_variables.end() && _M_is_number(rhs))
-            {
-                auto lhsVar = _M_variables.find(lhs);
-                if (lhsVar == _M_variables.end())
-                {
-                    throw UnknownVariable("Right operand not found");
-                };
-                auto &lhsPtr = lhsVar->second;
-                return _M_binary_executer.calculate<vector_ptr>(lhsPtr, rhs, expression, oper);
-            }
-            // Get the type of the operands
-            auto lhsVar = _M_variables.find(lhs);
-            auto rhsVar = _M_variables.find(rhs);
-
-            if (lhsVar == _M_variables.end() || rhsVar == _M_variables.end())
-            {
-                throw UnknownVariable("One or both operands not found");
-            }
-
-            // Check types and perform operation
-            auto &lhsPtr = lhsVar->second;
-            auto &rhsPtr = rhsVar->second;
-
-            return _M_binary_executer.calculate<vector_ptr>(lhsPtr, rhsPtr, expression, op);
-        }
 
         // Direct number assignment
         if (std::regex_match(expression, match, _M_regexes.find("VectorLiteral")->second))
         {
             return make_vector_ptr(Vector(_M_parse_vector(expression)));
         }
-
-        throw InvalidExpression("Invalid variable expression: " + expression);
+        else
+        {
+            return _M_binary_executer.calculate(expression, _M_variables);
+        }
     }
-    variable_ptr _M_parse_variable_expression(
-            const std::string& expression,
-            const std::string& op
-    ) {
+
+    value_type _M_parse_variable_expression(const std::string& expression, const std::string& op)
+    {
         std::smatch match;
 
         // Direct number assignment
-        if (std::regex_match(expression, match, _M_regexes.find("VariableLiteral")->second)) {
+        if (std::regex_match(expression, match, _M_regexes.find("VariableLiteral")->second))
+        {
             return make_variable_ptr(Variable(std::stoi(expression)));
         }
-
-        const std::string lhs = match[1];
-        const std::string oper = match[2];
-        const std::string rhs = match[3];
-
-        // Left operand is number, right is variable
-        if (_M_is_number(lhs) && _M_variables.find(rhs) != _M_variables.end()) {
-            auto rhsVar = _M_variables.find(rhs);
-            return _M_binary_executer.calculate<variable_ptr>(lhs, rhsVar->second, expression, oper);
+        else
+        {
+            return _M_binary_executer.calculate(expression, _M_variables);
         }
-
-        // Left operand is variable, right is number
-        if (_M_variables.find(lhs) != _M_variables.end() && _M_is_number(rhs)) {
-            auto lhsVar = _M_variables.find(lhs);
-            return _M_binary_executer.calculate<variable_ptr>(lhsVar->second, rhs, expression, oper);
-        }
-
-        // Both operands are variables
-        auto lhsVar = _M_variables.find(lhs);
-        auto rhsVar = _M_variables.find(rhs);
-
-        if (lhsVar == _M_variables.end() || rhsVar == _M_variables.end()) {
-            throw UnknownVariable("One or both operands not found");
-        }
-
-        return _M_binary_executer.calculate<variable_ptr>(
-                lhsVar->second, rhsVar->second, expression, op
-        );
-        
-
-        throw InvalidExpression("Invalid variable expression: " + expression);
     }
+
     void _M_print_variable(const std::string &variableName)
     {
-        if (variableName.empty())
+        auto var_without_whitespace = remove_whitespaces(variableName);
+        if (var_without_whitespace.empty())
         {
             return;
         }
 
-        const auto it = _M_variables.find(variableName);
+        const auto it = _M_variables.find(var_without_whitespace);
         if (it == _M_variables.end())
         {
-            throw UnknownVariable("Variable not found: " + variableName);
+            throw UnknownVariable("Variable not found: " + var_without_whitespace);
         }
 
         std::cout << *it->second << std::endl;
@@ -658,18 +564,38 @@ private:
         std::cout << *obj << std::endl;
     }
 
+    bool _M_contains_any_symbol(const std::string &str, const std::vector<std::string> &symbols)
+    {
+        // Проходим по каждому символу строки str
+        for (char ch : str) {
+            // Пропускаем пробелы
+            if (ch == ' ') {
+                continue;
+            }
+
+            // Проверяем, содержится ли символ ch в любой из строк вектора symbols
+            for (const std::string &symbol : symbols) {
+                if (symbol.find(ch) != std::string::npos) {
+                    // Если символ найден, возвращаем true
+                    return true;
+                }
+            }
+        }
+
+        // Если ни один символ не найден, возвращаем false
+        return false;
+    }
     bool _M_contains_any_symbol(const std::string &str, const std::string &symbols)
     {
         bool found = false;
 
         std::for_each(str.begin(), str.end(), [&](const char ch)
-                      {
-                if (ch != ' ' && symbols.find(ch) != std::string::npos) {
-                    found = true;
-                } });
+        {
+            if (ch != ' ' && symbols.find(ch) != std::string::npos) {
+                found = true;
+            } });
         return found;
     }
-
     std::string _M_find_contains_symbol(const std::string &str, const std::string &symbols)
     {
         for (const char ch : symbols)

@@ -1292,4 +1292,7 @@ private:
     }
     std::vector<Variable> vector_;
 };
+
+Vector operator+(Vector vec, const Variable& other);
+Vector operator-(Vector vec, const Variable& other);
 #endif /* VECTOR_HPP */
