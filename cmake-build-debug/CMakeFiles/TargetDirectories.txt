@@ -1,4 +1,0 @@
-/home/massonskyi/repo/kp_toop/kp-toop-final/cmake-build-debug/CMakeFiles/MathInterpreter.dir
-/home/massonskyi/repo/kp_toop/kp-toop-final/cmake-build-debug/CMakeFiles/test.dir
-/home/massonskyi/repo/kp_toop/kp-toop-final/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/massonskyi/repo/kp_toop/kp-toop-final/cmake-build-debug/CMakeFiles/rebuild_cache.dir
