@@ -1,0 +1,50 @@
+\doxysection{Invalid\+Expression Struct Reference}
+\hypertarget{structInvalidExpression}{}\label{structInvalidExpression}\index{InvalidExpression@{InvalidExpression}}
+
+
+Inheritance diagram for Invalid\+Expression\+:
+% FIG 0
+
+
+Collaboration diagram for Invalid\+Expression\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structInvalidExpression_ad662dff8642b76af3d6f9218315e8457}\label{structInvalidExpression_ad662dff8642b76af3d6f9218315e8457} 
+{\bfseries Invalid\+Expression} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structInvalidExpression_ae1605855b7de9db22508c62325f59979}{Invalid\+Expression}} (const std\+::string \&err)
+\begin{DoxyCompactList}\small\item\em Constructor with error message. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{structException}{Exception}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Exception} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structException_a55ccbce4545cc0df2589cb94f318a2b6}{Exception}} (std\+::string err)
+\begin{DoxyCompactList}\small\item\em Constructor with error message. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structException_a91eace2bc486fa18d3f913a28f3921f8}{what}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em override std\+::exception\+::what() \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structInvalidExpression_ae1605855b7de9db22508c62325f59979}\label{structInvalidExpression_ae1605855b7de9db22508c62325f59979} 
+\index{InvalidExpression@{InvalidExpression}!InvalidExpression@{InvalidExpression}}
+\index{InvalidExpression@{InvalidExpression}!InvalidExpression@{InvalidExpression}}
+\doxysubsubsection{\texorpdfstring{InvalidExpression()}{InvalidExpression()}}
+{\footnotesize\ttfamily Invalid\+Expression\+::\+Invalid\+Expression (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{err }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Constructor with error message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em err} & error message \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/exceptions/exceptions.\+hpp\end{DoxyCompactItemize}

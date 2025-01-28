@@ -1,0 +1,12 @@
+\doxysection{Allowed\+Ptr\+Type Concept Reference}
+\hypertarget{conceptAllowedPtrType}{}\label{conceptAllowedPtrType}\index{AllowedPtrType@{AllowedPtrType}}
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptAllowedPtrType}{AllowedPtrType}}\ =\ \ std::is\_same\_v<T,\ std::shared\_ptr<Vector>>\ ||}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same\_v<T,\ std::shared\_ptr<Matrix>>\ ||}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same\_v<T,\ std::shared\_ptr<Rational>>\ ||}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same\_v<T,\ std::shared\_ptr<Variable>>}
+
+\end{DoxyCode}

@@ -2,9 +2,10 @@
 #define DATA_H_
 #include <string>
 
-/// @brief This is all avalaible operators 
-const std::string OPERATORS = "+ - * / % += -= *= /= %= = == !=";
-
+/// @brief This is all avalaible reserved words
+const std::vector<std::string> RESERVED = {"+ - * / % += -= *= /= %= = == !=",
+                                           "fn let if else for for_each loop match using "
+};
 enum class Operator{
     ADD = 0x80, 
     SUB, 

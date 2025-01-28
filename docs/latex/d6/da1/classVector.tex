@@ -1,0 +1,1644 @@
+\doxysection{Vector Class Reference}
+\hypertarget{classVector}{}\label{classVector}\index{Vector@{Vector}}
+
+
+The \doxylink{classVector}{Vector} class represents a vector of integers.  
+
+
+
+
+{\ttfamily \#include $<$vector.\+hpp$>$}
+
+
+
+Inheritance diagram for Vector\+:
+% FIG 0
+
+
+Collaboration diagram for Vector\+:
+% FIG 1
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classVector_af1863ec4a6e6d426e9b6f7ced7cb9dab}\label{classVector_af1863ec4a6e6d426e9b6f7ced7cb9dab} 
+using {\bfseries value\+\_\+type} = \mbox{\hyperlink{classVariable}{Variable}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classVector_a6f80c73b5f18dcf3f8e36065bdc8b9e5}\label{classVector_a6f80c73b5f18dcf3f8e36065bdc8b9e5} 
+{\bfseries Vector} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for the \doxylink{classVector}{Vector} class. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector_a7bf5ed1f36b80d7a0e772c4f1d75c107}{Vector}} (const size\+\_\+t \mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}})
+\begin{DoxyCompactList}\small\item\em Constructor with size params for the \doxylink{classVector}{Vector} class. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector_a1569f04e1f95d5f0e53557b530a16eb4}{Vector}} (const std\+::initializer\+\_\+list$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$ list)
+\begin{DoxyCompactList}\small\item\em Constructor with initializer list for the \doxylink{classVector}{Vector} class. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename  = std\+::enable\+\_\+if\+\_\+t$<$std\+::is\+\_\+arithmetic\+\_\+v$<$\+T$>$$>$$>$ }\\\mbox{\hyperlink{classVector_a1ce30c20b849096d3409c04875b023ed}{Vector}} (std\+::initializer\+\_\+list$<$ T $>$ list)
+\begin{DoxyCompactList}\small\item\em Constructor with initializer list for the \doxylink{classVector}{Vector} class. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector_ad773760e15e6293aa4b659e6389914ce}{Vector}} (const \mbox{\hyperlink{classVector}{Vector}} \&other) noexcept
+\begin{DoxyCompactList}\small\item\em Copy constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector_aa7c42bfffdd4a600fa98ebbb6cdded5e}{Vector}} (\mbox{\hyperlink{classVector}{Vector}} \&\&other) noexcept
+\begin{DoxyCompactList}\small\item\em Move constructor. \end{DoxyCompactList}\item 
+\Hypertarget{classVector_a54186c907924e5bb741679023d0bd979}\label{classVector_a54186c907924e5bb741679023d0bd979} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Vector} () override=default
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{classVector_a39b0125f03b5a7e2d10a2e5600a3f1c1}{to\+String}} () const override
+\begin{DoxyCompactList}\small\item\em This method is used to print the object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classVector_af45bf0523d3bcc5bdc5b494eb72b80a5}{print}} (std\+::ostream \&os) const override
+\item 
+void \mbox{\hyperlink{classVector_a0cce3b229b5e1ca5bf98e39ea5458a83}{add}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$ \&object)
+\begin{DoxyCompactList}\small\item\em This method adds object to the container. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{classVector_a46092165197c3623c0363237f5b28160}{get\+Type\+Name}} () const override
+\begin{DoxyCompactList}\small\item\em This method is used to get the type of the object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classVector_a40b179b2ae729e60a4477bdb44d7e6eb}{reserve}} (const size\+\_\+t new\+\_\+cap)
+\begin{DoxyCompactList}\small\item\em Reserve capacity for the vector. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}} () const
+\begin{DoxyCompactList}\small\item\em This method returns size of the container. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classVector_a1a985cf2866d3c2bf4745cc307d63267}{get}} () const override
+\begin{DoxyCompactList}\small\item\em This method returns object by index its index container. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVariable}{Variable}} \mbox{\hyperlink{classVector_a1e2d069b4793fbf7e9195a4de1fc49a2}{get}} (const size\+\_\+t index) const
+\begin{DoxyCompactList}\small\item\em This method returns object by index its index container. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$ \mbox{\hyperlink{classVector_a32b92b59ac539db00d00eedde076294e}{get\+Data}} () const
+\begin{DoxyCompactList}\small\item\em This method returns object by index. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classVector_a0983396770daceb9e95ca795365aa478}{empty}} () const
+\begin{DoxyCompactList}\small\item\em This method return false if the container is empty. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVariable}{Variable}} \& \mbox{\hyperlink{classVector_ae4310eab0ea4bef54d676bf4c6e9016a}{operator\mbox{[}$\,$\mbox{]}}} (const size\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em This method returns object by index. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classVariable}{Variable}} \& \mbox{\hyperlink{classVector_ac6caf93a0ab9d4f3e73a68584a595e66}{operator\mbox{[}$\,$\mbox{]}}} (const size\+\_\+t index) const
+\begin{DoxyCompactList}\small\item\em This method returns object by index. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVariable}{Variable}} \mbox{\hyperlink{classVector_a170c820ff81fb1bcb80eed4dd1d82229}{at}} (const size\+\_\+t index) const
+\begin{DoxyCompactList}\small\item\em This method returns object by index. \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$ \mbox{\hyperlink{classVector_aafe361ca8ebb384ad6f92f40dc4662ad}{ptr}} (const size\+\_\+t index) const
+\begin{DoxyCompactList}\small\item\em This method returns pointer of the container. \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$ \mbox{\hyperlink{classVector_abd4b0aeca00fa90d3b4847025c2d1a63}{front}} () const
+\begin{DoxyCompactList}\small\item\em This method return first element of the container. \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$ \mbox{\hyperlink{classVector_ae078e7d6b25789c7099318f21ce70e9b}{back}} () const
+\begin{DoxyCompactList}\small\item\em This method return last element of the container. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}{push\+\_\+back}} (const \mbox{\hyperlink{classVariable}{Variable}} \&var)
+\begin{DoxyCompactList}\small\item\em This method adds object to the container end of the container. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\void \mbox{\hyperlink{classVector_afcd41f7574860d611003c298d2f7cc25}{push\+\_\+back}} (const \+\_\+\+Tp \&var)
+\begin{DoxyCompactList}\small\item\em This method adds object to the container end of the container. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classVector_ab58ab06b4e5b39d6b681bd07da403f92}{append}} (const \mbox{\hyperlink{classVariable}{Variable}} \&var)
+\begin{DoxyCompactList}\small\item\em This method adds object to the container end of the container. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\void \mbox{\hyperlink{classVector_ad8cc3873d2031d7d477080a28fc5ea48}{append}} (const \+\_\+\+Tp \&var)
+\begin{DoxyCompactList}\small\item\em This method adds object to the container end of the container. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classVector_a492100fbe991d248c4bdc80d614a1535}{remove}} (const size\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em This method removes object from the container. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classVector_abd166e2a61b282b4d47fe27a573c6d84}{pop\+\_\+front}} ()
+\begin{DoxyCompactList}\small\item\em This method removes object from the container first of the container. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classVector_a046a9843b68dbd60cc96da499ae7edb3}{pop\+\_\+back}} ()
+\begin{DoxyCompactList}\small\item\em This method removes object from the container end of the container. \end{DoxyCompactList}\item 
+\Hypertarget{classVector_a8dd7bbcace48a9b6e6a000cb80054fbf}\label{classVector_a8dd7bbcace48a9b6e6a000cb80054fbf} 
+void {\bfseries clear} ()
+\begin{DoxyCompactList}\small\item\em This method clears the container. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classVector_a1f4f730cd3c40120ae46f0f444465dff}{erase}} (const size\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em This method erases object from the container. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classVector_a224c4105e899aa5aa5bfb680ff00e574}{insert}} (size\+\_\+t index, const \mbox{\hyperlink{classVariable}{Variable}} \&var)
+\begin{DoxyCompactList}\small\item\em This method inserts object to the container. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\void \mbox{\hyperlink{classVector_a15bcb810cea027a697a9b29ffdf7e0a4}{insert}} (const size\+\_\+t index, const \+\_\+\+Tp \&var)
+\begin{DoxyCompactList}\small\item\em This method inserts object to the container. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classVector_a2cb0995e2c7eb22c3dcb0e38f9d3a4cd}{resize}} (const size\+\_\+t \mbox{\hyperlink{classVector_a5cb80c9602ca8066efa93e31ee230c46}{size}})
+\begin{DoxyCompactList}\small\item\em This method resizes the container. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classVector_a620499090a52fbe862e66d134efa5147}{swap}} (\mbox{\hyperlink{classVector}{Vector}} \&other) noexcept
+\begin{DoxyCompactList}\small\item\em This method swaps two containers. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classVector_aaf762dfbcb62e16c03c9d0dc5947c542}{swap}} (std\+::vector$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$ \&other) noexcept
+\begin{DoxyCompactList}\small\item\em This method swaps two containers. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$\+::iterator \mbox{\hyperlink{classVector_ad46a819b335ff440f042ef5bf5eab6d7}{begin}} () noexcept
+\begin{DoxyCompactList}\small\item\em This method returns begin iterator of the container. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$\+::iterator \mbox{\hyperlink{classVector_a2d3f96cbaca141e25255ef4c9ec78937}{end}} () noexcept
+\begin{DoxyCompactList}\small\item\em This method returns end iterator of the container. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$\+::const\+\_\+iterator \mbox{\hyperlink{classVector_a6fe68e60974e03cf187037db998ef33c}{cbegin}} () const noexcept
+\begin{DoxyCompactList}\small\item\em This method returns const begin iterator of the container. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$\+::const\+\_\+iterator \mbox{\hyperlink{classVector_a0db1dffc56369071a60102688566211a}{cend}} () const noexcept
+\begin{DoxyCompactList}\small\item\em This method returns const end iterator of the container. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \& \mbox{\hyperlink{classVector_a31810b59e0d9106aa17ecf6ae1cfbaf1}{operator=}} (const \mbox{\hyperlink{classVector}{Vector}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \& \mbox{\hyperlink{classVector_a4c7d22e17b7cd109946a12d50a4d31d6}{operator=}} (\mbox{\hyperlink{classVector}{Vector}} \&\&other) noexcept
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classVector}{Vector}} \& \mbox{\hyperlink{classVector_a1bd1ec3cf8572fb7c192b0be14cc8b15}{operator=}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classVector_ad5435d0dbad5336fe4df23e6ab081612}{operator==}} (const \mbox{\hyperlink{classVector}{Vector}} \&other) const
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object as a boolean. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classVector_a3e5e4749640f1d3bb8eedd31fb94c59e}{operator!=}} (const \mbox{\hyperlink{classVector}{Vector}} \&other) const
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object as a boolean. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_a8636c13924ae2a8f08a5c56c1bdee35d}{operator+}} (const \mbox{\hyperlink{classVector}{Vector}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns result of the add operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_a0ae15994493540d7eab40554da08b7c0}{operator+}} (\mbox{\hyperlink{classVariable}{Variable}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns result of the add operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_a0ff69e0cb3e743633341475b5ca07cec}{operator+}} (\mbox{\hyperlink{classVariable}{Variable}} \&other) const
+\begin{DoxyCompactList}\small\item\em This method returns result of the add operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_ab67652bffa77db98adcbf48da0e5abab}{operator+}} (const \mbox{\hyperlink{classVector}{Vector}} \&other) const
+\begin{DoxyCompactList}\small\item\em This method returns result of the add operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_a78273e8287626f263ca0cfb26a6f9770}{operator-\/}} (const \mbox{\hyperlink{classVector}{Vector}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns result of the sub operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_a25c9d18e95bdf43bf61e527ce410dac5}{operator-\/}} (\mbox{\hyperlink{classVariable}{Variable}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns result of the add operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_aa395081af8116603338717834c65d592}{operator-\/}} (\mbox{\hyperlink{classVariable}{Variable}} \&other) const
+\begin{DoxyCompactList}\small\item\em This method returns result of the add operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_a41a06f3dec0af5b0bbf5a85e5feabb67}{operator-\/}} (const \mbox{\hyperlink{classVector}{Vector}} \&other) const
+\begin{DoxyCompactList}\small\item\em This method returns result of the sub operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_af8af1dfd34f0a9abf24a43aec6ffb707}{operator\texorpdfstring{$\ast$}{*}}} (const \mbox{\hyperlink{classVector}{Vector}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns result of the mul operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_abd1b34ef73d2e8dc22f8b72f5128171e}{operator\texorpdfstring{$\ast$}{*}}} (const \mbox{\hyperlink{classVector}{Vector}} \&other) const
+\begin{DoxyCompactList}\small\item\em This method returns result of the mul operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_a63d00c27f91323be9372a2ce94b35112}{operator\texorpdfstring{$\ast$}{*}}} (\mbox{\hyperlink{classVariable}{Variable}} other)
+\begin{DoxyCompactList}\small\item\em This method returns result of the mul operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_a69475acf1ee0ad3fe133ef79ade8f8f3}{operator\texorpdfstring{$\ast$}{*}}} (\mbox{\hyperlink{classVariable}{Variable}} other) const
+\begin{DoxyCompactList}\small\item\em This method returns result of the mul operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_a5d5daba9ba6af185cb38214ad54b8af2}{operator/}} (const \mbox{\hyperlink{classVector}{Vector}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns result of the div operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_ada931123bc215e059babe1397acb6c65}{operator/}} (\mbox{\hyperlink{classVariable}{Variable}} other)
+\begin{DoxyCompactList}\small\item\em This method returns result of the mul operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_a4487762e0fb90496ac11414c09e3b2fb}{operator/}} (\mbox{\hyperlink{classVariable}{Variable}} other) const
+\begin{DoxyCompactList}\small\item\em This method returns result of the mul operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_adf5a293e98e44724866bfd22463ef923}{operator/}} (const \mbox{\hyperlink{classVector}{Vector}} \&other) const
+\begin{DoxyCompactList}\small\item\em This method returns result of the div operation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_a94e2ba39b6e2f1135aa4c37c0871ef9b}{operator\%}} (const \mbox{\hyperlink{classVector}{Vector}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns result of the mod operation. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_a11f971ec9bf0f9a3bd3dffcd0c89c961}{operator+}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_ac307a363cc02f595511e5d9b63544002}{operator-\/}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_a48731b12c75fbe3df1ce45fa07e267af}{operator\texorpdfstring{$\ast$}{*}}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_a5fd7067b5f7f7962407bd2ada9e59843}{operator/}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_a3cb2bbdd503c2f70f2aca04933e0f9da}{operator\%}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \& \mbox{\hyperlink{classVector_acbcb1ffd04d881d2d9d693193787e556}{operator+=}} (const \mbox{\hyperlink{classVector}{Vector}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \& \mbox{\hyperlink{classVector_a1b5f826d645256ea206622da31190307}{operator-\/=}} (const \mbox{\hyperlink{classVector}{Vector}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \& \mbox{\hyperlink{classVector_a077dafc11ce63eadf4c43b45406f546d}{operator\texorpdfstring{$\ast$}{*}=}} (const \mbox{\hyperlink{classVector}{Vector}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \& \mbox{\hyperlink{classVector_a04f5161b7b03ce04ae4e431c66c5dcea}{operator/=}} (const \mbox{\hyperlink{classVector}{Vector}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \& \mbox{\hyperlink{classVector_a145d7eb0c88cca8e0d9535cb59469b92}{operator\%=}} (const \mbox{\hyperlink{classVector}{Vector}} \&other)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classVector}{Vector}} \& \mbox{\hyperlink{classVector_acbba55ab01d6c14b758e429d19aa09c1}{operator+=}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classVector}{Vector}} \& \mbox{\hyperlink{classVector_a5414be679847187c17a9ca7820f6e71b}{operator-\/=}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classVector}{Vector}} \& \mbox{\hyperlink{classVector_ade3b11c5ca727e1f55603187e763ef12}{operator\texorpdfstring{$\ast$}{*}=}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classVector}{Vector}} \& \mbox{\hyperlink{classVector_af8750e8d564956c0a7f543073303b6cf}{operator/=}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ }\\\mbox{\hyperlink{classVector}{Vector}} \& \mbox{\hyperlink{classVector_a3652a6288f7e1973b0488bef47ca8d8d}{operator\%=}} (\+\_\+\+Tp value)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \& \mbox{\hyperlink{classVector_aa355c4db2921a319002ab9ecebd36dd1}{operator++}} ()
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \& \mbox{\hyperlink{classVector_a5fa7ada0d79e1b0820193892374b7347}{operator-\/-\/}} ()
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_a98a2e89e3331ae8daf76bb00c71da3ec}{operator++}} (int)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector}{Vector}} \mbox{\hyperlink{classVector_a6a0d909a1406a89bc61581c15eacbd2e}{operator-\/-\/}} (int)
+\begin{DoxyCompactList}\small\item\em This method returns the value of the object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classAbstractContainerType}{Abstract\+Container\+Type}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Abstract\+Object} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructorsssss. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classAbstractContainerType_ac8d361ef57a0b90bca65f63bdc7ef8ab}{Abstract\+Object}} (string n="{}"{})
+\begin{DoxyCompactList}\small\item\em This constructor is used to create a new object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Abstract\+Object} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructorsssss. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classAbstractObject_ac8d361ef57a0b90bca65f63bdc7ef8ab}{Abstract\+Object}} (string n="{}"{})
+\begin{DoxyCompactList}\small\item\em This constructor is used to create a new object. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Abstract\+Object} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classAbstractObject_a86cf25254bb363d5681227f2767886f9}{set\+Name}} (const string \&n)
+\begin{DoxyCompactList}\small\item\em This method is used to set the name of the object. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{classAbstractObject_ad81dd77884b5e5588a1337c52535a303}{get\+Name}} () const
+\begin{DoxyCompactList}\small\item\em This method is used to get the name of the object. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_a49a6c8b7a49414fae83d89b68311b870}{operator+}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_a5ce76b603c642183ba7d6cd6704ee37b}{operator-\/}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_af7a9d07a02aa094cc7156104ddf2b5f9}{operator\texorpdfstring{$\ast$}{*}}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_a9fb1748be46c8570e3b2d3abbeb6625a}{operator/}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \mbox{\hyperlink{classAbstractObject_ab0e795743e40bc9588954d7fa55ba2ca}{operator\%}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a1149f74caffd775153283599baa094ac}{operator+=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a968113a1698da88838850d17f965c334}{operator-\/=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a4ddd72dc3b2eac8494002654fe07e0a3}{operator\texorpdfstring{$\ast$}{*}=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_aee5eac9fcea694d482c9f80411ff611f}{operator/=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a92a8f239c8ffd1b56ec7d4c7c1436343}{operator\%=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \& \mbox{\hyperlink{classAbstractObject_a2ed9db746f937521de533d3b553d9af6}{operator=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&)
+\item 
+virtual bool \mbox{\hyperlink{classAbstractObject_acaffcb68aa0e8e056ed2551d0b7afe8d}{operator==}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&) const
+\item 
+virtual bool \mbox{\hyperlink{classAbstractObject_a863f5085a97e3982ff2da5819dfab56d}{operator!=}} (const \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} \&) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \mbox{\hyperlink{classVector_a5ec23213c386c98e6d59ec17f6fb0fb4}{operator$<$$<$}} (std\+::ostream \&os, const \mbox{\hyperlink{classVector}{Vector}} \&vector)
+\begin{DoxyCompactList}\small\item\em This override method output prints the container. \end{DoxyCompactList}\item 
+std\+::istream \& \mbox{\hyperlink{classVector_a4a2236de10ff7e302625be6e9bb7e96c}{operator$>$$>$}} (std\+::istream \&is, \mbox{\hyperlink{classVector}{Vector}} \&vector)
+\begin{DoxyCompactList}\small\item\em This override method input reads the container. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classAbstractContainerType}{Abstract\+Container\+Type}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} $>$ $>$ {\bfseries objects}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+string {\bfseries name}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \doxylink{classVector}{Vector} class represents a vector of integers. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classVector_a7bf5ed1f36b80d7a0e772c4f1d75c107}\label{classVector_a7bf5ed1f36b80d7a0e772c4f1d75c107} 
+\index{Vector@{Vector}!Vector@{Vector}}
+\index{Vector@{Vector}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{Vector()}{Vector()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily Vector\+::\+Vector (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Constructor with size params for the \doxylink{classVector}{Vector} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & The size of the vector \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_a1569f04e1f95d5f0e53557b530a16eb4}\label{classVector_a1569f04e1f95d5f0e53557b530a16eb4} 
+\index{Vector@{Vector}!Vector@{Vector}}
+\index{Vector@{Vector}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{Vector()}{Vector()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily Vector\+::\+Vector (\begin{DoxyParamCaption}\item[{const std\+::initializer\+\_\+list$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$}]{list }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor with initializer list for the \doxylink{classVector}{Vector} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & The initializer list \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_a1ce30c20b849096d3409c04875b023ed}\label{classVector_a1ce30c20b849096d3409c04875b023ed} 
+\index{Vector@{Vector}!Vector@{Vector}}
+\index{Vector@{Vector}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{Vector()}{Vector()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily template$<$typename T , typename  = std\+::enable\+\_\+if\+\_\+t$<$std\+::is\+\_\+arithmetic\+\_\+v$<$\+T$>$$>$$>$ \\
+Vector\+::\+Vector (\begin{DoxyParamCaption}\item[{std\+::initializer\+\_\+list$<$ T $>$}]{list }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor with initializer list for the \doxylink{classVector}{Vector} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & The initializer list \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_ad773760e15e6293aa4b659e6389914ce}\label{classVector_ad773760e15e6293aa4b659e6389914ce} 
+\index{Vector@{Vector}!Vector@{Vector}}
+\index{Vector@{Vector}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{Vector()}{Vector()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily Vector\+::\+Vector (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Copy constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The other vector \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_aa7c42bfffdd4a600fa98ebbb6cdded5e}\label{classVector_aa7c42bfffdd4a600fa98ebbb6cdded5e} 
+\index{Vector@{Vector}!Vector@{Vector}}
+\index{Vector@{Vector}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{Vector()}{Vector()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily Vector\+::\+Vector (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVector}{Vector}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Move constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The other vector \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classVector_a0cce3b229b5e1ca5bf98e39ea5458a83}\label{classVector_a0cce3b229b5e1ca5bf98e39ea5458a83} 
+\index{Vector@{Vector}!add@{add}}
+\index{add@{add}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}}
+{\footnotesize\ttfamily void Vector\+::add (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$ \&}]{object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method adds object to the container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em object} & to add be added to the container \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_ad8cc3873d2031d7d477080a28fc5ea48}\label{classVector_ad8cc3873d2031d7d477080a28fc5ea48} 
+\index{Vector@{Vector}!append@{append}}
+\index{append@{append}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{append()}{append()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+void Vector\+::append (\begin{DoxyParamCaption}\item[{const \+\_\+\+Tp \&}]{var }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method adds object to the container end of the container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em var} & to add to the container \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_ab58ab06b4e5b39d6b681bd07da403f92}\label{classVector_ab58ab06b4e5b39d6b681bd07da403f92} 
+\index{Vector@{Vector}!append@{append}}
+\index{append@{append}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{append()}{append()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Vector\+::append (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVariable}{Variable}} \&}]{var }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method adds object to the container end of the container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em var} & to add to the container \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_a170c820ff81fb1bcb80eed4dd1d82229}\label{classVector_a170c820ff81fb1bcb80eed4dd1d82229} 
+\index{Vector@{Vector}!at@{at}}
+\index{at@{at}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{at()}{at()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVariable}{Variable}} Vector\+::at (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns object by index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & of the object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+object by index 
+\end{DoxyReturn}
+\Hypertarget{classVector_ae078e7d6b25789c7099318f21ce70e9b}\label{classVector_ae078e7d6b25789c7099318f21ce70e9b} 
+\index{Vector@{Vector}!back@{back}}
+\index{back@{back}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{back()}{back()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$ Vector\+::back (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method return last element of the container. 
+
+\begin{DoxyReturn}{Returns}
+last element of the container 
+\end{DoxyReturn}
+\Hypertarget{classVector_ad46a819b335ff440f042ef5bf5eab6d7}\label{classVector_ad46a819b335ff440f042ef5bf5eab6d7} 
+\index{Vector@{Vector}!begin@{begin}}
+\index{begin@{begin}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$\+::iterator Vector\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+This method returns begin iterator of the container. 
+
+\begin{DoxyReturn}{Returns}
+begin iterator of the container 
+\end{DoxyReturn}
+\Hypertarget{classVector_a6fe68e60974e03cf187037db998ef33c}\label{classVector_a6fe68e60974e03cf187037db998ef33c} 
+\index{Vector@{Vector}!cbegin@{cbegin}}
+\index{cbegin@{cbegin}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{cbegin()}{cbegin()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$\+::const\+\_\+iterator Vector\+::cbegin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+This method returns const begin iterator of the container. 
+
+\begin{DoxyReturn}{Returns}
+const begin iterator of the container 
+\end{DoxyReturn}
+\Hypertarget{classVector_a0db1dffc56369071a60102688566211a}\label{classVector_a0db1dffc56369071a60102688566211a} 
+\index{Vector@{Vector}!cend@{cend}}
+\index{cend@{cend}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{cend()}{cend()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$\+::const\+\_\+iterator Vector\+::cend (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+This method returns const end iterator of the container. 
+
+\begin{DoxyReturn}{Returns}
+const end iterator of the container 
+\end{DoxyReturn}
+\Hypertarget{classVector_a0983396770daceb9e95ca795365aa478}\label{classVector_a0983396770daceb9e95ca795365aa478} 
+\index{Vector@{Vector}!empty@{empty}}
+\index{empty@{empty}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily bool Vector\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method return false if the container is empty. 
+
+\begin{DoxyReturn}{Returns}
+data vector 
+\end{DoxyReturn}
+\Hypertarget{classVector_a2d3f96cbaca141e25255ef4c9ec78937}\label{classVector_a2d3f96cbaca141e25255ef4c9ec78937} 
+\index{Vector@{Vector}!end@{end}}
+\index{end@{end}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$\+::iterator Vector\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+This method returns end iterator of the container. 
+
+\begin{DoxyReturn}{Returns}
+end iterator of the container 
+\end{DoxyReturn}
+\Hypertarget{classVector_a1f4f730cd3c40120ae46f0f444465dff}\label{classVector_a1f4f730cd3c40120ae46f0f444465dff} 
+\index{Vector@{Vector}!erase@{erase}}
+\index{erase@{erase}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{erase()}{erase()}}
+{\footnotesize\ttfamily void Vector\+::erase (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method erases object from the container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & of the object \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_abd4b0aeca00fa90d3b4847025c2d1a63}\label{classVector_abd4b0aeca00fa90d3b4847025c2d1a63} 
+\index{Vector@{Vector}!front@{front}}
+\index{front@{front}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{front()}{front()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$ Vector\+::front (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method return first element of the container. 
+
+\begin{DoxyReturn}{Returns}
+first element of the container 
+\end{DoxyReturn}
+\Hypertarget{classVector_a1a985cf2866d3c2bf4745cc307d63267}\label{classVector_a1a985cf2866d3c2bf4745cc307d63267} 
+\index{Vector@{Vector}!get@{get}}
+\index{get@{get}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}} Vector\+::get (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+This method returns object by index its index container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & of the object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+object by index 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classAbstractObject_a19e9b43cb81e04cfd66ed55e05b64c20}{Abstract\+Object}}.
+
+\Hypertarget{classVector_a1e2d069b4793fbf7e9195a4de1fc49a2}\label{classVector_a1e2d069b4793fbf7e9195a4de1fc49a2} 
+\index{Vector@{Vector}!get@{get}}
+\index{get@{get}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVariable}{Variable}} Vector\+::get (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns object by index its index container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & of the object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+object by index 
+\end{DoxyReturn}
+\Hypertarget{classVector_a32b92b59ac539db00d00eedde076294e}\label{classVector_a32b92b59ac539db00d00eedde076294e} 
+\index{Vector@{Vector}!getData@{getData}}
+\index{getData@{getData}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{getData()}{getData()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$ Vector\+::get\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns object by index. 
+
+\begin{DoxyReturn}{Returns}
+data vector 
+\end{DoxyReturn}
+\Hypertarget{classVector_a46092165197c3623c0363237f5b28160}\label{classVector_a46092165197c3623c0363237f5b28160} 
+\index{Vector@{Vector}!getTypeName@{getTypeName}}
+\index{getTypeName@{getTypeName}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{getTypeName()}{getTypeName()}}
+{\footnotesize\ttfamily string Vector\+::get\+Type\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+This method is used to get the type of the object. 
+
+\begin{DoxyReturn}{Returns}
+The type of the object 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classAbstractObject_aa0635973b2b9403d67a428639e10d8e1}{Abstract\+Object}}.
+
+\Hypertarget{classVector_a15bcb810cea027a697a9b29ffdf7e0a4}\label{classVector_a15bcb810cea027a697a9b29ffdf7e0a4} 
+\index{Vector@{Vector}!insert@{insert}}
+\index{insert@{insert}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{insert()}{insert()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+void Vector\+::insert (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{index,  }\item[{const \+\_\+\+Tp \&}]{var }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method inserts object to the container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & index of the object \\
+\hline
+{\em var} & to add to the container \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_a224c4105e899aa5aa5bfb680ff00e574}\label{classVector_a224c4105e899aa5aa5bfb680ff00e574} 
+\index{Vector@{Vector}!insert@{insert}}
+\index{insert@{insert}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{insert()}{insert()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Vector\+::insert (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const \mbox{\hyperlink{classVariable}{Variable}} \&}]{var }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method inserts object to the container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & of the object to insert \\
+\hline
+{\em var} & to add to the container \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_a3e5e4749640f1d3bb8eedd31fb94c59e}\label{classVector_a3e5e4749640f1d3bb8eedd31fb94c59e} 
+\index{Vector@{Vector}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool Vector\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object as a boolean. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to compare \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object as a boolean 
+\end{DoxyReturn}
+\Hypertarget{classVector_a3cb2bbdd503c2f70f2aca04933e0f9da}\label{classVector_a3cb2bbdd503c2f70f2aca04933e0f9da} 
+\index{Vector@{Vector}!operator\%@{operator\%}}
+\index{operator\%@{operator\%}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator\%()}{operator\%()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classVector}{Vector}} Vector\+::operator\% (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \doxylink{classVariable}{Variable} to divide \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_a94e2ba39b6e2f1135aa4c37c0871ef9b}\label{classVector_a94e2ba39b6e2f1135aa4c37c0871ef9b} 
+\index{Vector@{Vector}!operator\%@{operator\%}}
+\index{operator\%@{operator\%}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator\%()}{operator\%()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator\% (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the mod operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to divide \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the mod operation 
+\end{DoxyReturn}
+\Hypertarget{classVector_a3652a6288f7e1973b0488bef47ca8d8d}\label{classVector_a3652a6288f7e1973b0488bef47ca8d8d} 
+\index{Vector@{Vector}!operator\%=@{operator\%=}}
+\index{operator\%=@{operator\%=}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator\%=()}{operator\%=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classVector}{Vector}} \& Vector\+::operator\%= (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \doxylink{classVariable}{Variable} to divide \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_a145d7eb0c88cca8e0d9535cb59469b92}\label{classVector_a145d7eb0c88cca8e0d9535cb59469b92} 
+\index{Vector@{Vector}!operator\%=@{operator\%=}}
+\index{operator\%=@{operator\%=}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator\%=()}{operator\%=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} \& Vector\+::operator\%= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to divide \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_a48731b12c75fbe3df1ce45fa07e267af}\label{classVector_a48731b12c75fbe3df1ce45fa07e267af} 
+\index{Vector@{Vector}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classVector}{Vector}} Vector\+::operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \doxylink{classVariable}{Variable} to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_af8af1dfd34f0a9abf24a43aec6ffb707}\label{classVector_af8af1dfd34f0a9abf24a43aec6ffb707} 
+\index{Vector@{Vector}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the mul operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the mul operation 
+\end{DoxyReturn}
+\Hypertarget{classVector_abd1b34ef73d2e8dc22f8b72f5128171e}\label{classVector_abd1b34ef73d2e8dc22f8b72f5128171e} 
+\index{Vector@{Vector}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the mul operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the mul operation 
+\end{DoxyReturn}
+\Hypertarget{classVector_a63d00c27f91323be9372a2ce94b35112}\label{classVector_a63d00c27f91323be9372a2ce94b35112} 
+\index{Vector@{Vector}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVariable}{Variable}}}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the mul operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the mul operation 
+\end{DoxyReturn}
+\Hypertarget{classVector_a69475acf1ee0ad3fe133ef79ade8f8f3}\label{classVector_a69475acf1ee0ad3fe133ef79ade8f8f3} 
+\index{Vector@{Vector}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVariable}{Variable}}}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the mul operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the mul operation 
+\end{DoxyReturn}
+\Hypertarget{classVector_ade3b11c5ca727e1f55603187e763ef12}\label{classVector_ade3b11c5ca727e1f55603187e763ef12} 
+\index{Vector@{Vector}!operator\texorpdfstring{$\ast$}{*}=@{operator\texorpdfstring{$\ast$}{*}=}}
+\index{operator\texorpdfstring{$\ast$}{*}=@{operator\texorpdfstring{$\ast$}{*}=}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}=()}{operator*=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classVector}{Vector}} \& Vector\+::operator\texorpdfstring{$\ast$}{*}= (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \doxylink{classVariable}{Variable} to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_a077dafc11ce63eadf4c43b45406f546d}\label{classVector_a077dafc11ce63eadf4c43b45406f546d} 
+\index{Vector@{Vector}!operator\texorpdfstring{$\ast$}{*}=@{operator\texorpdfstring{$\ast$}{*}=}}
+\index{operator\texorpdfstring{$\ast$}{*}=@{operator\texorpdfstring{$\ast$}{*}=}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}=()}{operator*=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} \& Vector\+::operator\texorpdfstring{$\ast$}{*}= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_a11f971ec9bf0f9a3bd3dffcd0c89c961}\label{classVector_a11f971ec9bf0f9a3bd3dffcd0c89c961} 
+\index{Vector@{Vector}!operator+@{operator+}}
+\index{operator+@{operator+}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classVector}{Vector}} Vector\+::operator+ (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \doxylink{classVariable}{Variable} to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_a8636c13924ae2a8f08a5c56c1bdee35d}\label{classVector_a8636c13924ae2a8f08a5c56c1bdee35d} 
+\index{Vector@{Vector}!operator+@{operator+}}
+\index{operator+@{operator+}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the add operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the add operation 
+\end{DoxyReturn}
+\Hypertarget{classVector_ab67652bffa77db98adcbf48da0e5abab}\label{classVector_ab67652bffa77db98adcbf48da0e5abab} 
+\index{Vector@{Vector}!operator+@{operator+}}
+\index{operator+@{operator+}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the add operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the add operation 
+\end{DoxyReturn}
+\Hypertarget{classVector_a0ae15994493540d7eab40554da08b7c0}\label{classVector_a0ae15994493540d7eab40554da08b7c0} 
+\index{Vector@{Vector}!operator+@{operator+}}
+\index{operator+@{operator+}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator+ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVariable}{Variable}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the add operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the add operation 
+\end{DoxyReturn}
+\Hypertarget{classVector_a0ff69e0cb3e743633341475b5ca07cec}\label{classVector_a0ff69e0cb3e743633341475b5ca07cec} 
+\index{Vector@{Vector}!operator+@{operator+}}
+\index{operator+@{operator+}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator+ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVariable}{Variable}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the add operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the add operation 
+\end{DoxyReturn}
+\Hypertarget{classVector_aa355c4db2921a319002ab9ecebd36dd1}\label{classVector_aa355c4db2921a319002ab9ecebd36dd1} 
+\index{Vector@{Vector}!operator++@{operator++}}
+\index{operator++@{operator++}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator++()}{operator++()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} \& Vector\+::operator++ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+This method returns the value of the object. 
+
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}}.
+
+\Hypertarget{classVector_a98a2e89e3331ae8daf76bb00c71da3ec}\label{classVector_a98a2e89e3331ae8daf76bb00c71da3ec} 
+\index{Vector@{Vector}!operator++@{operator++}}
+\index{operator++@{operator++}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator++()}{operator++()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator++ (\begin{DoxyParamCaption}\item[{int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em this} & the value of the object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_acbba55ab01d6c14b758e429d19aa09c1}\label{classVector_acbba55ab01d6c14b758e429d19aa09c1} 
+\index{Vector@{Vector}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator+=()}{operator+=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classVector}{Vector}} \& Vector\+::operator+= (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \doxylink{classVariable}{Variable} to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_acbcb1ffd04d881d2d9d693193787e556}\label{classVector_acbcb1ffd04d881d2d9d693193787e556} 
+\index{Vector@{Vector}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator+=()}{operator+=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} \& Vector\+::operator+= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_ac307a363cc02f595511e5d9b63544002}\label{classVector_ac307a363cc02f595511e5d9b63544002} 
+\index{Vector@{Vector}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classVector}{Vector}} Vector\+::operator-\/ (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \doxylink{classVariable}{Variable} to substract \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_a78273e8287626f263ca0cfb26a6f9770}\label{classVector_a78273e8287626f263ca0cfb26a6f9770} 
+\index{Vector@{Vector}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator-\/ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the sub operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to substract \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the sub operation 
+\end{DoxyReturn}
+\Hypertarget{classVector_a41a06f3dec0af5b0bbf5a85e5feabb67}\label{classVector_a41a06f3dec0af5b0bbf5a85e5feabb67} 
+\index{Vector@{Vector}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator-\/ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the sub operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to substract \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the sub operation 
+\end{DoxyReturn}
+\Hypertarget{classVector_a25c9d18e95bdf43bf61e527ce410dac5}\label{classVector_a25c9d18e95bdf43bf61e527ce410dac5} 
+\index{Vector@{Vector}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator-\/ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVariable}{Variable}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the add operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the add operation 
+\end{DoxyReturn}
+\Hypertarget{classVector_aa395081af8116603338717834c65d592}\label{classVector_aa395081af8116603338717834c65d592} 
+\index{Vector@{Vector}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator-\/()}{operator-()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator-\/ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVariable}{Variable}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the add operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the add operation 
+\end{DoxyReturn}
+\Hypertarget{classVector_a5fa7ada0d79e1b0820193892374b7347}\label{classVector_a5fa7ada0d79e1b0820193892374b7347} 
+\index{Vector@{Vector}!operator-\/-\/@{operator-\/-\/}}
+\index{operator-\/-\/@{operator-\/-\/}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator-\/-\/()}{operator--()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} \& Vector\+::operator-\/-\/ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+This method returns the value of the object. 
+
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}}.
+
+\Hypertarget{classVector_a6a0d909a1406a89bc61581c15eacbd2e}\label{classVector_a6a0d909a1406a89bc61581c15eacbd2e} 
+\index{Vector@{Vector}!operator-\/-\/@{operator-\/-\/}}
+\index{operator-\/-\/@{operator-\/-\/}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator-\/-\/()}{operator--()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator-\/-\/ (\begin{DoxyParamCaption}\item[{int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em this} & the value of the object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_a5414be679847187c17a9ca7820f6e71b}\label{classVector_a5414be679847187c17a9ca7820f6e71b} 
+\index{Vector@{Vector}!operator-\/=@{operator-\/=}}
+\index{operator-\/=@{operator-\/=}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator-\/=()}{operator-=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classVector}{Vector}} \& Vector\+::operator-\/= (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \doxylink{classVariable}{Variable} to substract \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_a1b5f826d645256ea206622da31190307}\label{classVector_a1b5f826d645256ea206622da31190307} 
+\index{Vector@{Vector}!operator-\/=@{operator-\/=}}
+\index{operator-\/=@{operator-\/=}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator-\/=()}{operator-=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} \& Vector\+::operator-\/= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to substract \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_a5fd7067b5f7f7962407bd2ada9e59843}\label{classVector_a5fd7067b5f7f7962407bd2ada9e59843} 
+\index{Vector@{Vector}!operator/@{operator/}}
+\index{operator/@{operator/}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator/()}{operator/()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classVector}{Vector}} Vector\+::operator/ (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \doxylink{classVariable}{Variable} to divide \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_a5d5daba9ba6af185cb38214ad54b8af2}\label{classVector_a5d5daba9ba6af185cb38214ad54b8af2} 
+\index{Vector@{Vector}!operator/@{operator/}}
+\index{operator/@{operator/}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator/()}{operator/()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator/ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the div operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to divide \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the div operation 
+\end{DoxyReturn}
+\Hypertarget{classVector_adf5a293e98e44724866bfd22463ef923}\label{classVector_adf5a293e98e44724866bfd22463ef923} 
+\index{Vector@{Vector}!operator/@{operator/}}
+\index{operator/@{operator/}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator/()}{operator/()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator/ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the div operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to divide \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the div operation 
+\end{DoxyReturn}
+\Hypertarget{classVector_ada931123bc215e059babe1397acb6c65}\label{classVector_ada931123bc215e059babe1397acb6c65} 
+\index{Vector@{Vector}!operator/@{operator/}}
+\index{operator/@{operator/}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator/()}{operator/()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator/ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVariable}{Variable}}}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the mul operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the mul operation 
+\end{DoxyReturn}
+\Hypertarget{classVector_a4487762e0fb90496ac11414c09e3b2fb}\label{classVector_a4487762e0fb90496ac11414c09e3b2fb} 
+\index{Vector@{Vector}!operator/@{operator/}}
+\index{operator/@{operator/}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator/()}{operator/()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} Vector\+::operator/ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVariable}{Variable}}}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns result of the mul operation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to multiply \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of the mul operation 
+\end{DoxyReturn}
+\Hypertarget{classVector_af8750e8d564956c0a7f543073303b6cf}\label{classVector_af8750e8d564956c0a7f543073303b6cf} 
+\index{Vector@{Vector}!operator/=@{operator/=}}
+\index{operator/=@{operator/=}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator/=()}{operator/=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classVector}{Vector}} \& Vector\+::operator/= (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \doxylink{classVariable}{Variable} to divide \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_a04f5161b7b03ce04ae4e431c66c5dcea}\label{classVector_a04f5161b7b03ce04ae4e431c66c5dcea} 
+\index{Vector@{Vector}!operator/=@{operator/=}}
+\index{operator/=@{operator/=}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator/=()}{operator/=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} \& Vector\+::operator/= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to divide \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_a1bd1ec3cf8572fb7c192b0be14cc8b15}\label{classVector_a1bd1ec3cf8572fb7c192b0be14cc8b15} 
+\index{Vector@{Vector}!operator=@{operator=}}
+\index{operator=@{operator=}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+\mbox{\hyperlink{classVector}{Vector}} \& Vector\+::operator= (\begin{DoxyParamCaption}\item[{\+\_\+\+Tp}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \doxylink{classVariable}{Variable} to copy compare \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_a31810b59e0d9106aa17ecf6ae1cfbaf1}\label{classVector_a31810b59e0d9106aa17ecf6ae1cfbaf1} 
+\index{Vector@{Vector}!operator=@{operator=}}
+\index{operator=@{operator=}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} \& Vector\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to copy compare \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_a4c7d22e17b7cd109946a12d50a4d31d6}\label{classVector_a4c7d22e17b7cd109946a12d50a4d31d6} 
+\index{Vector@{Vector}!operator=@{operator=}}
+\index{operator=@{operator=}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVector}{Vector}} \& Vector\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVector}{Vector}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+This method returns the value of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to move compare \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object 
+\end{DoxyReturn}
+\Hypertarget{classVector_ad5435d0dbad5336fe4df23e6ab081612}\label{classVector_ad5435d0dbad5336fe4df23e6ab081612} 
+\index{Vector@{Vector}!operator==@{operator==}}
+\index{operator==@{operator==}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool Vector\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns the value of the object as a boolean. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & \doxylink{classVariable}{Variable} to compare \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the object as a boolean 
+\end{DoxyReturn}
+\Hypertarget{classVector_ae4310eab0ea4bef54d676bf4c6e9016a}\label{classVector_ae4310eab0ea4bef54d676bf4c6e9016a} 
+\index{Vector@{Vector}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVariable}{Variable}} \& Vector\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns object by index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & of the object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+object by index 
+\end{DoxyReturn}
+\Hypertarget{classVector_ac6caf93a0ab9d4f3e73a68584a595e66}\label{classVector_ac6caf93a0ab9d4f3e73a68584a595e66} 
+\index{Vector@{Vector}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classVariable}{Variable}} \& Vector\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns object by index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & of the object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+object by index 
+\end{DoxyReturn}
+\Hypertarget{classVector_a046a9843b68dbd60cc96da499ae7edb3}\label{classVector_a046a9843b68dbd60cc96da499ae7edb3} 
+\index{Vector@{Vector}!pop\_back@{pop\_back}}
+\index{pop\_back@{pop\_back}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{pop\_back()}{pop\_back()}}
+{\footnotesize\ttfamily void Vector\+::pop\+\_\+back (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method removes object from the container end of the container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em var} & to add to the container \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_abd166e2a61b282b4d47fe27a573c6d84}\label{classVector_abd166e2a61b282b4d47fe27a573c6d84} 
+\index{Vector@{Vector}!pop\_front@{pop\_front}}
+\index{pop\_front@{pop\_front}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{pop\_front()}{pop\_front()}}
+{\footnotesize\ttfamily void Vector\+::pop\+\_\+front (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method removes object from the container first of the container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em var} & to add to the container \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_af45bf0523d3bcc5bdc5b494eb72b80a5}\label{classVector_af45bf0523d3bcc5bdc5b494eb72b80a5} 
+\index{Vector@{Vector}!print@{print}}
+\index{print@{print}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily void Vector\+::print (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classAbstractObject}{Abstract\+Object}}.
+
+\Hypertarget{classVector_aafe361ca8ebb384ad6f92f40dc4662ad}\label{classVector_aafe361ca8ebb384ad6f92f40dc4662ad} 
+\index{Vector@{Vector}!ptr@{ptr}}
+\index{ptr@{ptr}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{ptr()}{ptr()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$ Vector\+::ptr (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns pointer of the container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & of the object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer of the container 
+\end{DoxyReturn}
+\Hypertarget{classVector_afcd41f7574860d611003c298d2f7cc25}\label{classVector_afcd41f7574860d611003c298d2f7cc25} 
+\index{Vector@{Vector}!push\_back@{push\_back}}
+\index{push\_back@{push\_back}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{push\_back()}{push\_back()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedTypes}{Allowed\+Types}} \+\_\+\+Tp$>$ \\
+void Vector\+::push\+\_\+back (\begin{DoxyParamCaption}\item[{const \+\_\+\+Tp \&}]{var }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method adds object to the container end of the container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em var} & to add to the container \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_ac1dec7a1be2c92233d2c00b8e541ab09}\label{classVector_ac1dec7a1be2c92233d2c00b8e541ab09} 
+\index{Vector@{Vector}!push\_back@{push\_back}}
+\index{push\_back@{push\_back}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{push\_back()}{push\_back()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Vector\+::push\+\_\+back (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classVariable}{Variable}} \&}]{var }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method adds object to the container end of the container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em var} & to add to the container \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_a492100fbe991d248c4bdc80d614a1535}\label{classVector_a492100fbe991d248c4bdc80d614a1535} 
+\index{Vector@{Vector}!remove@{remove}}
+\index{remove@{remove}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{remove()}{remove()}}
+{\footnotesize\ttfamily void Vector\+::remove (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method removes object from the container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & of the object \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_a40b179b2ae729e60a4477bdb44d7e6eb}\label{classVector_a40b179b2ae729e60a4477bdb44d7e6eb} 
+\index{Vector@{Vector}!reserve@{reserve}}
+\index{reserve@{reserve}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{reserve()}{reserve()}}
+{\footnotesize\ttfamily void Vector\+::reserve (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{new\+\_\+cap }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Reserve capacity for the vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+cap} & The new capacity to reserve \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_a2cb0995e2c7eb22c3dcb0e38f9d3a4cd}\label{classVector_a2cb0995e2c7eb22c3dcb0e38f9d3a4cd} 
+\index{Vector@{Vector}!resize@{resize}}
+\index{resize@{resize}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{resize()}{resize()}}
+{\footnotesize\ttfamily void Vector\+::resize (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method resizes the container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & of the container \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_a5cb80c9602ca8066efa93e31ee230c46}\label{classVector_a5cb80c9602ca8066efa93e31ee230c46} 
+\index{Vector@{Vector}!size@{size}}
+\index{size@{size}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily size\+\_\+t Vector\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method returns size of the container. 
+
+\begin{DoxyReturn}{Returns}
+size of the container 
+\end{DoxyReturn}
+\Hypertarget{classVector_aaf762dfbcb62e16c03c9d0dc5947c542}\label{classVector_aaf762dfbcb62e16c03c9d0dc5947c542} 
+\index{Vector@{Vector}!swap@{swap}}
+\index{swap@{swap}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{swap()}{swap()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Vector\+::swap (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{classVariable}{Variable}} $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+This method swaps two containers. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & container \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_a620499090a52fbe862e66d134efa5147}\label{classVector_a620499090a52fbe862e66d134efa5147} 
+\index{Vector@{Vector}!swap@{swap}}
+\index{swap@{swap}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{swap()}{swap()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Vector\+::swap (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVector}{Vector}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+This method swaps two containers. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & container \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVector_a39b0125f03b5a7e2d10a2e5600a3f1c1}\label{classVector_a39b0125f03b5a7e2d10a2e5600a3f1c1} 
+\index{Vector@{Vector}!toString@{toString}}
+\index{toString@{toString}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily string Vector\+::to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+This method is used to print the object. 
+
+\begin{DoxyReturn}{Returns}
+The string representation of the object 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classAbstractObject_a9222a77ebcac4567997369961829423d}{Abstract\+Object}}.
+
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{classVector_a5ec23213c386c98e6d59ec17f6fb0fb4}\label{classVector_a5ec23213c386c98e6d59ec17f6fb0fb4} 
+\index{Vector@{Vector}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily std\+::ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{const \mbox{\hyperlink{classVector}{Vector}} \&}]{vector }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+This override method output prints the container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em os} & output stream \\
+\hline
+{\em vector} & obj to print \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+output stream 
+\end{DoxyReturn}
+\Hypertarget{classVector_a4a2236de10ff7e302625be6e9bb7e96c}\label{classVector_a4a2236de10ff7e302625be6e9bb7e96c} 
+\index{Vector@{Vector}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Vector@{Vector}}
+\doxysubsubsection{\texorpdfstring{operator$>$$>$}{operator>>}}
+{\footnotesize\ttfamily std\+::istream \& operator$>$$>$ (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{is,  }\item[{\mbox{\hyperlink{classVector}{Vector}} \&}]{vector }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+This override method input reads the container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is} & input stream \\
+\hline
+{\em vector} & obj to read \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+input stream 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/types/vector.\+hpp\end{DoxyCompactItemize}

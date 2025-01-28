@@ -1,0 +1,62 @@
+\doxysection{exceptions.\+hpp}
+\hypertarget{exceptions_8hpp_source}{}\label{exceptions_8hpp_source}\index{include/exceptions/exceptions.hpp@{include/exceptions/exceptions.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ EXCEPTIONS\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ EXCEPTIONS\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structException}{Exception}}\ :\ \textcolor{keyword}{public}\ std::exception}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{structException_ab6b7a24bb864c5587fb854ab8308a114}{Exception}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00012\ \ \ \ \ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structException_a55ccbce4545cc0df2589cb94f318a2b6}{Exception}}(std::string\ err)\ :\ err(std::move(err))\ \{\}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00019\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structException_a91eace2bc486fa18d3f913a28f3921f8}{what}}()\ const\ noexcept\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00020\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ err.empty()\ ?\ \textcolor{stringliteral}{"{}Interpreter\ exception\ with\ err:\ Unknown\ error"{}}\ :\ err.c\_str();}
+\DoxyCodeLine{00022\ \ \ \ \ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00025\ \ \ \ \ std::string\ err;}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structInvalidCommand}{InvalidCommand}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structException}{Exception}}}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{structInvalidCommand_a3e4184fb2ebae67a77740c531a26fc18}{InvalidCommand}}()\ :\ \mbox{\hyperlink{structException}{Exception}}(\textcolor{stringliteral}{"{}Invalid\ command"{}})\ \{\}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structInvalidCommand_add1d8a87db56d2f6b490e82b2e31b039}{InvalidCommand}}(\textcolor{keyword}{const}\ std::string\ \&err)\ :\ \mbox{\hyperlink{structException}{Exception}}(err)\ \{\}}
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structUnknownVariable}{UnknownVariable}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structException}{Exception}}}
+\DoxyCodeLine{00039\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{structUnknownVariable_a092241f8591e40712e1e514723f20b14}{UnknownVariable}}()\ :\ \mbox{\hyperlink{structException}{Exception}}(\textcolor{stringliteral}{"{}Unknown\ variable"{}})\ \{\}}
+\DoxyCodeLine{00042\ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structUnknownVariable_affb9a28dc2cffd49bbcca15e98851dc0}{UnknownVariable}}(\textcolor{keyword}{const}\ std::string\ \&err)\ :\ \mbox{\hyperlink{structException}{Exception}}(err)\ \{\}}
+\DoxyCodeLine{00046\ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structUnknownOperator}{UnknownOperator}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structException}{Exception}}}
+\DoxyCodeLine{00049\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{structUnknownOperator_ac5c5726d67d1574c334703b51e354966}{UnknownOperator}}()\ :\ \mbox{\hyperlink{structException}{Exception}}(\textcolor{stringliteral}{"{}Unknown\ operator"{}})\ \{\}}
+\DoxyCodeLine{00052\ \ \ \ \ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structUnknownOperator_a599dd5475e2b1347682221e2f43cb96e}{UnknownOperator}}(\textcolor{keyword}{const}\ std::string\ \&err)\ :\ \mbox{\hyperlink{structException}{Exception}}(err)\ \{\}}
+\DoxyCodeLine{00056\ \};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structUnknownFunction}{UnknownFunction}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structException}{Exception}}}
+\DoxyCodeLine{00059\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{structUnknownFunction_a7e282b6217e50df433537ca40a3827f7}{UnknownFunction}}()\ :\ \mbox{\hyperlink{structException}{Exception}}(\textcolor{stringliteral}{"{}Unknown\ function"{}})\ \{\}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structUnknownFunction_a9a9cb3fb9d550ad904f25e3f0e922b0e}{UnknownFunction}}(\textcolor{keyword}{const}\ std::string\ \&err)\ :\ \mbox{\hyperlink{structException}{Exception}}(err)\ \{\}}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structInvalidExpression}{InvalidExpression}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{structException}{Exception}}}
+\DoxyCodeLine{00069\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{structInvalidExpression_ad662dff8642b76af3d6f9218315e8457}{InvalidExpression}}()\ :\ \mbox{\hyperlink{structException}{Exception}}(\textcolor{stringliteral}{"{}Invalid\ expression"{}})\ \{\}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structInvalidExpression_ae1605855b7de9db22508c62325f59979}{InvalidExpression}}(\textcolor{keyword}{const}\ std::string\ \&err)\ :\ \mbox{\hyperlink{structException}{Exception}}(err)\ \{\}}
+\DoxyCodeLine{00076\ \};}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ EXCEPTIONS\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

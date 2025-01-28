@@ -1,0 +1,71 @@
+\doxysection{Exception Struct Reference}
+\hypertarget{structException}{}\label{structException}\index{Exception@{Exception}}
+
+
+This strucutre is used to throw exceptions.  
+
+
+
+
+{\ttfamily \#include $<$exceptions.\+hpp$>$}
+
+
+
+Inheritance diagram for Exception\+:
+% FIG 0
+
+
+Collaboration diagram for Exception\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structException_ab6b7a24bb864c5587fb854ab8308a114}\label{structException_ab6b7a24bb864c5587fb854ab8308a114} 
+{\bfseries Exception} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structException_a55ccbce4545cc0df2589cb94f318a2b6}{Exception}} (std\+::string err)
+\begin{DoxyCompactList}\small\item\em Constructor with error message. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structException_a91eace2bc486fa18d3f913a28f3921f8}{what}} () const noexcept override
+\begin{DoxyCompactList}\small\item\em override std\+::exception\+::what() \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This strucutre is used to throw exceptions. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structException_a55ccbce4545cc0df2589cb94f318a2b6}\label{structException_a55ccbce4545cc0df2589cb94f318a2b6} 
+\index{Exception@{Exception}!Exception@{Exception}}
+\index{Exception@{Exception}!Exception@{Exception}}
+\doxysubsubsection{\texorpdfstring{Exception()}{Exception()}}
+{\footnotesize\ttfamily Exception\+::\+Exception (\begin{DoxyParamCaption}\item[{std\+::string}]{err }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Constructor with error message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em err} & Error message \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structException_a91eace2bc486fa18d3f913a28f3921f8}\label{structException_a91eace2bc486fa18d3f913a28f3921f8} 
+\index{Exception@{Exception}!what@{what}}
+\index{what@{what}!Exception@{Exception}}
+\doxysubsubsection{\texorpdfstring{what()}{what()}}
+{\footnotesize\ttfamily const char \texorpdfstring{$\ast$}{*} Exception\+::what (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [noexcept]}}
+
+
+
+override std\+::exception\+::what() 
+
+\begin{DoxyReturn}{Returns}
+err message 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/exceptions/exceptions.\+hpp\end{DoxyCompactItemize}

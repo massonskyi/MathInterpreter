@@ -649,13 +649,13 @@ public:
         return binaryOperation(other, std::plus<>());
     }
 
-    /// @brief This method returns result of the add operation
-    /// @param other Variable<T> to add
-    /// @return Result of the add operation
-    Variable operator+(const Variable &other) const
-    {
-        return binaryOperation(other, std::plus<>());
-    }
+    // /// @brief This method returns result of the add operation
+    // /// @param other Variable<T> to add
+    // /// @return Result of the add operation
+    // Variable operator+(const Variable &other) const
+    // {
+    //     return binaryOperation(other, std::plus<>());
+    // }
 
     /// @brief This method returns result of the add operation
     /// @param other Variable<T> to add
@@ -1370,7 +1370,7 @@ public:
     }
     friend Variable operator*(const Variable &lhs, const Variable &rhs)
     {
-        // Убедимся, что типы значений совпадают
+        // Убедимся, что типы значений совпадаю
         if (lhs.value_.index() != rhs.value_.index())
         {
             throw std::runtime_error("Type mismatch: Cannot multiply variables of different types.");
@@ -1415,7 +1415,28 @@ public:
             },
             lhs.value_, rhs.value_);
     }
+    friend Variable operator+(Variable &lhs, Variable &rhs)
+    {
+        if (lhs.value_.index() != rhs.value_.index())
+        {
+            throw std::runtime_error("Type mismatch: Cannot add variables of different types.");
+        }
 
+        return std::visit(
+                []<typename T0>(const T0 &a, const auto &b) -> Variable
+                {
+                    using T = std::decay_t<T0>;
+                    if constexpr (std::is_arithmetic_v<T>)
+                    {
+                        return Variable(a + b);
+                    }
+                    else
+                    {
+                        throw std::runtime_error("Unsupported type for addition.");
+                    }
+                },
+                lhs.value_, rhs.value_);
+    }
     friend Variable operator-(const Variable &lhs, const Variable &rhs)
     {
         if (lhs.value_.index() != rhs.value_.index())
@@ -1464,38 +1485,6 @@ public:
                 }
             },
             lhs.value_, rhs.value_);
-    }
-
-    friend Variable operator%(const Variable &lhs, const Variable &rhs)
-    {
-        if (lhs.value_.index() != rhs.value_.index())
-        {
-            throw std::runtime_error("Type mismatch: Cannot compute modulo for variables of different types.");
-        }
-        if constexpr (std::is_integral_v<std::decay_t<decltype(lhs)>> && std::is_integral_v<std::decay_t<decltype(rhs)>>)
-
-            return std::visit(
-                []<typename T0>(const T0 &a, const auto &b) -> Variable
-                {
-                    using T = std::decay_t<T0>;
-                    if constexpr (std::is_integral_v<T>)
-                    {
-                        if (b == 0)
-                        {
-                            throw std::runtime_error("Modulo by zero.");
-                        }
-                        return Variable(a % b);
-                    }
-                    else
-                    {
-                        throw std::runtime_error("Unsupported type for modulo. Only integers are supported.");
-                    }
-                },
-                lhs.value_, rhs.value_);
-        else
-        {
-            throw std::runtime_error("Division is only supported for arithmetic types");
-        }
     }
 
 private:

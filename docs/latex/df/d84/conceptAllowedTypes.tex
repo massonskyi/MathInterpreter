@@ -1,0 +1,25 @@
+\doxysection{Allowed\+Types Concept Reference}
+\hypertarget{conceptAllowedTypes}{}\label{conceptAllowedTypes}\index{AllowedTypes@{AllowedTypes}}
+
+
+This concept macro is used to check if a type is allowed.  
+
+
+
+
+{\ttfamily \#include $<$core.\+h$>$}
+
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptAllowedTypes}{AllowedTypes}}\ =\ }
+\DoxyCodeLine{\ \ \ \ std::is\_same\_v<T,\ int>\ \ \ \ \ \ ||}
+\DoxyCodeLine{\ \ \ \ std::is\_same\_v<T,\ float>\ \ \ \ ||}
+\DoxyCodeLine{\ \ \ \ std::is\_same\_v<T,\ double>}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Detailed Description}
+This concept macro is used to check if a type is allowed. 

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathematic Interpreter - Документация</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+
+<!-- В секции head добавим шрифт для кода -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fira-code@6.2.0/distr/fira_code.css">
+
+    <style>
+        /* Матричный фон */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.05;
+        }
+
+        /* Стили для блоков кода */
+    .code-example {
+        position: relative;
+        background: #1a1a1a;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+
+    .code-header {
+        background: #2d2d2d;
+        padding: 8px 16px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        font-family: monospace;
+        color: #fff;
+    }
+
+    .code-content {
+        padding: 16px;
+        overflow-x: auto;
+    }
+
+    .code-content pre {
+        margin: 0;
+    }
+
+    .code-content code {
+        font-family: 'Fira Code', monospace;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* Стили для результатов выполнения */
+    .code-result {
+        background: #2d2d2d;
+        border-left: 3px solid #10B981;
+        padding: 12px 16px;
+        margin-top: 8px;
+        font-family: monospace;
+        color: #10B981;
+    }
+
+        /* Неоновое свечение */
+        .neon {
+            text-shadow: 
+                0 0 5px #fff,
+                0 0 10px #fff,
+                0 0 20px #0ff,
+                0 0 40px #0ff;
+        }
+
+        /* Эффект печатающегося текста */
+        .typing {
+            border-right: 2px solid #0ff;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #0ff }
+        }
+
+        /* Стили для результатов выполнения */
+        .result {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 3px solid #10B981;
+            margin-top: 0.5rem;
+            padding: 0.5rem 1rem;
+            font-family: monospace;
+        }
+
+        /* Анимация для результатов */
+        .result {
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideIn 0.5s ease-out forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <!-- Матричный фон -->
+    <canvas id="matrix" class="matrix-bg"></canvas>
+
+    <!-- Навигация -->
+    <nav class="sticky top-0 bg-gray-900/90 backdrop-blur-md border-b border-gray-800 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold neon">MI Docs</div>
+                <div class="flex space-x-6">
+                    <a href="#basics" class="hover:text-blue-400 transition-colors">Основы</a>
+                    <a href="#vectors" class="hover:text-blue-400 transition-colors">Векторы</a>
+                    <a href="#matrices" class="hover:text-blue-400 transition-colors">Матрицы</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <main class="container mx-auto px-6 py-12">
+        <h1 class="text-4xl font-bold mb-8 neon">Документация Mathematic Interpreter</h1>
+        
+        <!-- Переменные -->
+        <section id="basics" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 typing">Работа с переменными</h2>
+            <div class="prose prose-invert max-w-none">
+                <p class="mb-4">Создание и использование переменных в Mathematic Interpreter интуитивно понятно и следует стандартным математическим обозначениям.</p>
+                
+                <div class="code-block bg-gray-800 rounded-lg p-6 mb-6">
+                    <pre><code class="language-python"># Create variable 
+x = 2
+
+# Print variable x
+x</code></pre>
+                    <div class="result">2</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Векторы -->
+        <section id="vectors" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 typing">Работа с векторами</h2>
+            <div class="prose prose-invert max-w-none">
+                <p class="mb-4">Векторы в MI представляют собой упорядоченные наборы чисел. Поддерживаются все основные операции линейной алгебры.</p>
+                
+                <div class="code-block bg-gray-800 rounded-lg p-6 mb-6">
+                    <pre><code class="language-python"># Create Vector
+V = [1,2,3,4,5,6,7,8,9]
+V</code></pre>
+                    <div class="result">[1, 2, 3, 4, 5, 6, 7, 8, 9]</div>
+                </div>
+
+                <p class="mb-4">Векторы можно комбинировать со скалярными величинами:</p>
+                
+                <div class="code-block bg-gray-800 rounded-lg p-6 mb-6">
+                    <pre><code class="language-python"># Summary vector with variable
+new_v = V + 10
+new_v</code></pre>
+                    <div class="result">[11, 12, 13, 14, 15, 16, 17, 18, 19]</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Матрицы -->
+        <section id="matrices" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 typing">Работа с матрицами</h2>
+            <div class="prose prose-invert max-w-none">
+                <p class="mb-4">Матрицы представляют собой двумерные массивы чисел. MI предоставляет широкий набор операций для работы с ними.</p>
+                
+                <div class="code-block bg-gray-800 rounded-lg p-6 mb-6">
+                    <pre><code class="language-python"># Create Matrix
+M = [[1,2,3],[1,2,3]]
+M</code></pre>
+                    <div class="result">[[1, 2, 3],
+ [1, 2, 3]]</div>
+                </div>
+
+                <p class="mb-4">Операции с матрицами:</p>
+                
+                <div class="code-block bg-gray-800 rounded-lg p-6 mb-6">
+                    <pre><code class="language-python"># Summary matrix with variable
+new_m = M + 10
+new_m</code></pre>
+                    <div class="result">[[11, 12, 13],
+ [11, 12, 13]]</div>
+                </div>
+
+                <p class="mb-4">Транспонирование матрицы:</p>
+                
+                <div class="code-block bg-gray-800 rounded-lg p-6 mb-6">
+                    <pre><code class="language-python"># Transpose matrix
+T(new_m)</code></pre>
+                    <div class="result">[[11, 11],
+ [12, 12],
+ [13, 13]]</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Инициализация подсветки кода
+        hljs.highlightAll();
+
+        // Матричный эффект
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVXYZ0123456789';
+        const fontSize = 10;
+        const columns = canvas.width / fontSize;
+
+        const drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 33);
+
+        // Анимация появления блоков кода
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.utils.toArray('.code-block').forEach(block => {
+            gsap.from(block, {
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                scrollTrigger: {
+                    trigger: block,
+                    start: "top center+=100",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        // Плавная прокрутка к якорям
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Обработка изменения размера окна
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>

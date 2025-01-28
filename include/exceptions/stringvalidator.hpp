@@ -80,7 +80,6 @@ private:
         _M_errors.push_back({type, message, position, context});
     }
 
-
     // Генерация контекста ошибки (строка, где произошла ошибка)
     std::string _M_set_context(size_t position, const std::string& input) {
         size_t start = position > 10 ? position - 10 : 0; // Начало контекста (не менее 10 символов)

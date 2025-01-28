@@ -1,0 +1,12 @@
+\doxysection{Entity\+Type Concept Reference}
+\hypertarget{conceptEntityType}{}\label{conceptEntityType}\index{EntityType@{EntityType}}
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptEntityType}{EntityType}}\ =\ \ std::same\_as<T,\ int>\ ||}
+\DoxyCodeLine{std::same\_as<T,\ float>\ ||}
+\DoxyCodeLine{std::same\_as<T,\ double>\ ||}
+\DoxyCodeLine{std::same\_as<T,\ std::string>}
+
+\end{DoxyCode}

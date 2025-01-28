@@ -1,0 +1,54 @@
+\doxysection{regexmanager.\+hpp}
+\hypertarget{regexmanager_8hpp_source}{}\label{regexmanager_8hpp_source}\index{include/parsers/regexmanager.hpp@{include/parsers/regexmanager.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ massonskyi\ on\ 21.01.25.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ REGEXMANAGER\_HPP}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ REGEXMANAGER\_HPP}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class__M__regex__manager}{\_M\_regex\_manager}}\ final\{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{enum\ class}\ RegexType\{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ VECTOR\_REGEX,}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ MATRIX\_REGEX,}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ RATIONAL\_ASSIGNMENT\_REGEX,}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ RATIONAL\_OPERATION\_REGEX,}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ INTEGER\_REGEX,}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ MATRIX\_OPERATION\_REGEX,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ VECTOR\_LITERAL\_REGEX,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ VECTOR\_OPERATION\_REGEX,}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ VARIABLE\_ASSIGNMENT\_REGEX,}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ WHITESPACE\_TRIM\_REGEX,}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ SYMBOLS\_REGEX}
+\DoxyCodeLine{00025\ \ \ \ \ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ std::string\ get\_regex\_basic\_string(\textcolor{keyword}{const}\ RegexType\ type)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ it\ =\ \_M\_regex\_patterns.find(type);\ it\ !=\ \_M\_regex\_patterns.end())\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ it-\/>second;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Invalid\ RegexType"{}});}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{const}\ std::unordered\_map<RegexType,\ std::string>\ \_M\_regex\_patterns\ =\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \{RegexType::VECTOR\_REGEX,\ R\textcolor{stringliteral}{"{}(\(\backslash\)[\(\backslash\)s*(\(\backslash\)d+\(\backslash\)s*(,\(\backslash\)s*\(\backslash\)d+\(\backslash\)s*)*)\(\backslash\)])"{}\},}}
+\DoxyCodeLine{00036\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \{RegexType::MATRIX\_REGEX,\ R}\textcolor{stringliteral}{"{}(\(\backslash\)[\(\backslash\)s*\(\backslash\)[\(\backslash\)s*(\(\backslash\)d+(\(\backslash\)s+\(\backslash\)d+)*)\(\backslash\)s*\(\backslash\)](\(\backslash\)s*\(\backslash\)[\(\backslash\)s*(\(\backslash\)d+(\(\backslash\)s+\(\backslash\)d+)*)\(\backslash\)s*\(\backslash\)])*\(\backslash\)s*\(\backslash\)])"{}\},}}
+\DoxyCodeLine{00037\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \{RegexType::RATIONAL\_ASSIGNMENT\_REGEX,\ R}\textcolor{stringliteral}{"{}((\(\backslash\)d+)\(\backslash\)/(\(\backslash\)d+))"{}\},}}
+\DoxyCodeLine{00038\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \{RegexType::RATIONAL\_OPERATION\_REGEX,\ R}\textcolor{stringliteral}{"{}((\(\backslash\)w+|(\(\backslash\)d+\(\backslash\)/\(\backslash\)d+))\(\backslash\)s*([+\(\backslash\)-\/*/])\(\backslash\)s*(\(\backslash\)w+|(\(\backslash\)d+\(\backslash\)/\(\backslash\)d+)))"{}\},}}
+\DoxyCodeLine{00039\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \{RegexType::INTEGER\_REGEX,\ R}\textcolor{stringliteral}{"{}(\(\backslash\)d+)"{}\},}}
+\DoxyCodeLine{00040\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \{RegexType::MATRIX\_OPERATION\_REGEX,\ R}\textcolor{stringliteral}{"{}((\(\backslash\)w+)\(\backslash\)s*([+\(\backslash\)-\/*/])\(\backslash\)s*(\(\backslash\)w+))"{}\},}}
+\DoxyCodeLine{00041\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \{RegexType::VECTOR\_LITERAL\_REGEX,\ R}\textcolor{stringliteral}{"{}(\string^\(\backslash\)[\(\backslash\)s*(\(\backslash\)d+\(\backslash\)s*,\(\backslash\)s*)*\(\backslash\)d+\(\backslash\)s*\(\backslash\)]\$)"{}\},}}
+\DoxyCodeLine{00042\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \{RegexType::VECTOR\_OPERATION\_REGEX,\ R}\textcolor{stringliteral}{"{}((\(\backslash\)w+)\(\backslash\)s*([+\(\backslash\)-\/*/])\(\backslash\)s*(\(\backslash\)w+))"{}\},}}
+\DoxyCodeLine{00043\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \{RegexType::VARIABLE\_ASSIGNMENT\_REGEX,\ R}\textcolor{stringliteral}{"{}((\(\backslash\)w+|d+)\(\backslash\)s*([+\(\backslash\)-\/*/])\(\backslash\)s*(\(\backslash\)w+|\(\backslash\)d+))"{}\},}}
+\DoxyCodeLine{00044\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \{RegexType::WHITESPACE\_TRIM\_REGEX,\ R}\textcolor{stringliteral}{"{}(\(\backslash\)s+)"{}\},}}
+\DoxyCodeLine{00045\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \{RegexType::SYMBOLS\_REGEX,\ R}\textcolor{stringliteral}{"{}(\(\backslash\)s*(\(\backslash\)S+))"{}\}}}
+\DoxyCodeLine{00046\ \textcolor{stringliteral}{\ \ \ \ \};}}
+\DoxyCodeLine{00047\ \textcolor{stringliteral}{\};}}
+\DoxyCodeLine{00048\ \textcolor{stringliteral}{}\textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//REGEXMANAGER\_HPP}}
+
+\end{DoxyCode}

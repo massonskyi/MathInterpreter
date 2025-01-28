@@ -74,4 +74,41 @@ struct InvalidExpression final : public Exception
     /// @param err error message
     explicit InvalidExpression(const std::string &err) : Exception(err) {}
 };
+
+struct RedeclarationError final : public Exception{
+
+    /// @brief Default constructor
+    RedeclarationError() : Exception("Variable already exists"){} ;
+
+    /// @brief Constructor with error message
+    /// @param err error message
+    explicit RedeclarationError(const std::string &err) : Exception(err) {};
+};
+
+struct InvalidSyntax final : public  Exception{
+
+    /// @brief Default constructor
+    InvalidSyntax() : Exception("Invalid Syntax") {} ;
+
+    /// @brief Constructor with error message
+    /// @param err error message
+    explicit InvalidSyntax(const std::string &err) : Exception(err) {};
+};
+struct InvalidTypeError final: public Exception {
+    /// @brief Default constructor
+    InvalidTypeError() : Exception("Invalid Syntax") {} ;
+
+    /// @brief Constructor with error message
+    /// @param err error message
+    explicit InvalidTypeError(const std::string &err) : Exception(err) {};
+};
+
+struct TypeMismatchError final: public Exception {
+    /// @brief Default constructor
+    TypeMismatchError() : Exception("Invalid Syntax") {} ;
+
+    /// @brief Constructor with error message
+    /// @param err error message
+    explicit TypeMismatchError(const std::string &err) : Exception(err) {};
+};
 #endif /* EXCEPTIONS_HPP */

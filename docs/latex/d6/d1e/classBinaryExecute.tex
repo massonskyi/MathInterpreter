@@ -1,0 +1,155 @@
+\doxysection{Binary\+Execute Class Reference}
+\hypertarget{classBinaryExecute}{}\label{classBinaryExecute}\index{BinaryExecute@{BinaryExecute}}
+
+
+Class for executing binary operations.  
+
+
+
+
+{\ttfamily \#include $<$binaryexecuter.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedPtrType}{Allowed\+Ptr\+Type}} Return\+Type$>$ }\\Return\+Type \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{calculate}} (const std\+::string \&lhs, const value\+\_\+type \&rhs\+Ptr, const std\+::string \&expression, const std\+::string \&oper)
+\begin{DoxyCompactList}\small\item\em Calculation expression for binary operation. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedPtrType}{Allowed\+Ptr\+Type}} Return\+Type$>$ }\\Return\+Type \mbox{\hyperlink{classBinaryExecute_acd54f8919fe55126780856d42b31f3da}{calculate}} (const value\+\_\+type \&lhs\+Ptr, const std\+::string \&rhs, const std\+::string \&expression, const std\+::string \&oper)
+\begin{DoxyCompactList}\small\item\em Overload calculation expression for binary operation. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{conceptAllowedPtrType}{Allowed\+Ptr\+Type}} Return\+Type$>$ }\\Return\+Type \mbox{\hyperlink{classBinaryExecute_ac769aa1708d5aa4604281bb081ce3123}{calculate}} (const value\+\_\+type \&lhs\+Ptr, const value\+\_\+type \&rhs\+Ptr, const std\+::string \&expression, const std\+::string \&oper)
+\begin{DoxyCompactList}\small\item\em Overload calculation expression for binary operation. \end{DoxyCompactList}\item 
+variable\+\_\+ptr \mbox{\hyperlink{classBinaryExecute_ac348aef24af4d18916aea9509c56c032}{calculate}} (const std\+::string \&expression)
+\begin{DoxyCompactList}\small\item\em Simple calculation method for only numbers and variables. \end{DoxyCompactList}\item 
+\Hypertarget{classBinaryExecute_ae435967dde90ef1f26328a1cae1db1db}\label{classBinaryExecute_ae435967dde90ef1f26328a1cae1db1db} 
+std\+::string {\bfseries replace\+\_\+variables} (\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{const}} std\+::string \&\mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{expression}}, stack\+\_\+map \mbox{\hyperlink{classBinaryExecute_addce43f02ad8a266c07739391978116c}{variables}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for executing binary operations. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classBinaryExecute_ac348aef24af4d18916aea9509c56c032}\label{classBinaryExecute_ac348aef24af4d18916aea9509c56c032} 
+\index{BinaryExecute@{BinaryExecute}!calculate@{calculate}}
+\index{calculate@{calculate}!BinaryExecute@{BinaryExecute}}
+\doxysubsubsection{\texorpdfstring{calculate()}{calculate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily variable\+\_\+ptr Binary\+Execute\+::calculate (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{expression }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Simple calculation method for only numbers and variables. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Return\+Type} & This avalaible types are\+: \doxylink{classVector}{Vector}, \doxylink{classMatrix}{Matrix}, \doxylink{classRational}{Rational}, \doxylink{classVariable}{Variable} \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em lhs} & first operand \\
+\hline
+{\em rhs\+Ptr} & second operand \\
+\hline
+{\em expression} & calculation expression for binary operation ( avalaible latter ) \\
+\hline
+{\em oper} & operator \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+result calculation 
+\end{DoxyReturn}
+\Hypertarget{classBinaryExecute_addce43f02ad8a266c07739391978116c}\label{classBinaryExecute_addce43f02ad8a266c07739391978116c} 
+\index{BinaryExecute@{BinaryExecute}!calculate@{calculate}}
+\index{calculate@{calculate}!BinaryExecute@{BinaryExecute}}
+\doxysubsubsection{\texorpdfstring{calculate()}{calculate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedPtrType}{Allowed\+Ptr\+Type}} Return\+Type$>$ \\
+Return\+Type Binary\+Execute\+::calculate (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{lhs,  }\item[{const value\+\_\+type \&}]{rhs\+Ptr,  }\item[{const std\+::string \&}]{expression,  }\item[{const std\+::string \&}]{oper }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calculation expression for binary operation. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Return\+Type} & This avalaible types are\+: \doxylink{classVector}{Vector}, \doxylink{classMatrix}{Matrix}, \doxylink{classRational}{Rational}, \doxylink{classVariable}{Variable} \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em lhs} & first operand \\
+\hline
+{\em rhs\+Ptr} & second operand \\
+\hline
+{\em expression} & calculation expression for binary operation ( avalaible latter ) \\
+\hline
+{\em oper} & operator \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+result calculation 
+\end{DoxyReturn}
+\Hypertarget{classBinaryExecute_acd54f8919fe55126780856d42b31f3da}\label{classBinaryExecute_acd54f8919fe55126780856d42b31f3da} 
+\index{BinaryExecute@{BinaryExecute}!calculate@{calculate}}
+\index{calculate@{calculate}!BinaryExecute@{BinaryExecute}}
+\doxysubsubsection{\texorpdfstring{calculate()}{calculate()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedPtrType}{Allowed\+Ptr\+Type}} Return\+Type$>$ \\
+Return\+Type Binary\+Execute\+::calculate (\begin{DoxyParamCaption}\item[{const value\+\_\+type \&}]{lhs\+Ptr,  }\item[{const std\+::string \&}]{rhs,  }\item[{const std\+::string \&}]{expression,  }\item[{const std\+::string \&}]{oper }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overload calculation expression for binary operation. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Return\+Type} & This avalaible types are\+: \doxylink{classVector}{Vector}, \doxylink{classMatrix}{Matrix}, \doxylink{classRational}{Rational}, \doxylink{classVariable}{Variable} \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em lhs} & first operand \\
+\hline
+{\em rhs\+Ptr} & second operand \\
+\hline
+{\em expression} & calculation expression for binary operation ( avalaible latter ) \\
+\hline
+{\em oper} & operator \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+result calculation 
+\end{DoxyReturn}
+\Hypertarget{classBinaryExecute_ac769aa1708d5aa4604281bb081ce3123}\label{classBinaryExecute_ac769aa1708d5aa4604281bb081ce3123} 
+\index{BinaryExecute@{BinaryExecute}!calculate@{calculate}}
+\index{calculate@{calculate}!BinaryExecute@{BinaryExecute}}
+\doxysubsubsection{\texorpdfstring{calculate()}{calculate()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptAllowedPtrType}{Allowed\+Ptr\+Type}} Return\+Type$>$ \\
+Return\+Type Binary\+Execute\+::calculate (\begin{DoxyParamCaption}\item[{const value\+\_\+type \&}]{lhs\+Ptr,  }\item[{const value\+\_\+type \&}]{rhs\+Ptr,  }\item[{const std\+::string \&}]{expression,  }\item[{const std\+::string \&}]{oper }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overload calculation expression for binary operation. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Return\+Type} & This avalaible types are\+: \doxylink{classVector}{Vector}, \doxylink{classMatrix}{Matrix}, \doxylink{classRational}{Rational}, \doxylink{classVariable}{Variable} \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em lhs} & first operand \\
+\hline
+{\em rhs\+Ptr} & second operand \\
+\hline
+{\em expression} & calculation expression for binary operation ( avalaible latter ) \\
+\hline
+{\em oper} & operator \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+result calculation 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/function/binaryexecuter.\+hpp\end{DoxyCompactItemize}

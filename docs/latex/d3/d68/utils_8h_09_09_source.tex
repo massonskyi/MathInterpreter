@@ -1,0 +1,71 @@
+\doxysection{utils.\+h++}
+\hypertarget{utils_8h_09_09_source}{}\label{utils_8h_09_09_source}\index{include/utils.h++@{include/utils.h++}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ massonskyi\ on\ 23.01.25.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ MATHINTERPRETER\_UTILS\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MATHINTERPRETER\_UTILS\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <concepts>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}base/abstractobject.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}types/types.h"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ Concept\ for\ allowed\ entity\ types}}
+\DoxyCodeLine{00017\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00018\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptEntityType}{EntityType}}\ =\ std::same\_as<T,\ int>\ ||}
+\DoxyCodeLine{00019\ std::same\_as<T,\ float>\ ||}
+\DoxyCodeLine{00020\ std::same\_as<T,\ double>\ ||}
+\DoxyCodeLine{00021\ std::same\_as<T,\ std::string>;}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ Type-\/safe\ smart\ pointer\ creation\ utilities}}
+\DoxyCodeLine{00024\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00025\ \textcolor{keyword}{requires}\ std::is\_base\_of\_v<AbstractObject,\ T>}
+\DoxyCodeLine{00026\ \textcolor{keyword}{auto}\ make\_object\_ptr(\textcolor{keyword}{auto}\&\&\ obj)\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_shared<T>(std::forward<\textcolor{keyword}{decltype}(obj)>(obj));}
+\DoxyCodeLine{00028\ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ Specialized\ pointer\ creation\ functions}}
+\DoxyCodeLine{00031\ \textcolor{keyword}{inline}\ \textcolor{keyword}{auto}\ make\_vector\_ptr(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ vec)\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_shared<Vector>(vec);}
+\DoxyCodeLine{00033\ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{inline}\ \textcolor{keyword}{auto}\ make\_matrix\_ptr(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ mat)\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_shared<Matrix>(mat);}
+\DoxyCodeLine{00037\ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{inline}\ \textcolor{keyword}{auto}\ make\_rational\_ptr(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ rat)\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_shared<Rational>(rat);}
+\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{inline}\ \textcolor{keyword}{auto}\ make\_variable\_ptr(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ var)\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_shared<Variable>(var);}
+\DoxyCodeLine{00045\ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ Safer\ insertion\ and\ assignment\ utilities}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Container,\ \textcolor{keyword}{typename}\ Key,\ \textcolor{keyword}{typename}\ Value>}
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{void}\ append\_(Container\&\ obj,\ \textcolor{keyword}{const}\ Key\&\ name,\ Value\&\&\ var)\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ obj.emplace(name,\ std::forward<Value>(var));}
+\DoxyCodeLine{00051\ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Container,\ \textcolor{keyword}{typename}\ Key,\ \textcolor{keyword}{typename}\ Value>}
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{void}\ upload\_(Container\&\ obj,\ \textcolor{keyword}{const}\ Key\&\ name,\ Value\&\&\ var)\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ obj[name]\ =\ std::forward<Value>(var);}
+\DoxyCodeLine{00056\ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ Compile-\/time\ string\ conversion\ utilities}}
+\DoxyCodeLine{00059\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00060\ \textcolor{keyword}{constexpr}\ std::string\_view\ stringify(T\&\&\ x)\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{return}\ std::string\_view\{x\};}
+\DoxyCodeLine{00062\ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATHINTERPRETER\_UTILS\_H}}
+
+\end{DoxyCode}

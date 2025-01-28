@@ -1,0 +1,106 @@
+\doxysection{abstractobject.\+h}
+\hypertarget{abstractobject_8h_source}{}\label{abstractobject_8h_source}\index{include/base/abstractobject.h@{include/base/abstractobject.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ABSTRACTOBJECT\_H\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ABSTRACTOBJECT\_H\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../core.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stdexcept>}\ \textcolor{comment}{//\ runtime\_error}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classAbstractObject}{AbstractObject}}}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{classAbstractObject_aac020e9bb3d960ac64707d22f305881a}{AbstractObject}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classAbstractObject_ac8d361ef57a0b90bca65f63bdc7ef8ab}{AbstractObject}}(\textcolor{keywordtype}{string}\ n\ =\ \textcolor{stringliteral}{"{}"{}})\ :\ name(std::move(n))\ \{\}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classAbstractObject_ae3718711d284f4855345dc6d6c1ae76c}{\string~AbstractObject}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00026\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classAbstractObject_a9222a77ebcac4567997369961829423d}{toString}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00030\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classAbstractObject_aa0635973b2b9403d67a428639e10d8e1}{getTypeName}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});\ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classAbstractObject_a86cf25254bb363d5681227f2767886f9}{setName}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&n)\ \{\ name\ =\ n;\ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00038\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classAbstractObject_ad81dd77884b5e5588a1337c52535a303}{getName}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ name;\ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ operator+(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&)}
+\DoxyCodeLine{00041\ \ \ \ \ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ operator-\/(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&)}
+\DoxyCodeLine{00045\ \ \ \ \ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ operator*(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&)}
+\DoxyCodeLine{00049\ \ \ \ \ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ operator/(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&)}
+\DoxyCodeLine{00053\ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});}
+\DoxyCodeLine{00055\ \ \ \ \ \}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ operator\%(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&)}
+\DoxyCodeLine{00057\ \ \ \ \ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});}
+\DoxyCodeLine{00059\ \ \ \ \ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&operator+=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&)}
+\DoxyCodeLine{00062\ \ \ \ \ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});}
+\DoxyCodeLine{00064\ \ \ \ \ \}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&operator-\/=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&)}
+\DoxyCodeLine{00066\ \ \ \ \ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&operator*=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&)}
+\DoxyCodeLine{00070\ \ \ \ \ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&operator/=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&)}
+\DoxyCodeLine{00074\ \ \ \ \ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});}
+\DoxyCodeLine{00076\ \ \ \ \ \}}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&operator\%=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&)}
+\DoxyCodeLine{00078\ \ \ \ \ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&)\ \{\ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});\ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});\ \}}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});\ \}}
+\DoxyCodeLine{00084\ \ \ \ \ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{comment}{//\ virtual\ bool\ operator<(const\ AbstractObject\ \&)\ const\ \{\ throw\ runtime\_error("{}Not\ implemented"{});\ \}}}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{comment}{//\ virtual\ bool\ operator<=(const\ AbstractObject\ \&)\ const\ \{\ throw\ runtime\_error("{}Not\ implemented"{});\ \}}}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{comment}{//\ virtual\ bool\ operator>(const\ AbstractObject\ \&)\ const\ \{\ throw\ runtime\_error("{}Not\ implemented"{});\ \}}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{comment}{//\ virtual\ bool\ operator>=(const\ AbstractObject\ \&)\ const\ \{\ throw\ runtime\_error("{}Not\ implemented"{});\ \}}}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{comment}{//\ virtual\ bool\ operator!()\ const\ \{\ throw\ runtime\_error("{}Not\ implemented"{});\ \}}}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{comment}{//\ virtual\ bool\ operator\&\&(const\ AbstractObject\ \&)\ const\ \{\ throw\ runtime\_error("{}Not\ implemented"{});\ \}}}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{comment}{//\ virtual\ bool\ operator||(const\ AbstractObject\ \&)\ const\ \{\ throw\ runtime\_error("{}Not\ implemented"{});\ \}}}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{comment}{//\ virtual\ bool\ operator\&(const\ AbstractObject\ \&)\ const\ \{\ throw\ runtime\_error("{}Not\ implemented"{});\ \}}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&operator++()\ \{\ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});\ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&operator-\/-\/()\ \{\ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});\ \}}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{comment}{//\ Виртуальный\ метод\ для\ вывода}}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ print(std::ostream\ \&os)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00098\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});}
+\DoxyCodeLine{00100\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \mbox{\hyperlink{classAbstractObject_a19e9b43cb81e04cfd66ed55e05b64c20}{get}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Not\ implemented"{}});\ \}}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{comment}{//\ Дружеский\ оператор\ вывода,\ который\ вызывает\ виртуальный\ метод\ print()}}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{friend}\ std::ostream\ \&operator<<(std::ostream\ \&os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&obj)}
+\DoxyCodeLine{00106\ \ \ \ \ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ obj.print(os);}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00109\ \ \ \ \ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{string}\ name;\ \textcolor{comment}{//\ name\ of\ the\ object}}
+\DoxyCodeLine{00113\ \};}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ABSTRACTOBJECT\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

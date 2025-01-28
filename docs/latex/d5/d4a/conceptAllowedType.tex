@@ -1,0 +1,12 @@
+\doxysection{Allowed\+Type Concept Reference}
+\hypertarget{conceptAllowedType}{}\label{conceptAllowedType}\index{AllowedType@{AllowedType}}
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptAllowedType}{AllowedType}}\ =\ \ std::is\_same\_v<T,\ Vector>\ ||}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same\_v<T,\ Matrix>\ ||}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same\_v<T,\ Rational>\ ||}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same\_v<T,\ Variable>}
+
+\end{DoxyCode}

@@ -1,0 +1,1414 @@
+\doxysection{variable.\+hpp}
+\hypertarget{variable_8hpp_source}{}\label{variable_8hpp_source}\index{include/types/variable.hpp@{include/types/variable.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ VARIABLE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ VARIABLE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../core.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../base/abstractsimpletype.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <variant>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <bitset>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifdef\ \_\_GNUG\_\_}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <cxxabi.h>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classVariable}{Variable}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classAbstractSimpleType}{AbstractSimpleType}}}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{using\ }AbstractSimpleType::AbstractSimpleType;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ std::variant<int,\ float,\ double>;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}()}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classAbstractSimpleType}{AbstractSimpleType}}(extractClassName()),\ value\_(0),\ type\_(Type::INT)\ \{\}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classVariable_a45f5bacc685a288bf80980b3c5dfc7ce}{Variable}}(\textcolor{keywordtype}{int}\ value)}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classAbstractSimpleType}{AbstractSimpleType}}(extractClassName()),\ value\_(value),\ type\_(Type::INT)\ \{\}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classVariable_a63f02e0481dbce70b9c178dc7dd8dd02}{Variable}}(\textcolor{keywordtype}{float}\ value)}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classAbstractSimpleType}{AbstractSimpleType}}(extractClassName()),\ value\_(value),\ type\_(Type::FLOAT)\ \{\}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classVariable_ae86e2e4ddc51c3ea70e37bd2d3030aad}{Variable}}(\textcolor{keywordtype}{double}\ value)}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classAbstractSimpleType}{AbstractSimpleType}}(extractClassName()),\ value\_(value),\ type\_(Type::DOUBLE)\ \{\}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{classVariable_ab2512a332681b33df73646b840747661}{Variable}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&other)\ noexcept}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classAbstractSimpleType}{AbstractSimpleType}}(extractClassName()),\ value\_(other.value\_),\ type\_(other.type\_)\ \{\}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{classVariable_aa84be98e0d70cdbcf0cd0c0624fb5531}{Variable}}(\mbox{\hyperlink{classVariable}{Variable}}\ \&\&other)\ noexcept}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classAbstractSimpleType}{AbstractSimpleType}}(extractClassName()),}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ value\_(std::move(other.value\_)),}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ type\_(std::move(other.type\_))\ \{\}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{classVariable_a3a455f3ae182905f9e9b2be7121153bb}{\string~Variable}}()\ \textcolor{keyword}{override}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00074\ \ \ \ \ [[nodiscard]]\ std::string\ \mbox{\hyperlink{classVariable_aa388891d71b68c142ada28e4f5e3e817}{hex}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00075\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ std::ostringstream\ stream;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (type\_)}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::INT:}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stream\ <<\ \textcolor{stringliteral}{"{}0x"{}}\ <<\ std::uppercase\ <<\ std::hex}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::get<int>(value\_);}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::FLOAT:}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stream\ <<\ std::hexfloat\ <<\ std::get<float>(value\_);}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::DOUBLE:}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stream\ <<\ std::hexfloat\ <<\ std::get<double>(value\_);}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Unsupported\ numeric\ type"{}});}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ stream.str();}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ converting\ value\ to\ hexadecimal\ string:\ "{}}\ +}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string(e.what()));}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00101\ \ \ \ \ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00105\ \ \ \ \ [[nodiscard]]\ std::string\ \mbox{\hyperlink{classVariable_aec4e75757066f3f7a4e7ee39a6ef10e8}{dec}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00106\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ std::ostringstream\ stream;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (type\_)}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::INT:}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::to\_string(std::get<int>(value\_));}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::FLOAT:}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stream\ <<\ std::fixed\ <<\ std::get<float>(value\_);}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::DOUBLE:}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stream\ <<\ std::fixed\ <<\ std::get<double>(value\_);}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Unsupported\ numeric\ type"{}});}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ stream.str();}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ converting\ value\ to\ decimal\ string:\ "{}}\ +}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string(e.what()));}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00130\ \ \ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00134\ \ \ \ \ [[nodiscard]]\ std::string\ \mbox{\hyperlink{classVariable_aca2bcde88e40cfc596d5485376c4876f}{bin}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00135\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (type\_\ !=\ Type::INT)}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Binary\ representation\ supported\ only\ for\ integer\ types"{}});}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ BITS\ =\ \textcolor{keyword}{sizeof}(int)\ *\ 8;}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::bitset<BITS>(std::get<int>(value\_)).to\_string();}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ converting\ value\ to\ binary\ string:\ "{}}\ +}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string(e.what()));}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00151\ \ \ \ \ \}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00155\ \ \ \ \ [[nodiscard]]\ std::string\ \mbox{\hyperlink{classVariable_ae79b6dd59b5cc0bc86f5719772fcc4da}{oct}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00156\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (type\_\ !=\ Type::INT)}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Octal\ representation\ supported\ only\ for\ integer\ types"{}});}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ std::ostringstream\ stream;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ stream\ <<\ '0'\ <<\ std::oct\ <<\ std::get<int>(value\_);}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ stream.str();}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ converting\ value\ to\ octal\ string:\ "{}}\ +}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string(e.what()));}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00173\ \ \ \ \ \}}
+\DoxyCodeLine{00176\ \ \ \ \ [[nodiscard]]\ std::string\ \mbox{\hyperlink{classVariable_a78bf534da7a00d71adfe4716f06cfa95}{toString}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00177\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value\_.valueless\_by\_exception())}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Error:\ variant\ is\ empty"{}};}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::ostringstream\ ss;}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Определяем\ тип\ и\ возвращаем\ строковое\ представление\ значения}}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (type\_)}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::INT:}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ss\ <<\ std::get<int>(value\_);}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::FLOAT:}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ss\ <<\ std::get<float>(value\_);}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::DOUBLE:}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ss\ <<\ std::get<double>(value\_);}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Error:\ unsupported\ type"{}};}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ss.str();}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Error:\ "{}}\ +\ std::string(e.what());}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00211\ \ \ \ \ \}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00215\ \ \ \ \ [[nodiscard]]\ std::string\ \mbox{\hyperlink{classVariable_a9c5ecc22a97a7c4b002affbdd711a186}{getTypeName}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00216\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::visit([]<\textcolor{keyword}{typename}\ T0>(\textcolor{keyword}{const}\ T0\ \&arg)\ -\/>\ std::string}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }U\ =\ std::remove\_cvref\_t<T0>;}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ type\_name\ =\ \textcolor{keyword}{typeid}(U).name();}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#ifdef\ \_\_GNUG\_\_}}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ status;}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{char}*\ demangled\ =\ abi::\_\_cxa\_demangle(type\_name.c\_str(),\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{nullptr},\ \&status))\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ type\_name\ =\ demangled;}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ free(demangled);}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Удаляем\ "{}class\ "{}\ и\ "{}struct\ "{}\ из\ начала\ имени\ (специфично\ для\ MSVC)}}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (type\_name.substr(0,\ 6)\ ==\ \textcolor{stringliteral}{"{}class\ "{}})\ \{}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ type\_name\ =\ type\_name.substr(6);}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (type\_name.substr(0,\ 7)\ ==\ \textcolor{stringliteral}{"{}struct\ "{}})\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ type\_name\ =\ type\_name.substr(7);}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ type\_name;\ \},\ value\_);}
+\DoxyCodeLine{00237\ \ \ \ \ \}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00241\ \ \ \ \ [[nodiscard]]\ std::string\ \mbox{\hyperlink{classVariable_a9564b5d6ba1bce6e2c781d99b2d6fbdd}{getType}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00242\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (type\_)}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::INT:}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}INT"{}};}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::DOUBLE:}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}DOUBLE"{}};}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::FLOAT:}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}FLOAT"{}};}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::OTHER:}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}OTHER"{}};}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}UNKNOWN"{}};}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00256\ \ \ \ \ \}}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00260\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classVariable_ae32eb8413828ae51c466660d05020b44}{equals}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractSimpleType}{AbstractSimpleType}}\ \&other)\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00261\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ otherVariable\ =\ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{classVariable}{Variable}}\ *\textcolor{keyword}{>}(\&other))}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value\_\ ==\ otherVariable-\/>value\_;}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00267\ \ \ \ \ \}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00271\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classVariable_a61ce6ac181bb1e9411514d6e22e8fa30}{equals}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&other)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00272\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value\_\ ==\ other.value\_;}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ comparing\ values:\ "{}}\ +}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string(e.what()));}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00282\ \ \ \ \ \}}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00286\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classVariable_a8056a5d6b1ffc85220176395fd7aef5d}{equals}}(\textcolor{keyword}{const}\ \_Tp\ \&other)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00287\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::get<\_Tp>(value\_)\ ==\ other;}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ comparing\ values:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00296\ \ \ \ \ \}}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00300\ \ \ \ \ [[nodiscard]]\ std::unique\_ptr<AbstractSimpleType>\ \mbox{\hyperlink{classVariable_a6a8a1b9c0bd5886f7cf25418f0cc477c}{clone}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00301\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_unique<Variable>(*\textcolor{keyword}{this});}
+\DoxyCodeLine{00303\ \ \ \ \ \}}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00307\ \ \ \ \ [[nodiscard]]}
+\DoxyCodeLine{00308\ \ \ \ \ std::string\ \mbox{\hyperlink{classVariable_a5835c1e6a759d9498cc0a5c6acc69dbd}{serialize}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00309\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::visit([]<\textcolor{keyword}{typename}\ T0>(T0\ \&\&arg)\ -\/>\ std::string}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }U\ =\ std::decay\_t<T0>;}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<U,\ std::string>)\ \{}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ arg;}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::to\_string(arg);}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \}\ \},\ value\_);}
+\DoxyCodeLine{00318\ \ \ \ \ \}}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVariable_a6fb0946da93adbadc47152f693f1e549}{deserialize}}(\textcolor{keyword}{const}\ std::string\ \&data)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00323\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (type\_)}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::INT:}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_\ =\ std::stoi(data);}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::FLOAT:}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_\ =\ std::stof(data);}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::DOUBLE:}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_\ =\ std::stod(data);}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Unsupported\ type\ for\ deserialization"{}});}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ during\ deserialization:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00345\ \ \ \ \ \}}
+\DoxyCodeLine{00349\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVariable_acb98c1d641ba1c8c02dff372776b4a31}{setValue}}(\textcolor{keyword}{const}\ \_Tp\ \&other)}
+\DoxyCodeLine{00351\ \ \ \ \ \{}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверяем,\ поддерживается\ ли\ тип}}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<\_Tp,\ int>\ ||\ std::is\_same\_v<\_Tp,\ float>\ ||\ std::is\_same\_v<\_Tp,\ double>)}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ value\_\ =\ std::move(other);\ \textcolor{comment}{//\ Устанавливаем\ значение\ в\ std::variant}}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Unsupported\ type\ assignment"{}});}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00361\ \ \ \ \ \}}
+\DoxyCodeLine{00364\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVariable_a5b635aa9849f9cd220b56e6c4e524203}{set}}(\textcolor{keyword}{const}\ std::string\ \&value)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00365\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (type\_)}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::INT:}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_\ =\ std::stoi(value);}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::FLOAT:}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_\ =\ std::stof(value);}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ Type::DOUBLE:}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_\ =\ std::stod(value);}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Unsupported\ type\ for\ setting\ value"{}});}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ setting\ value:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00389\ \ \ \ \ \}}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00393\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00394\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVariable_a2a73cb003d9410b77d25cf9db5299cb8}{set}}(\textcolor{keyword}{const}\ \_Tp\ \&value)}
+\DoxyCodeLine{00395\ \ \ \ \ \{}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверяем,\ является\ ли\ тип\ допустимым}}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_arithmetic\_v<\_Tp>)}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_\ =\ value;}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Unsupported\ type"{}});}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ setting\ value:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00412\ \ \ \ \ \}}
+\DoxyCodeLine{00413\ }
+\DoxyCodeLine{00416\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00417\ \ \ \ \ \_Tp\ \mbox{\hyperlink{classVariable_a90fffa96c32409f874e6a838c2f0e100}{getValue}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00418\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \_Tp\ *valuePtr\ =\ std::get\_if<\_Tp>(\&value\_);}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!valuePtr)}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Type\ mismatch:\ Unable\ to\ get\ value"{}});}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *valuePtr;}
+\DoxyCodeLine{00425\ \ \ \ \ \}}
+\DoxyCodeLine{00426\ }
+\DoxyCodeLine{00429\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \mbox{\hyperlink{classVariable_a4948fa4875e78749b36768f1570917d2}{get}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00430\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(*\textcolor{keyword}{this});}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ getting\ value:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00439\ \ \ \ \ \}}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00444\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \&\mbox{\hyperlink{classVariable_a9b52b2321957efeafe0c28a0dfa00b44}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&other)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00445\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&otherVariable\ =\ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{classVariable}{Variable}}\ \&\textcolor{keyword}{>}(other);}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ value\_\ =\ otherVariable.value\_;}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ type\_\ =\ otherVariable.type\_;}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ assigning\ value:\ "{}}\ +\ std::string(e.what())\ <<\ std::endl;}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00458\ \ \ \ \ \}}
+\DoxyCodeLine{00459\ }
+\DoxyCodeLine{00463\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \&\mbox{\hyperlink{classVariable_a9007357486e85eda2de1d6762ee9a674}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&other)}
+\DoxyCodeLine{00464\ \ \ \ \ \{}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \ \ \ \ value\_\ =\ other.value\_;}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \ \ \ \ type\_\ =\ other.type\_;}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ assigning\ value:\ "{}}\ +\ std::string(e.what())\ <<\ std::endl;}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00476\ \ \ \ \ \}}
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00481\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \&\mbox{\hyperlink{classVariable_adfd9e7591dd5fd31bc4522c9c7ee35dc}{operator=}}(\mbox{\hyperlink{classVariable}{Variable}}\ \&\&other)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00482\ \ \ \ \ \{}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_\ =\ std::move(other.value\_);}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ type\_\ =\ other.type\_;}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ assigning\ value:\ "{}}\ +\ std::string(e.what())\ <<\ std::endl;}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00496\ \ \ \ \ \}}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00501\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00502\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \&\mbox{\hyperlink{classVariable_af62a89dce42dbade43c2db3310bbf524}{operator=}}(\textcolor{keyword}{const}\ \_Tp\ \&other)}
+\DoxyCodeLine{00503\ \ \ \ \ \{}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVariable_acb98c1d641ba1c8c02dff372776b4a31}{setValue}}(other);\ \textcolor{comment}{//\ Метод\ для\ установки\ значения}}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ value\_\ =\ other;}}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ assigning\ value:\ "{}}\ +\ std::string(e.what())\ <<\ std::endl;}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00515\ \ \ \ \ \}}
+\DoxyCodeLine{00516\ }
+\DoxyCodeLine{00520\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classVariable_a30995ecc361fe286901a268315790cde}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&other)\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00521\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&otherVariable\ =\ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{classVariable}{Variable}}\ \&\textcolor{keyword}{>}(other);}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value\_\ ==\ otherVariable.value\_\ \&\&\ type\_\ ==\ otherVariable.type\_;}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ comparing\ values:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00531\ \ \ \ \ \}}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00536\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classVariable_ac9015e1746cd11889f9f9ede45f93259}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&other)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00537\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value\_\ ==\ other.value\_\ \&\&\ type\_\ ==\ other.type\_;}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ comparing\ values:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00546\ \ \ \ \ \}}
+\DoxyCodeLine{00547\ \ \ \ \ \textcolor{comment}{//\ Виртуальный\ метод\ для\ вывода}}
+\DoxyCodeLine{00548\ \ \ \ \ \textcolor{keywordtype}{void}\ print(std::ostream\ \&os)\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00549\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ std::cout\ <<\ *\textcolor{keyword}{this}\ <<\ std::endl;}
+\DoxyCodeLine{00551\ \ \ \ \ \}}
+\DoxyCodeLine{00552\ }
+\DoxyCodeLine{00553\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classVariable_a07916012aea118fd69465063ef1f384e}{operator==}}(\mbox{\hyperlink{classVariable}{Variable}}\ \&\&other)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00554\ \ \ \ \ \{}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value\_\ ==\ other.value\_\ \&\&\ type\_\ ==\ other.type\_;}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ comparing\ values:\ "{}}\ +\ std::string(e.what());}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00564\ \ \ \ \ \}}
+\DoxyCodeLine{00565\ }
+\DoxyCodeLine{00569\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00570\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classVariable_abcec6b56d80ca2c9fa48fecd649a64ea}{operator==}}(\textcolor{keyword}{const}\ \_Tp\ \&other)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00571\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::is\_same\_v<\_Tp,\ int>\ ||\ std::is\_same\_v<\_Tp,\ float>\ ||\ std::is\_same\_v<\_Tp,\ double>,}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Type\ must\ be\ int,\ float,\ or\ double"{}});}
+\DoxyCodeLine{00574\ }
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Сравнение\ типа\ и\ значения}}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ type\_\ ==\ getTypeFromValue(other)\ \&\&\ std::get<\_Tp>(value\_)\ ==\ other;}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ comparing\ values:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00584\ \ \ \ \ \}}
+\DoxyCodeLine{00585\ }
+\DoxyCodeLine{00589\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classVariable_a9e3a478e9477605ab11301ddd73ae4e0}{operator!=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&other)\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00590\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&otherVariable\ =\ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{classVariable}{Variable}}\ \&\textcolor{keyword}{>}(other);}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value\_\ !=\ otherVariable.value\_\ ||\ type\_\ !=\ otherVariable.type\_;}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ comparing\ values:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00600\ \ \ \ \ \}}
+\DoxyCodeLine{00601\ }
+\DoxyCodeLine{00605\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classVariable_a1cd4faec141ce0a239094ad7d5df6e37}{operator!=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&other)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00606\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value\_\ !=\ other.value\_\ ||\ type\_\ !=\ other.type\_;}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ comparing\ values:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00615\ \ \ \ \ \}}
+\DoxyCodeLine{00616\ }
+\DoxyCodeLine{00620\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00621\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classVariable_aad6bf682dca80fdce6c4099644e4e722}{operator!=}}(\textcolor{keyword}{const}\ \_Tp\ \&value)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00622\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::is\_same\_v<\_Tp,\ int>\ ||\ std::is\_same\_v<\_Tp,\ float>\ ||\ std::is\_same\_v<\_Tp,\ double>,}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Type\ must\ be\ int,\ float,\ or\ double"{}});}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !(value\ ==\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ comparing\ values:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00633\ \ \ \ \ \}}
+\DoxyCodeLine{00634\ }
+\DoxyCodeLine{00638\ \ \ \ \ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \mbox{\hyperlink{classVariable_a621a6bea18087a5babaa706443d4ae15}{operator+}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&other)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00639\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&otherVariable\ =\ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{classVariable}{Variable}}\ \&\textcolor{keyword}{>}(other);}
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ binaryOperation(otherVariable,\ std::plus<>());}
+\DoxyCodeLine{00642\ \ \ \ \ \}}
+\DoxyCodeLine{00643\ }
+\DoxyCodeLine{00647\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_a104ef11fe9f7c81a2fe10951dd7105fc}{operator+}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&other)}
+\DoxyCodeLine{00648\ \ \ \ \ \{}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ binaryOperation(other,\ std::plus<>());}
+\DoxyCodeLine{00650\ \ \ \ \ \}}
+\DoxyCodeLine{00651\ }
+\DoxyCodeLine{00655\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_a71a9eaf715a6c8f3169b3a65e928c380}{operator+}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&other)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00656\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ binaryOperation(other,\ std::plus<>());}
+\DoxyCodeLine{00658\ \ \ \ \ \}}
+\DoxyCodeLine{00659\ }
+\DoxyCodeLine{00663\ \ \ \ \ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \mbox{\hyperlink{classVariable_a10ff68fe14b7fc7438e2659e812ef791}{operator-\/}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&other)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00664\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&otherVariable\ =\ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{classVariable}{Variable}}\ \&\textcolor{keyword}{>}(other);}
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ binaryOperation(otherVariable,\ std::minus<>());}
+\DoxyCodeLine{00667\ \ \ \ \ \}}
+\DoxyCodeLine{00671\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_a289d82064f00b260c95221185c9c5599}{operator-\/}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&other)}
+\DoxyCodeLine{00672\ \ \ \ \ \{}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ binaryOperation(other,\ std::minus<>());}
+\DoxyCodeLine{00674\ \ \ \ \ \}}
+\DoxyCodeLine{00678\ \ \ \ \ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \mbox{\hyperlink{classVariable_a2effed568d4af34dc07e146c795c7a94}{operator*}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&other)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00679\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&otherVariable\ =\ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{classVariable}{Variable}}\ \&\textcolor{keyword}{>}(other);}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ binaryOperation(otherVariable,\ std::multiplies<>());}
+\DoxyCodeLine{00682\ \ \ \ \ \}}
+\DoxyCodeLine{00686\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_ae43526f79f548635762c7db8c692fdd6}{operator*}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&other)}
+\DoxyCodeLine{00687\ \ \ \ \ \{}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ binaryOperation(other,\ std::multiplies<>());}
+\DoxyCodeLine{00689\ \ \ \ \ \}}
+\DoxyCodeLine{00690\ }
+\DoxyCodeLine{00694\ \ \ \ \ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \mbox{\hyperlink{classVariable_a2a7cb014ca3bf7bba21c8cd855980afb}{operator/}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&other)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00695\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&otherVariable\ =\ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{classVariable}{Variable}}\ \&\textcolor{keyword}{>}(other);}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ binaryOperation(otherVariable,\ std::divides<>());}
+\DoxyCodeLine{00698\ \ \ \ \ \}}
+\DoxyCodeLine{00699\ }
+\DoxyCodeLine{00703\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_aedc1aa8d20ca3420789ea04e76a80b38}{operator/}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&other)}
+\DoxyCodeLine{00704\ \ \ \ \ \{}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isZero(other.value\_))}
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Division\ by\ zero"{}});}
+\DoxyCodeLine{00708\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ binaryOperation(other,\ std::divides<>());}
+\DoxyCodeLine{00710\ \ \ \ \ \}}
+\DoxyCodeLine{00714\ \ \ \ \ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \mbox{\hyperlink{classVariable_a72ab5b122af7939d2788f029910f61df}{operator\%}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&other)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00715\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&otherVariable\ =\ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{classVariable}{Variable}}\ \&\textcolor{keyword}{>}(other);}
+\DoxyCodeLine{00717\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_integral\_v<\textcolor{keyword}{decltype}(value\_)>\ \&\&\ std::is\_integral\_v<\textcolor{keyword}{decltype}(otherVariable.value\_)>)}
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00719\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isZero(otherVariable.value\_))}
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00721\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Modulo\ by\ zero"{}});}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00723\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ binaryOperation(otherVariable,\ std::modulus<>());}
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00727\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Modulo\ operation\ is\ only\ supported\ for\ integral\ types"{}});}
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00729\ \ \ \ \ \}}
+\DoxyCodeLine{00733\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_a17e1963f72b3ca44bfaa025047c1ac62}{operator\%}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&other)}
+\DoxyCodeLine{00734\ \ \ \ \ \{}
+\DoxyCodeLine{00735\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка,\ что\ оба\ операнда\ имеют\ целочисленные\ типы}}
+\DoxyCodeLine{00736\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_integral\_v<\textcolor{keyword}{decltype}(value\_)>\ \&\&\ std::is\_integral\_v<\textcolor{keyword}{decltype}(other.value\_)>)}
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00738\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isZero(other.value\_))}
+\DoxyCodeLine{00739\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00740\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Modulo\ by\ zero"{}});}
+\DoxyCodeLine{00741\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00742\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ binaryOperation(other,\ std::modulus<>());}
+\DoxyCodeLine{00743\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00744\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00745\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Modulo\ operation\ is\ only\ supported\ for\ integral\ types"{}});}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00748\ \ \ \ \ \}}
+\DoxyCodeLine{00749\ }
+\DoxyCodeLine{00753\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00754\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_ab76f37324980a65f9f669f50cadc9f0f}{operator+}}(\textcolor{keyword}{const}\ \_Tp\ \&other)}
+\DoxyCodeLine{00755\ \ \ \ \ \{}
+\DoxyCodeLine{00756\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ binaryOperation(\mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(other),\ std::plus<>());}
+\DoxyCodeLine{00757\ \ \ \ \ \}}
+\DoxyCodeLine{00758\ }
+\DoxyCodeLine{00762\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00763\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_a60535e1e0032b75cd283133aa64c7538}{operator-\/}}(\textcolor{keyword}{const}\ \_Tp\ \&other)}
+\DoxyCodeLine{00764\ \ \ \ \ \{}
+\DoxyCodeLine{00765\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ binaryOperation(\mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(other),\ std::minus<>());}
+\DoxyCodeLine{00766\ \ \ \ \ \}}
+\DoxyCodeLine{00767\ }
+\DoxyCodeLine{00771\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00772\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_a072c741014b541379bb5109bb9d62209}{operator*}}(\textcolor{keyword}{const}\ \_Tp\ \&other)}
+\DoxyCodeLine{00773\ \ \ \ \ \{}
+\DoxyCodeLine{00774\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ binaryOperation(\mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(other),\ std::multiplies<>());}
+\DoxyCodeLine{00775\ \ \ \ \ \}}
+\DoxyCodeLine{00776\ }
+\DoxyCodeLine{00780\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00781\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_a63da4b41f1bfbf5918e3dd8be974f7f6}{operator/}}(\textcolor{keyword}{const}\ \_Tp\ \&other)}
+\DoxyCodeLine{00782\ \ \ \ \ \{}
+\DoxyCodeLine{00783\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isZero(other))}
+\DoxyCodeLine{00784\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00785\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Division\ by\ zero"{}});}
+\DoxyCodeLine{00786\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00787\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ binaryOperation(\mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(other),\ std::divides<>());}
+\DoxyCodeLine{00788\ \ \ \ \ \}}
+\DoxyCodeLine{00789\ }
+\DoxyCodeLine{00793\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{00794\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_ada5389daae87fade880faf0452fe1c14}{operator\%}}(\textcolor{keyword}{const}\ \_Tp\ \&other)}
+\DoxyCodeLine{00795\ \ \ \ \ \{}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка,\ что\ оба\ типа\ являются\ целочисленными}}
+\DoxyCodeLine{00797\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_integral\_v<\_Tp>\ \&\&\ std::is\_integral\_v<\textcolor{keyword}{decltype}(this-\/>value\_)>)}
+\DoxyCodeLine{00798\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isZero(other))}
+\DoxyCodeLine{00800\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00801\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Modulo\ by\ zero"{}});}
+\DoxyCodeLine{00802\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00803\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ binaryOperation(\mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(other),\ std::modulus<>());}
+\DoxyCodeLine{00804\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00805\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00806\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00807\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Modulo\ operation\ is\ only\ supported\ for\ integral\ types"{}});}
+\DoxyCodeLine{00808\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00809\ \ \ \ \ \}}
+\DoxyCodeLine{00813\ \ \ \ \ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&\mbox{\hyperlink{classVariable_ac682398839312ebbaaabdd1580a4c65f}{operator+=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&other)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00814\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00815\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00816\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00817\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&otherVariable\ =\ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{classVariable}{Variable}}\ \&\textcolor{keyword}{>}(other);}
+\DoxyCodeLine{00818\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ =\ binaryOperation(otherVariable,\ std::plus<>());}
+\DoxyCodeLine{00819\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00820\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (std::runtime\_error\ \&e)}
+\DoxyCodeLine{00821\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr}
+\DoxyCodeLine{00823\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}Addition\ is\ only\ supported\ for\ arithmetic\ types"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00824\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00825\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00826\ \ \ \ \ \}}
+\DoxyCodeLine{00830\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \&\mbox{\hyperlink{classVariable_a309df4f63385f85b1ad4018ca540b7eb}{operator+=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&other)}
+\DoxyCodeLine{00831\ \ \ \ \ \{}
+\DoxyCodeLine{00832\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00833\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00834\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ =\ binaryOperation(other,\ std::plus<>());}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00836\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (std::runtime\_error\ \&e)}
+\DoxyCodeLine{00837\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00838\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr}
+\DoxyCodeLine{00839\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}Addition\ is\ only\ supported\ for\ arithmetic\ types"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00840\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00841\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00842\ \ \ \ \ \}}
+\DoxyCodeLine{00846\ \ \ \ \ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&\mbox{\hyperlink{classVariable_a8031aac0d709974243aadccfa0986bc5}{operator-\/=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&other)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00847\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00848\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00849\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&otherVariable\ =\ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{classVariable}{Variable}}\ \&\textcolor{keyword}{>}(other);}
+\DoxyCodeLine{00851\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ =\ binaryOperation(otherVariable,\ std::minus<>());}
+\DoxyCodeLine{00852\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00853\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (std::runtime\_error\ \&e)}
+\DoxyCodeLine{00854\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00855\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr}
+\DoxyCodeLine{00856\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}Addition\ is\ only\ supported\ for\ arithmetic\ types"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00857\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00858\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00859\ \ \ \ \ \}}
+\DoxyCodeLine{00863\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \&}
+\DoxyCodeLine{00864\ \ \ \ \ \mbox{\hyperlink{classVariable_a6bf1f983130f6bff71a743614127b069}{operator-\/=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&other)}
+\DoxyCodeLine{00865\ \ \ \ \ \{}
+\DoxyCodeLine{00866\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00867\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00868\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ =\ binaryOperation(other,\ std::minus<>());}
+\DoxyCodeLine{00869\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00870\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (std::runtime\_error\ \&e)}
+\DoxyCodeLine{00871\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00872\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Substraction\ is\ only\ supported\ for\ arithmetic\ types"{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00873\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00874\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00875\ \ \ \ \ \}}
+\DoxyCodeLine{00879\ \ \ \ \ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&\mbox{\hyperlink{classVariable_a3555353d5c45aabe78d5c7ba944becaa}{operator*=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&other)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00880\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00881\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00882\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00883\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&otherVariable\ =\ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{classVariable}{Variable}}\ \&\textcolor{keyword}{>}(other);}
+\DoxyCodeLine{00884\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ =\ binaryOperation(otherVariable,\ std::minus<>());}
+\DoxyCodeLine{00885\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00886\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (std::runtime\_error\ \&e)}
+\DoxyCodeLine{00887\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00888\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr}
+\DoxyCodeLine{00889\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}Addition\ is\ only\ supported\ for\ arithmetic\ types"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00890\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00891\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00892\ \ \ \ \ \}}
+\DoxyCodeLine{00896\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \&\mbox{\hyperlink{classVariable_ad1f0f48c2945d497441bb774036852a3}{operator*=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&other)}
+\DoxyCodeLine{00897\ \ \ \ \ \{}
+\DoxyCodeLine{00898\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00899\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00900\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ =\ binaryOperation(other,\ std::multiplies<>());}
+\DoxyCodeLine{00901\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00902\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (std::runtime\_error\ \&e)}
+\DoxyCodeLine{00903\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00904\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Multiplication\ is\ only\ supported\ for\ arithmetic\ types"{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00905\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00906\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00907\ \ \ \ \ \}}
+\DoxyCodeLine{00908\ }
+\DoxyCodeLine{00912\ \ \ \ \ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&\mbox{\hyperlink{classVariable_a32cb5512f02c26efd0d94a7013be6ba7}{operator/=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&other)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00913\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00914\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00915\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00916\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&otherVariable\ =\ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{classVariable}{Variable}}\ \&\textcolor{keyword}{>}(other);}
+\DoxyCodeLine{00917\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ =\ binaryOperation(otherVariable,\ std::divides<>());}
+\DoxyCodeLine{00918\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00919\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (std::runtime\_error\ \&e)}
+\DoxyCodeLine{00920\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00921\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr}
+\DoxyCodeLine{00922\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}Addition\ is\ only\ supported\ for\ arithmetic\ types"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00923\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00924\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00925\ \ \ \ \ \}}
+\DoxyCodeLine{00929\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \&\mbox{\hyperlink{classVariable_a5bf7baa8a358192dc416001371a6787b}{operator/=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&other)}
+\DoxyCodeLine{00930\ \ \ \ \ \{}
+\DoxyCodeLine{00931\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00932\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00933\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isZero(other.value\_))}
+\DoxyCodeLine{00934\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00935\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Division\ by\ zero"{}});}
+\DoxyCodeLine{00936\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00937\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ =\ binaryOperation(other,\ std::divides<>());}
+\DoxyCodeLine{00938\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00939\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (std::runtime\_error\ \&e)}
+\DoxyCodeLine{00940\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00941\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Division\ is\ only\ supported\ for\ arithmetic\ types"{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00942\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00943\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00944\ \ \ \ \ \}}
+\DoxyCodeLine{00948\ \ \ \ \ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&\mbox{\hyperlink{classVariable_a90e73e49f9d10f0402f64c7058b24d7d}{operator\%=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classAbstractObject}{AbstractObject}}\ \&other)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00949\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00950\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00951\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00952\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&otherVariable\ =\ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{classVariable}{Variable}}\ \&\textcolor{keyword}{>}(other);}
+\DoxyCodeLine{00953\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isZero(otherVariable.value\_))}
+\DoxyCodeLine{00954\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00955\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Modulo\ by\ zero"{}});}
+\DoxyCodeLine{00956\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00957\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }T\ =\ \textcolor{keyword}{decltype}(value\_);}
+\DoxyCodeLine{00958\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }U\ =\ std::remove\_const\_t<\textcolor{keyword}{decltype}(otherVariable.value\_)>;}
+\DoxyCodeLine{00959\ }
+\DoxyCodeLine{00960\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ensure\ both\ variants\ hold\ integral\ values\ of\ the\ same\ type}}
+\DoxyCodeLine{00961\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ std::variant<int,\ float,\ double>>\ \&\&}
+\DoxyCodeLine{00962\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same\_v<U,\ std::variant<int,\ float,\ double>>)}
+\DoxyCodeLine{00963\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00964\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extract\ values\ from\ the\ variants}}
+\DoxyCodeLine{00965\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::visit(}
+\DoxyCodeLine{00966\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this}]<\textcolor{keyword}{typename}\ T0,\ \textcolor{keyword}{typename}\ T1>(T0\ \&\&lhs,\ T1\ \&\&rhs)}
+\DoxyCodeLine{00967\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00968\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }LhsType\ =\ std::decay\_t<T0>;}
+\DoxyCodeLine{00969\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }RhsType\ =\ std::decay\_t<T1>;}
+\DoxyCodeLine{00970\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_integral\_v<LhsType>\ \&\&\ std::is\_integral\_v<RhsType>\ \&\&\ \textcolor{keyword}{sizeof}(LhsType)\ ==\ \textcolor{keyword}{sizeof}(RhsType))}
+\DoxyCodeLine{00971\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00972\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ modulo\ operation\ and\ store\ result\ back\ in\ value\_}}
+\DoxyCodeLine{00973\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_\ =\ lhs\ \%\ rhs;}
+\DoxyCodeLine{00974\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00975\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00976\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00977\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Modulo\ operation\ is\ only\ valid\ for\ integral\ types\ of\ the\ same\ size."{}});}
+\DoxyCodeLine{00978\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00979\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00980\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_,\ otherVariable.value\_\ \textcolor{comment}{//\ Visiting\ both\ variants}}
+\DoxyCodeLine{00981\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00982\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00983\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00984\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (std::runtime\_error\ \&e)}
+\DoxyCodeLine{00985\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00986\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr}
+\DoxyCodeLine{00987\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}Addition\ is\ only\ supported\ for\ arithmetic\ types"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00988\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00989\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00990\ \ \ \ \ \}}
+\DoxyCodeLine{00994\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \&\mbox{\hyperlink{classVariable_a1d03b45c9a7af935c1da07c833f5e47c}{operator\%=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&other)}
+\DoxyCodeLine{00995\ \ \ \ \ \{}
+\DoxyCodeLine{00996\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00997\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00998\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isZero(other.value\_))}
+\DoxyCodeLine{00999\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01000\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Modulo\ by\ zero"{}});}
+\DoxyCodeLine{01001\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01002\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }T\ =\ \textcolor{keyword}{decltype}(value\_);}
+\DoxyCodeLine{01003\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }U\ =\ std::remove\_const\_t<\textcolor{keyword}{decltype}(other.value\_)>;}
+\DoxyCodeLine{01004\ }
+\DoxyCodeLine{01005\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ensure\ both\ variants\ hold\ integral\ values\ of\ the\ same\ type}}
+\DoxyCodeLine{01006\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ std::variant<int,\ float,\ double>>\ \&\&}
+\DoxyCodeLine{01007\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same\_v<U,\ std::variant<int,\ float,\ double>>)}
+\DoxyCodeLine{01008\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extract\ values\ from\ the\ variants}}
+\DoxyCodeLine{01010\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::visit(}
+\DoxyCodeLine{01011\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{keyword}{this}]<\textcolor{keyword}{typename}\ T0,\ \textcolor{keyword}{typename}\ T1>(T0\ \&\&lhs,\ T1\ \&\&rhs)}
+\DoxyCodeLine{01012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }LhsType\ =\ std::decay\_t<T0>;}
+\DoxyCodeLine{01014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }RhsType\ =\ std::decay\_t<T1>;}
+\DoxyCodeLine{01015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_integral\_v<LhsType>\ \&\&\ std::is\_integral\_v<RhsType>\ \&\&\ \textcolor{keyword}{sizeof}(LhsType)\ ==\ \textcolor{keyword}{sizeof}(RhsType))}
+\DoxyCodeLine{01016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ modulo\ operation\ and\ store\ result\ back\ in\ value\_}}
+\DoxyCodeLine{01018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_\ =\ lhs\ \%\ rhs;}
+\DoxyCodeLine{01019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Modulo\ operation\ is\ only\ valid\ for\ integral\ types\ of\ the\ same\ size."{}});}
+\DoxyCodeLine{01023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{01025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_,\ other.value\_\ \textcolor{comment}{//\ Visiting\ both\ variants}}
+\DoxyCodeLine{01026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01027\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01028\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (std::runtime\_error\ \&e)}
+\DoxyCodeLine{01030\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Modulo\ is\ only\ supported\ for\ arithmetic\ types"{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{01032\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01034\ \ \ \ \ \}}
+\DoxyCodeLine{01035\ }
+\DoxyCodeLine{01039\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{01040\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \&\mbox{\hyperlink{classVariable_a59ad1157917379b7dc04355ad6abbd1a}{operator+=}}(\textcolor{keyword}{const}\ \_Tp\ \&other)}
+\DoxyCodeLine{01041\ \ \ \ \ \{}
+\DoxyCodeLine{01042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_arithmetic\_v<\_Tp>)}
+\DoxyCodeLine{01043\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01044\ \ \ \ \ \ \ \ \ \ \ \ \ *(\textcolor{keyword}{this})\ =\ std::get<\_Tp>(value\_)\ +\ other;\ \textcolor{comment}{//\ Сложение,\ если\ \_Tp\ поддерживает\ арифметику}}
+\DoxyCodeLine{01045\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01047\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Addition\ is\ only\ supported\ for\ arithmetic\ types"{}});}
+\DoxyCodeLine{01049\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01051\ \ \ \ \ \}}
+\DoxyCodeLine{01052\ }
+\DoxyCodeLine{01056\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{01057\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \&\mbox{\hyperlink{classVariable_ab11ba102f9357d6921dc766010309b4a}{operator-\/=}}(\textcolor{keyword}{const}\ \_Tp\ \&other)}
+\DoxyCodeLine{01058\ \ \ \ \ \{}
+\DoxyCodeLine{01059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_arithmetic\_v<\_Tp>)}
+\DoxyCodeLine{01060\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01061\ \ \ \ \ \ \ \ \ \ \ \ \ *(\textcolor{keyword}{this})\ =\ std::get<\_Tp>(value\_)\ -\/\ other;\ \textcolor{comment}{//\ Прямое\ вычитание,\ если\ \_Tp\ поддерживает\ арифметику}}
+\DoxyCodeLine{01062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01064\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01065\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Subtraction\ is\ only\ supported\ for\ arithmetic\ types"{}});}
+\DoxyCodeLine{01066\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01068\ \ \ \ \ \}}
+\DoxyCodeLine{01069\ }
+\DoxyCodeLine{01073\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{01074\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \&\mbox{\hyperlink{classVariable_a7b2e5e37119e6e45b5c7483df70deaeb}{operator*=}}(\textcolor{keyword}{const}\ \_Tp\ \&other)}
+\DoxyCodeLine{01075\ \ \ \ \ \{}
+\DoxyCodeLine{01076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_arithmetic\_v<\_Tp>)}
+\DoxyCodeLine{01077\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01078\ \ \ \ \ \ \ \ \ \ \ \ \ *(\textcolor{keyword}{this})\ =\ std::get<\_Tp>(value\_)\ *\ other;\ \textcolor{comment}{//\ Прямое\ умножение,\ если\ \_Tp\ поддерживает\ арифметику}}
+\DoxyCodeLine{01079\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01081\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Multiplication\ is\ only\ supported\ for\ arithmetic\ types"{}});}
+\DoxyCodeLine{01083\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01085\ \ \ \ \ \}}
+\DoxyCodeLine{01086\ }
+\DoxyCodeLine{01090\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{01091\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \&\mbox{\hyperlink{classVariable_af3af2ec1aca29c142ce7c3c33c285eec}{operator/=}}(\textcolor{keyword}{const}\ \_Tp\ \&other)}
+\DoxyCodeLine{01092\ \ \ \ \ \{}
+\DoxyCodeLine{01093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_arithmetic\_v<\_Tp>)}
+\DoxyCodeLine{01094\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isZero(other))}
+\DoxyCodeLine{01096\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Division\ by\ zero"{}});}
+\DoxyCodeLine{01098\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01099\ \ \ \ \ \ \ \ \ \ \ \ \ *(\textcolor{keyword}{this})\ =\ std::get<\_Tp>(value\_)\ /\ other;\ \textcolor{comment}{//\ Прямое\ деление,\ если\ \_Tp\ поддерживает\ арифметику}}
+\DoxyCodeLine{01100\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01102\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Division\ is\ only\ supported\ for\ arithmetic\ types"{}});}
+\DoxyCodeLine{01104\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01106\ \ \ \ \ \}}
+\DoxyCodeLine{01107\ }
+\DoxyCodeLine{01111\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{01112\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \&\mbox{\hyperlink{classVariable_a6cc214c45c09b348795320c62a939f73}{operator\%=}}(\textcolor{keyword}{const}\ \_Tp\ \&other)}
+\DoxyCodeLine{01113\ \ \ \ \ \{}
+\DoxyCodeLine{01114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_integral\_v<\_Tp>)}
+\DoxyCodeLine{01115\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isZero(other))}
+\DoxyCodeLine{01117\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Modulo\ by\ zero"{}});}
+\DoxyCodeLine{01119\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01120\ \ \ \ \ \ \ \ \ \ \ \ \ *(\textcolor{keyword}{this})\ =\ std::get<\_Tp>(value\_)\ \%\ other;\ \textcolor{comment}{//\ Прямое\ взятие\ остатка,\ если\ \_Tp\ поддерживает\ целочисленные\ типы}}
+\DoxyCodeLine{01121\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01123\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Modulo\ operation\ is\ only\ supported\ for\ integral\ types"{}});}
+\DoxyCodeLine{01125\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01127\ \ \ \ \ \}}
+\DoxyCodeLine{01128\ }
+\DoxyCodeLine{01131\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \&\mbox{\hyperlink{classVariable_a3a9e483457659636a45609e4113d6921}{operator++}}()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{01132\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01133\ \ \ \ \ \ \ \ \ std::visit([](\textcolor{keyword}{auto}\ \&\&arg)}
+\DoxyCodeLine{01134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++arg;\ \textcolor{comment}{//\ Инкрементируем\ значение\ типа,\ с\ которым\ работаем}}
+\DoxyCodeLine{01136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{01137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_);}
+\DoxyCodeLine{01138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01139\ \ \ \ \ \}}
+\DoxyCodeLine{01140\ }
+\DoxyCodeLine{01143\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \&\mbox{\hyperlink{classVariable_a783d211be70bcccd96aca762a18fa6da}{operator-\/-\/}}()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{01144\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01145\ \ \ \ \ \ \ \ \ std::visit([](\textcolor{keyword}{auto}\ \&\&arg)}
+\DoxyCodeLine{01146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/arg;\ \textcolor{comment}{//\ Декрементируем\ значение\ типа,\ с\ которым\ работаем}}
+\DoxyCodeLine{01148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{01149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_);}
+\DoxyCodeLine{01150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01151\ \ \ \ \ \}}
+\DoxyCodeLine{01152\ }
+\DoxyCodeLine{01156\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_acb9122b41c734c3f60047e516172c989}{operator++}}(\textcolor{keywordtype}{int})}
+\DoxyCodeLine{01157\ \ \ \ \ \{}
+\DoxyCodeLine{01158\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ temp\ =\ *\textcolor{keyword}{this};\ \textcolor{comment}{//\ Сохраняем\ текущую\ копию\ объекта}}
+\DoxyCodeLine{01159\ \ \ \ \ \ \ \ \ ++(*this);\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Выполняем\ префиксный\ инкремент}}
+\DoxyCodeLine{01160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ temp;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Возвращаем\ старое\ значение}}
+\DoxyCodeLine{01161\ \ \ \ \ \}}
+\DoxyCodeLine{01162\ }
+\DoxyCodeLine{01166\ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_a2bfd74a1dfb54e6c0d431ea41479f0ad}{operator-\/-\/}}(\textcolor{keywordtype}{int})}
+\DoxyCodeLine{01167\ \ \ \ \ \{}
+\DoxyCodeLine{01168\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classVariable}{Variable}}\ temp\ =\ *\textcolor{keyword}{this};\ \textcolor{comment}{//\ Сохраняем\ текущую\ копию\ объекта}}
+\DoxyCodeLine{01169\ \ \ \ \ \ \ \ \ -\/-\/(*this);\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Выполняем\ префиксный\ декремент}}
+\DoxyCodeLine{01170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ temp;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Возвращаем\ старое\ значение}}
+\DoxyCodeLine{01171\ \ \ \ \ \}}
+\DoxyCodeLine{01176\ \ \ \ \ \textcolor{keyword}{friend}\ std::ostream\ \&\mbox{\hyperlink{classVariable_ac9baabd64d542e3b140485c85ac99c1d}{operator<<}}(std::ostream\ \&out,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&var)}
+\DoxyCodeLine{01177\ \ \ \ \ \{}
+\DoxyCodeLine{01178\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{01179\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01180\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!out)}
+\DoxyCodeLine{01181\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ out;\ \textcolor{comment}{//\ Return\ the\ bad\ stream\ instead\ of\ throwing}}
+\DoxyCodeLine{01183\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01184\ }
+\DoxyCodeLine{01185\ \ \ \ \ \ \ \ \ \ \ \ \ out\ <<\ var.\mbox{\hyperlink{classVariable_a78bf534da7a00d71adfe4716f06cfa95}{toString}}();}
+\DoxyCodeLine{01186\ }
+\DoxyCodeLine{01187\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{01188\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::ios\_base::failure\ \&e)}
+\DoxyCodeLine{01190\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}I/O\ error\ in\ operator<<:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{01192\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01193\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{01194\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01195\ \ \ \ \ \ \ \ \ \ \ \ \ out.setstate(std::ios::failbit);}
+\DoxyCodeLine{01196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Unexpected\ error\ in\ operator<<:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{01197\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (...)}
+\DoxyCodeLine{01199\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01200\ \ \ \ \ \ \ \ \ \ \ \ \ out.setstate(std::ios::failbit);}
+\DoxyCodeLine{01201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Unknown\ error\ in\ operator<<"{}});}
+\DoxyCodeLine{01202\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01203\ \ \ \ \ \}}
+\DoxyCodeLine{01204\ }
+\DoxyCodeLine{01206\ \ \ \ \ \textcolor{keyword}{friend}\ std::istream\ \&\mbox{\hyperlink{classVariable_a4a9c76f885497ab75d0b099b76463fb7}{operator>>}}(std::istream\ \&in,\ \mbox{\hyperlink{classVariable}{Variable}}\ \&var)}
+\DoxyCodeLine{01207\ \ \ \ \ \{}
+\DoxyCodeLine{01208\ \ \ \ \ \ \ \ \ std::string\ input;}
+\DoxyCodeLine{01209\ \ \ \ \ \ \ \ \ in\ >>\ input;}
+\DoxyCodeLine{01210\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!in)}
+\DoxyCodeLine{01211\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01212\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ in;}
+\DoxyCodeLine{01213\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01214\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (input.empty())}
+\DoxyCodeLine{01215\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01216\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ in;}
+\DoxyCodeLine{01217\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01218\ \ \ \ \ \ \ \ \ std::istringstream\ ss(input);}
+\DoxyCodeLine{01219\ }
+\DoxyCodeLine{01220\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Попытка\ преобразовать\ в\ int}}
+\DoxyCodeLine{01221\ \ \ \ \ \ \ \ \ ss.clear();}
+\DoxyCodeLine{01222\ \ \ \ \ \ \ \ \ ss.str(input);}
+\DoxyCodeLine{01223\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{int}\ intValue;\ ss\ >>\ intValue)}
+\DoxyCodeLine{01224\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01225\ \ \ \ \ \ \ \ \ \ \ \ \ var\ =\ \mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(intValue);}
+\DoxyCodeLine{01226\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ in;}
+\DoxyCodeLine{01227\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01228\ }
+\DoxyCodeLine{01229\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Попытка\ преобразовать\ в\ float}}
+\DoxyCodeLine{01230\ \ \ \ \ \ \ \ \ ss.clear();}
+\DoxyCodeLine{01231\ \ \ \ \ \ \ \ \ ss.str(input);}
+\DoxyCodeLine{01232\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{float}\ floatValue;\ ss\ >>\ floatValue)}
+\DoxyCodeLine{01233\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01234\ \ \ \ \ \ \ \ \ \ \ \ \ var\ =\ \mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(floatValue);}
+\DoxyCodeLine{01235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ in;}
+\DoxyCodeLine{01236\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01237\ }
+\DoxyCodeLine{01238\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Попытка\ преобразовать\ в\ double}}
+\DoxyCodeLine{01239\ \ \ \ \ \ \ \ \ ss.clear();}
+\DoxyCodeLine{01240\ \ \ \ \ \ \ \ \ ss.str(input);}
+\DoxyCodeLine{01241\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{double}\ doubleValue;\ ss\ >>\ doubleValue)}
+\DoxyCodeLine{01242\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01243\ \ \ \ \ \ \ \ \ \ \ \ \ var\ =\ \mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(doubleValue);}
+\DoxyCodeLine{01244\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ in;}
+\DoxyCodeLine{01245\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01246\ }
+\DoxyCodeLine{01247\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Если\ ни\ одно\ преобразование\ не\ удалось}}
+\DoxyCodeLine{01248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Unsupported\ type\ or\ invalid\ format:\ "{}}\ +\ input);}
+\DoxyCodeLine{01249\ \ \ \ \ \}}
+\DoxyCodeLine{01250\ }
+\DoxyCodeLine{01255\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{01256\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classVariable_a07916012aea118fd69465063ef1f384e}{operator==}}(\textcolor{keyword}{const}\ \_Tp\ value,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&var)}
+\DoxyCodeLine{01257\ \ \ \ \ \{}
+\DoxyCodeLine{01258\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{01259\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01260\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value\ ==}
+\DoxyCodeLine{01261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::get<\_Tp>(var.value\_);}
+\DoxyCodeLine{01262\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01263\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{01264\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01265\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator==:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{01266\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01267\ \ \ \ \ \};}
+\DoxyCodeLine{01268\ }
+\DoxyCodeLine{01273\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{01274\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classVariable_a04c03e2f76729cdfdff7d7de7713e73e}{operator!=}}(\textcolor{keyword}{const}\ \_Tp\ value,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&var)}
+\DoxyCodeLine{01275\ \ \ \ \ \{}
+\DoxyCodeLine{01276\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{01277\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01278\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value\ !=}
+\DoxyCodeLine{01279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::get<\_Tp>(var.value\_);}
+\DoxyCodeLine{01280\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01281\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{01282\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01283\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator!=:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{01284\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01285\ \ \ \ \ \}}
+\DoxyCodeLine{01286\ }
+\DoxyCodeLine{01291\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{01292\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_adf13da91659ec2a130a5a9541d8f45f9}{operator+}}(\textcolor{keyword}{const}\ \_Tp\ value,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&var)}
+\DoxyCodeLine{01293\ \ \ \ \ \{}
+\DoxyCodeLine{01294\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{01295\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01296\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(value\ +\ std::get<\_Tp>(var.value\_));}
+\DoxyCodeLine{01297\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01298\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{01299\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01300\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator+:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{01301\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01302\ \ \ \ \ \};}
+\DoxyCodeLine{01303\ }
+\DoxyCodeLine{01308\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{01309\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_a3e6107e392554ac0cf35580a55b0ab5d}{operator-\/}}(\textcolor{keyword}{const}\ \_Tp\ value,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&var)}
+\DoxyCodeLine{01310\ \ \ \ \ \{}
+\DoxyCodeLine{01311\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{01312\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01313\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(value\ -\/\ std::get<\_Tp>(var.value\_));}
+\DoxyCodeLine{01314\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01315\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{01316\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01317\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator-\/:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{01318\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01319\ \ \ \ \ \};}
+\DoxyCodeLine{01320\ }
+\DoxyCodeLine{01325\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{01326\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_ab4931f71c8ee018843b79359f9af7f1a}{operator*}}(\textcolor{keyword}{const}\ \_Tp\ value,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&var)}
+\DoxyCodeLine{01327\ \ \ \ \ \{}
+\DoxyCodeLine{01328\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{01329\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01330\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(value\ *\ std::get<\_Tp>(var.value\_));}
+\DoxyCodeLine{01331\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01332\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{01333\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01334\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator*:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{01335\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01336\ \ \ \ \ \};}
+\DoxyCodeLine{01337\ }
+\DoxyCodeLine{01342\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{01343\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_a9d8415f741a3a449aed1f96d80b9ac6c}{operator/}}(\textcolor{keyword}{const}\ \_Tp\ value,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&var)}
+\DoxyCodeLine{01344\ \ \ \ \ \{}
+\DoxyCodeLine{01345\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{01346\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01347\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(value\ /\ std::get<\_Tp>(var.value\_));}
+\DoxyCodeLine{01348\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01349\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{01350\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01351\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator/:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{01352\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01353\ \ \ \ \ \}}
+\DoxyCodeLine{01354\ }
+\DoxyCodeLine{01359\ \ \ \ \ \textcolor{keyword}{template}\ <AllowedTypes\ \_Tp>}
+\DoxyCodeLine{01360\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_a62c9831afc2947c84b08ef85ad6d5b07}{operator\%}}(\textcolor{keyword}{const}\ \_Tp\ value,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&var)}
+\DoxyCodeLine{01361\ \ \ \ \ \{}
+\DoxyCodeLine{01362\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::is\_integral\_v<std::decay\_t<\textcolor{keyword}{decltype}(value)>>\ \&\&\ std::is\_integral\_v<std::decay\_t<\textcolor{keyword}{decltype}(var.value\_)>>)}
+\DoxyCodeLine{01363\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01364\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(value\ \%\ std::get<\_Tp>(var.value\_));}
+\DoxyCodeLine{01365\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01366\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01367\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01368\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error\ in\ operator\ \%\ "{}});}
+\DoxyCodeLine{01369\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01370\ \ \ \ \ \}}
+\DoxyCodeLine{01371\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_ab4931f71c8ee018843b79359f9af7f1a}{operator*}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&rhs)}
+\DoxyCodeLine{01372\ \ \ \ \ \{}
+\DoxyCodeLine{01373\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Убедимся,\ что\ типы\ значений\ совпадают}}
+\DoxyCodeLine{01374\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (lhs.value\_.index()\ !=\ rhs.value\_.index())}
+\DoxyCodeLine{01375\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01376\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Type\ mismatch:\ Cannot\ multiply\ variables\ of\ different\ types."{}});}
+\DoxyCodeLine{01377\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01378\ }
+\DoxyCodeLine{01379\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Используем\ std::visit\ для\ обработки\ значения\ внутри\ std::variant}}
+\DoxyCodeLine{01380\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::visit(}
+\DoxyCodeLine{01381\ \ \ \ \ \ \ \ \ \ \ \ \ []<\textcolor{keyword}{typename}\ T0>(\textcolor{keyword}{const}\ T0\ \&a,\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&b)\ -\/>\ \mbox{\hyperlink{classVariable}{Variable}}}
+\DoxyCodeLine{01382\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }T\ =\ std::decay\_t<T0>;}
+\DoxyCodeLine{01384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_arithmetic\_v<T>)\ \textcolor{comment}{//\ Проверяем,\ является\ ли\ тип\ арифметическим}}
+\DoxyCodeLine{01385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(a\ *\ b);}
+\DoxyCodeLine{01387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Unsupported\ type\ for\ multiplication."{}});}
+\DoxyCodeLine{01391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01392\ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{01393\ \ \ \ \ \ \ \ \ \ \ \ \ lhs.value\_,\ rhs.value\_);}
+\DoxyCodeLine{01394\ \ \ \ \ \}}
+\DoxyCodeLine{01395\ }
+\DoxyCodeLine{01396\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_adf13da91659ec2a130a5a9541d8f45f9}{operator+}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&rhs)}
+\DoxyCodeLine{01397\ \ \ \ \ \{}
+\DoxyCodeLine{01398\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (lhs.value\_.index()\ !=\ rhs.value\_.index())}
+\DoxyCodeLine{01399\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01400\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Type\ mismatch:\ Cannot\ add\ variables\ of\ different\ types."{}});}
+\DoxyCodeLine{01401\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01402\ }
+\DoxyCodeLine{01403\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::visit(}
+\DoxyCodeLine{01404\ \ \ \ \ \ \ \ \ \ \ \ \ []<\textcolor{keyword}{typename}\ T0>(\textcolor{keyword}{const}\ T0\ \&a,\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&b)\ -\/>\ \mbox{\hyperlink{classVariable}{Variable}}}
+\DoxyCodeLine{01405\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }T\ =\ std::decay\_t<T0>;}
+\DoxyCodeLine{01407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_arithmetic\_v<T>)}
+\DoxyCodeLine{01408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(a\ +\ b);}
+\DoxyCodeLine{01410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Unsupported\ type\ for\ addition."{}});}
+\DoxyCodeLine{01414\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01415\ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{01416\ \ \ \ \ \ \ \ \ \ \ \ \ lhs.value\_,\ rhs.value\_);}
+\DoxyCodeLine{01417\ \ \ \ \ \}}
+\DoxyCodeLine{01418\ }
+\DoxyCodeLine{01419\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_a3e6107e392554ac0cf35580a55b0ab5d}{operator-\/}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&rhs)}
+\DoxyCodeLine{01420\ \ \ \ \ \{}
+\DoxyCodeLine{01421\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (lhs.value\_.index()\ !=\ rhs.value\_.index())}
+\DoxyCodeLine{01422\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01423\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Type\ mismatch:\ Cannot\ subtract\ variables\ of\ different\ types."{}});}
+\DoxyCodeLine{01424\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01425\ }
+\DoxyCodeLine{01426\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::visit(}
+\DoxyCodeLine{01427\ \ \ \ \ \ \ \ \ \ \ \ \ []<\textcolor{keyword}{typename}\ T0>(\textcolor{keyword}{const}\ T0\ \&a,\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&b)\ -\/>\ \mbox{\hyperlink{classVariable}{Variable}}}
+\DoxyCodeLine{01428\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01429\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }T\ =\ std::decay\_t<T0>;}
+\DoxyCodeLine{01430\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_arithmetic\_v<T>)}
+\DoxyCodeLine{01431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01432\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(a\ -\/\ b);}
+\DoxyCodeLine{01433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01436\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Unsupported\ type\ for\ subtraction."{}});}
+\DoxyCodeLine{01437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01438\ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{01439\ \ \ \ \ \ \ \ \ \ \ \ \ lhs.value\_,\ rhs.value\_);}
+\DoxyCodeLine{01440\ \ \ \ \ \}}
+\DoxyCodeLine{01441\ }
+\DoxyCodeLine{01442\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_a9d8415f741a3a449aed1f96d80b9ac6c}{operator/}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&rhs)}
+\DoxyCodeLine{01443\ \ \ \ \ \{}
+\DoxyCodeLine{01444\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (lhs.value\_.index()\ !=\ rhs.value\_.index())}
+\DoxyCodeLine{01445\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01446\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Type\ mismatch:\ Cannot\ divide\ variables\ of\ different\ types."{}});}
+\DoxyCodeLine{01447\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01448\ }
+\DoxyCodeLine{01449\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::visit(}
+\DoxyCodeLine{01450\ \ \ \ \ \ \ \ \ \ \ \ \ []<\textcolor{keyword}{typename}\ T0>(\textcolor{keyword}{const}\ T0\ \&a,\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&b)\ -\/>\ \mbox{\hyperlink{classVariable}{Variable}}}
+\DoxyCodeLine{01451\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01452\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }T\ =\ std::decay\_t<T0>;}
+\DoxyCodeLine{01453\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_arithmetic\_v<T>)}
+\DoxyCodeLine{01454\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01455\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (b\ ==\ 0)}
+\DoxyCodeLine{01456\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01457\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Division\ by\ zero."{}});}
+\DoxyCodeLine{01458\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01459\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(a\ /\ b);}
+\DoxyCodeLine{01460\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01461\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01462\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01463\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Unsupported\ type\ for\ division."{}});}
+\DoxyCodeLine{01464\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01465\ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{01466\ \ \ \ \ \ \ \ \ \ \ \ \ lhs.value\_,\ rhs.value\_);}
+\DoxyCodeLine{01467\ \ \ \ \ \}}
+\DoxyCodeLine{01468\ }
+\DoxyCodeLine{01469\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{classVariable}{Variable}}\ \mbox{\hyperlink{classVariable_a62c9831afc2947c84b08ef85ad6d5b07}{operator\%}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&rhs)}
+\DoxyCodeLine{01470\ \ \ \ \ \{}
+\DoxyCodeLine{01471\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (lhs.value\_.index()\ !=\ rhs.value\_.index())}
+\DoxyCodeLine{01472\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01473\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Type\ mismatch:\ Cannot\ compute\ modulo\ for\ variables\ of\ different\ types."{}});}
+\DoxyCodeLine{01474\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01475\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_integral\_v<std::decay\_t<\textcolor{keyword}{decltype}(lhs)>>\ \&\&\ std::is\_integral\_v<std::decay\_t<\textcolor{keyword}{decltype}(rhs)>>)}
+\DoxyCodeLine{01476\ }
+\DoxyCodeLine{01477\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::visit(}
+\DoxyCodeLine{01478\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ []<\textcolor{keyword}{typename}\ T0>(\textcolor{keyword}{const}\ T0\ \&a,\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&b)\ -\/>\ \mbox{\hyperlink{classVariable}{Variable}}}
+\DoxyCodeLine{01479\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01480\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }T\ =\ std::decay\_t<T0>;}
+\DoxyCodeLine{01481\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_integral\_v<T>)}
+\DoxyCodeLine{01482\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01483\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (b\ ==\ 0)}
+\DoxyCodeLine{01484\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01485\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Modulo\ by\ zero."{}});}
+\DoxyCodeLine{01486\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01487\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(a\ \%\ b);}
+\DoxyCodeLine{01488\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01489\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Unsupported\ type\ for\ modulo.\ Only\ integers\ are\ supported."{}});}
+\DoxyCodeLine{01492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01493\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{01494\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lhs.value\_,\ rhs.value\_);}
+\DoxyCodeLine{01495\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01496\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01497\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Division\ is\ only\ supported\ for\ arithmetic\ types"{}});}
+\DoxyCodeLine{01498\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01499\ \ \ \ \ \}}
+\DoxyCodeLine{01500\ }
+\DoxyCodeLine{01501\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{01502\ \ \ \ \ value\_type\ value\_;}
+\DoxyCodeLine{01503\ \ \ \ \ Type\ type\_;}
+\DoxyCodeLine{01504\ }
+\DoxyCodeLine{01507\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ Type\ determineType(\textcolor{keyword}{const}\ value\_type\ \&val)}
+\DoxyCodeLine{01508\ \ \ \ \ \{}
+\DoxyCodeLine{01509\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::holds\_alternative<int>(val))}
+\DoxyCodeLine{01510\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Type::INT;}
+\DoxyCodeLine{01511\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::holds\_alternative<float>(val))}
+\DoxyCodeLine{01512\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Type::FLOAT;}
+\DoxyCodeLine{01513\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::holds\_alternative<double>(val))}
+\DoxyCodeLine{01514\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Type::DOUBLE;}
+\DoxyCodeLine{01515\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Unknown\ type"{}});}
+\DoxyCodeLine{01516\ \ \ \ \ \}}
+\DoxyCodeLine{01517\ }
+\DoxyCodeLine{01523\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Op>}
+\DoxyCodeLine{01524\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{classVariable}{Variable}}\ binaryOperation(\textcolor{keyword}{const}\ \mbox{\hyperlink{classVariable}{Variable}}\ \&other,\ Op\ operation)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01525\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01526\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ совместимости\ типов\ перед\ операцией}}
+\DoxyCodeLine{01527\ \ \ \ \ \ \ \ \ \textcolor{comment}{//if\ (type\_\ !=\ other.type\_)}}
+\DoxyCodeLine{01528\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\{}}
+\DoxyCodeLine{01529\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ throw\ std::runtime\_error("{}Type\ mismatch\ in\ binary\ operation"{});}}
+\DoxyCodeLine{01530\ \ \ \textcolor{comment}{//\ \ \ \ \ \ \}}}
+\DoxyCodeLine{01531\ }
+\DoxyCodeLine{01532\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{01533\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01534\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::visit([\&]<\textcolor{keyword}{typename}\ T0,\ \textcolor{keyword}{typename}\ T1>(\textcolor{keyword}{const}\ T0\ \&a,\ \textcolor{keyword}{const}\ T1\ \&b)}
+\DoxyCodeLine{01535\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Определяем\ тип\ результата}}
+\DoxyCodeLine{01537\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }A\ =\ std::decay\_t<T0>;}
+\DoxyCodeLine{01538\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }B\ =\ std::decay\_t<T1>;}
+\DoxyCodeLine{01539\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }ResultType\ =\ \textcolor{keyword}{decltype}(operation(a,\ b));}
+\DoxyCodeLine{01540\ }
+\DoxyCodeLine{01541\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ на\ переполнение\ для\ целых\ чисел}}
+\DoxyCodeLine{01542\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_integral\_v<A>\ \&\&\ std::is\_integral\_v<B>)\ \{}
+\DoxyCodeLine{01543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<Op,\ std::plus<>>\ ||\ }
+\DoxyCodeLine{01544\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::is\_same\_v<Op,\ std::multiplies<>>)\ \{}
+\DoxyCodeLine{01545\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Для\ сложения}}
+\DoxyCodeLine{01546\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<Op,\ std::plus<>>)\ \{}
+\DoxyCodeLine{01547\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (a\ >\ 0\ \&\&\ b\ >\ std::numeric\_limits<ResultType>::max()\ -\/\ a)\ \{}
+\DoxyCodeLine{01548\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::overflow\_error(\textcolor{stringliteral}{"{}Integer\ overflow\ in\ addition"{}});}
+\DoxyCodeLine{01549\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01550\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (a\ <\ 0\ \&\&\ b\ <\ std::numeric\_limits<ResultType>::min()\ -\/\ a)\ \{}
+\DoxyCodeLine{01551\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::overflow\_error(\textcolor{stringliteral}{"{}Integer\ underflow\ in\ addition"{}});}
+\DoxyCodeLine{01552\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01553\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01554\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Для\ умножения}}
+\DoxyCodeLine{01555\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<Op,\ std::multiplies<>>)\ \{}
+\DoxyCodeLine{01556\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (a\ !=\ 0\ \&\&\ b\ >\ std::numeric\_limits<ResultType>::max()\ /\ std::abs(a))\ \{}
+\DoxyCodeLine{01557\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::overflow\_error(\textcolor{stringliteral}{"{}Integer\ overflow\ in\ multiplication"{}});}
+\DoxyCodeLine{01558\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01559\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01560\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01561\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01562\ }
+\DoxyCodeLine{01563\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ на\ NaN\ и\ Inf\ для\ чисел\ с\ плавающей\ точкой}}
+\DoxyCodeLine{01564\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_floating\_point\_v<A>\ \&\&\ std::is\_floating\_point\_v<B>)\ \{}
+\DoxyCodeLine{01565\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ result\ =\ operation(a,\ b);}
+\DoxyCodeLine{01566\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isnan(result))\ \{}
+\DoxyCodeLine{01567\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::domain\_error(\textcolor{stringliteral}{"{}Operation\ resulted\ in\ NaN"{}});}
+\DoxyCodeLine{01568\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01569\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isinf(result))\ \{}
+\DoxyCodeLine{01570\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::overflow\_error(\textcolor{stringliteral}{"{}Operation\ resulted\ in\ Infinity"{}});}
+\DoxyCodeLine{01571\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01572\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(result);}
+\DoxyCodeLine{01573\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01574\ }
+\DoxyCodeLine{01575\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Выполнение\ операции\ с\ проверкой\ исключений}}
+\DoxyCodeLine{01576\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ result\ =\ operation(a,\ b);}
+\DoxyCodeLine{01577\ }
+\DoxyCodeLine{01578\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Дополнительные\ проверки\ результата}}
+\DoxyCodeLine{01579\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_arithmetic\_v<ResultType>)\ \{}
+\DoxyCodeLine{01580\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_floating\_point\_v<ResultType>)\ \{}
+\DoxyCodeLine{01581\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!std::isfinite(result))\ \{}
+\DoxyCodeLine{01582\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::overflow\_error(\textcolor{stringliteral}{"{}Operation\ resulted\ in\ non-\/finite\ value"{}});}
+\DoxyCodeLine{01583\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01584\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01585\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01586\ }
+\DoxyCodeLine{01587\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classVariable_a5716c9dcafcc8cf59a6f6b5dac3ec7a2}{Variable}}(\textcolor{keyword}{static\_cast<}ResultType\textcolor{keyword}{>}(result));\ \},\ value\_,\ other.value\_);}
+\DoxyCodeLine{01588\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01589\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{01590\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01591\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(std::string(\textcolor{stringliteral}{"{}Binary\ operation\ failed:\ "{}})\ +\ e.what());}
+\DoxyCodeLine{01592\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01593\ \ \ \ \ \}}
+\DoxyCodeLine{01594\ }
+\DoxyCodeLine{01595\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ isZero(\textcolor{keyword}{const}\ value\_type\ \&val)}
+\DoxyCodeLine{01596\ \ \ \ \ \{}
+\DoxyCodeLine{01597\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::visit([](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&v)}
+\DoxyCodeLine{01598\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ v\ ==\ 0;\ \},\ val);}
+\DoxyCodeLine{01599\ \ \ \ \ \}}
+\DoxyCodeLine{01600\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ extractClassName()}
+\DoxyCodeLine{01601\ \ \ \ \ \{}
+\DoxyCodeLine{01602\ \textcolor{preprocessor}{\#ifdef\ \_MSC\_VER}}
+\DoxyCodeLine{01603\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ funcSig\ =\ \_\_FUNCSIG\_\_;}
+\DoxyCodeLine{01604\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{01605\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ funcSig\ =\ \_\_PRETTY\_FUNCTION\_\_;}
+\DoxyCodeLine{01606\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01607\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extract\ the\ class\ name\ from\ the\ function\ signature\ string}}
+\DoxyCodeLine{01608\ \ \ \ \ \ \ \ \ std::string\ funcSigStr(funcSig);}
+\DoxyCodeLine{01609\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ start\ =\ funcSigStr.find(\textcolor{stringliteral}{"{}Variabl"{}});}
+\DoxyCodeLine{01610\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ end\ =\ funcSigStr.find(\textcolor{charliteral}{'e'},\ start);\ start\ !=\ std::string::npos\ \&\&\ end\ !=\ std::string::npos)}
+\DoxyCodeLine{01611\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01612\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ funcSigStr.substr(start,\ end\ -\/\ (start\ -\/\ 1));}
+\DoxyCodeLine{01613\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01614\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}UnknownClass"{}};}
+\DoxyCodeLine{01615\ \ \ \ \ \}}
+\DoxyCodeLine{01616\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{01617\ \ \ \ \ \textcolor{keyword}{static}\ Type\ getTypeFromValue(\textcolor{keyword}{const}\ T\ \&)}
+\DoxyCodeLine{01618\ \ \ \ \ \{}
+\DoxyCodeLine{01619\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ int>)}
+\DoxyCodeLine{01620\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01621\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Type::INT;}
+\DoxyCodeLine{01622\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01623\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ float>)}
+\DoxyCodeLine{01624\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01625\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Type::FLOAT;}
+\DoxyCodeLine{01626\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01627\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (std::is\_same\_v<T,\ double>)}
+\DoxyCodeLine{01628\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01629\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Type::DOUBLE;}
+\DoxyCodeLine{01630\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01631\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01632\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01633\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Unsupported\ type\ for\ Variable"{}});}
+\DoxyCodeLine{01634\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01635\ \ \ \ \ \}}
+\DoxyCodeLine{01636\ }
+\DoxyCodeLine{01637\ \};}
+\DoxyCodeLine{01638\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ VARIABLE\_H}}
+
+\end{DoxyCode}

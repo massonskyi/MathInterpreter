@@ -1,0 +1,65 @@
+\doxysection{Expression\+Evaluator Class Reference}
+\hypertarget{classExpressionEvaluator}{}\label{classExpressionEvaluator}\index{ExpressionEvaluator@{ExpressionEvaluator}}
+
+
+This class parses an arithmetic expression and evaluates it the result.  
+
+
+
+
+{\ttfamily \#include $<$expressionparser.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classExpressionEvaluator_a26827d0ada3173593222d335b10962fb}{evaluate}} (const std\+::string \&expression)
+\begin{DoxyCompactList}\small\item\em This method is evaluate an arithmetic expression and returns the result. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::pair$<$ std\+::string, bool $>$ $>$ \mbox{\hyperlink{classExpressionEvaluator_a2b05a425c8c50fb6ecf20672ae7f4fd4}{extract}} (const std\+::string \&expression)
+\begin{DoxyCompactList}\small\item\em This method tokenizes an arithmetic expression. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class parses an arithmetic expression and evaluates it the result. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classExpressionEvaluator_a26827d0ada3173593222d335b10962fb}\label{classExpressionEvaluator_a26827d0ada3173593222d335b10962fb} 
+\index{ExpressionEvaluator@{ExpressionEvaluator}!evaluate@{evaluate}}
+\index{evaluate@{evaluate}!ExpressionEvaluator@{ExpressionEvaluator}}
+\doxysubsubsection{\texorpdfstring{evaluate()}{evaluate()}}
+{\footnotesize\ttfamily double Expression\+Evaluator\+::evaluate (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{expression }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method is evaluate an arithmetic expression and returns the result. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em expression} & arithmetic expression \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+result of the expression 
+\end{DoxyReturn}
+\Hypertarget{classExpressionEvaluator_a2b05a425c8c50fb6ecf20672ae7f4fd4}\label{classExpressionEvaluator_a2b05a425c8c50fb6ecf20672ae7f4fd4} 
+\index{ExpressionEvaluator@{ExpressionEvaluator}!extract@{extract}}
+\index{extract@{extract}!ExpressionEvaluator@{ExpressionEvaluator}}
+\doxysubsubsection{\texorpdfstring{extract()}{extract()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::pair$<$ std\+::string, bool $>$ $>$ Expression\+Evaluator\+::extract (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{expression }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method tokenizes an arithmetic expression. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em expression} & arithmetical expression \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+tokenized expression 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/parsers/expressionparser.\+hpp\end{DoxyCompactItemize}

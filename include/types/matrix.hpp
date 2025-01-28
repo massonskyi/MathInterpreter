@@ -87,14 +87,14 @@ public:
 
     /// @brief  This method is used to get the type of the object
     /// @return The type of the object
-     string getTypeName() const override
+     [[nodiscard]] string getTypeName() const override
     {
         return typeid(*this).name(); // Возвращаем строку, представляющую тип объекта
     }
 
     // Size operations
-     size_t rows() const { return data_.size(); }
-     size_t cols() const { 
+     [[nodiscard]] size_t rows() const { return data_.size(); }
+     [[nodiscard]] size_t cols() const {
          return data_.empty() ? 0 : data_[0].size(); 
      }
 
@@ -102,10 +102,19 @@ public:
      Vector &operator[](size_t index) { return data_[index]; }
      const Vector &operator[](size_t index) const { return data_[index]; }
 
-     Vector &at(size_t index) { return data_.at(index); }
-     const Vector &at(size_t index) const { return data_.at(index); }
+    // Оператор () для доступа к элементам матрицы
+    Vector& operator()(size_t row, size_t col) {
+        return data_[row * cols() + col];
+    }
 
-     Variable get(size_t row, size_t col) const
+    // Константная версия оператора () для доступа к элементам матрицы
+    const Vector& operator()(int row, int col) const {
+        return data_[row * cols() + col];
+    }
+     Vector &at(size_t index) { return data_.at(index); }
+     [[nodiscard]] const Vector &at(size_t index) const { return data_.at(index); }
+
+     [[nodiscard]] Variable get(size_t row, size_t col) const
     {
         return data_.at(row).get(col);
     }
@@ -267,6 +276,15 @@ public:
         }
         return result;
     }
+    Matrix operator+(const Variable& other) const
+    {
+        Matrix result(rows(), cols());
+        for (size_t i = 0; i < rows(); ++i)
+        {
+            result[i] = data_[i] + other;
+        }
+        return result;
+    }
     Matrix operator-(const Matrix &other) const
     {
         if (rows() != other.rows() || cols() != other.cols())
@@ -296,6 +314,15 @@ public:
         return result;
     }
     Matrix operator-(Variable& other)
+    {
+        Matrix result(rows(), cols());
+        for (size_t i = 0; i < rows(); ++i)
+        {
+            result[i] = data_[i] - other;
+        }
+        return result;
+    }
+        Matrix operator-(const Variable& other) const
     {
         Matrix result(rows(), cols());
         for (size_t i = 0; i < rows(); ++i)
@@ -342,6 +369,15 @@ public:
     }
 
     Matrix operator*(Variable& other)
+    {
+        Matrix result(rows(), cols());
+        for (size_t i = 0; i < rows(); ++i)
+        {
+            result[i] = data_[i] * other;
+        }
+        return result;
+    }
+    Matrix operator*(const Variable& other) const 
     {
         Matrix result(rows(), cols());
         for (size_t i = 0; i < rows(); ++i)
@@ -401,6 +437,16 @@ public:
     }
 
     Matrix operator/(Variable& other)
+    {
+        Matrix result(rows(), cols());
+        for (size_t i = 0; i < rows(); ++i)
+        {
+            result[i] = data_[i] / other;
+        }
+        return result;
+    }
+
+        Matrix operator/(const Variable& other) const
     {
         Matrix result(rows(), cols());
         for (size_t i = 0; i < rows(); ++i)

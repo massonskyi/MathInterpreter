@@ -1,0 +1,14 @@
+digraph "AbstractContainerType"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [id="Node000001",label="AbstractContainerType",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Abstract container object."];
+  Node2 -> Node1 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="AbstractObject",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d2/d3b/classAbstractObject.html",tooltip="This class is used to represent an object."];
+  Node1 -> Node3 [id="edge2_Node000001_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="Matrix",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d3/d3f/classMatrix.html",tooltip="Matrix is a class that represents a matrix."];
+  Node1 -> Node4 [id="edge3_Node000001_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="Vector",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d6/da1/classVector.html",tooltip="The Vector class represents a vector of integers."];
+}
