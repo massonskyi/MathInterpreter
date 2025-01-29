@@ -1,7 +1,21 @@
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #include <iostream>
 #include "include/core.tpp"
 #include "include/interpreter.tpp"
 #include "lib/cxxopts-3.2.0/include/cxxopts.hpp"
+#include "include/io/ioreader.tpp"
+
+#ifdef _WIN32
+void initConsole()
+{
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+    setlocale(LC_ALL, ".UTF8");
+}
+#endif
 
 void printHelp() {
     std::cout << "Usage:" << std::endl;
@@ -47,6 +61,9 @@ std::string  handleOptions(const cxxopts::ParseResult& result) {
 }
 
 int main(int argc, char** argv) {
+#ifdef _WIN32
+    initConsole(); // Инициализация консольного ввода/вывода для UTF-8
+#endif
     Interpreter interpreter;
     auto result = parseOptions(argc, argv);
     auto r = handleOptions(result);

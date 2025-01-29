@@ -24,27 +24,28 @@
 #include "parsers/vectorparser.hxx"
 #include "parsers/rationalparser.hxx"
 #include "parsers/variableparser.hxx"
-#include "parsers/expressionparser.tpp"
 #include "parsers/stringvalidator.hxx"
 
 #include "function/base.hxx"
-#include "function/binaryexecuter.tpp"
 
+#include "math/binaryexecuter.tpp"
+#include "math/expressionparser.tpp"
+
+#include "io/ioreader.tpp"
 
 class Interpreter final
 {
 public:
     enum class VarType { Variable, Matrix, Vector, Rational, Unknown};
     Interpreter() 
-    : _M_expression_parser()
-    , _M_binary_executer()
+    : _M_binary_executer()
     {
         append_(_M_variables, "pi", make_variable_ptr(3.14159265358979323846));
         append_(_M_variables, "e",  make_variable_ptr(2.71828182845904523536));
 
         append_(_M_regexes, "MatrixLiteral",        std::regex(R"(\[\s*(\[\s*\d+\s*(?:,\s*\d+\s*)*\]\s*(?:,\s*\[\s*\d+\s*(?:,\s*\d+\s*)*\]\s*)*)\])"));
         append_(_M_regexes, "VectorLiteral",        std::regex(R"(^\[\s*(\d+\s*,\s*)*\d+\s*\]$)"));
-        append_(_M_regexes, "RationalLiteral",      std::regex(R"((\d+\/\d+))"));
+        append_(_M_regexes, "RationalLiteral",      std::regex(R"(^(\d+)\s*\/\s*(\d+)$)"));
         append_(_M_regexes, "VariableLiteral",      std::regex(R"(\d+)"));
         append_(_M_regexes, "VectorOperation",      std::regex(R"((\w+)\s*([+\-*/])\s*(\w+))"));
         append_(_M_regexes, "MatrixOperation",      std::regex(R"((\w+)\s*([+\-*/])\s*(\w+))"));
@@ -91,16 +92,20 @@ public:
 
     void processFile(const std::string &filename)
     {
-        std::ifstream file(filename);
-        std::cout <<"Processing file: " << filename << std::endl;
-        if (!file.is_open())
-        {
-            throw std::runtime_error("Failed to open file: " + filename);
-        }
-        bool inBlockComment = false;
-        std::string line;
+        std::vector<std::string> lines;
 
-        while (std::getline(file, line))
+        IOReader reader(filename);
+        if (auto valid = reader.isValid(); valid && *valid) {
+            if (auto data = reader.read()) {
+                for (const auto& str : *data) {
+                    lines.push_back(str);
+                }
+            }
+        }
+
+        bool inBlockComment = false;
+        
+        for(auto& line : lines)
         {
             if (line.find("//") == 0 || line.find("#") == 0) {
                 continue;
@@ -152,7 +157,6 @@ private:
     std::unordered_map<std::string, std::regex> _M_regexes;
 
     std::unordered_map<std::string, value_type> _M_variables{};
-    ExpressionEvaluator _M_expression_parser;
     BinaryExecute _M_binary_executer;
     StringValidator _M_validator;
     // Generic expression parsing
@@ -319,7 +323,7 @@ private:
         if (token == "let") {
             _M_handle_let_declaration(stream, op);
         }
-            // Случай: присваивание существующей переменной
+        // Случай: присваивание существующей переменной
         else {
             _M_handle_assignment(command, op);
         }
@@ -419,42 +423,46 @@ private:
         }
 
         // Проверка синтаксиса
-        if (equals != "=") {
-            throw InvalidSyntax("Missing '=' in assignment");
+        if (equals == "=") {
+            std::string expression;
+            std::getline(stream, expression);
+            expression = _M_trim_leading_spaces(expression);
+
+            // Получение текущего типа переменной
+            auto& old_value = _M_variables[var_name];
+            VarType old_type = _M_detect_value_type(old_value);
+
+            // Парсинг и проверка типа
+            value_type new_value;
+            switch (old_type) {
+                case VarType::Variable:
+                    new_value = _M_parse_expression<Variable>(expression, op);
+                    break;
+                case VarType::Matrix:
+                    new_value = _M_parse_expression<Matrix>(expression, op);
+                    break;
+                case VarType::Vector:
+                    new_value = _M_parse_expression<Vector>(expression, op);
+                    break;
+                case VarType::Rational:
+                    new_value = _M_parse_expression<Rational>(expression, op);
+                default:
+                    throw TypeMismatchError("Cannot reassign variable of unknown type");
+            }
+
+            // Проверка совместимости типов
+            if (_M_detect_value_type(new_value) != old_type) {
+                throw TypeMismatchError("Type mismatch in assignment");
+            }
+
+            _M_variables[var_name] = new_value;
+        }else if(equals.contains("+ - / *")){
+            throw InvalidSyntax("Invalid assignment operation");
+        }else{
+            throw InvalidSyntax("Invalid assignment operation");
         }
 
-        std::string expression;
-        std::getline(stream, expression);
-        expression = _M_trim_leading_spaces(expression);
-
-        // Получение текущего типа переменной
-        auto& old_value = _M_variables[var_name];
-        VarType old_type = _M_detect_value_type(old_value);
-
-        // Парсинг и проверка типа
-        value_type new_value;
-        switch (old_type) {
-            case VarType::Variable:
-                new_value = _M_parse_expression<Variable>(expression, op);
-                break;
-            case VarType::Matrix:
-                new_value = _M_parse_expression<Matrix>(expression, op);
-                break;
-            case VarType::Vector:
-                new_value = _M_parse_expression<Vector>(expression, op);
-                break;
-            case VarType::Rational:
-                new_value = _M_parse_expression<Rational>(expression, op);
-            default:
-                throw TypeMismatchError("Cannot reassign variable of unknown type");
-        }
-
-        // Проверка совместимости типов
-        if (_M_detect_value_type(new_value) != old_type) {
-            throw TypeMismatchError("Type mismatch in assignment");
-        }
-
-        _M_variables[var_name] = new_value;
+        
     }
 
     VarType

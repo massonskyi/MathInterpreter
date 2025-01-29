@@ -26,17 +26,23 @@ add_executable(MathInterpreter
         include/types/matrix.tpp
         include/interpreter.tpp
 
-        src/variable.cxx
-        src/rational.cxx
+        src/types/variable.cxx
+        src/types/rational.cxx
+        src/types/matrix.cxx
+        src/parsers/matrixparser.cxx
+        src/parsers/rationalparser.cxx
+        src/parsers/vectorparser.cxx
+        src/parsers/variableparser.cxx
+
         include/parsers/regexmanager.hxx
         include/parsers/variableparser.hxx
         include/parsers/vectorparser.hxx
         include/parsers/matrixparser.hxx
         include/parsers/rationalparser.hxx
-        include/parsers/expressionparser.tpp
+        include/math/expressionparser.tpp
         include/function/types.hxx
         include/function/base.hxx
-        include/function/binaryexecuter.tpp
+        include/math/binaryexecuter.tpp
         include/exceptions/exceptions.hxx
         src/base.cxx
         lib/cxxopts-3.2.0/include/cxxopts.hpp
@@ -45,7 +51,11 @@ add_executable(MathInterpreter
         include/utils.tpp
         include/function/typedetector.hxx
         src/utils.cxx
-        src/vector.cxx)
+        src/types/vector.cxx
+        
+        include/io/io.hxx
+        include/io/ioreader.tpp
+        include/io/iowriter.tpp)
 
 # Add tests
 enable_testing()

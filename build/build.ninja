@@ -56,19 +56,54 @@ build CMakeFiles/MathInterpreter.dir/main.cxx.obj: CXX_COMPILER__MathInterpreter
   OBJECT_DIR = CMakeFiles\MathInterpreter.dir
   OBJECT_FILE_DIR = CMakeFiles\MathInterpreter.dir
 
-build CMakeFiles/MathInterpreter.dir/src/variable.cxx.obj: CXX_COMPILER__MathInterpreter_unscanned_Debug C$:/repo/mi-kp-toop/kp-toop-final/src/variable.cxx || cmake_object_order_depends_target_MathInterpreter
-  DEP_FILE = CMakeFiles\MathInterpreter.dir\src\variable.cxx.obj.d
+build CMakeFiles/MathInterpreter.dir/src/types/variable.cxx.obj: CXX_COMPILER__MathInterpreter_unscanned_Debug C$:/repo/mi-kp-toop/kp-toop-final/src/types/variable.cxx || cmake_object_order_depends_target_MathInterpreter
+  DEP_FILE = CMakeFiles\MathInterpreter.dir\src\types\variable.cxx.obj.d
   FLAGS = -g -std=gnu++23
   INCLUDES = -IC:/gtest/include
   OBJECT_DIR = CMakeFiles\MathInterpreter.dir
-  OBJECT_FILE_DIR = CMakeFiles\MathInterpreter.dir\src
+  OBJECT_FILE_DIR = CMakeFiles\MathInterpreter.dir\src\types
 
-build CMakeFiles/MathInterpreter.dir/src/rational.cxx.obj: CXX_COMPILER__MathInterpreter_unscanned_Debug C$:/repo/mi-kp-toop/kp-toop-final/src/rational.cxx || cmake_object_order_depends_target_MathInterpreter
-  DEP_FILE = CMakeFiles\MathInterpreter.dir\src\rational.cxx.obj.d
+build CMakeFiles/MathInterpreter.dir/src/types/rational.cxx.obj: CXX_COMPILER__MathInterpreter_unscanned_Debug C$:/repo/mi-kp-toop/kp-toop-final/src/types/rational.cxx || cmake_object_order_depends_target_MathInterpreter
+  DEP_FILE = CMakeFiles\MathInterpreter.dir\src\types\rational.cxx.obj.d
   FLAGS = -g -std=gnu++23
   INCLUDES = -IC:/gtest/include
   OBJECT_DIR = CMakeFiles\MathInterpreter.dir
-  OBJECT_FILE_DIR = CMakeFiles\MathInterpreter.dir\src
+  OBJECT_FILE_DIR = CMakeFiles\MathInterpreter.dir\src\types
+
+build CMakeFiles/MathInterpreter.dir/src/types/matrix.cxx.obj: CXX_COMPILER__MathInterpreter_unscanned_Debug C$:/repo/mi-kp-toop/kp-toop-final/src/types/matrix.cxx || cmake_object_order_depends_target_MathInterpreter
+  DEP_FILE = CMakeFiles\MathInterpreter.dir\src\types\matrix.cxx.obj.d
+  FLAGS = -g -std=gnu++23
+  INCLUDES = -IC:/gtest/include
+  OBJECT_DIR = CMakeFiles\MathInterpreter.dir
+  OBJECT_FILE_DIR = CMakeFiles\MathInterpreter.dir\src\types
+
+build CMakeFiles/MathInterpreter.dir/src/parsers/matrixparser.cxx.obj: CXX_COMPILER__MathInterpreter_unscanned_Debug C$:/repo/mi-kp-toop/kp-toop-final/src/parsers/matrixparser.cxx || cmake_object_order_depends_target_MathInterpreter
+  DEP_FILE = CMakeFiles\MathInterpreter.dir\src\parsers\matrixparser.cxx.obj.d
+  FLAGS = -g -std=gnu++23
+  INCLUDES = -IC:/gtest/include
+  OBJECT_DIR = CMakeFiles\MathInterpreter.dir
+  OBJECT_FILE_DIR = CMakeFiles\MathInterpreter.dir\src\parsers
+
+build CMakeFiles/MathInterpreter.dir/src/parsers/rationalparser.cxx.obj: CXX_COMPILER__MathInterpreter_unscanned_Debug C$:/repo/mi-kp-toop/kp-toop-final/src/parsers/rationalparser.cxx || cmake_object_order_depends_target_MathInterpreter
+  DEP_FILE = CMakeFiles\MathInterpreter.dir\src\parsers\rationalparser.cxx.obj.d
+  FLAGS = -g -std=gnu++23
+  INCLUDES = -IC:/gtest/include
+  OBJECT_DIR = CMakeFiles\MathInterpreter.dir
+  OBJECT_FILE_DIR = CMakeFiles\MathInterpreter.dir\src\parsers
+
+build CMakeFiles/MathInterpreter.dir/src/parsers/vectorparser.cxx.obj: CXX_COMPILER__MathInterpreter_unscanned_Debug C$:/repo/mi-kp-toop/kp-toop-final/src/parsers/vectorparser.cxx || cmake_object_order_depends_target_MathInterpreter
+  DEP_FILE = CMakeFiles\MathInterpreter.dir\src\parsers\vectorparser.cxx.obj.d
+  FLAGS = -g -std=gnu++23
+  INCLUDES = -IC:/gtest/include
+  OBJECT_DIR = CMakeFiles\MathInterpreter.dir
+  OBJECT_FILE_DIR = CMakeFiles\MathInterpreter.dir\src\parsers
+
+build CMakeFiles/MathInterpreter.dir/src/parsers/variableparser.cxx.obj: CXX_COMPILER__MathInterpreter_unscanned_Debug C$:/repo/mi-kp-toop/kp-toop-final/src/parsers/variableparser.cxx || cmake_object_order_depends_target_MathInterpreter
+  DEP_FILE = CMakeFiles\MathInterpreter.dir\src\parsers\variableparser.cxx.obj.d
+  FLAGS = -g -std=gnu++23
+  INCLUDES = -IC:/gtest/include
+  OBJECT_DIR = CMakeFiles\MathInterpreter.dir
+  OBJECT_FILE_DIR = CMakeFiles\MathInterpreter.dir\src\parsers
 
 build CMakeFiles/MathInterpreter.dir/src/base.cxx.obj: CXX_COMPILER__MathInterpreter_unscanned_Debug C$:/repo/mi-kp-toop/kp-toop-final/src/base.cxx || cmake_object_order_depends_target_MathInterpreter
   DEP_FILE = CMakeFiles\MathInterpreter.dir\src\base.cxx.obj.d
@@ -91,12 +126,12 @@ build CMakeFiles/MathInterpreter.dir/src/utils.cxx.obj: CXX_COMPILER__MathInterp
   OBJECT_DIR = CMakeFiles\MathInterpreter.dir
   OBJECT_FILE_DIR = CMakeFiles\MathInterpreter.dir\src
 
-build CMakeFiles/MathInterpreter.dir/src/vector.cxx.obj: CXX_COMPILER__MathInterpreter_unscanned_Debug C$:/repo/mi-kp-toop/kp-toop-final/src/vector.cxx || cmake_object_order_depends_target_MathInterpreter
-  DEP_FILE = CMakeFiles\MathInterpreter.dir\src\vector.cxx.obj.d
+build CMakeFiles/MathInterpreter.dir/src/types/vector.cxx.obj: CXX_COMPILER__MathInterpreter_unscanned_Debug C$:/repo/mi-kp-toop/kp-toop-final/src/types/vector.cxx || cmake_object_order_depends_target_MathInterpreter
+  DEP_FILE = CMakeFiles\MathInterpreter.dir\src\types\vector.cxx.obj.d
   FLAGS = -g -std=gnu++23
   INCLUDES = -IC:/gtest/include
   OBJECT_DIR = CMakeFiles\MathInterpreter.dir
-  OBJECT_FILE_DIR = CMakeFiles\MathInterpreter.dir\src
+  OBJECT_FILE_DIR = CMakeFiles\MathInterpreter.dir\src\types
 
 
 # =============================================================================
@@ -106,7 +141,7 @@ build CMakeFiles/MathInterpreter.dir/src/vector.cxx.obj: CXX_COMPILER__MathInter
 #############################################
 # Link the executable MathInterpreter.exe
 
-build MathInterpreter.exe: CXX_EXECUTABLE_LINKER__MathInterpreter_Debug CMakeFiles/MathInterpreter.dir/main.cxx.obj CMakeFiles/MathInterpreter.dir/src/variable.cxx.obj CMakeFiles/MathInterpreter.dir/src/rational.cxx.obj CMakeFiles/MathInterpreter.dir/src/base.cxx.obj CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.obj CMakeFiles/MathInterpreter.dir/src/utils.cxx.obj CMakeFiles/MathInterpreter.dir/src/vector.cxx.obj
+build MathInterpreter.exe: CXX_EXECUTABLE_LINKER__MathInterpreter_Debug CMakeFiles/MathInterpreter.dir/main.cxx.obj CMakeFiles/MathInterpreter.dir/src/types/variable.cxx.obj CMakeFiles/MathInterpreter.dir/src/types/rational.cxx.obj CMakeFiles/MathInterpreter.dir/src/types/matrix.cxx.obj CMakeFiles/MathInterpreter.dir/src/parsers/matrixparser.cxx.obj CMakeFiles/MathInterpreter.dir/src/parsers/rationalparser.cxx.obj CMakeFiles/MathInterpreter.dir/src/parsers/vectorparser.cxx.obj CMakeFiles/MathInterpreter.dir/src/parsers/variableparser.cxx.obj CMakeFiles/MathInterpreter.dir/src/base.cxx.obj CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.obj CMakeFiles/MathInterpreter.dir/src/utils.cxx.obj CMakeFiles/MathInterpreter.dir/src/types/vector.cxx.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/gtest/lib

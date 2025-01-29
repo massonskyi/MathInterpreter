@@ -6,63 +6,22 @@
 #include "../types/vector.tpp"
 #include "../types/variable.tpp"
 
-class MatrixParser final {
+
+class MatrixParser final{
 public:
-    static Matrix parse(const std::string& expr, size_t& index) {
-        Matrix _M_matrix;
+    using value_type = Matrix;
 
-        while (index < expr.size() && isspace(expr[index])) ++index;
-        if (expr[index] != '[') {
-            throw std::runtime_error("Expected '[' at the beginning of matrix.");
-        }
-        ++index;
+    /// @brief This static method is parsing the expression and returning the parsed object class
+    /// @param expr The expression to be parsed
+    /// @param index The index of the expression to be parsed in the expression
+    /// @return The parsed object class
+    static value_type parse(const std::string& expr, size_t& index);
 
-
-        while(index < expr.size() - 1) {
-            while (index < expr.size() && isspace(expr[index])) ++index;
-            if (expr[index] == '[') {
-                Vector row = VectorParser::parse(expr, index);
-                _M_matrix.push_back(row);
-            }
-            while(index < expr.size() && isspace(expr[index])) ++index;
-            if(expr[index] == ',') ++index;
-        };
-
-        if(expr[index] != ']') {
-            throw std::runtime_error("Expected ']' at the end of matrix.");
-        };
-
-        ++index;
-
-        return _M_matrix;
-    };
-
-    static bool search(const std::string& expr) {
-        size_t index = 0;
-
-        while (index < expr.size() && isspace(expr[index])) ++index;
-
-        if (expr[index] != '[') return false;
-        ++index;
-
-        bool rowStarted = false;
-        while (index < expr.size()) {
-            while (index < expr.size() && isspace(expr[index])) ++index;
-            if (expr[index] == '[') {
-                rowStarted = true;
-                VectorParser::parse(expr, index);
-            }
-            while (index < expr.size() && isspace(expr[index])) ++index;
-            if (expr[index] == ',') {
-                ++index;
-            }
-            if (expr[index] == ']') {
-                break;
-            }
-        }
-
-        while (index < expr.size() && isspace(expr[index])) ++index;
-        return expr[index] == ']' && rowStarted;
-    }
+    /// @brief This static method is parsing the expression and searching Class in this expression
+    /// @param expr The expression to be parsed
+    /// @return True if Class is found in the expression, false otherwise
+    static bool search(const std::string& expr);
 };
+
+
 #endif //MATRIXPARSER_HPP

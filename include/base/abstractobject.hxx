@@ -7,6 +7,8 @@
 
 #include "../core.tpp"
 using namespace std;
+
+
 /// @brief This class is used to represent an object
 class AbstractObject
 {
