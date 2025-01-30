@@ -5,8 +5,10 @@
 #include <stdexcept> // runtime_error
 #include <utility>
 
-#include "../core.tpp"
+#include "../core.hxx"
 using namespace std;
+
+
 /// @brief This class is used to represent an object
 class AbstractObject
 {

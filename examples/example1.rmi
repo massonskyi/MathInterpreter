@@ -1,0 +1,14 @@
+package rmi
+
+let V: vec = [1,2,3]
+V
+
+let x: num = 2
+x
+
+let Z: mat = [[1,2,3],[1,2,3]]
+Z
+
+
+let BB: mat = Z * V
+BB

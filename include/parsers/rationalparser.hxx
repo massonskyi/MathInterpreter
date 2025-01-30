@@ -2,52 +2,23 @@
 #define RATIONALPARSER_HPP
 
 #include "variableparser.hxx"
-#include "../types/rational.tpp"
+#include "../types/rational.hxx"
 
 class RationalParser final {
 public:
-    static Rational parse(const std::string& expr, size_t& index) {
-        const auto _M_num = VariableParser::parse(expr, index);
-        while(index < expr.size() && isspace(expr[index])) {
-            ++index;
-        }
-        if(expr[index] != '/') {
-            throw std::runtime_error("Expected '/' in rational number.");
-        }
-        ++index;
-        const auto _M_den = VariableParser::parse(expr, index);
-        return Rational(_M_num, _M_den);
-    }
+    using value_type = Rational;
 
+    /// @brief This static method is parsing the expression and returning the parsed object class
+    /// @param expr The expression to be parsed
+    /// @param index The index of the expression to be parsed in the expression
+    /// @return The parsed object class
+    static value_type parse(const std::string& expr, size_t& index);
 
-    // Статический метод для проверки, является ли строка рациональным числом
-    static bool search(const std::string& expr) {
-        size_t index = 0;
-
-        // Пропускаем начальные пробелы
-        while (index < expr.size() && isspace(expr[index])) ++index;
-
-        // Проверка на первый числитель (целое число)
-        if (!VariableParser::search(expr, index)) return false;
-
-        // Пропускаем пробелы после числителя
-        while (index < expr.size() && isspace(expr[index])) ++index;
-
-        // Проверка на наличие символа '/'
-        if (expr[index] != '/') return false;
-        ++index;
-
-        // Пропускаем пробелы после '/'
-        while (index < expr.size() && isspace(expr[index])) ++index;
-
-        // Проверка на знаменатель (целое число)
-        if (!VariableParser::search(expr, index)) return false;
-
-        // Пропускаем пробелы после знаменателя
-        while (index < expr.size() && isspace(expr[index])) ++index;
-
-        // Проверка на конец строки
-        return index == expr.size();
-    }
+    /// @brief This static method is parsing the expression and searching Class in this expression
+    /// @param expr The expression to be parsed
+    /// @return True if Class is found in the expression, false otherwise
+    static bool search(const std::string& expr);
 };
+
+
 #endif //RATIONALPARSER_HPP

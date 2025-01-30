@@ -5,7 +5,7 @@
 #include "../parsers/vectorparser.hxx"
 #include "../parsers/rationalparser.hxx"
 #include "../data/data.hxx"
-#include "../utils.tpp"
+#include "../utils.hxx"
 
 #include <regex>
 

@@ -13,39 +13,50 @@ set(GTEST_LIB_DIR "${GTEST_ROOT}/lib") # Path to your compiled GTest libraries
 include_directories(${GTEST_INCLUDE_DIR})
 link_directories(${GTEST_LIB_DIR})
 
-
 add_executable(MathInterpreter 
         main.cxx
         include/base/abstractcontainertype.hxx
         include/base/abstractobject.hxx
         include/base/abstractsimpletype.hxx
-        include/core.tpp
-        include/types/variable.tpp
-        include/types/rational.tpp
-        include/types/vector.tpp
-        include/types/matrix.tpp
-        include/interpreter.tpp
+        include/core.hxx
+        include/types/variable.hxx
+        include/types/rational.hxx
+        include/types/vector.hxx
+        include/types/matrix.hxx
+        include/interpreter.hxx
 
-        src/variable.cxx
-        src/rational.cxx
+        src/types/variable.cxx
+        src/types/rational.cxx
+        src/types/matrix.cxx
+        src/parsers/matrixparser.cxx
+        src/parsers/rationalparser.cxx
+        src/parsers/vectorparser.cxx
+        src/parsers/variableparser.cxx
+
         include/parsers/regexmanager.hxx
         include/parsers/variableparser.hxx
         include/parsers/vectorparser.hxx
         include/parsers/matrixparser.hxx
         include/parsers/rationalparser.hxx
-        include/parsers/expressionparser.tpp
+        include/math/expressionparser.hxx
         include/function/types.hxx
         include/function/base.hxx
-        include/function/binaryexecuter.tpp
+        include/math/binaryexecuter.hxx
         include/exceptions/exceptions.hxx
         src/base.cxx
         lib/cxxopts-3.2.0/include/cxxopts.hpp
         src/binaryexecute.cxx
         include/types/types.hxx
-        include/utils.tpp
+        include/utils.hxx
         include/function/typedetector.hxx
         src/utils.cxx
-        src/vector.cxx)
+        src/types/vector.cxx
+        
+        include/io/io.hxx
+        include/io/ioreader.hxx
+        include/io/iowriter.hxx
+        include/validators/functionbodyvalidator.hxx
+        )
 
 # Add tests
 enable_testing()
