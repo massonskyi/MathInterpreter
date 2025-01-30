@@ -2,7 +2,7 @@
 #define RATIONALPARSER_HPP
 
 #include "variableparser.hxx"
-#include "../types/rational.tpp"
+#include "../types/rational.hxx"
 
 class RationalParser final {
 public:

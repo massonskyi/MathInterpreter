@@ -2,9 +2,9 @@
 #define MATRIXPARSER_HPP
 
 #include "vectorparser.hxx"
-#include "../types/matrix.tpp"
-#include "../types/vector.tpp"
-#include "../types/variable.tpp"
+#include "../types/matrix.hxx"
+#include "../types/vector.hxx"
+#include "../types/variable.hxx"
 
 
 class MatrixParser final{

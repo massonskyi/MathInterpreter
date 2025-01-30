@@ -7,7 +7,7 @@
 #include <utility>
 #include <string>
 #include <sstream>
-
+#include "../validators/functionbodyvalidator.hxx"
 class FuncParser final{
 public:
     using func_args = std::vector<std::pair<std::string, std::string>>;
@@ -53,6 +53,11 @@ public:
             throw std::runtime_error("Invalid function declaration");
         }
         
+    }
+private:
+    void validate(const std::string& fn, func_args args, const std::string& body, const std::string rt) const {
+        FunctionBodyValidator validator(fn, args, body, rt);
+        validator.validate();
     }
 };
 #endif /* FUNCTION_PARSER_HPP*/

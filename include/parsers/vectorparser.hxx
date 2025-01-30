@@ -2,7 +2,7 @@
 #define VECTORPARSER_HPP
 
 #include "variableparser.hxx"
-#include "../types/vector.tpp"
+#include "../types/vector.hxx"
 
 class VectorParser final {
 public:

@@ -111,4 +111,40 @@ struct TypeMismatchError final: public Exception {
     /// @param err error message
     explicit TypeMismatchError(const std::string &err) : Exception(err) {};
 };
+
+// New custom exceptions for function validation
+struct InvalidReturnTypeError final : public Exception {
+    InvalidReturnTypeError() : Exception("Invalid return type usage") {}
+    explicit InvalidReturnTypeError(const std::string& err) : Exception(err) {}
+};
+
+struct UnbalancedBracesError final : public Exception {
+    UnbalancedBracesError() : Exception("Unbalanced braces in function body") {}
+    explicit UnbalancedBracesError(const std::string& err) : Exception(err) {}
+};
+
+struct MissingSemicolonError final : public Exception {
+    MissingSemicolonError() : Exception("Missing semicolons in statements") {}
+    explicit MissingSemicolonError(const std::string& err) : Exception(err) {}
+};
+
+struct UndeclaredVariableError final : public Exception {
+    UndeclaredVariableError() : Exception("Usage of undeclared variable") {}
+    explicit UndeclaredVariableError(const std::string& err) : Exception(err) {}
+};
+
+struct MissingLetKeywordError final : public Exception {
+    MissingLetKeywordError() : Exception("Missing 'let' keyword in parameter declaration") {}
+    explicit MissingLetKeywordError(const std::string& err) : Exception(err) {}
+};
+
+struct InvalidFunctionDeclarationError final : public Exception {
+    InvalidFunctionDeclarationError() : Exception("Invalid function declaration syntax") {}
+    explicit InvalidFunctionDeclarationError(const std::string& err) : Exception(err) {}
+};
+
+struct MissingReturnArrowError final : public Exception {
+    MissingReturnArrowError() : Exception("Missing return type arrow '->'") {}
+    explicit MissingReturnArrowError(const std::string& err) : Exception(err) {}
+};
 #endif /* EXCEPTIONS_HPP */

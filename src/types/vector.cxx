@@ -1,4 +1,4 @@
-#include "../../include/types/vector.tpp"
+#include "../../include/types/vector.hxx"
 
 Vector operator+(Vector vec, const Variable& other)
 {

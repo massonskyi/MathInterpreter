@@ -3,10 +3,10 @@
 #endif
 
 #include <iostream>
-#include "include/core.tpp"
-#include "include/interpreter.tpp"
+#include "include/core.hxx"
+#include "include/interpreter.hxx"
 #include "lib/cxxopts-3.2.0/include/cxxopts.hpp"
-#include "include/io/ioreader.tpp"
+#include "include/io/ioreader.hxx"
 
 #ifdef _WIN32
 void initConsole()

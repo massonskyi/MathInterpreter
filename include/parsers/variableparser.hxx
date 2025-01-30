@@ -1,7 +1,7 @@
 #ifndef VARIABLEPARSER_HPP
 #define VARIABLEPARSER_HPP
 
-#include "../types/variable.tpp"
+#include "../types/variable.hxx"
 
 class VariableParser final{
 public:
