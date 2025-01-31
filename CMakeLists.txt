@@ -3,7 +3,7 @@ project(MathInterpreter)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++23")
 # Paths to your prebuilt Google Test libraries
 set(GTEST_ROOT "C:/gtest") # Replace with the actual path to your GTest root directory
 set(GTEST_INCLUDE_DIR "${GTEST_ROOT}/include")
@@ -15,15 +15,15 @@ link_directories(${GTEST_LIB_DIR})
 
 add_executable(MathInterpreter 
         main.cxx
-        include/base/abstractcontainertype.hxx
-        include/base/abstractobject.hxx
-        include/base/abstractsimpletype.hxx
-        include/core.hxx
-        include/types/variable.hxx
-        include/types/rational.hxx
-        include/types/vector.hxx
-        include/types/matrix.hxx
-        include/interpreter.hxx
+        include/base/abstractcontainertype.h
+        include/base/abstractobject.h
+        include/base/abstractsimpletype.h
+        include/core.h
+        include/types/variable.h
+        include/types/rational.h
+        include/types/vector.h
+        include/types/matrix.h
+        include/interpreter.h
 
         src/types/variable.cxx
         src/types/rational.cxx
@@ -33,29 +33,28 @@ add_executable(MathInterpreter
         src/parsers/vectorparser.cxx
         src/parsers/variableparser.cxx
 
-        include/parsers/regexmanager.hxx
-        include/parsers/variableparser.hxx
-        include/parsers/vectorparser.hxx
-        include/parsers/matrixparser.hxx
-        include/parsers/rationalparser.hxx
-        include/math/expressionparser.hxx
-        include/function/types.hxx
-        include/function/base.hxx
-        include/math/binaryexecuter.hxx
-        include/exceptions/exceptions.hxx
+        include/parsers/regexmanager.h
+        include/parsers/variableparser.h
+        include/parsers/vectorparser.h
+        include/parsers/matrixparser.h
+        include/parsers/rationalparser.h
+        include/function/types.h
+        include/function/base.h
+        include/exceptions/exceptions.h
         src/base.cxx
         lib/cxxopts-3.2.0/include/cxxopts.hpp
-        src/binaryexecute.cxx
-        include/types/types.hxx
-        include/utils.hxx
-        include/function/typedetector.hxx
+        include/types/types.h
+        include/utils.h
+        include/function/typedetector.h
         src/utils.cxx
         src/types/vector.cxx
         
-        include/io/io.hxx
-        include/io/ioreader.hxx
-        include/io/iowriter.hxx
-        include/validators/functionbodyvalidator.hxx
+        include/io/io.h
+        include/io/ioreader.h
+        include/io/iowriter.h
+        include/validators/functionbodyvalidator.h
+        include/ast/ast.h
+        include/ast/ast_parser.h
         )
 
 # Add tests

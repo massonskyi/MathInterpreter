@@ -1,5 +1,5 @@
-#include "../../include/parsers/matrixparser.hxx"
-#include "../../include/parsers/vectorparser.hxx"
+#include "../../include/parsers/matrixparser.h"
+#include "../../include/parsers/vectorparser.h"
 
 MatrixParser::value_type 
 MatrixParser::parse(const std::string& expr, size_t& index) {

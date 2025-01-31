@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/massonskyi/repo/kp_toop/kp-toop-final/C:/gtest/include
 
-CXX_FLAGS = -g -std=gnu++23
+CXX_FLAGS =  -std=c++23 -g -std=gnu++23
 

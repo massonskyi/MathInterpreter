@@ -155,7 +155,7 @@ CMakeFiles/MathInterpreter.dir/main.cxx.o: \
  /usr/include/c++/13/bits/basic_ios.tcc \
  /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
  /usr/include/c++/13/bits/istream.tcc \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/core.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/core.h \
  /usr/include/c++/13/cstdint \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
@@ -198,7 +198,7 @@ CMakeFiles/MathInterpreter.dir/main.cxx.o: \
  /usr/include/c++/13/bits/ranges_algobase.h \
  /usr/include/c++/13/pstl/glue_memory_defs.h \
  /usr/include/c++/13/pstl/execution_defs.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/interpreter.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/interpreter.h \
  /usr/include/c++/13/fstream /usr/include/c++/13/bits/codecvt.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
@@ -239,17 +239,17 @@ CMakeFiles/MathInterpreter.dir/main.cxx.o: \
  /usr/include/c++/13/bits/regex_executor.h \
  /usr/include/c++/13/bits/regex_executor.tcc /usr/include/c++/13/utility \
  /usr/include/c++/13/bits/stl_relops.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/data/data.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/utils.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/base/abstractobject.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/base/../core.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/types.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/matrix.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/vector.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/../base/abstractcontainertype.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/../base/abstractobject.h \
  /usr/include/c++/13/vector \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/base/abstractobject.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/base/../core.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/exceptions.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/matrix.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/vector.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/../base/abstractcontainertype.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/../base/abstractobject.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/variable.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/../base/abstractsimpletype.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/variable.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/../base/abstractsimpletype.h \
  /usr/include/c++/13/variant /usr/include/c++/13/bits/parse_numbers.h \
  /usr/include/c++/13/cmath /usr/include/math.h \
  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
@@ -277,61 +277,55 @@ CMakeFiles/MathInterpreter.dir/main.cxx.o: \
  /usr/include/c++/13/array /usr/include/c++/13/bits/move_only_function.h \
  /usr/include/c++/13/bits/mofunc_impl.h /usr/include/c++/13/cxxabi.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/cxxabi_tweaks.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/variable.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/vector.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/rational.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/rational.h \
  /usr/include/c++/13/numeric /usr/include/c++/13/bits/stl_numeric.h \
  /usr/include/c++/13/pstl/glue_numeric_defs.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/regexmanager.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/matrixparser.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/vectorparser.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/variableparser.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../types/variable.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../types/vector.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../types/matrix.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/vectorparser.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/rationalparser.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../types/rational.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/variableparser.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/stringvalidator.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/functionparser.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../validators/functionbodyvalidator.hxx \
- /usr/include/c++/13/set /usr/include/c++/13/bits/stl_set.h \
- /usr/include/c++/13/bits/stl_multiset.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../validators/../exceptions/exceptions.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/base.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/types.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/data/data.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/exceptions.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/../ast/ast.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/../ast/../types/types.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/../ast/../function/base.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/../ast/../function/types.h \
  /usr/include/c++/13/unordered_set \
  /usr/include/c++/13/bits/unordered_set.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/math/binaryexecuter.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/math/../utils.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/math/../base/abstractobject.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/math/../types/types.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/math/../types/matrix.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/math/../types/rational.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/math/../types/variable.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/math/../types/vector.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/math/../types/matrix.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/math/../types/rational.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/math/../types/variable.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/math/../types/vector.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/math/../exceptions/exceptions.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/math/expressionparser.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/math/../types/types.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/math/expressionparser.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/io/ioreader.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/io/io.hxx \
- /usr/include/c++/13/expected /usr/include/c++/13/span \
- /usr/include/c++/13/filesystem /usr/include/c++/13/bits/fs_fwd.h \
- /usr/include/c++/13/bits/chrono.h /usr/include/c++/13/ratio \
- /usr/include/c++/13/bits/fs_path.h /usr/include/c++/13/iomanip \
- /usr/include/c++/13/bits/quoted_string.h /usr/include/c++/13/codecvt \
- /usr/include/c++/13/bits/fs_dir.h /usr/include/c++/13/bits/fs_ops.h \
- /usr/include/c++/13/format /usr/include/c++/13/charconv \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/matrix.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/variable.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/vector.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/rational.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/regexmanager.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/matrixparser.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/vectorparser.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/variableparser.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../types/variable.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../types/vector.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../types/matrix.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/vectorparser.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/rationalparser.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../types/rational.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/variableparser.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/functionparser.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../validators/functionbodyvalidator.h \
+ /usr/include/c++/13/set /usr/include/c++/13/bits/stl_set.h \
+ /usr/include/c++/13/bits/stl_multiset.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../validators/../exceptions/exceptions.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/base.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/io/ioreader.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/io/io.h \
+ /usr/include/c++/13/span /usr/include/c++/13/filesystem \
+ /usr/include/c++/13/bits/fs_fwd.h /usr/include/c++/13/bits/chrono.h \
+ /usr/include/c++/13/ratio /usr/include/c++/13/bits/fs_path.h \
+ /usr/include/c++/13/iomanip /usr/include/c++/13/bits/quoted_string.h \
+ /usr/include/c++/13/codecvt /usr/include/c++/13/bits/fs_dir.h \
+ /usr/include/c++/13/bits/fs_ops.h /usr/include/c++/13/expected \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/validators/stringvalidator.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/ast/ast.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/ast/ast_optimizer.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/ast/ast_parser.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/ast/ast.h \
  /usr/include/c++/13/optional \
  /home/massonskyi/repo/kp_toop/kp-toop-final/lib/cxxopts-3.2.0/include/cxxopts.hpp \
  /usr/include/c++/13/cstring /usr/include/string.h /usr/include/strings.h \
  /usr/include/c++/13/map /usr/include/c++/13/bits/stl_multimap.h \
  /usr/include/c++/13/algorithm /usr/include/c++/13/bits/ranges_algo.h \
  /usr/include/c++/13/pstl/glue_algorithm_defs.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/include/io/ioreader.hxx
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/io/ioreader.h

@@ -195,24 +195,10 @@ CMakeFiles/MathInterpreter.dir/src/base.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MathInterpreter.dir/src/base.cxx.s"
 	/usr/bin/g++-13 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/massonskyi/repo/kp_toop/kp-toop-final/src/base.cxx -o CMakeFiles/MathInterpreter.dir/src/base.cxx.s
 
-CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.o: CMakeFiles/MathInterpreter.dir/flags.make
-CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.o: /home/massonskyi/repo/kp_toop/kp-toop-final/src/binaryexecute.cxx
-CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.o: CMakeFiles/MathInterpreter.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/massonskyi/repo/kp_toop/kp-toop-final/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.o"
-	/usr/bin/g++-13 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.o -MF CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.o.d -o CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.o -c /home/massonskyi/repo/kp_toop/kp-toop-final/src/binaryexecute.cxx
-
-CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.i"
-	/usr/bin/g++-13 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/massonskyi/repo/kp_toop/kp-toop-final/src/binaryexecute.cxx > CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.i
-
-CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.s"
-	/usr/bin/g++-13 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/massonskyi/repo/kp_toop/kp-toop-final/src/binaryexecute.cxx -o CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.s
-
 CMakeFiles/MathInterpreter.dir/src/utils.cxx.o: CMakeFiles/MathInterpreter.dir/flags.make
 CMakeFiles/MathInterpreter.dir/src/utils.cxx.o: /home/massonskyi/repo/kp_toop/kp-toop-final/src/utils.cxx
 CMakeFiles/MathInterpreter.dir/src/utils.cxx.o: CMakeFiles/MathInterpreter.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/massonskyi/repo/kp_toop/kp-toop-final/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/MathInterpreter.dir/src/utils.cxx.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/massonskyi/repo/kp_toop/kp-toop-final/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/MathInterpreter.dir/src/utils.cxx.o"
 	/usr/bin/g++-13 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MathInterpreter.dir/src/utils.cxx.o -MF CMakeFiles/MathInterpreter.dir/src/utils.cxx.o.d -o CMakeFiles/MathInterpreter.dir/src/utils.cxx.o -c /home/massonskyi/repo/kp_toop/kp-toop-final/src/utils.cxx
 
 CMakeFiles/MathInterpreter.dir/src/utils.cxx.i: cmake_force
@@ -226,7 +212,7 @@ CMakeFiles/MathInterpreter.dir/src/utils.cxx.s: cmake_force
 CMakeFiles/MathInterpreter.dir/src/types/vector.cxx.o: CMakeFiles/MathInterpreter.dir/flags.make
 CMakeFiles/MathInterpreter.dir/src/types/vector.cxx.o: /home/massonskyi/repo/kp_toop/kp-toop-final/src/types/vector.cxx
 CMakeFiles/MathInterpreter.dir/src/types/vector.cxx.o: CMakeFiles/MathInterpreter.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/massonskyi/repo/kp_toop/kp-toop-final/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/MathInterpreter.dir/src/types/vector.cxx.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/massonskyi/repo/kp_toop/kp-toop-final/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/MathInterpreter.dir/src/types/vector.cxx.o"
 	/usr/bin/g++-13 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MathInterpreter.dir/src/types/vector.cxx.o -MF CMakeFiles/MathInterpreter.dir/src/types/vector.cxx.o.d -o CMakeFiles/MathInterpreter.dir/src/types/vector.cxx.o -c /home/massonskyi/repo/kp_toop/kp-toop-final/src/types/vector.cxx
 
 CMakeFiles/MathInterpreter.dir/src/types/vector.cxx.i: cmake_force
@@ -248,7 +234,6 @@ MathInterpreter_OBJECTS = \
 "CMakeFiles/MathInterpreter.dir/src/parsers/vectorparser.cxx.o" \
 "CMakeFiles/MathInterpreter.dir/src/parsers/variableparser.cxx.o" \
 "CMakeFiles/MathInterpreter.dir/src/base.cxx.o" \
-"CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.o" \
 "CMakeFiles/MathInterpreter.dir/src/utils.cxx.o" \
 "CMakeFiles/MathInterpreter.dir/src/types/vector.cxx.o"
 
@@ -264,12 +249,11 @@ MathInterpreter: CMakeFiles/MathInterpreter.dir/src/parsers/rationalparser.cxx.o
 MathInterpreter: CMakeFiles/MathInterpreter.dir/src/parsers/vectorparser.cxx.o
 MathInterpreter: CMakeFiles/MathInterpreter.dir/src/parsers/variableparser.cxx.o
 MathInterpreter: CMakeFiles/MathInterpreter.dir/src/base.cxx.o
-MathInterpreter: CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.o
 MathInterpreter: CMakeFiles/MathInterpreter.dir/src/utils.cxx.o
 MathInterpreter: CMakeFiles/MathInterpreter.dir/src/types/vector.cxx.o
 MathInterpreter: CMakeFiles/MathInterpreter.dir/build.make
 MathInterpreter: CMakeFiles/MathInterpreter.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/massonskyi/repo/kp_toop/kp-toop-final/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable MathInterpreter"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/massonskyi/repo/kp_toop/kp-toop-final/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable MathInterpreter"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MathInterpreter.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

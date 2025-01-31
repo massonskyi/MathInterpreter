@@ -1,10 +1,10 @@
 CMakeFiles/MathInterpreter.dir/src/parsers/variableparser.cxx.o: \
  /home/massonskyi/repo/kp_toop/kp-toop-final/src/parsers/variableparser.cxx \
  /usr/include/stdc-predef.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/parsers/../../include/parsers/variableparser.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/parsers/../../include/parsers/../types/variable.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/parsers/../../include/parsers/../types/../base/abstractsimpletype.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/parsers/../../include/parsers/../types/../base/abstractobject.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/parsers/../../include/parsers/variableparser.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/parsers/../../include/parsers/../types/variable.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/parsers/../../include/parsers/../types/../base/abstractsimpletype.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/parsers/../../include/parsers/../types/../base/abstractobject.h \
  /usr/include/c++/13/string /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -129,7 +129,7 @@ CMakeFiles/MathInterpreter.dir/src/parsers/variableparser.cxx.o: \
  /usr/include/c++/13/bits/cxxabi_init_exception.h \
  /usr/include/c++/13/typeinfo /usr/include/c++/13/bits/nested_exception.h \
  /usr/include/c++/13/utility /usr/include/c++/13/bits/stl_relops.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/parsers/../../include/parsers/../types/../base/../core.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/parsers/../../include/parsers/../types/../base/../core.h \
  /usr/include/c++/13/cstdint \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \

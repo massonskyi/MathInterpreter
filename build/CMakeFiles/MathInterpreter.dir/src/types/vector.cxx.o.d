@@ -1,9 +1,9 @@
 CMakeFiles/MathInterpreter.dir/src/types/vector.cxx.o: \
  /home/massonskyi/repo/kp_toop/kp-toop-final/src/types/vector.cxx \
  /usr/include/stdc-predef.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/types/../../include/types/vector.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/types/../../include/types/../base/abstractcontainertype.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/types/../../include/types/../base/abstractobject.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/types/../../include/types/vector.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/types/../../include/types/../base/abstractcontainertype.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/types/../../include/types/../base/abstractobject.h \
  /usr/include/c++/13/string /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -128,7 +128,7 @@ CMakeFiles/MathInterpreter.dir/src/types/vector.cxx.o: \
  /usr/include/c++/13/bits/cxxabi_init_exception.h \
  /usr/include/c++/13/typeinfo /usr/include/c++/13/bits/nested_exception.h \
  /usr/include/c++/13/utility /usr/include/c++/13/bits/stl_relops.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/types/../../include/types/../base/../core.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/types/../../include/types/../base/../core.h \
  /usr/include/c++/13/cstdint \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
@@ -207,8 +207,8 @@ CMakeFiles/MathInterpreter.dir/src/types/vector.cxx.o: \
  /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
  /usr/include/c++/13/bits/vector.tcc \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/types/../../include/types/variable.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/types/../../include/types/../base/abstractsimpletype.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/types/../../include/types/variable.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/types/../../include/types/../base/abstractsimpletype.h \
  /usr/include/c++/13/variant \
  /usr/include/c++/13/bits/enable_special_members.h \
  /usr/include/c++/13/bits/parse_numbers.h /usr/include/c++/13/sstream \

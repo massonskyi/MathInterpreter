@@ -1,8 +1,8 @@
 CMakeFiles/MathInterpreter.dir/src/base.cxx.o: \
  /home/massonskyi/repo/kp_toop/kp-toop-final/src/base.cxx \
  /usr/include/stdc-predef.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/function/base.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/function/types.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/function/base.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/function/types.h \
  /usr/include/c++/13/string /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -188,13 +188,13 @@ CMakeFiles/MathInterpreter.dir/src/base.cxx.o: \
  /usr/include/c++/13/tr1/poly_hermite.tcc \
  /usr/include/c++/13/tr1/poly_laguerre.tcc \
  /usr/include/c++/13/tr1/riemann_zeta.tcc \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/types.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/matrix.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/vector.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/../base/abstractcontainertype.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/../base/abstractobject.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/types.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/matrix.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/vector.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/../base/abstractcontainertype.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/../base/abstractobject.h \
  /usr/include/c++/13/utility /usr/include/c++/13/bits/stl_relops.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/../base/../core.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/../base/../core.h \
  /usr/include/c++/13/cstdint \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
@@ -239,8 +239,8 @@ CMakeFiles/MathInterpreter.dir/src/base.cxx.o: \
  /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
  /usr/include/c++/13/bits/vector.tcc \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/variable.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/../base/abstractsimpletype.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/variable.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/../base/abstractsimpletype.h \
  /usr/include/c++/13/variant /usr/include/c++/13/bits/parse_numbers.h \
  /usr/include/c++/13/sstream /usr/include/c++/13/bits/sstream.tcc \
  /usr/include/c++/13/bitset /usr/include/c++/13/fstream \
@@ -258,6 +258,6 @@ CMakeFiles/MathInterpreter.dir/src/base.cxx.o: \
  /usr/include/c++/13/bits/move_only_function.h \
  /usr/include/c++/13/bits/mofunc_impl.h /usr/include/c++/13/cxxabi.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/cxxabi_tweaks.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/rational.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/rational.h \
  /usr/include/c++/13/numeric /usr/include/c++/13/bits/stl_numeric.h \
  /usr/include/c++/13/pstl/glue_numeric_defs.h

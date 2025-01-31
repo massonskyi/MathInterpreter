@@ -1,7 +1,7 @@
 CMakeFiles/MathInterpreter.dir/src/utils.cxx.o: \
  /home/massonskyi/repo/kp_toop/kp-toop-final/src/utils.cxx \
  /usr/include/stdc-predef.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/utils.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/utils.h \
  /usr/include/c++/13/type_traits \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -198,19 +198,19 @@ CMakeFiles/MathInterpreter.dir/src/utils.cxx.o: \
  /usr/include/c++/13/bits/ranges_algobase.h \
  /usr/include/c++/13/pstl/glue_memory_defs.h \
  /usr/include/c++/13/pstl/execution_defs.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/base/abstractobject.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/base/abstractobject.h \
  /usr/include/c++/13/utility /usr/include/c++/13/bits/stl_relops.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/base/../core.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/types.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/matrix.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/vector.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/../base/abstractcontainertype.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/../base/abstractobject.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/base/../core.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/types.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/matrix.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/vector.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/../base/abstractcontainertype.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/../base/abstractobject.h \
  /usr/include/c++/13/vector /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
  /usr/include/c++/13/bits/vector.tcc \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/variable.hxx \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/../base/abstractsimpletype.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/variable.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/../base/abstractsimpletype.h \
  /usr/include/c++/13/variant \
  /usr/include/c++/13/bits/enable_special_members.h \
  /usr/include/c++/13/bits/parse_numbers.h /usr/include/c++/13/sstream \
@@ -255,6 +255,6 @@ CMakeFiles/MathInterpreter.dir/src/utils.cxx.o: \
  /usr/include/c++/13/bits/move_only_function.h \
  /usr/include/c++/13/bits/mofunc_impl.h /usr/include/c++/13/cxxabi.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/cxxabi_tweaks.h \
- /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/rational.hxx \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/src/../include/types/rational.h \
  /usr/include/c++/13/numeric /usr/include/c++/13/bits/stl_numeric.h \
  /usr/include/c++/13/pstl/glue_numeric_defs.h

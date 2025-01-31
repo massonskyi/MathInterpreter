@@ -3,8 +3,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/MathInterpreter.dir/main.cxx.o.d"
   "CMakeFiles/MathInterpreter.dir/src/base.cxx.o"
   "CMakeFiles/MathInterpreter.dir/src/base.cxx.o.d"
-  "CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.o"
-  "CMakeFiles/MathInterpreter.dir/src/binaryexecute.cxx.o.d"
   "CMakeFiles/MathInterpreter.dir/src/parsers/matrixparser.cxx.o"
   "CMakeFiles/MathInterpreter.dir/src/parsers/matrixparser.cxx.o.d"
   "CMakeFiles/MathInterpreter.dir/src/parsers/rationalparser.cxx.o"
