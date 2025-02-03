@@ -44,4 +44,5 @@ Rational _M_sin(const Rational& x);
 ///@brief _M_cos function for rational
 Rational _M_cos( Rational& x);
 
+
 #endif //FUNCTION_BASE_HPP

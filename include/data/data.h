@@ -5,8 +5,8 @@
 
 /// @brief This is all avalaible reserved words
 const std::vector<std::string> RESERVED = {
-    "+ - * / % += -= *= /= %= = == !=",
-    "fn let if else for for_each loop match using "
+    "+ - * / % += -= *= /= %= = == != fn",
+    " let if else for for_each loop match using "
 };
 
 enum class Operator{

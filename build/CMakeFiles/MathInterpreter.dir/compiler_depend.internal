@@ -15,7 +15,9 @@ CMakeFiles/MathInterpreter.dir/main.cxx.o
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/types.h
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/ast/ast.h
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/exceptions.h
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/ast/ast.h
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/base.h
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/lambdainterpreter.h
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/interpreter.h
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/io/io.h
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/io/ioreader.h

@@ -9,8 +9,10 @@
 #include "../types/types.h"
 #include "../function/base.h"
 
+class FunctionDefinitionNode;
 using ASTValue = std::variant<Variable, Vector, Matrix, Rational>;
 
+using ASTFunc = std::shared_ptr<FunctionDefinitionNode>;
 std::ostream& operator << (const ASTValue& value, std::ostream& os) {
     if (std::holds_alternative<Variable>(value)) {
         os << std::get<Variable>(value).toString();
@@ -24,6 +26,7 @@ std::ostream& operator << (const ASTValue& value, std::ostream& os) {
 
     return os;
 }
+
 std::ostream& operator << (std::ostream& os, const ASTValue& value) {
     if (std::holds_alternative<Variable>(value)) {
         os << std::get<Variable>(value).toString();
@@ -93,13 +96,26 @@ public:
     bool findVariable(const std::string& name) const {
         return variables_.find(name) != variables_.end();
     }
-
+    bool findFunction(const std::string& name) const {
+        return functions_.find(name) != functions_.end();
+    }
     const ASTContext& context() const { return *this; }
 
     std::unordered_map<std::string, ASTValue> variables() const { return variables_; }
+    std::unordered_map<std::string, ASTFunc> functions() const { return functions_; }
+    void addFunction(const std::string& name, ASTFunc function) {
+        functions_[name] = std::move(function);
+    }
 
+    ASTFunc getFunction(const std::string& name) const {
+        if (auto it = functions_.find(name); it != functions_.end()) {
+            return it->second;
+        }
+        throw std::runtime_error("Function not found: " + name);
+    }
 private:
     std::unordered_map<std::string, ASTValue> variables_;
+    std::unordered_map<std::string, ASTFunc> functions_;
 };
 
 class NumberNode : public ASTNode {
@@ -171,12 +187,12 @@ public:
         elements = other.elements;
         pos = other.pos;
     }
-    [[nodiscard]] ASTValue evaluate() const override {
-        Vector vec;
-        for (const auto& elem : elements) {
-            vec.push_back(std::get<Variable>(elem->evaluate()));
+    ASTValue evaluate() const override {
+        Vector result;
+        for (const auto& element : elements) {
+            result.push_back(std::get<Variable>(element->evaluate()));
         }
-        return vec;
+        return result; // Возвращаем вектор как значение
     }
     void addElement(const std::shared_ptr<ASTNode>& element) {
         elements.push_back(element);
@@ -376,53 +392,178 @@ private:
     std::shared_ptr<ASTNode> right;
     Position pos;
 };
+class FunctionDefinitionNode : public ASTNode, public std::enable_shared_from_this<FunctionDefinitionNode> {
+public:
+    FunctionDefinitionNode(ASTContext& context) // Default constructor with context
+        : name(""), parameters({}), returnType(""), body(nullptr), pos({0, 0}), context(context) {}
+
+    FunctionDefinitionNode(
+        const std::string& name,
+        const std::vector<std::pair<std::string, std::string>>& parameters,
+        const std::string& returnType,
+        std::shared_ptr<ASTNode> body,
+        ASTContext& context,
+        ASTNode::Position position = {0, 0})
+        : name(name), 
+        parameters(parameters), 
+        returnType(returnType),
+        body(std::move(body)), 
+        context(context), 
+        pos(position) {}
+
+    FunctionDefinitionNode(const FunctionDefinitionNode& other)
+        : name(other.name), parameters(other.parameters), returnType(other.returnType), body(other.body), context(other.context), pos(other.pos) {}
+
+    FunctionDefinitionNode(FunctionDefinitionNode&& other)
+        : name(std::move(other.name)), parameters(std::move(other.parameters)), returnType(std::move(other.returnType)),
+          body(std::move(other.body)), context(other.context), pos(std::move(other.pos)) {}
+
+    FunctionDefinitionNode& operator=(const FunctionDefinitionNode& other) {
+        name = other.name;
+        parameters = other.parameters;
+        returnType = other.returnType;
+        body = other.body;
+        context = other.context;
+        pos = other.pos;
+        return *this;
+    }
+    void setLocaleContext(ASTContext& context) {
+        this->context = context;
+    }
+    ASTValue evaluate() const override {
+        auto funcDef = std::make_shared<FunctionDefinitionNode>(
+            name, parameters, returnType, body, context, pos);
+        context.addFunction(name, funcDef);
+        return ASTValue(); // Function definitions do not produce a value
+    }
+
+    std::string toString() const override {
+        std::string result = "fn " + name + "(";
+        for (size_t i = 0; i < parameters.size(); ++i) {
+            result += "let " + parameters[i].first + ": " + parameters[i].second;
+            if (i < parameters.size() - 1) result += ", ";
+        }
+        result += ") -> " + returnType + " { " + body->toString() + " }";
+        return result;
+    }
+    void print() const {
+        std::cout << toString() << std::endl;
+    }
+    [[nodiscard]] Position position() const override { return pos; }
+
+    friend std::ostream &operator<<(std::ostream &os, const FunctionDefinitionNode &node) {
+        os << node.toString();
+        return os;
+    }
+
+    std::string Name() const { return name; }
+    std::string ReturnType() const { return returnType; }
+    std::vector<std::pair<std::string, std::string>> Parameters() const { return parameters; }
+    std::shared_ptr<ASTNode> Body() const { return body; }
+    const ASTContext& getContext() const { return context; }
+private:
+    std::string name;
+    std::vector<std::pair<std::string, std::string>> parameters;
+    std::string returnType;
+    std::shared_ptr<ASTNode> body;
+    ASTContext& context;
+    ASTNode::Position pos;
+};
+
 
 class FunctionCallNode : public ASTNode {
 public:
-    FunctionCallNode(std::string name, std::vector<std::shared_ptr<ASTNode>> args, Position pos = {0, 0})
-        : name(std::move(name)), args(std::move(args)), pos(pos)  {}
+    // Parameterized constructor
+    FunctionCallNode(std::string name, std::vector<std::shared_ptr<ASTNode>> args, ASTContext& ctx, Position pos = {0, 0})
+        : name(std::move(name)), args(std::move(args)), pos(pos), ctx(ctx)  {}
 
-    [[nodiscard]] ASTValue evaluate() const override {
-        std::vector<ASTValue> evaluated_args;
-        evaluated_args.reserve(args.size());
-        for (const auto& arg : args) {
-            evaluated_args.push_back(arg->evaluate());
-        }
+    // Copy constructor
+    FunctionCallNode(const FunctionCallNode& other)
+        : name(other.name), args(other.args), pos(other.pos), ctx(other.ctx)  {}
 
-        if (name == "sin") {
-            if (evaluated_args.size() != 1)
-                throw std::runtime_error("Function 'sin' expects 1 argument");
-            return std::visit([](auto& arg) -> ASTValue {
-                return _M_sin(arg);
-                }, evaluated_args[0]);
+    // Move constructor
+    FunctionCallNode(FunctionCallNode&& other) noexcept
+        : name(std::move(other.name)), args(std::move(other.args)), pos(other.pos), ctx(other.ctx) {}
+
+    // Destructor
+    ~FunctionCallNode() override = default;
+
+    // Copy assignment operator
+    FunctionCallNode& operator=(const FunctionCallNode& other) {
+        if (this != &other) {
+            name = other.name;
+            args = other.args;
+            pos = other.pos;
+            ctx = other.ctx;
         }
-        if (name == "cos") {
-            if (evaluated_args.size() != 1)
-                throw std::runtime_error("Function 'cos' expects 1 argument");
-            return std::visit([](auto& arg) -> ASTValue {
-                return _M_cos(arg);
-                }, evaluated_args[0]);
-        }
-        // Добавьте другие функции (например, "sqrt", "log", "exp")
-        throw std::runtime_error("Unknown function: " + name);
+        return *this;
     }
 
+    // Move assignment operator
+    FunctionCallNode& operator=(FunctionCallNode&& other) noexcept {
+        if (this != &other) {
+            name = std::move(other.name);
+            args = std::move(other.args);
+            pos = other.pos;
+        }
+        return *this;
+    }
+
+    // Evaluate the function call
+    ASTValue evaluate() const override{
+        auto funcDef = std::dynamic_pointer_cast<FunctionDefinitionNode>(ctx.getFunction(name));
+        if (!funcDef) {
+            throw std::runtime_error("Unknown function: " + name);
+        }
+
+        // Access member functions of FunctionDefinitionNode
+        const auto& parameters = funcDef->Parameters();
+        auto body = funcDef->Body();
+
+        // Evaluate arguments
+        std::vector<ASTValue> evaluatedArgs;
+        evaluatedArgs.reserve(args.size());
+        for (const auto& arg : args) {
+            evaluatedArgs.push_back(arg->evaluate());
+        }
+
+        // Create a new scope for the function call
+        ASTContext localContext(ctx); // Inherit the parent context
+        if (parameters.size() != evaluatedArgs.size()) {
+            throw std::runtime_error("Argument count mismatch for function: " + name);
+        }
+
+        // Bind arguments to parameters in the new scope
+        for (size_t i = 0; i < parameters.size(); ++i) {
+            localContext.setVariable(parameters[i].first, evaluatedArgs[i]);
+        }
+
+        funcDef->setLocaleContext(localContext); // Set the new context for the function body
+        return funcDef->Body()->evaluate();
+    }
+    // Generate a string representation of the function call
     [[nodiscard]] std::string toString() const override {
         std::string result = name + "(";
         for (size_t i = 0; i < args.size(); ++i) {
             result += args[i]->toString();
-            if (i < args.size() - 1) result += ", ";
+            if (i < args.size() - 1) {
+                result += ", ";
+            }
         }
         result += ")";
         return result;
     }
+
+    // Accessors
     [[nodiscard]] std::string Name() const { return name; }
-    [[nodiscard]] std::vector<std::shared_ptr<ASTNode>> Args() const { return args; }
+    [[nodiscard]] const std::vector<std::shared_ptr<ASTNode>>& Args() const { return args; }
     [[nodiscard]] Position position() const override { return pos; }
+
 private:
-    std::string name;
-    std::vector<std::shared_ptr<ASTNode>> args;
-    Position pos;
+    std::string name; // Name of the function
+    std::vector<std::shared_ptr<ASTNode>> args; // Arguments passed to the function
+    Position pos; // Position in the source code
+    ASTContext& ctx; // Reference to the parent context
 };
 
 

@@ -14,7 +14,9 @@ CMakeFiles/MathInterpreter.dir/main.cxx.o: /home/massonskyi/repo/kp_toop/kp-toop
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/types.h \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/ast/ast.h \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/exceptions/exceptions.h \
+  /home/massonskyi/repo/kp_toop/kp-toop-final/include/ast/ast.h \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/base.h \
+  /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/lambdainterpreter.h \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/interpreter.h \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/io/io.h \
   /home/massonskyi/repo/kp_toop/kp-toop-final/include/io/ioreader.h \
@@ -2930,6 +2932,8 @@ CMakeFiles/MathInterpreter.dir/src/utils.cxx.o: /home/massonskyi/repo/kp_toop/kp
 
 /usr/include/c++/13/bits/enable_special_members.h:
 
+/usr/include/c++/13/bits/deque.tcc:
+
 /home/massonskyi/repo/kp_toop/kp-toop-final/include/types/rational.h:
 
 /usr/include/c++/13/backward/auto_ptr.h:
@@ -2978,6 +2982,14 @@ CMakeFiles/MathInterpreter.dir/src/utils.cxx.o: /home/massonskyi/repo/kp_toop/kp
 
 /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/types.h:
 
+/usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
+
+/home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/vectorparser.h:
+
+/usr/include/string.h:
+
+/home/massonskyi/repo/kp_toop/kp-toop-final/include/io/io.h:
+
 /usr/include/c++/13/bits/ostream_insert.h:
 
 /usr/include/c++/13/bits/stl_set.h:
@@ -2989,10 +3001,6 @@ CMakeFiles/MathInterpreter.dir/src/utils.cxx.o: /home/massonskyi/repo/kp_toop/kp
 /home/massonskyi/repo/kp_toop/kp-toop-final/include/ast/ast.h:
 
 /usr/include/c++/13/bits/max_size_type.h:
-
-/usr/include/c++/13/bits/specfun.h:
-
-/usr/include/c++/13/bits/streambuf.tcc:
 
 /usr/include/stdint.h:
 
@@ -3021,16 +3029,6 @@ CMakeFiles/MathInterpreter.dir/src/utils.cxx.o: /home/massonskyi/repo/kp_toop/kp
 /usr/include/c++/13/bits/concept_check.h:
 
 /usr/include/c++/13/bits/alloc_traits.h:
-
-/usr/include/c++/13/bits/deque.tcc:
-
-/usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
-
-/home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/vectorparser.h:
-
-/usr/include/string.h:
-
-/home/massonskyi/repo/kp_toop/kp-toop-final/include/io/io.h:
 
 /usr/include/c++/13/bits/regex_constants.h:
 
@@ -3136,6 +3134,10 @@ CMakeFiles/MathInterpreter.dir/src/utils.cxx.o: /home/massonskyi/repo/kp_toop/kp
 
 /usr/include/c++/13/typeinfo:
 
+/usr/include/c++/13/bits/streambuf.tcc:
+
+/usr/include/c++/13/bits/specfun.h:
+
 /usr/include/c++/13/bits/sstream.tcc:
 
 /usr/include/c++/13/cwctype:
@@ -3159,6 +3161,8 @@ CMakeFiles/MathInterpreter.dir/src/utils.cxx.o: /home/massonskyi/repo/kp_toop/kp
 /usr/include/c++/13/bits/std_mutex.h:
 
 /usr/include/c++/13/bits/stl_construct.h:
+
+/home/massonskyi/repo/kp_toop/kp-toop-final/include/function/lambdainterpreter.h:
 
 /usr/include/c++/13/bits/stl_algo.h:
 
@@ -3310,6 +3314,12 @@ CMakeFiles/MathInterpreter.dir/src/utils.cxx.o: /home/massonskyi/repo/kp_toop/kp
 
 /usr/include/c++/13/functional:
 
+/usr/include/limits.h:
+
+/usr/include/c++/13/tr1/bessel_function.tcc:
+
+/usr/include/c++/13/initializer_list:
+
 /usr/include/c++/13/ios:
 
 /usr/include/c++/13/iostream:
@@ -3361,12 +3371,6 @@ CMakeFiles/MathInterpreter.dir/src/utils.cxx.o: /home/massonskyi/repo/kp_toop/kp
 /usr/include/c++/13/tr1/ell_integral.tcc:
 
 /usr/include/c++/13/tr1/exp_integral.tcc:
-
-/usr/include/c++/13/tr1/bessel_function.tcc:
-
-/usr/include/c++/13/initializer_list:
-
-/usr/include/limits.h:
 
 /usr/include/c++/13/tr1/legendre_function.tcc:
 

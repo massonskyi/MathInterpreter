@@ -47,7 +47,7 @@ public:
     // Виртуальный метод для вывода
     void print(std::ostream &os) const override
     {
-        std::cout << *this << std::endl;
+        os << toString() << std::endl;
     }
     /// @brief This method returns object by index its index container
     /// @param index of the object

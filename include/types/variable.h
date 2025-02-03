@@ -543,12 +543,10 @@ public:
             throw std::runtime_error("Error comparing values: " + std::string(e.what()));
         }
     }
-    // Виртуальный метод для вывода
     void print(std::ostream &os) const override
     {
-        std::cout << *this << std::endl;
+        os << toString() << std::endl;
     }
-
     bool operator==(Variable &&other) noexcept
     {
         try

@@ -309,6 +309,8 @@ CMakeFiles/MathInterpreter.dir/main.cxx.o: \
  /usr/include/c++/13/bits/stl_multiset.h \
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/parsers/../validators/../exceptions/exceptions.h \
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/base.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/lambdainterpreter.h \
+ /home/massonskyi/repo/kp_toop/kp-toop-final/include/function/../ast/ast.h \
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/io/ioreader.h \
  /home/massonskyi/repo/kp_toop/kp-toop-final/include/io/io.h \
  /usr/include/c++/13/span /usr/include/c++/13/filesystem \

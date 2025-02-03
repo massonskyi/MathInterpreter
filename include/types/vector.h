@@ -68,7 +68,7 @@ public:
     // Виртуальный метод для вывода
     void print(std::ostream &os) const override
     {
-        std::cout << *this << std::endl;
+        os << toString() << std::endl;
     }
     /// @brief This method adds object to the container
     /// @param object to add be added to the container
