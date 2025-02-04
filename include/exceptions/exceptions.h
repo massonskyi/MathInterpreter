@@ -4,6 +4,7 @@
 #include <string>
 #include <stdexcept>
 
+#include "../ast/ast.h"
 /// @brief This strucutre is used to throw exceptions
 struct Exception : public std::exception
 {
@@ -146,5 +147,19 @@ struct InvalidFunctionDeclarationError final : public Exception {
 struct MissingReturnArrowError final : public Exception {
     MissingReturnArrowError() : Exception("Missing return type arrow '->'") {}
     explicit MissingReturnArrowError(const std::string& err) : Exception(err) {}
+};
+
+
+class ASTError : public Exception{
+public:
+    ASTError(const std::string& msg, const ASTNode& node)
+        : Exception(format_message(msg, node)) {}
+
+private:
+    static std::string format_message(const std::string& msg, const ASTNode& node) {
+        std::stringstream ss;
+        ss << "Error at " << node.position() << ": " << msg;
+        return ss.str();
+    }
 };
 #endif /* EXCEPTIONS_HPP */

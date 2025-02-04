@@ -1,7 +1,7 @@
 //
 // Created by massonskyi on 28.01.25.
 //
-#include "../include/utils.hxx"
+#include "../include/utils.h"
 
 std::string to_lower(const std::string& s) {
     std::string result;

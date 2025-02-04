@@ -1,12 +1,13 @@
-#ifndef VARIABLEPARSER_HPP
-#define VARIABLEPARSER_HPP
+#ifndef VECTORPARSER_HPP
+#define VECTORPARSER_HPP
 
-#include "../types/variable.hxx"
+#include "variableparser.h"
+#include "../types/vector.h"
 
-class VariableParser final{
+class VectorParser final {
 public:
-    using value_type = Variable;
-    
+    using value_type = Vector;
+
     /// @brief This static method is parsing the expression and returning the parsed object class
     /// @param expr The expression to be parsed
     /// @param index The index of the expression to be parsed in the expression
@@ -16,8 +17,8 @@ public:
     /// @brief This static method is parsing the expression and searching Class in this expression
     /// @param expr The expression to be parsed
     /// @return True if Class is found in the expression, false otherwise
-    static bool search(const std::string& expr, size_t& index);
+    static bool search(const std::string& expr);
 };
 
 
-#endif //VARIABLEPARSER_HPP
+#endif //VECTORPARSER_HPP

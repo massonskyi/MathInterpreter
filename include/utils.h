@@ -9,9 +9,9 @@
 #include <cstdint>
 #include <iostream>
 #include <memory>
-#include "base/abstractobject.hxx"
+#include "base/abstractobject.h"
 
-#include "types/types.hxx"
+#include "types/types.h"
 
 
 // Concept for allowed entity types
@@ -54,7 +54,7 @@ void append_(Container& obj, const Key& name, Value&& var) {
 
 template<typename Container, typename Key, typename Value>
 void upload_(Container& obj, const Key& name, Value&& var) {
-    obj[name] = std::forward<Value>(var);
+    obj.setVariable(name, std::forward<Value>(var));
 }
 
 // Compile-time string conversion utilities

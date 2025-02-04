@@ -1,7 +1,7 @@
 #ifndef IOWRITER_TPP
 #define IOWRITER_TPP
 
-#include "ioreader.hxx"
+#include "ioreader.h"
 #include <regex>
 
 // Класс для записи файлов

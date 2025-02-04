@@ -1,7 +1,7 @@
 #ifndef FUNCTION_BASE_HPP
 #define FUNCTION_BASE_HPP
 
-#include "types.hxx"
+#include "types.h"
 
 class Variable;
 class Vector;
@@ -43,5 +43,6 @@ Rational _M_sin(const Rational& x);
 
 ///@brief _M_cos function for rational
 Rational _M_cos( Rational& x);
+
 
 #endif //FUNCTION_BASE_HPP

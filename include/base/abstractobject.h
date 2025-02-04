@@ -5,7 +5,7 @@
 #include <stdexcept> // runtime_error
 #include <utility>
 
-#include "../core.hxx"
+#include "../core.h"
 using namespace std;
 
 

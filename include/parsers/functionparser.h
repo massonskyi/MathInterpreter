@@ -7,7 +7,7 @@
 #include <utility>
 #include <string>
 #include <sstream>
-#include "../validators/functionbodyvalidator.hxx"
+#include "../validators/functionbodyvalidator.h"
 class FuncParser final{
 public:
     using func_args = std::vector<std::pair<std::string, std::string>>;

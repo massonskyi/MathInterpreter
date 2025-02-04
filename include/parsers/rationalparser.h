@@ -1,12 +1,12 @@
-#ifndef VECTORPARSER_HPP
-#define VECTORPARSER_HPP
+#ifndef RATIONALPARSER_HPP
+#define RATIONALPARSER_HPP
 
-#include "variableparser.hxx"
-#include "../types/vector.hxx"
+#include "variableparser.h"
+#include "../types/rational.h"
 
-class VectorParser final {
+class RationalParser final {
 public:
-    using value_type = Vector;
+    using value_type = Rational;
 
     /// @brief This static method is parsing the expression and returning the parsed object class
     /// @param expr The expression to be parsed
@@ -21,4 +21,4 @@ public:
 };
 
 
-#endif //VECTORPARSER_HPP
+#endif //RATIONALPARSER_HPP

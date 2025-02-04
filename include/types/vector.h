@@ -1,8 +1,8 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-#include "../base/abstractcontainertype.hxx"
-#include "variable.hxx"
+#include "../base/abstractcontainertype.h"
+#include "variable.h"
 #include <vector>
 
 /// @brief The Vector class represents a vector of integers
@@ -68,7 +68,7 @@ public:
     // Виртуальный метод для вывода
     void print(std::ostream &os) const override
     {
-        std::cout << *this << std::endl;
+        os << toString() << std::endl;
     }
     /// @brief This method adds object to the container
     /// @param object to add be added to the container

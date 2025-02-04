@@ -1,7 +1,7 @@
 #ifndef RATIONAL_H
 #define RATIONAL_H
 
-#include "variable.hxx"
+#include "variable.h"
 #include <numeric>
 #include <utility>
 
@@ -42,10 +42,9 @@ public:
 
     /// @brief Destructor
     ~Rational() override = default;
-    // Виртуальный метод для вывода
     void print(std::ostream &os) const override
     {
-        std::cout << *this << std::endl;
+        os << toString() << std::endl;
     }
     /// @brief This method returns object by index its index container
     /// @return object by index

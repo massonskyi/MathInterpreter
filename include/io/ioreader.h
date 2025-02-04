@@ -1,7 +1,8 @@
-#ifndef IOREAD_HXX
-#define IOREAD_HXX
-#include "io.hxx"
+#ifndef IOREAD_h
+#define IOREAD_h
+#include "io.h"
 #include <regex>
+#include <expected>
 /// @brief Class for reading data from a text file and storing it in a vector of strings
 class IOReader : public IO {
 public:
@@ -120,4 +121,4 @@ private:
         return {};
     }
 };
-#endif /* IOREAD_HXX */
+#endif /* IOREAD_h */

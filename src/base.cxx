@@ -1,9 +1,9 @@
-#include  "../include/function/base.hxx"
+#include  "../include/function/base.h"
 #include <iostream>
 #include <cmath>
 #include <stdexcept>
 
-#include "../include/types/types.hxx"
+#include "../include/types/types.h"
 
 std::string get_function_name(const FunctionType func_type) {
     if (func_type == FunctionType::Sin) {

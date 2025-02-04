@@ -1,11 +1,11 @@
 #ifndef MATHINTERPRETER_TYPEDETECTOR_HPP
 #define MATHINTERPRETER_TYPEDETECTOR_HPP
 
-#include "../parsers/matrixparser.hxx"
-#include "../parsers/vectorparser.hxx"
-#include "../parsers/rationalparser.hxx"
-#include "../data/data.hxx"
-#include "../utils.hxx"
+#include "../parsers/matrixparser.h"
+#include "../parsers/vectorparser.h"
+#include "../parsers/rationalparser.h"
+#include "../data/data.h"
+#include "../utils.h"
 
 #include <regex>
 

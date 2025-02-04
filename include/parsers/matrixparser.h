@@ -1,10 +1,10 @@
 #ifndef MATRIXPARSER_HPP
 #define MATRIXPARSER_HPP
 
-#include "vectorparser.hxx"
-#include "../types/matrix.hxx"
-#include "../types/vector.hxx"
-#include "../types/variable.hxx"
+#include "vectorparser.h"
+#include "../types/matrix.h"
+#include "../types/vector.h"
+#include "../types/variable.h"
 
 
 class MatrixParser final{

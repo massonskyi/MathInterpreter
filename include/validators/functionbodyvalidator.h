@@ -1,5 +1,5 @@
-#ifndef FUNCTION_BODY_VALIDATOR_HXX
-#define FUNCTION_BODY_VALIDATOR_HXX
+#ifndef FUNCTION_BODY_VALIDATOR_h
+#define FUNCTION_BODY_VALIDATOR_h
 
 
 #include <iostream>
@@ -8,7 +8,7 @@
 #include <regex>
 #include <set>
 
-#include "../exceptions/exceptions.hxx"
+#include "../exceptions/exceptions.h"
 class FunctionBodyValidator final {
 public:
     FunctionBodyValidator(const std::string& funcName, 
@@ -98,4 +98,4 @@ private:
         return keywords.find(word) != keywords.end();
     }
 };
-#endif /* FUNCTION_BODY_VALIDATOR_HXX */
+#endif /* FUNCTION_BODY_VALIDATOR_h */

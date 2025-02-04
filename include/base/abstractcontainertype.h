@@ -1,7 +1,7 @@
 #ifndef ABSTRACTCONTAINEROBJECT_H
 #define ABSTRACTCONTAINEROBJECT_H
 
-#include "abstractobject.hxx"
+#include "abstractobject.h"
 
 
 #include <memory>

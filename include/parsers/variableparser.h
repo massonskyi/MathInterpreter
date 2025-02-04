@@ -1,13 +1,12 @@
-#ifndef RATIONALPARSER_HPP
-#define RATIONALPARSER_HPP
+#ifndef VARIABLEPARSER_HPP
+#define VARIABLEPARSER_HPP
 
-#include "variableparser.hxx"
-#include "../types/rational.hxx"
+#include "../types/variable.h"
 
-class RationalParser final {
+class VariableParser final{
 public:
-    using value_type = Rational;
-
+    using value_type = Variable;
+    
     /// @brief This static method is parsing the expression and returning the parsed object class
     /// @param expr The expression to be parsed
     /// @param index The index of the expression to be parsed in the expression
@@ -17,8 +16,8 @@ public:
     /// @brief This static method is parsing the expression and searching Class in this expression
     /// @param expr The expression to be parsed
     /// @return True if Class is found in the expression, false otherwise
-    static bool search(const std::string& expr);
+    static bool search(const std::string& expr, size_t& index);
 };
 
 
-#endif //RATIONALPARSER_HPP
+#endif //VARIABLEPARSER_HPP

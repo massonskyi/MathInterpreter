@@ -1,5 +1,5 @@
-#include "../../include/parsers/rationalparser.hxx"
-#include "../../include/parsers/variableparser.hxx"
+#include "../../include/parsers/rationalparser.h"
+#include "../../include/parsers/variableparser.h"
 
 RationalParser::value_type
 RationalParser::parse(const std::string& expr, size_t& index) {

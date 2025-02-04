@@ -5,9 +5,9 @@
 #ifndef MATHINTERPRETER_TYPES_H
 #define MATHINTERPRETER_TYPES_H
 
-#include "matrix.hxx"
-#include "rational.hxx"
-#include "variable.hxx"
-#include "vector.hxx"
+#include "matrix.h"
+#include "rational.h"
+#include "variable.h"
+#include "vector.h"
 
 #endif //MATHINTERPRETER_TYPES_H
