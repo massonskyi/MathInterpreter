@@ -223,7 +223,12 @@ public:
     [[nodiscard]] ASTValue evaluate() const override {
         Matrix mat;
         for (const auto& row : rows) {
-            mat.push_back(std::get<Vector>(row->evaluate()));
+            auto row_value = row->evaluate();
+            if (std::holds_alternative<Vector>(row_value)) {
+                mat.push_back(std::get<Vector>(row_value));
+            }  else {
+                throw std::runtime_error("Invalid type for matrix row");
+            }
         }
         return mat;
     }

@@ -8,6 +8,9 @@
 #include <optional>
 #include <set>
 #include <utility>
+
+
+
 class ASTParser {
 public:
     explicit ASTParser(ASTContext context) : context(std::move(context)) {}
@@ -59,6 +62,7 @@ private:
     // Парсинг фактора (числа, переменные, вызовы функций, скобки)
     std::shared_ptr<ASTNode> parse_factor(const std::string& expr, size_t& pos) {
         skip_whitespace(expr, pos);
+        
         if (expr[pos] == '(') {
             pos++; // Пропускаем '('
             auto node = parse_expression(expr, pos);
@@ -69,13 +73,36 @@ private:
             pos++; // Пропускаем ')'
             return node;
         }
-        else if (expr[pos] == '[' && expr[pos + 1] != '[') {
-            // Обработка векторов
-            return parse_vector(expr, pos);
-        }
-        else if (expr[pos] == '[' && expr[pos + 1] == '[') {
-            return parse_matrix(expr, pos); // Обработка матриц
-        } else if (std::isdigit(expr[pos]) || expr[pos] == '.') {
+       else if (expr[pos] == '[') {
+            bool var_is_vector = false;
+            ++pos; // Пропускаем первую скобку
+            skip_whitespace(expr, pos);
+            if(std::isalpha(expr[pos])){
+                // Это может быть переменная, содержащая вектор
+                size_t start = pos;
+                while (pos < expr.size() && (std::isalnum(expr[pos]) || expr[pos] == '_')) {
+                    ++pos; // Читаем имя переменной
+                }
+                std::string var_name = expr.substr(start, pos - start);
+
+                // Проверяем, существует ли такая переменная в контексте
+                if (context.findVariable(var_name)) {
+                    var_is_vector = std::visit([](const auto& var) -> bool { 
+                        return std::is_same_v<std::decay_t<decltype(var)>, Vector>; 
+                    }, context.getVariable(var_name));
+                }
+                pos = start; // Возвращаемся к началу, чтобы продолжить чтение выражения
+            }
+            if (expr[pos] == '[' || var_is_vector) {
+                // Это матрица
+                --pos; // Возвращаемся к началу, чтобы parse_matrix мог обработать всё
+                return parse_matrix(expr, pos);
+                } else {
+                    // Это вектор
+                    --pos; // Возвращаемся к началу, чтобы parse_vector мог обработать всё
+                    return parse_vector(expr, pos);
+                }
+       }else if (std::isdigit(expr[pos]) || expr[pos] == '.') {
             return parse_number(expr, pos);
         } else if (std::isalpha(expr[pos])) {
             return parse_variable_or_function(expr, pos);
@@ -120,59 +147,61 @@ private:
             pos++; // Пропускаем ')'
             return std::make_shared<FunctionCallNode>(name, std::move(args),context);
         } else {
-            // Это переменная
             return std::make_shared<VariableNode>(name, context);
         }
     }
     // Парсинг вектора
     std::shared_ptr<ASTNode> parse_vector(const std::string& expr, size_t& pos) {
-        pos++; // Пропускаем '['
         std::vector<std::shared_ptr<ASTNode>> elements;
+        if(!std::isalpha(expr[pos])) {
+            ++pos; // Пропускаем открывающую скобку '['
+        }
 
-        while (pos < expr.size() && expr[pos] != ']') {
+        while (pos < expr.size()) {
             skip_whitespace(expr, pos);
 
-            // Парсим элемент вектора (может быть числом, переменной или выражением)
-            elements.push_back(parse_expression(expr, pos));
+            if (expr[pos] == ']') {
+                ++pos; // Пропускаем закрывающую скобку ']'
+                break;
+            }
+
+            // Парсим элемент (это может быть число, переменная или другой вектор)
+            auto element = parse_expression(expr, pos);
+            elements.push_back(std::move(element));
 
             skip_whitespace(expr, pos);
+
             if (expr[pos] == ',') {
-                pos++; // Пропускаем запятую
+                ++pos; // Пропускаем запятую
             }
         }
 
-        if (pos >= expr.size() || expr[pos] != ']') {
-            throw std::runtime_error("Expected closing bracket for vector");
-        }
-        pos++; // Пропускаем ']'
-
-        // Создаем узел AST для вектора
         return std::make_shared<VectorNode>(std::move(elements));
     }
-
     // Парсинг матрицы
     std::shared_ptr<ASTNode> parse_matrix(const std::string& expr, size_t& pos) {
-        pos += 1; // Пропускаем '['
         std::vector<std::shared_ptr<ASTNode>> rows;
+        ++pos; // Пропускаем первую открывающую скобку '['
 
-        while (pos < expr.size() && expr[pos] != ']') {
+        while (pos < expr.size()) {
             skip_whitespace(expr, pos);
 
-            // Парсим строку матрицы (вектор)
-            rows.push_back(parse_vector(expr, pos));
+            if (expr[pos] == '[' || std::isalpha(expr[pos])) {
+                // Парсим строку матрицы как вектор
+                auto row = parse_vector(expr, pos);
+                rows.push_back(std::move(row));
+            } else if (expr[pos] == ']') {
+                ++pos; // Пропускаем закрывающую скобку ']'
+                break;
+            }
 
             skip_whitespace(expr, pos);
+
             if (expr[pos] == ',') {
-                pos++; // Пропускаем запятую
+                ++pos; // Пропускаем запятую между строками
             }
         }
 
-        if (pos >= expr.size() || expr.substr(pos - 1, 2) != "]]") {
-            throw std::runtime_error("Expected closing brackets for matrix");
-        }
-        pos += 1; // Пропускаем ']]'
-
-        // Создаем узел AST для матрицы
         return std::make_shared<MatrixNode>(std::move(rows));
     }
     // Парсинг оператора
@@ -184,7 +213,7 @@ private:
         return std::nullopt;
     }
 
-    std::unique_ptr<ASTNode> parse_function_definition(const std::string& expr, size_t& pos) {
+    std::shared_ptr<ASTNode> parse_function_definition(const std::string& expr, size_t& pos) {
         skip_whitespace(expr, pos);
         if (expr.substr(pos, 2) != "fn") {
             throw std::runtime_error("Expected 'fn' keyword");
@@ -268,7 +297,7 @@ private:
         }
         pos++;
 
-        return std::make_unique<FunctionDefinitionNode>(name, parameters, return_type, std::move(body), context);
+        return std::make_shared<FunctionDefinitionNode>(name, parameters, return_type, std::move(body), context);
     }
     // Пропуск пробелов
     static void skip_whitespace(const std::string& expr, size_t& pos) {
@@ -276,5 +305,7 @@ private:
             pos++;
         }
     }
+
+    
 };
 #endif // AST_PARSER_h

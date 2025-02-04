@@ -362,6 +362,7 @@ void M_function_execute(const std::string &command)
             } catch (const std::exception& e) {
                 std::cerr << "Error parsing function: " << e.what() << "\n";
             }
+            return;
         }
         // Случай: создание новой переменной с let
         if (token == "let")
@@ -667,7 +668,7 @@ ASTValue evaluate_ast_node(std::shared_ptr<ASTNode> node)
                 else {
                     throw std::runtime_error("Unsupported AST node type");
                 }
-            }, var);
+             }, var);
         }
     }
     void _M_print_object(const value_type &obj)
